@@ -289,7 +289,7 @@ related_posts:
 # Easily browse and edit blog source code online.
 post_edit:
   enable: false
-  url: https://github.com/leetaoGoooo/leetaoGoooo.github.io/tree/branch-name/subdirectory-name/ # Link for view source
+  # url: https://github.com/LeetaoGoooo/leetaogoooo.github.io/tree/branch-name/subdirectory-name/ # Link for view source
   #url: https://github.com/user-name/repo-name/edit/branch-name/subdirectory-name/ # Link for fork & edit
 
 # Show previous post and next post in post footer if exists
