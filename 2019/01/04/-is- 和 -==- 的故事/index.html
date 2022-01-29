@@ -6,23 +6,23 @@
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
-  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+<link rel="stylesheet" href="/css/main.css">
 
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetaogoooo.github.io.git","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 <meta name="description" content="前言相比写过 Python 的小伙伴对 “is” 和 “&#x3D;&#x3D;” 这两个运算符肯定不会陌生,但是你真的能清楚两者的区别吗? 别着急,听我慢慢道来. is 和 &#x3D;&#x3D;“is” 和 “&#x3D;&#x3D;” 都是用来比较两个对象的,区别在于 “is” 是用来判断,两个对象是否为相同,即它们实际的内存地址是否相等,也就是说 id() 值是否一样, 而 “&#x3D;&#x3D;” 就很简单了,它只是比较两个对象的值是不是相同. 是不是很简单,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="-is- 和 -&#x3D;&#x3D;- 的故事">
-<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B/">
+<meta property="og:url" content="https://leetaogoooo.github.io.git/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B/">
 <meta property="og:site_name" content="Leetao&#39;s Blog">
 <meta property="og:description" content="前言相比写过 Python 的小伙伴对 “is” 和 “&#x3D;&#x3D;” 这两个运算符肯定不会陌生,但是你真的能清楚两者的区别吗? 别着急,听我慢慢道来. is 和 &#x3D;&#x3D;“is” 和 “&#x3D;&#x3D;” 都是用来比较两个对象的,区别在于 “is” 是用来判断,两个对象是否为相同,即它们实际的内存地址是否相等,也就是说 id() 值是否一样, 而 “&#x3D;&#x3D;” 就很简单了,它只是比较两个对象的值是不是相同. 是不是很简单,">
 <meta property="og:locale" content="zh_CN">
@@ -30,18 +30,18 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fyukdqu3qjj30gf08njrd.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fyukezmmo8j307n0a4q2w.jpg">
 <meta property="article:published_time" content="2019-01-03T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-01-29T09:44:21.004Z">
+<meta property="article:modified_time" content="2022-01-29T10:04:42.838Z">
 <meta property="article:author" content="Leetao">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fyukc0x53ij30b00560sl.jpg">
 
 
-<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B/">
+<link rel="canonical" href="https://leetaogoooo.github.io.git/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B/","path":"2019/01/04/-is- 和 -==- 的故事/","title":"-is- 和 -==- 的故事"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetaogoooo.github.io.git/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B/","path":"2019/01/04/-is- 和 -==- 的故事/","title":"-is- 和 -==- 的故事"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>-is- 和 -==- 的故事 | Leetao's Blog</title>
@@ -52,7 +52,7 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+    <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
 </head>
 
@@ -72,7 +72,7 @@
 
   <div class="site-meta">
 
-    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
       <p class="site-title">Leetao's Blog</p>
       <i class="logo-line"></i>
@@ -90,11 +90,11 @@
 
 <nav class="site-nav">
   <ul class="main-menu menu">
-        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
-        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
-        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
-        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
   </ul>
 </nav>
 
@@ -132,14 +132,14 @@
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Leetao"
-      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      src="/images/avatar.ico">
   <p class="site-author-name" itemprop="name">Leetao</p>
   <div class="site-description" itemprop="description">Je pense, donc je suis</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+        <a href="/archives/">
           <span class="site-state-item-count">185</span>
           <span class="site-state-item-name">日志</span>
         </a>
@@ -152,7 +152,7 @@
 </div>
   <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
@@ -198,10 +198,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B/">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io.git/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="image" content="/images/avatar.ico">
       <meta itemprop="name" content="Leetao">
       <meta itemprop="description" content="Je pense, donc je suis">
     </span>
@@ -229,7 +229,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+      <time title="修改时间：2022-01-29 18:04:42" itemprop="dateModified" datetime="2022-01-29T18:04:42+08:00">2022-01-29</time>
     </span>
 
   
@@ -277,19 +277,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/01/03/%E5%9F%BA%E4%BA%8E%20Ajax%20%E8%AF%B7%E6%B1%82%E7%9A%84%20Flask-Login%20%E8%AE%A4%E8%AF%81/" rel="prev" title="基于 Ajax 请求的 Flask-Login 认证">
+                <a href="/2019/01/03/%E5%9F%BA%E4%BA%8E%20Ajax%20%E8%AF%B7%E6%B1%82%E7%9A%84%20Flask-Login%20%E8%AE%A4%E8%AF%81/" rel="prev" title="基于 Ajax 请求的 Flask-Login 认证">
                   <i class="fa fa-chevron-left"></i> 基于 Ajax 请求的 Flask-Login 认证
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B%20/" rel="next" title="-is- 和 -==- 的故事">
+                <a href="/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B%20/" rel="next" title="-is- 和 -==- 的故事">
                   -is- 和 -==- 的故事 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -327,7 +327,7 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -342,8 +342,8 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"614b2f47cc6ed63aa0c6bcfa4b862f69"}</script>
-<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"ee2e00012846b1e4531271c0d55c8135"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
 </html>

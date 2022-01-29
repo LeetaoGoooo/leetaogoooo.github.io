@@ -6,30 +6,30 @@
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
-  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+<link rel="stylesheet" href="/css/main.css">
 
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetaogoooo.github.io.git","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 <meta name="description" content="前言flask-admin 算是一个很不错的 flask 后台管理了,用它来做博客系统的管理后端再合适不过了,节约时间成本,避免重复造轮子,但是作为一个程序员,写文章怎么可以没有 markdown 呢? 现在让我们尝试一下让 flask-admin 支持 markdown 吧. 实践Flask-PageDown这个库是对 Pagedown 的封装,将其集成到了Flask-WTF表单中了。具体内容可">
 <meta property="og:type" content="article">
 <meta property="og:title" content="让Flask-admin支持markdown编辑器">
-<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/11/30/%E8%AE%A9Flask-admin%E6%94%AF%E6%8C%81markdown%E7%BC%96%E8%BE%91%E5%99%A8/">
+<meta property="og:url" content="https://leetaogoooo.github.io.git/2018/11/30/%E8%AE%A9Flask-admin%E6%94%AF%E6%8C%81markdown%E7%BC%96%E8%BE%91%E5%99%A8/">
 <meta property="og:site_name" content="Leetao&#39;s Blog">
 <meta property="og:description" content="前言flask-admin 算是一个很不错的 flask 后台管理了,用它来做博客系统的管理后端再合适不过了,节约时间成本,避免重复造轮子,但是作为一个程序员,写文章怎么可以没有 markdown 呢? 现在让我们尝试一下让 flask-admin 支持 markdown 吧. 实践Flask-PageDown这个库是对 Pagedown 的封装,将其集成到了Flask-WTF表单中了。具体内容可">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fxq60xchfvj31cm0nhgmy.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fxpv6inei2j31lu17pn4w.jpg">
 <meta property="article:published_time" content="2018-11-29T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-01-29T09:44:21.059Z">
+<meta property="article:modified_time" content="2022-01-29T10:04:42.885Z">
 <meta property="article:author" content="Leetao">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Flask">
@@ -37,11 +37,11 @@
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fxq60xchfvj31cm0nhgmy.jpg">
 
 
-<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/11/30/%E8%AE%A9Flask-admin%E6%94%AF%E6%8C%81markdown%E7%BC%96%E8%BE%91%E5%99%A8/">
+<link rel="canonical" href="https://leetaogoooo.github.io.git/2018/11/30/%E8%AE%A9Flask-admin%E6%94%AF%E6%8C%81markdown%E7%BC%96%E8%BE%91%E5%99%A8/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/11/30/%E8%AE%A9Flask-admin%E6%94%AF%E6%8C%81markdown%E7%BC%96%E8%BE%91%E5%99%A8/","path":"2018/11/30/让Flask-admin支持markdown编辑器/","title":"让Flask-admin支持markdown编辑器"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetaogoooo.github.io.git/2018/11/30/%E8%AE%A9Flask-admin%E6%94%AF%E6%8C%81markdown%E7%BC%96%E8%BE%91%E5%99%A8/","path":"2018/11/30/让Flask-admin支持markdown编辑器/","title":"让Flask-admin支持markdown编辑器"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>让Flask-admin支持markdown编辑器 | Leetao's Blog</title>
@@ -52,7 +52,7 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+    <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
 </head>
 
@@ -72,7 +72,7 @@
 
   <div class="site-meta">
 
-    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
       <p class="site-title">Leetao's Blog</p>
       <i class="logo-line"></i>
@@ -90,11 +90,11 @@
 
 <nav class="site-nav">
   <ul class="main-menu menu">
-        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
-        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
-        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
-        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
   </ul>
 </nav>
 
@@ -132,14 +132,14 @@
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="Leetao"
-      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      src="/images/avatar.ico">
   <p class="site-author-name" itemprop="name">Leetao</p>
   <div class="site-description" itemprop="description">Je pense, donc je suis</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+        <a href="/archives/">
           <span class="site-state-item-count">185</span>
           <span class="site-state-item-name">日志</span>
         </a>
@@ -152,7 +152,7 @@
 </div>
   <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
         <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
@@ -198,10 +198,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/11/30/%E8%AE%A9Flask-admin%E6%94%AF%E6%8C%81markdown%E7%BC%96%E8%BE%91%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io.git/2018/11/30/%E8%AE%A9Flask-admin%E6%94%AF%E6%8C%81markdown%E7%BC%96%E8%BE%91%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="image" content="/images/avatar.ico">
       <meta itemprop="name" content="Leetao">
       <meta itemprop="description" content="Je pense, donc je suis">
     </span>
@@ -229,7 +229,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+      <time title="修改时间：2022-01-29 18:04:42" itemprop="dateModified" datetime="2022-01-29T18:04:42+08:00">2022-01-29</time>
     </span>
 
   
@@ -243,7 +243,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>flask-admin 算是一个很不错的 flask 后台管理了,用它来做博客系统的管理后端再合适不过了,节约时间成本,避免重复造轮子,但是作为一个程序员,写文章怎么可以没有 markdown 呢? 现在让我们尝试一下让 flask-admin 支持 markdown 吧.</p>
-<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="Flask-PageDown"><a href="#Flask-PageDown" class="headerlink" title="Flask-PageDown"></a>Flask-PageDown</h2><p>这个库是对 Pagedown 的封装,将其集成到了Flask-WTF表单中了。具体内容可以去它的 github 仓库看一下: <a href="https://github.com/miguelgrinberg/Flask-PageDown">Flask-PageDown</a></p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="Flask-PageDown"><a href="#Flask-PageDown" class="headerlink" title="Flask-PageDown"></a>Flask-PageDown</h2><p>这个库是对 Pagedown 的封装,将其集成到了Flask-WTF表单中了。具体内容可以去它的 github 仓库看一下: <a target="_blank" rel="noopener" href="https://github.com/miguelgrinberg/Flask-PageDown">Flask-PageDown</a></p>
 <h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p><strong>优点</strong>:</p>
 <ol>
 <li>配置简单</li>
@@ -273,10 +273,10 @@
 <p>最后在我们的 flask-admin 给我们需要 markdown 编辑器的 model 添加上自定义的 ModelView 就可以了.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 省略部分代码</span></span><br><span class="line">admin.add_view(PeachPostView(Post, db.session, endpoint=<span class="string">&#x27;AdminPost&#x27;</span>))</span><br></pre></td></tr></table></figure>
 
-<p>完整代码可以查看 <a href="https://github.com/lt94/peach-blog/tree/cbf375ee764aa5bf4797f526ab8ef7357ba44aa0">use:使用 flask-pagedown 作为 markdown 编辑器</a></p>
+<p>完整代码可以查看 <a target="_blank" rel="noopener" href="https://github.com/lt94/peach-blog/tree/cbf375ee764aa5bf4797f526ab8ef7357ba44aa0">use:使用 flask-pagedown 作为 markdown 编辑器</a></p>
 <p>最终的效果图:</p>
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fxq60xchfvj31cm0nhgmy.jpg"></p>
-<h2 id="使用开源的-markdown-编辑器"><a href="#使用开源的-markdown-编辑器" class="headerlink" title="使用开源的 markdown 编辑器"></a>使用开源的 markdown 编辑器</h2><p>没错,这个方法就比较自由了,找自己喜欢的 markdown 编辑器然后集成进去. 这里我最终选择了 [editor.md]<br>(<a href="https://github.com/pandao/editor.md.git">https://github.com/pandao/editor.md.git</a>) 这个开源编辑器,这个好像很久没维护了,但是颜值挺高的了,就决定是它了.</p>
+<h2 id="使用开源的-markdown-编辑器"><a href="#使用开源的-markdown-编辑器" class="headerlink" title="使用开源的 markdown 编辑器"></a>使用开源的 markdown 编辑器</h2><p>没错,这个方法就比较自由了,找自己喜欢的 markdown 编辑器然后集成进去. 这里我最终选择了 [editor.md]<br>(<a target="_blank" rel="noopener" href="https://github.com/pandao/editor.md.git">https://github.com/pandao/editor.md.git</a>) 这个开源编辑器,这个好像很久没维护了,但是颜值挺高的了,就决定是它了.</p>
 <h3 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h3><p><strong>优点</strong>:</p>
 <ol>
 <li> 优点很明星,颜值高,满足我对 markdown 的所有需求了,支持代码高亮.</li>
@@ -312,7 +312,7 @@
 <p><strong>修改 modelview</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PeachPostView</span>(<span class="params">ModelView</span>):</span></span><br><span class="line">    <span class="comment"># 省略部分代码</span></span><br><span class="line">    create_template = <span class="string">&#x27;admin/model/peach-post-create.html&#x27;</span></span><br><span class="line"></span><br><span class="line">admin = Admin(name=name, template_mode=template_mode,index_view=PeachAdminIndexView(), base_template=<span class="string">&#x27;admin/peach-base.html&#x27;</span>)</span><br><span class="line"><span class="comment"># 省略部分代码</span></span><br><span class="line">admin.add_view(PeachPostView(Post, db.session, endpoint=<span class="string">&#x27;AdminPost&#x27;</span>))</span><br></pre></td></tr></table></figure>
 
-<p>完整代码可以查看 <a href="https://github.com/lt94/peach-blog/tree/12a2d6e5fd1f6b5fefb235c496e7816a123c88ee">add:使用 editor.md 编辑器</a></p>
+<p>完整代码可以查看 <a target="_blank" rel="noopener" href="https://github.com/lt94/peach-blog/tree/12a2d6e5fd1f6b5fefb235c496e7816a123c88ee">add:使用 editor.md 编辑器</a></p>
 <p>最后看一下效果图:</p>
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fxpv6inei2j31lu17pn4w.jpg"></p>
 <h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>到此大功告成,欢迎大家关注我的公共号-Leetao, 偶尔分享 flask 之外的知识.</p>
@@ -325,20 +325,20 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Python/" rel="tag"># Python</a>
-              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Flask/" rel="tag"># Flask</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/Flask/" rel="tag"># Flask</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/11/21/context_processor%20%E4%B8%8A%E4%B8%8B%E6%96%87%E5%A4%84%E7%90%86%E5%99%A8/" rel="prev" title="context_processor 上下文处理器">
+                <a href="/2018/11/21/context_processor%20%E4%B8%8A%E4%B8%8B%E6%96%87%E5%A4%84%E7%90%86%E5%99%A8/" rel="prev" title="context_processor 上下文处理器">
                   <i class="fa fa-chevron-left"></i> context_processor 上下文处理器
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/12/14/list1%20+=%20list2%20%E5%92%8C%20list1=%20list1%20+%20list2%20%E7%9A%84%E6%95%85%E4%BA%8B/" rel="next" title="list1 += list2 和 list1= list1 + list2 的故事">
+                <a href="/2018/12/14/list1%20+=%20list2%20%E5%92%8C%20list1=%20list1%20+%20list2%20%E7%9A%84%E6%95%85%E4%BA%8B/" rel="next" title="list1 += list2 和 list1= list1 + list2 的故事">
                   list1 += list2 和 list1= list1 + list2 的故事 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -376,7 +376,7 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -391,8 +391,8 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"9f22c72b2208b024efa74adb7bdc2500"}</script>
-<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"f5775978a74a170d9d74c4fbe85dcf2e"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>
 </html>
