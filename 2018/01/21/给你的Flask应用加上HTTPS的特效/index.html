@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="由于微信小程序请求api接口协议是https的,为了我的小程序,我只好把网站协议由http改成https.在介绍这一过程之前，让我们先看一下什么是https. HTTPS先看维基百科的定义  HTTPS (HTTP Secure) is an adaptation of the Hypertext Transfer Protocol (HTTP) for secure communication">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给你的Flask应用加上HTTPS的特效">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/01/21/%E7%BB%99%E4%BD%A0%E7%9A%84Flask%E5%BA%94%E7%94%A8%E5%8A%A0%E4%B8%8AHTTPS%E7%9A%84%E7%89%B9%E6%95%88/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="由于微信小程序请求api接口协议是https的,为了我的小程序,我只好把网站协议由http改成https.在介绍这一过程之前，让我们先看一下什么是https. HTTPS先看维基百科的定义  HTTPS (HTTP Secure) is an adaptation of the Hypertext Transfer Protocol (HTTP) for secure communication">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fnob8o5pjij30og0p1wgt.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fnobcc69juj31h00oyq6o.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fnobeyoiitj31ge10odku.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fnobgn30rtj31ki0bc404.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fnoc7usclhj30a3014a9v.jpg">
+<meta property="article:published_time" content="2018-01-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.057Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Flask">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fnob8o5pjij30og0p1wgt.jpg">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/01/21/%E7%BB%99%E4%BD%A0%E7%9A%84Flask%E5%BA%94%E7%94%A8%E5%8A%A0%E4%B8%8AHTTPS%E7%9A%84%E7%89%B9%E6%95%88/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/01/21/%E7%BB%99%E4%BD%A0%E7%9A%84Flask%E5%BA%94%E7%94%A8%E5%8A%A0%E4%B8%8AHTTPS%E7%9A%84%E7%89%B9%E6%95%88/","path":"2018/01/21/给你的Flask应用加上HTTPS的特效/","title":"给你的Flask应用加上HTTPS的特效"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>给你的Flask应用加上HTTPS的特效 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS"><span class="nav-number">1.</span> <span class="nav-text">HTTPS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C-2"><span class="nav-number">2.</span> <span class="nav-text">准备工作 [2]</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B3%E8%AF%B7%E8%AF%81%E4%B9%A6"><span class="nav-number">2.1.</span> <span class="nav-text">申请证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E8%AF%81%E4%B9%A6"><span class="nav-number">2.2.</span> <span class="nav-text">下载证书</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-NGINX-%E7%9A%84HTTPS"><span class="nav-number">3.</span> <span class="nav-text">配置 NGINX 的HTTPS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%BF%9E%E6%8E%A5"><span class="nav-number">4.</span> <span class="nav-text">参考连接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/01/21/%E7%BB%99%E4%BD%A0%E7%9A%84Flask%E5%BA%94%E7%94%A8%E5%8A%A0%E4%B8%8AHTTPS%E7%9A%84%E7%89%B9%E6%95%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          给你的Flask应用加上HTTPS的特效
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-21T00:00:00+08:00">2018-01-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>由于微信小程序请求api接口协议是https的,为了我的小程序,我只好把网站协议由http改成https.在介绍这一过程之前，让我们先看一下什么是https.</p>
+<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><p>先看维基百科的定义</p>
+<blockquote>
+<p>HTTPS (HTTP Secure) is an adaptation of the Hypertext Transfer Protocol (HTTP) for secure communication over a computer network, and is widely used on the Internet.In HTTPS, the communication protocol is encrypted by Transport Layer Security (TLS), or formerly, its predecessor, Secure Sockets Layer (SSL). The protocol is therefore also often referred to as HTTP over TLS,or HTTP over SSL.<br>The principal motivation for HTTPS is authentication of the accessed website and protection of the privacy and integrity of the exchanged data. It protects against man-in-the-middle attacks. The bidirectional encryption of communications between a client and server protects against eavesdropping and tampering of the communication.In practice, this provides a reasonable assurance that one is communicating without interference by attackers with the website that one intended to communicate with, as opposed to an impostor.<br>Historically, HTTPS connections were primarily used for payment transactions on the World Wide Web, e-mail and for sensitive transactions in corporate information systems.[citation needed] In the late 2000s and early 2010s, HTTPS was increasingly used for protecting page authenticity on all types of websites, securing accounts and keeping user communications, identity and web browsing private. ————[1]</p>
+</blockquote>
+<p>其翻译过来的大意如下:</p>
+<p>Https(HTTPSecure)是超文本传输协议(HTTP)在计算机网络上进行安全通信的一种改编，在互联网上得到了广泛的应用。在HTTPS中，通信协议由传输层安全性(TLS)加密，或者以前的前身安全套接字层(SSL)加密。因此，该协议也经常被称为HTTP over TLS，或HTTP over SSL.</p>
+<p>HTTPS的主要动机是对被访问的网站进行身份验证，以及保护所交换数据的隐私和完整性。它能防止中间人的攻击。客户端和服务器之间通信的双向加密保护通信不被窃听和篡改。在实践中，这提供了一个合理的保证，即一个人是在不受攻击者干扰的情况下与他沟通的网站，而不是一个冒名顶替者.</p>
+<p>历史上，HTTPS连接主要用于万维网上的支付交易、电子邮件和公司信息系统中的敏感交易.在2000年代末和2010年代初，HTTPS越来越多地被用于保护所有类型网站的页面真实性，保护帐户安全，并保持用户通信、身份和网页浏览的隐私.</p>
+<h1 id="准备工作-2"><a href="#准备工作-2" class="headerlink" title="准备工作 [2]"></a>准备工作 [2]</h1><p>这里采用的证书是某云的免费的SSL证书</p>
+<h2 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h2><ol>
+<li>登录：阿里云控制台，产品与服务，证书服务，购买证书。</li>
+<li>购买：证书类型选择 免费型DV SSL，然后完成购买。</li>
+<li>补全：在 我的证书 控制台，找到购买的证书，在操作栏里选择 补全。填写证书相关信息。</li>
+<li>域名验证：可以选择 DNS，如果域名用了阿里云的 DNS 服务，再勾选一下 证书绑定的域名在 阿里云的云解析。</li>
+<li>上传：系统生成 CSR，点一下 创建。</li>
+<li>提交审核，审核速度很快</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fnob8o5pjij30og0p1wgt.jpg"></p>
+<p>申请证书要注意的是验证域名，就是你要验证你想绑定证书的域名是你自己的，如果选择使用 DNS 验证，你需要在域名的管理里，添加一条特定的 DNS 记录，这样就可以证名这个域名是你自己的。使用了阿里云的云解析服务，这个步骤可以自动完成，会自动为你添加一条 DNS 验证的记录。</p>
+<p>输入证书要绑定的域名：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fnobcc69juj31h00oyq6o.jpg"></p>
+<p>填写个人信息：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fnobeyoiitj31ge10odku.jpg"></p>
+<h2 id="下载证书"><a href="#下载证书" class="headerlink" title="下载证书"></a>下载证书</h2><p>在阿里云的证书管理那里，如果申请的证书审核通过，你就可以下载了，点击 下载，可以选择不同的类型，可以选择 NGINX，或 Apache 之类的服务器。根据自己网站的 Web 服务器类型，下载对应的证书。解压以后，你会得到两个文件一个是 *.key，一个是 *.pem.</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fnobgn30rtj31ki0bc404.jpg"></p>
+<p>然后通过办法将解压后的文件上传到服务器目录下,我这里就上传到了 <code>/etc/nginx/ssl/wechat</code> 目录下</p>
+<h1 id="配置-NGINX-的HTTPS"><a href="#配置-NGINX-的HTTPS" class="headerlink" title="配置 NGINX 的HTTPS"></a>配置 NGINX 的HTTPS</h1><p>接下来这一段默认你已经完成 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/31005744">Flask 应用的部署</a>,如果没有的话,建议先食用后再阅读下面的步骤.</p>
+<p>使用命令行打开配置文件 <code>wechat</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/nginx/sites-available/wechat</span><br></pre></td></tr></table></figure>
+
+<p>原本的内容如下:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> server_domain_or_IP;</span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">include</span> proxy_params;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://unix:/home/py/wechat/wechat.sock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现修改为如下内容:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">443</span>;</span><br><span class="line">    <span class="attribute">server_name</span> www.shareu.club;</span><br><span class="line">    <span class="attribute">ssl</span> <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">root</span> /home/py/wechat;</span><br><span class="line">    <span class="attribute">ssl_certificate</span> /etc/nginx/ssl/wechat/<span class="number">214452870720595</span>.pem;  <span class="comment"># 之前证书解压后的得到的文件</span></span><br><span class="line">    <span class="attribute">ssl_certificate_key</span>  /etc/nginx/ssl/wechat/<span class="number">214452870720595</span>.key; <span class="comment"># 之前证书解压后的得到的文件</span></span><br><span class="line">    <span class="attribute">ssl_session_timeout</span> <span class="number">5m</span>;</span><br><span class="line">    <span class="attribute">ssl_protocols</span> TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">    <span class="attribute">ssl_ciphers</span> AESGCM:ALL:!DH:!EXPORT:!RC4:+HIGH:!MEDIUM:!LOW:!aNULL:!eNULL;</span><br><span class="line">    <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">include</span> proxy_params;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://unix:/home/py/wechat/wechat.sock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> www.shareu.club;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">return</span> <span class="number">301</span> https://$server_name$request_uri;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后按照惯例测试一下文件语法有没有错误</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -t </span><br></pre></td></tr></table></figure>
+
+<p>如果看见 succssful 等成功单词就说明配置文件没有任何问题,然后重新加载 nginx 服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service nginx reload</span><br></pre></td></tr></table></figure>
+
+<p>然后这个时候访问网址就发现协议已经由http变成https了</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fnoc7usclhj30a3014a9v.jpg"></p>
+<h1 id="参考连接"><a href="#参考连接" class="headerlink" title="参考连接"></a>参考连接</h1><p>[1]<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/HTTPS">HTTPS</a></p>
+<p>[2]<a target="_blank" rel="noopener" href="https://ninghao.net/blog/4449">用阿里云的免费 SSL 证书让网站从 HTTP 换成 HTTPS</a></p>
+<p><a target="_blank" rel="noopener" href="https://kyle.net.cn/2017/06/08/Amazon-EC2-nginx-jekyll+https/">记录Amazon EC2环境配置nginx + jekyll + https过程</a></p>
+<p><a target="_blank" rel="noopener" href="https://ubock.com/article/25">永久免费的SSL证书 - Let’s Encrypt 证书部署 HTTPS 并自动续期</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Python/" rel="tag"># Python</a>
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Flask/" rel="tag"># Flask</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/01/14/HTTP%20%E7%8A%B6%E6%80%81%E7%A0%81%20302,303,307/" rel="prev" title="HTTP 状态码 302,303,307">
+                  <i class="fa fa-chevron-left"></i> HTTP 状态码 302,303,307
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/02/08/Windows%E4%B8%8BDocker%E5%87%BA%E7%8E%B0net%20http-TLS%20handshake%20timeout/" rel="next" title="Windows下Docker出现net http-TLS handshake timeout">
+                  Windows下Docker出现net http-TLS handshake timeout <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"976d73d63cb499cb40b0b4cdcc03b957"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

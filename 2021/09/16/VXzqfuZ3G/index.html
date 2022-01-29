@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="原文连接： When to use assert  前言assert 又称为断言，在 Python 代码中经常被使用，但是显然也存在滥用的情况。那么在什么时候使用 assert 呢？又或者 assert 的最佳实践是怎么样的呢？ assert 的使用Python 的 assert 通常用来检查一个条件，如果它是真的，则不做任何事情，如果它是假的，则引发一个 AssertionError，并给出一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 中 assert 的最佳实践">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2021/09/16/VXzqfuZ3G/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="原文连接： When to use assert  前言assert 又称为断言，在 Python 代码中经常被使用，但是显然也存在滥用的情况。那么在什么时候使用 assert 呢？又或者 assert 的最佳实践是怎么样的呢？ assert 的使用Python 的 assert 通常用来检查一个条件，如果它是真的，则不做任何事情，如果它是假的，则引发一个 AssertionError，并给出一">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-16T12:12:21.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.032Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2021/09/16/VXzqfuZ3G/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2021/09/16/VXzqfuZ3G/","path":"2021/09/16/VXzqfuZ3G/","title":"Python 中 assert 的最佳实践"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python 中 assert 的最佳实践 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#assert-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">assert 的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8-assert"><span class="nav-number">3.</span> <span class="nav-text">什么时候使用 assert</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%B8%8D%E4%BD%BF%E7%94%A8assert"><span class="nav-number">4.</span> <span class="nav-text">什么时候不使用assert</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2021/09/16/VXzqfuZ3G/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python 中 assert 的最佳实践
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-16 20:12:21" itemprop="dateCreated datePublished" datetime="2021-09-16T20:12:21+08:00">2021-09-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>原文连接： <a target="_blank" rel="noopener" href="https://archive.is/5GfiG">When to use assert</a></p>
+</blockquote>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>assert</code> 又称为断言，在 Python 代码中经常被使用，但是显然也存在滥用的情况。那么在什么时候使用 <code>assert</code> 呢？又或者 <code>assert</code> 的最佳实践是怎么样的呢？</p>
+<h1 id="assert-的使用"><a href="#assert-的使用" class="headerlink" title="assert 的使用"></a>assert 的使用</h1><p>Python 的 <code>assert</code> 通常用来检查一个条件，如果它是真的，则不做任何事情，如果它是假的，则引发一个 AssertionError，并给出一个可选的错误信息:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">py&gt; x = <span class="number">23</span></span><br><span class="line">py&gt; <span class="keyword">assert</span> x &gt; <span class="number">0</span>, <span class="string">&quot;x is not zero or negative&quot;</span></span><br><span class="line">py&gt; <span class="keyword">assert</span> x%<span class="number">2</span> == <span class="number">0</span>, <span class="string">&quot;x is not an even number&quot;</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AssertionError: x <span class="keyword">is</span> <span class="keyword">not</span> an even number</span><br></pre></td></tr></table></figure>
+
+<p>许多人喜欢通过 <code>assert</code> 来简单地快速地触发异常，比如下面的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(x, <span class="built_in">int</span>):</span><br><span class="line">    <span class="keyword">raise</span> AssertionError(<span class="string">&quot;not an int&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>通过检验参数，并抛出 <code>AssertionError</code> ，实际上，这种做法是错误的，并且还很危险。正确的做法是应该抛出一个 <code>TypeError</code> 。</p>
+<p>之所以危险是英文，<code>assert</code>  有一个特性：<strong>使用 <code>-O</code> 或 <code>-OO</code> 优化指令去运行 Python 的话，它会被被编译掉，而永远不会被执行。</strong>当你能够正确使用 <code>assert</code> 时，这是会是一个 feature，但当使用不当的话，则会导致代码在使用 <code>-O</code> 标志运行时出问题。</p>
+<p>所以应该在什么情况下使用 assert 呢</p>
+<h1 id="什么时候使用-assert"><a href="#什么时候使用-assert" class="headerlink" title="什么时候使用 assert"></a>什么时候使用 assert</h1><p>在下面这四种情况下都可以考虑使用 <code>assert</code>:</p>
+<ul>
+<li>防御性编程。</li>
+<li>对程序逻辑进行运行时检查。</li>
+<li>契约检查（如前条件和后条件）。</li>
+<li>程序不变性</li>
+<li>检查文件</li>
+</ul>
+<p>对断言的看法各不相同，它可以看作是一种对代码正确性的信心的表现形式吧。如果你确定你的代码毫无问题的话，显然断言（<code>assert</code>）是没有任何意义的，完全可以把这些断言移除；如果你确定断言可能会被触发，那你也完全可以不用断言（<code>assert</code>），毕竟它在某些情况下肯定会编译掉，导致你的检查被跳过。</p>
+<p>介于这两种情况之间的情况才是有趣的，当你确定代码是正确的，但又不完全确定的时候。<br>你确定代码是正确的，但又不是<strong>绝对确定</strong>。有可能漏掉一些场景，在这种情况下，通过断言（assert）进行运行时检查有助于我们尽早的发现错误。</p>
+<p><strong>断言的另一个用途是检查程序的不变量</strong>。所谓的不变量就是一些你可以依赖的真实条件，除非一个错误导致它变成假的。如果有一个bug，最好能尽早发现所以我们要对它进行测试，但我们不想因为这样的测试而降低代码的速度。但我们不想因为这些测试而使代码变慢。因此我们可以通过可在开发中打开而在生产中关闭断言（assert）。</p>
+<p>不变量的一个例子是，如果你的函数预期一个数据库连接是 open，并承诺它在返回时仍然是open，这就是函数的一个不变式。open 就是该函数的一个不变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">some_function</span>(<span class="params">arg</span>):</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="keyword">not</span> DB.closed()</span><br><span class="line">    ... <span class="comment"># code goes here</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="keyword">not</span> DB.closed()</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+
+<p>断言也是很好的检查性评论，而不是写一个评论：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># when we reach here, we know that n &gt; 2</span></span><br><span class="line"><span class="comment"># 我们可以通过将其转换为断言来确保在运行时对其进行检查</span></span><br><span class="line"><span class="keyword">assert</span> n &gt; <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>断言也是防御性编程的一种形式</strong>。你不是在保护现在的代码中的错误，而是在保护以后引入错误的变化。理想情况下，单元测试会发现这些错误，但是实际上，即使存在测试，它们也是往往是不完整的。有可能在几周内都没有人注意到构建机器人，或者有的时候在提交代码前忘记运行测试。有一个内部检查是防止错误潜入的另一道防线，特别是阻止那些会导致代码故障和返回错误结果的静默错误。</p>
+<p>假设你有个代码中有 if…elif 代码块，这个时候你是知道这些分支对应了哪些变量，并且了解逻辑是什么:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># target is expected to be one of x, y, or z, and nothing else.</span></span><br><span class="line"><span class="keyword">if</span> target == x:</span><br><span class="line">    run_x_code()</span><br><span class="line"><span class="keyword">elif</span> target == y:</span><br><span class="line">    run_y_code()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    run_z_code()</span><br></pre></td></tr></table></figure>
+
+<p>假设这个代码现在是完全正确的。但它会一直正确吗？需求改变了,代码也会改变。现在要求改变为当 target == w，执行 run_w_code。如果我们改变了设置目标的代码，但忽略了改变这个代码块，它将错误地调用 run_z_code()：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">target = w</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="keyword">if</span> target == x:</span><br><span class="line">    run_x_code()</span><br><span class="line"><span class="keyword">elif</span> target == y:</span><br><span class="line">    run_y_code()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    run_z_code()</span><br></pre></td></tr></table></figure>
+
+<p>最好是把这段代码写成防御性的，哪怕之后有变化，它也是要么是正确的，要么立即失败。</p>
+<p>写代码块一开始加注释是很好的习惯，但是通常时间久了，我们就没有阅读和更新注释的习惯。有可能注释很快就会被淘汰。但通过一个断言，我们既可以记录这个块的假设，也可以在断言检验没通过的时候直接抛出错误。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span> target <span class="keyword">in</span> (x, y, z)</span><br><span class="line"><span class="keyword">if</span> target == x:</span><br><span class="line">    run_x_code()</span><br><span class="line"><span class="keyword">elif</span> target == y:</span><br><span class="line">    run_y_code()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">assert</span> target == z</span><br><span class="line">    run_z_code()</span><br></pre></td></tr></table></figure>
+
+<p>断言既是防御性编程，也是经过检查的文档，下面这个代码会更好一点：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> target == x:</span><br><span class="line">    run_x_code()</span><br><span class="line"><span class="keyword">elif</span> target == y:</span><br><span class="line">    run_y_code()</span><br><span class="line"><span class="keyword">elif</span> target == z:</span><br><span class="line">    run_z_code()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># This can never happen. But just in case it does...</span></span><br><span class="line">    <span class="keyword">raise</span> RuntimeError(<span class="string">&quot;an unexpected error occurred&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>契约设计是另一种对断言的不错的应用</strong>。在按契约设计中，我们认为函数与它们的调用者签订了 “契约”。<br>例如,”如果你传递给我一个非空的字符串，我保证返回该字符串的第一个的第一个字符转换成大写字母”。</p>
+<p>如果这个契约被函数或调用它的代码所破坏,代码就是有问题的。我们说，函数有预设条件（即<br>参数的约束）和后置条件（返回结果的约束） 因此，这个函数可能被代码为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">first_upper</span>(<span class="params">astring</span>):</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">isinstance</span>(astring, <span class="built_in">str</span>) <span class="keyword">and</span> <span class="built_in">len</span>(astring) &gt; <span class="number">0</span></span><br><span class="line">    result = astring[<span class="number">0</span>].upper()</span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">isinstance</span>(result, <span class="built_in">str</span>) <span class="keyword">and</span> <span class="built_in">len</span>(result) == <span class="number">1</span></span><br><span class="line">    <span class="keyword">assert</span> result == result.upper()</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>契约设计的目的是，在一个正确的程序中，前条件和后条件总是成立的。当我们发布无错误的程序并将其投入生产时，我们可以安全地删除这些断言。</p>
+<h1 id="什么时候不使用assert"><a href="#什么时候不使用assert" class="headerlink" title="什么时候不使用assert"></a>什么时候不使用assert</h1><ul>
+<li>永远不要用它们来测试用户提供的数据，或者用于在任何情况下必须进行检查的地方。</li>
+<li>不要用断言来检查任何你认为在你的程序的正常使用中可能失败的东西。断言是为特殊失败条件。你的用户不应该看到 <code>AssertionError</code>。如果他们看到了，这就是一个需要修复的错误。</li>
+<li>特别是，不要因为 <code>assert</code> 比一个测试和 raise 短就使用它。</li>
+<li>不要用它们来检查公共库的输入参数函数的输入参数，因为你无法控制调用者，也不能保证它不会破坏函数的契约。</li>
+<li>不要将 <code>assert</code> 用于任何你期望恢复的错误。 换句话说，你没有理由在生产代码中捕捉一个<code>AssertionError</code> 异常。</li>
+<li>不要使用太多的断言，以至于它们掩盖了代码。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2021/09/13/KGYoGNer0/" rel="prev" title="Dataclasses 、 Attrs 和 Pydantic">
+                  <i class="fa fa-chevron-left"></i> Dataclasses 、 Attrs 和 Pydantic
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2021/09/23/jVldsA6pc/" rel="next" title="开启人生的新的阶段">
+                  开启人生的新的阶段 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"deb59856cecd4281e31db44350c5074b"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

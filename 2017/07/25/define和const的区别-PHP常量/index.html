@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="什么是常量？这点官方手册上写的很清楚.  可以用 define()  函数来定义常量，在 PHP 5.3.0 以后，可以使用 const 关键字在类定义之外定义常量。一个常量一旦被定义，就不能再改变或者取消定义。常量只能包含标量数据（ boolean ， integer ， float  和 string ）。可以定义 resource  常量，但应尽量避免，因为会造成不可预料的结果。可以简单的通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="define和const的区别-PHP常量">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/07/25/define%E5%92%8Cconst%E7%9A%84%E5%8C%BA%E5%88%AB-PHP%E5%B8%B8%E9%87%8F/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="什么是常量？这点官方手册上写的很清楚.  可以用 define()  函数来定义常量，在 PHP 5.3.0 以后，可以使用 const 关键字在类定义之外定义常量。一个常量一旦被定义，就不能再改变或者取消定义。常量只能包含标量数据（ boolean ， integer ， float  和 string ）。可以定义 resource  常量，但应尽量避免，因为会造成不可预料的结果。可以简单的通">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-07-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.037Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/07/25/define%E5%92%8Cconst%E7%9A%84%E5%8C%BA%E5%88%AB-PHP%E5%B8%B8%E9%87%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/07/25/define%E5%92%8Cconst%E7%9A%84%E5%8C%BA%E5%88%AB-PHP%E5%B8%B8%E9%87%8F/","path":"2017/07/25/define和const的区别-PHP常量/","title":"define和const的区别-PHP常量"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>define和const的区别-PHP常量 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B8%B8%E9%87%8F%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是常量？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%E5%92%8C%E5%8F%98%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">常量和变量的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%B8%B8%E9%87%8F%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">定义常量的方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#define-%E5%92%8C-const-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">define 和 const 的区别</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/07/25/define%E5%92%8Cconst%E7%9A%84%E5%8C%BA%E5%88%AB-PHP%E5%B8%B8%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          define和const的区别-PHP常量
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-07-25 00:00:00" itemprop="dateCreated datePublished" datetime="2017-07-25T00:00:00+08:00">2017-07-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="什么是常量？"><a href="#什么是常量？" class="headerlink" title="什么是常量？"></a>什么是常量？</h1><p>这点官方手册上写的很清楚.</p>
+<blockquote>
+<p>可以用 define()  函数来定义常量，在 PHP 5.3.0 以后，可以使用 const 关键字在类定义之外定义常量。一个常量一旦被定义，就不能再改变或者取消定义。<br>常量只能包含标量数据（ boolean ， integer ， float  和 string ）。可以定义 resource  常量，但应尽量避免，因为会造成不可预料的结果。<br>可以简单的通过指定其名字来取得常量的值，与变量不同，不应该在常量前面加上 $ 符号。如果常量名是动态的，也可以用函数 constant()  来获取常量的值。用 get_defined_constants()  可以获得所有已定义的常量列表。 </p>
+</blockquote>
+<h1 id="常量和变量的区别"><a href="#常量和变量的区别" class="headerlink" title="常量和变量的区别"></a>常量和变量的区别</h1><p>这点官方手册也同样提到了.</p>
+<blockquote>
+<ol>
+<li>常量前面没有美元符号（$）；  </li>
+<li> 常量只能用 define()  函数定义，而不能通过赋值语句；  </li>
+<li> 常量可以不用理会变量的作用域而在任何地方定义和访问；  </li>
+<li> 常量一旦定义就不能被重新定义或者取消定义；  </li>
+<li> 常量的值只能是标量。 </li>
+</ol>
+</blockquote>
+<h1 id="定义常量的方式"><a href="#定义常量的方式" class="headerlink" title="定义常量的方式"></a>定义常量的方式</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">const</span> CONSTANT = <span class="string">&quot;Hello world&quot;</span>;</span><br><span class="line">define ( <span class="string">&quot;CONSTANT&quot;</span> ,  <span class="string">&quot;Hello world.&quot;</span> );</span><br><span class="line"> <span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<h1 id="define-和-const-的区别"><a href="#define-和-const-的区别" class="headerlink" title="define 和 const 的区别"></a>define 和 const 的区别</h1><p>两者的根本区别在于<em>const</em>在编译期间定义常量,而<em>define</em>则是在执行期间。感觉某种程度上<em>const</em>有点类似Java中的<em>final</em>关键字。由于<em>const</em>运行在编译期间,所以就意味着:<br><strong><em>const</em> 关键字定义常量必须处于最顶端的作用区域</strong></p>
+<p><strong>不能在函数内，循环内以及 <em>if</em> 语句之内用 <em>const</em> 来定义常量, <em>define</em> 可以</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (...) &#123;</span><br><span class="line">    <span class="keyword">const</span> CONSTANT = <span class="string">&#x27;Hello world&#x27;</span>;    <span class="comment">// 错误</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (...) &#123;</span><br><span class="line">    define ( <span class="string">&quot;CONSTANT&quot;</span> ,  <span class="string">&quot;Hello world.&quot;</span> ); <span class="comment">// 正确</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>const</em> 大小写敏感,<em>define</em>可以忽略大小写敏感</strong><br>const</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> CONSTANT = <span class="string">&quot;Hello world&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> CONSTANT.<span class="string">&quot;\n&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> Constant;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Hello world</span><br><span class="line"></span><br><span class="line">Notice: Use of undefined constant Constant - assumed &#x27;Constant&#x27; in C:\Users\Leetao\Desktop\test.php on line 4</span><br><span class="line">Constant</span><br></pre></td></tr></table></figure>
+
+<p>define</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define ( <span class="string">&quot;CONSTANT&quot;</span> ,  <span class="string">&quot;Hello world.&quot;</span>, <span class="literal">true</span> );</span><br><span class="line"><span class="keyword">echo</span> CONSTANT.<span class="string">&quot;\n&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> Constant;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hello world.</span><br><span class="line">Hello world.</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>const</em> 只能接受静态的标量，而 <em>define</em> 可以采用任何表达式</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> BIT_5 = <span class="number">1</span> &lt;&lt; <span class="number">5</span>;    <span class="comment">// [1]</span></span><br><span class="line">define(<span class="string">&#x27;BIT_5&#x27;</span>, <span class="number">1</span> &lt;&lt; <span class="number">5</span>);  <span class="comment">// [2]</span></span><br></pre></td></tr></table></figure>
+<p>其中 [1] 在 PHP 5.6 之后的版本都可以正常使用,[2] 一直都是正确的用法</p>
+<p><em>*<em>const</em> 采用普通的常量名称，*define</em>可以采用表达式作为名称**</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  FOO = <span class="string">&#x27;BAR&#x27;</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="number">32</span>; ++<span class="variable">$i</span>) &#123;</span><br><span class="line">define(<span class="string">&#x27;BIT_&#x27;</span> . <span class="variable">$i</span>, <span class="number">1</span> &lt;&lt; <span class="variable">$i</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em>*<em>const</em> 可以在当前命名空间定义常量，而*define</em>则需要补全路径**</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">A</span>\<span class="title">B</span>\<span class="title">C</span>;</span><br><span class="line"><span class="keyword">const</span> FOO = <span class="string">&#x27;BAR&#x27;</span>;</span><br><span class="line">define(<span class="string">&#x27;A\B\C\FOO&#x27;</span>, <span class="string">&#x27;BAR&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><em>*<em>const</em>可以在类或者接口中使用,而*define</em>不可以**</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> BAR = <span class="number">2</span>; <span class="comment">// 正确</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// but</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Baz</span> </span>&#123;</span><br><span class="line">    define(<span class="string">&#x27;QUX&#x27;</span>, <span class="number">2</span>); <span class="comment">// 错误</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>自PHP5.6之后 <em>const</em> 可以定义数组常量,而<em>define</em>在PHP7.0才可以</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> FOO = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]; </span><br><span class="line">define(<span class="string">&#x27;FOO&#x27;</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]); </span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/PHP/" rel="tag"># PHP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2017/07/21/%E6%99%AE%E9%80%9A%E7%B1%BB%E6%96%B9%E6%B3%95%E5%92%8Cclassmethod%E5%92%8Cstaticmethod%E5%8C%BA%E5%88%AB/" rel="prev" title="普通类方法和classmethod和staticmethod区别">
+                  <i class="fa fa-chevron-left"></i> 普通类方法和classmethod和staticmethod区别
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2017/07/28/MySQL%E7%9A%84%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98/" rel="next" title="MySQL的查询缓存">
+                  MySQL的查询缓存 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"65ae8c804927a1eb702801754b0b407b"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

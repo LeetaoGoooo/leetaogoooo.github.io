@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="接着上一篇的demo,经过几天的折腾，基本上完成了类似链家网的效果.上一篇文章的地址Openlayers3仿链家网效果 实现思路不同 Zoom 加载不同的图层通过 view 的 chaneg:resolution 事件，在不同 zoom 下加载不同的图层 1234567891011var changeViewToZoom &#x3D; function () &amp;#123;    var view &#x3D; ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Openlayers3仿链家网效果(二)">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/06/02/Openlayers3%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E6%95%88%E6%9E%9C(%E4%BA%8C)/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="接着上一篇的demo,经过几天的折腾，基本上完成了类似链家网的效果.上一篇文章的地址Openlayers3仿链家网效果 实现思路不同 Zoom 加载不同的图层通过 view 的 chaneg:resolution 事件，在不同 zoom 下加载不同的图层 1234567891011var changeViewToZoom &#x3D; function () &amp;#123;    var view &#x3D; ma">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/d9e82fa4ly1feucc4km7cg20bv0djhdt.gif">
+<meta property="article:published_time" content="2017-06-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.022Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="Openlayers3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/d9e82fa4ly1feucc4km7cg20bv0djhdt.gif">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/06/02/Openlayers3%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E6%95%88%E6%9E%9C(%E4%BA%8C)/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/06/02/Openlayers3%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E6%95%88%E6%9E%9C(%E4%BA%8C)/","path":"2017/06/02/Openlayers3仿链家网效果(二)/","title":"Openlayers3仿链家网效果(二)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Openlayers3仿链家网效果(二) | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">实现思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C-Zoom-%E5%8A%A0%E8%BD%BD%E4%B8%8D%E5%90%8C%E7%9A%84%E5%9B%BE%E5%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">不同 Zoom 加载不同的图层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%86%E5%9C%88%E7%9A%84%E7%BB%98%E5%88%B6"><span class="nav-number">1.2.</span> <span class="nav-text">圆圈的绘制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%95%E7%A4%BA%E6%95%88%E6%9E%9C"><span class="nav-number">1.3.</span> <span class="nav-text">展示效果</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/06/02/Openlayers3%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E6%95%88%E6%9E%9C(%E4%BA%8C)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Openlayers3仿链家网效果(二)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-06-02 00:00:00" itemprop="dateCreated datePublished" datetime="2017-06-02T00:00:00+08:00">2017-06-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1feucc4km7cg20bv0djhdt.gif"></p>
+<p>接着上一篇的demo,经过几天的折腾，基本上完成了类似链家网的效果.上一篇文章的地址<a target="_blank" rel="noopener" href="http://www.leetao94.cn/2017/03/28/Openlayers%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E5%8A%A0%E8%BD%BD%E6%95%88%E6%9E%9C/">Openlayers3仿链家网效果</a></p>
+<h1 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h1><h2 id="不同-Zoom-加载不同的图层"><a href="#不同-Zoom-加载不同的图层" class="headerlink" title="不同 Zoom 加载不同的图层"></a>不同 Zoom 加载不同的图层</h2><p>通过 view 的 chaneg:resolution 事件，在不同 zoom 下加载不同的图层</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> changeViewToZoom = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> view = map.getView();</span><br><span class="line">    view.on(<span class="string">&#x27;change:resolution&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> zoom = view.getZoom();</span><br><span class="line">        <span class="keyword">if</span> (zoom &gt;= xxxZoom) &#123;</span><br><span class="line">            <span class="comment">// 加载图层</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 加载其他图层</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="圆圈的绘制"><a href="#圆圈的绘制" class="headerlink" title="圆圈的绘制"></a>圆圈的绘制</h2><p>根据圆圈的中心点坐标和半径绘制圆</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  添加圆圈图层</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">genarateCircleLayer</span>(<span class="params">CircleObjArrs, title</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">arguments</span>[<span class="number">2</span>] != <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> createCircleLayer(createCircleSource(CircleObjArrs, <span class="built_in">arguments</span>[<span class="number">2</span>]), title);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> createCircleLayer(createCircleSource(CircleObjArrs), title)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createCircleLayer</span>(<span class="params">source, title</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> circleLayer = <span class="keyword">new</span> ol.layer.Vector(&#123;</span><br><span class="line">        <span class="attr">title</span>: title,</span><br><span class="line">        <span class="attr">source</span>: source,</span><br><span class="line">        <span class="attr">style</span>: circleStyleFunction</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> circleLayer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createCircleSource</span>(<span class="params">CircleObjArrs</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> view = map.getView();</span><br><span class="line">    <span class="keyword">var</span> zoom = view.getZoom();</span><br><span class="line">    <span class="keyword">var</span> CircleSource = <span class="keyword">new</span> ol.source.Vector();</span><br><span class="line">    <span class="keyword">var</span> radius = <span class="number">1</span> / <span class="built_in">Math</span>.pow(<span class="number">2</span>, zoom - <span class="number">6</span>);</span><br><span class="line">    <span class="comment">// 判断是否定义 radius,否则才用默认值</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> (<span class="built_in">arguments</span>[<span class="number">1</span>]) != <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">        radius = <span class="built_in">arguments</span>[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; CircleObjArrs.length; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> feature = <span class="keyword">new</span> ol.Feature(&#123;</span><br><span class="line">            <span class="attr">geometry</span>: <span class="keyword">new</span> ol.geom.Circle(CircleObjArrs[i].center, radius),</span><br><span class="line">            <span class="attr">text</span>: CircleObjArrs[i].text</span><br><span class="line">        &#125;);</span><br><span class="line">        CircleSource.addFeature(feature);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> CircleSource;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="展示效果"><a href="#展示效果" class="headerlink" title="展示效果"></a>展示效果</h2><p>展示效果包括:圆圈样式的切换,和圆圈下的图层显示.圆圈下的图层是在绘制圆圈的时候就一同加载了,只是样式设置透明，让它隐藏起来了,当鼠标移动到圆圈上，改变圆圈的样式的同时也改变了图层的样式，从而使得图层展示出来.主要调用<strong>forEachFeatureAtPixel</strong>方法，遍历当前坐标系下的所有feature,然后根据type切换不同样式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> displayFeature = <span class="function"><span class="keyword">function</span> (<span class="params">pixel</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> features = [];</span><br><span class="line">    map.forEachFeatureAtPixel(pixel, <span class="function"><span class="keyword">function</span> (<span class="params">feature, layer</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (layer.getVisible()) &#123; <span class="comment">// 当图层被隐藏之后,光标下该图层忽略</span></span><br><span class="line">            features.push(feature);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> len = features.length;</span><br><span class="line">    <span class="keyword">if</span> (len &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">var</span> text = features[i].getProperties().text;</span><br><span class="line">            <span class="keyword">var</span> type = features[i].getGeometry().getType();</span><br><span class="line">            features[i].setStyle(getSelectedPropertyStyle(type, text));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> featureArr = map.getLayers().getArray();</span><br><span class="line">        <span class="keyword">var</span> featureArr_len = featureArr.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; featureArr_len; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> featureArr[j].setStyle !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">                <span class="keyword">var</span> source = featureArr[j].getSource();</span><br><span class="line">                features_by_source = source.getFeatures();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">var</span> feature_len = features_by_source.length;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> m = <span class="number">0</span>; m &lt; feature_len; m++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="keyword">typeof</span> features_by_source[m].getProperties().text === <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">                        text = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">var</span> text = features_by_source[m].getProperties().text</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">var</span> type = features_by_source[m].getGeometry().getType();</span><br><span class="line">                    features_by_source[m].setStyle(getUnselectedPropertyStyle(type, text));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> getUnselectedPropertyStyle = <span class="function"><span class="keyword">function</span> (<span class="params">type, text</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> style = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (type == <span class="string">&#x27;Circle&#x27;</span>) &#123;</span><br><span class="line">        style = <span class="keyword">new</span> ol.style.Style(&#123;</span><br><span class="line">            <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span><br><span class="line">                <span class="attr">color</span>: <span class="string">&#x27;rgba(57,172,106,0.9)&#x27;</span>,</span><br><span class="line">                <span class="attr">opacity</span>: <span class="string">&#x27;0.05&#x27;</span></span><br><span class="line">            &#125;),</span><br><span class="line">            <span class="attr">text</span>: <span class="keyword">new</span> ol.style.Text(&#123;</span><br><span class="line">                <span class="attr">font</span>: <span class="string">&#x27;14px sans-serif&#x27;</span>,</span><br><span class="line">                <span class="attr">text</span>: text,</span><br><span class="line">                <span class="attr">textAlign</span>: <span class="string">&#x27;center&#x27;</span>,</span><br><span class="line">                <span class="attr">rotateWithView</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span><br><span class="line">                    <span class="attr">color</span>: <span class="string">&#x27;#FFFFFF&#x27;</span></span><br><span class="line">                &#125;),</span><br><span class="line">                <span class="attr">stroke</span>: <span class="keyword">new</span> ol.style.Stroke(&#123;</span><br><span class="line">                    <span class="attr">color</span>: <span class="string">&#x27;#FFFFFF&#x27;</span>,</span><br><span class="line">                    <span class="attr">width</span>: <span class="number">1</span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="comment">// radius:100</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (type == <span class="string">&#x27;MultiPolygon&#x27;</span> || type == <span class="string">&#x27;Polygon&#x27;</span>) &#123;</span><br><span class="line">        style = <span class="keyword">new</span> ol.style.Style(&#123;</span><br><span class="line">            <span class="attr">stroke</span>: <span class="keyword">new</span> ol.style.Stroke(&#123;</span><br><span class="line">                <span class="attr">color</span>: <span class="string">&#x27;rgba(255, 255, 0, 0)&#x27;</span>,</span><br><span class="line">                <span class="attr">width</span>: <span class="number">2</span></span><br><span class="line">            &#125;),</span><br><span class="line">            <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span><br><span class="line">                <span class="attr">color</span>: <span class="string">&#x27;rgba(255, 255, 0, 0)&#x27;</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> style;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> getSelectedPropertyStyle = <span class="function"><span class="keyword">function</span> (<span class="params">type, text</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> style = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (type == <span class="string">&#x27;Circle&#x27;</span>) &#123;</span><br><span class="line">        style = <span class="keyword">new</span> ol.style.Style(&#123;</span><br><span class="line">            <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span><br><span class="line">                <span class="attr">color</span>: <span class="string">&#x27;rgba(228,57,60,0.9)&#x27;</span>,</span><br><span class="line">                <span class="attr">opacity</span>: <span class="string">&#x27;0.05&#x27;</span></span><br><span class="line">            &#125;),</span><br><span class="line">            <span class="attr">text</span>: <span class="keyword">new</span> ol.style.Text(&#123;</span><br><span class="line">                <span class="attr">font</span>: <span class="string">&#x27;14px sans-serif&#x27;</span>,</span><br><span class="line">                <span class="attr">text</span>: text,</span><br><span class="line">                <span class="attr">textAlign</span>: <span class="string">&#x27;center&#x27;</span>,</span><br><span class="line">                <span class="comment">// rotateWithView:true,</span></span><br><span class="line">                <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span><br><span class="line">                    <span class="attr">color</span>: <span class="string">&#x27;#FFFFFF&#x27;</span></span><br><span class="line">                &#125;),</span><br><span class="line">                <span class="attr">stroke</span>: <span class="keyword">new</span> ol.style.Stroke(&#123;</span><br><span class="line">                    <span class="attr">color</span>: <span class="string">&#x27;#FFFFFF&#x27;</span>,</span><br><span class="line">                    <span class="attr">width</span>: <span class="number">1</span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (type == <span class="string">&#x27;MultiPolygon&#x27;</span> || type == <span class="string">&#x27;Polygon&#x27;</span>) &#123;</span><br><span class="line">        style = <span class="keyword">new</span> ol.style.Style(&#123;</span><br><span class="line">            <span class="attr">stroke</span>: <span class="keyword">new</span> ol.style.Stroke(&#123;</span><br><span class="line">                <span class="attr">color</span>: <span class="string">&#x27;green&#x27;</span>,</span><br><span class="line">                <span class="attr">width</span>: <span class="number">2</span></span><br><span class="line">            &#125;),</span><br><span class="line">            <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span><br><span class="line">                <span class="attr">color</span>: <span class="string">&#x27;rgba(57,172,106,0.1)&#x27;</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> style;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Javascript/" rel="tag"># Javascript</a>
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Openlayers3/" rel="tag"># Openlayers3</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2017/06/02/Openlayers3%E5%85%B3%E4%BA%8EMouseWheelZoom%E7%9A%84%E7%A6%81%E7%94%A8/" rel="prev" title="Openlayers3关于MouseWheelZoom的禁用">
+                  <i class="fa fa-chevron-left"></i> Openlayers3关于MouseWheelZoom的禁用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2017/06/06/%E7%94%9F%E6%88%90%E5%99%A8(generator)/" rel="next" title="生成器(generator)">
+                  生成器(generator) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"e2a0162e739bdd33f0a2ada2dda5fea0"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

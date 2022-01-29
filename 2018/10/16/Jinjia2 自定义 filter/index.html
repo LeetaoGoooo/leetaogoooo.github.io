@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="前言用过 flask 的人肯定对 jinjia2 不会陌生,自然对 Jinjia2 自带的 filter 也有印象，但是其自带的 filter 实在有限，有些时候就不得不需要我们自己定义 filter 了,接下来的例子将介绍如何自定义 filter 自定义 filter举个例子自定义 filter 其实很简单，写一个函数实现你需要的功能，然后添加到 jinjia_env 中，这里以一个返回列表长度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jinjia2 自定义 filter">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/10/16/Jinjia2%20%E8%87%AA%E5%AE%9A%E4%B9%89%20filter/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="前言用过 flask 的人肯定对 jinjia2 不会陌生,自然对 Jinjia2 自带的 filter 也有印象，但是其自带的 filter 实在有限，有些时候就不得不需要我们自己定义 filter 了,接下来的例子将介绍如何自定义 filter 自定义 filter举个例子自定义 filter 其实很简单，写一个函数实现你需要的功能，然后添加到 jinjia_env 中，这里以一个返回列表长度">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.015Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Flask">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/10/16/Jinjia2%20%E8%87%AA%E5%AE%9A%E4%B9%89%20filter/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/10/16/Jinjia2%20%E8%87%AA%E5%AE%9A%E4%B9%89%20filter/","path":"2018/10/16/Jinjia2 自定义 filter/","title":"Jinjia2 自定义 filter"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Jinjia2 自定义 filter | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-filter"><span class="nav-number">2.</span> <span class="nav-text">自定义 filter</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BE%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-number">2.1.</span> <span class="nav-text">举个例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A9-filter-%E4%BC%98%E9%9B%85%E8%B5%B7%E6%9D%A5"><span class="nav-number">2.2.</span> <span class="nav-text">让 filter 优雅起来</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E5%A4%96%E8%AF%9D-%E2%80%94%E2%80%94-%E8%87%AA%E5%AE%9A%E4%B9%89-function"><span class="nav-number">3.</span> <span class="nav-text">题外话 —— 自定义 function</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-function"><span class="nav-number">3.1.</span> <span class="nav-text">自定义 function</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Jinjia2-%E7%9A%84-function-%E5%92%8C-filter-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">Jinjia2 的 function 和 filter 的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/10/16/Jinjia2%20%E8%87%AA%E5%AE%9A%E4%B9%89%20filter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jinjia2 自定义 filter
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-16 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-16T00:00:00+08:00">2018-10-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用过 <code>flask</code> 的人肯定对 <code>jinjia2</code> 不会陌生,自然对 <code>Jinjia2</code> 自带的 <code>filter</code> 也有印象，但是其自带的 filter 实在有限，有些时候就不得不需要我们自己定义 <code>filter</code> 了,接下来的例子将介绍如何自定义 <code>filter</code></p>
+<h1 id="自定义-filter"><a href="#自定义-filter" class="headerlink" title="自定义 filter"></a>自定义 filter</h1><h2 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h2><p>自定义 filter 其实很简单，写一个函数实现你需要的功能，然后添加到 jinjia_env 中，这里以一个返回列表长度到自定义函数为例子</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test.py</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_len</span>(<span class="params">arg</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(arg)</span><br><span class="line"></span><br><span class="line">env = app.jinja_env</span><br><span class="line">env.filters[<span class="string">&#x27;my_len&#x27;</span>] = my_len </span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    test_str = <span class="string">&quot;hello&quot;</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&quot;index.html&quot;</span>, test_str=test_str)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<p>ok 函数定义完了，接下来就是在模版中去使用了.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>jinjia2模板测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>len: &#123;&#123;test_str|my_len&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>简单吧？到这里似乎就可以结束了？没问题，但是实际开发中大家很多人的目录结构都不是这样吧，在文件里有着为了优雅，有着一些<br><code>xxx.init_app(app)</code> 的代码吧？所以接下来让我们试着把这些 <code>filter</code> 集成一下。</p>
+<h2 id="让-filter-优雅起来"><a href="#让-filter-优雅起来" class="headerlink" title="让 filter 优雅起来"></a>让 filter 优雅起来</h2><p>尝试将这些 <code>filter</code> 封装到一个类中并且也实现 <code>init_app</code> 方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># examples.py</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span>:</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">init_app</span>(<span class="params">app</span>):</span></span><br><span class="line"><span class="meta">        @app.template_filter(<span class="params"><span class="string">&#x27;my_len&#x27;</span></span>)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">my_len</span>(<span class="params">arg</span>):</span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">len</span>(arg)</span><br></pre></td></tr></table></figure>
+
+<p>然后就可以在其他文件中像这样子使用了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> examples <span class="keyword">import</span> Example</span><br><span class="line">example = Example()</span><br><span class="line"></span><br><span class="line"><span class="comment"># ... 省略部分代码</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_app</span>(<span class="params">app</span>):</span></span><br><span class="line">    example.init_app(app)</span><br></pre></td></tr></table></figure>
+
+<h1 id="题外话-——-自定义-function"><a href="#题外话-——-自定义-function" class="headerlink" title="题外话 —— 自定义 function"></a>题外话 —— 自定义 function</h1><p>有时候我们需要一个函数处理数据返回结果使得我们可以进行下一步操作，这个时候就需要用到 <code>jinjia2</code> 的自定义函数。</p>
+<h2 id="自定义-function"><a href="#自定义-function" class="headerlink" title="自定义 function"></a>自定义 function</h2><p>自定义函数的方法很简单，通过 <code>add_template_global</code> 即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一种写法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_len</span>(<span class="params">arg</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(arg)</span><br><span class="line"></span><br><span class="line">app.add_template_global(my_len,<span class="string">&#x27;my_len&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二种写法</span></span><br><span class="line"><span class="meta">@app.template_global(<span class="params"><span class="string">&#x27;my_len&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_len</span>(<span class="params">arg</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(arg)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 同样可以参照 filter 中封装到类中去</span></span><br></pre></td></tr></table></figure>
+
+<p>在模板中调用方法也与 <code>filter</code> 类似。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>jinjia2模板测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>len: &#123;&#123;my_len(test_str)&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>用法很简单，那么问题来了，这两者有什么区别吗？</p>
+<h1 id="Jinjia2-的-function-和-filter-的区别"><a href="#Jinjia2-的-function-和-filter-的区别" class="headerlink" title="Jinjia2 的 function 和 filter 的区别"></a>Jinjia2 的 function 和 filter 的区别</h1><p>区别很简单，相较于 <code>function</code> 来说, <code>filter</code> 拥有访问上下文以及环境的能力，当然为了解决这个问题，jinjia2 有 <a target="_blank" rel="noopener" href="http://jinja.pocoo.org/docs/2.10/api/#utilities">contextfilter </a> 等相关函数。</p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="http://jinja.pocoo.org/docs/2.10/api/">Jinjia2</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22491510/difference-between-jinja2-functions-and-filters">Difference between jinja2 functions and filters?</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Python/" rel="tag"># Python</a>
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Flask/" rel="tag"># Flask</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/10/10/Ubuntu%20%E6%89%BE%E5%9B%9E%20Mysql%20%E7%9A%84%20root%20%E5%AF%86%E7%A0%81/" rel="prev" title="Ubuntu 找回 Mysql 的 root 密码">
+                  <i class="fa fa-chevron-left"></i> Ubuntu 找回 Mysql 的 root 密码
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/10/24/Three%20Sum/" rel="next" title="Three Sum">
+                  Three Sum <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"a31b8073511139c6749e2e050092a1a6"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

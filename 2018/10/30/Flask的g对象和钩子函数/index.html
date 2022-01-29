@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="前言说到钩子函数大家可能会觉得有点陌生，但是不着急，接着看下去，大家只要用过 flask 对我接下来说的这些一定不会陌生。 钩子函数钩子函数可以分为两层说明，第一层是 app 层，第二层则是 blueprint 层 app 层app 层的钩子函数有 before_request,before_first_request,after_request,teardown_request,下面我们一一分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask的g对象和钩子函数">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/10/30/Flask%E7%9A%84g%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="前言说到钩子函数大家可能会觉得有点陌生，但是不着急，接着看下去，大家只要用过 flask 对我接下来说的这些一定不会陌生。 钩子函数钩子函数可以分为两层说明，第一层是 app 层，第二层则是 blueprint 层 app 层app 层的钩子函数有 before_request,before_first_request,after_request,teardown_request,下面我们一一分析">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fwr87mt5p0j30kf02m749.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fwrgdsak0yj30l50440sy.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fwrgkphzglj30m401y0sn.jpg">
+<meta property="article:published_time" content="2018-10-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.010Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Flask">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fwr87mt5p0j30kf02m749.jpg">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/10/30/Flask%E7%9A%84g%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/10/30/Flask%E7%9A%84g%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0/","path":"2018/10/30/Flask的g对象和钩子函数/","title":"Flask的g对象和钩子函数"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Flask的g对象和钩子函数 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">钩子函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#app-%E5%B1%82"><span class="nav-number">2.1.</span> <span class="nav-text">app 层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#before-request"><span class="nav-number">2.1.1.</span> <span class="nav-text">before_request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#before-first-request"><span class="nav-number">2.1.2.</span> <span class="nav-text">before_first_request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#after-request"><span class="nav-number">2.1.3.</span> <span class="nav-text">after_request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#teardown-request"><span class="nav-number">2.1.4.</span> <span class="nav-text">teardown_request</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#blueprint-%E5%B1%82"><span class="nav-number">2.2.</span> <span class="nav-text">blueprint 层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E4%B8%8A%E4%B8%8B%E6%96%87-request-context"><span class="nav-number">2.3.</span> <span class="nav-text">请求上下文(request context)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#g-%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.</span> <span class="nav-text">g 对象</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/10/30/Flask%E7%9A%84g%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask的g对象和钩子函数
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-30 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-30T00:00:00+08:00">2018-10-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>说到钩子函数大家可能会觉得有点陌生，但是不着急，接着看下去，大家只要用过 <code>flask</code> 对我接下来说的这些一定不会陌生。</p>
+<h1 id="钩子函数"><a href="#钩子函数" class="headerlink" title="钩子函数"></a>钩子函数</h1><p>钩子函数可以分为两层说明，第一层是 <code>app</code> 层，第二层则是 <code>blueprint</code> 层</p>
+<h2 id="app-层"><a href="#app-层" class="headerlink" title="app 层"></a>app 层</h2><p><code>app</code> 层的钩子函数有 <code>before_request</code>,<code>before_first_request</code>,<code>after_request</code>,<code>teardown_request</code>,下面我们一一分析。</p>
+<h3 id="before-request"><a href="#before-request" class="headerlink" title="before_request"></a>before_request</h3><blockquote>
+<p>Registers a function to run before each request.</p>
+</blockquote>
+<p>在每次请求都会执行的函数，比如：用于连接数据库连接，或者从会话中加载登录用户</p>
+<p><strong>注意</strong>:该函数不需要任何参数，如果其返回了一个非空的值，则其将会作为当前视图的返回值,看下面的例子。</p>
+<p><strong>例子</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask,</span><br><span class="line"> </span><br><span class="line">app = Flask(__name__)</span><br><span class="line"> </span><br><span class="line"><span class="meta">@app.before_request</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">before_request</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;before request started&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;example01&quot;</span> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello world&#x27;</span><span class="string">&#x27; </span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">if __name__ == &#x27;</span>__main__<span class="string">&#x27;:</span></span><br><span class="line"><span class="string">    app.run(debug=True)</span></span><br></pre></td></tr></table></figure>
+
+<p>这个例子下当访问 <code>localhost:5000/</code>的时候，前端渲染的值为 “example01” 而不是 “Hello world”</p>
+<h3 id="before-first-request"><a href="#before-first-request" class="headerlink" title="before_first_request"></a>before_first_request</h3><blockquote>
+<p>Registers a function to be run before the first request to this instance of the application.</p>
+</blockquote>
+<p>仅在第一次请求的时候去调用这个函数，比如初始化加载一次性的数据。</p>
+<p><strong>注意</strong>:和 <code>before_request</code> 不同的是, 它的非空返回值会被忽略。</p>
+<p><strong>问题来了：before_first_request 和 before_request 加载顺序是什么样子呢？</strong></p>
+<p>让我们通过下面的代码看一下:</p>
+<p><strong>例子</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, g, request</span><br><span class="line"> </span><br><span class="line">app = Flask(__name__)</span><br><span class="line"> </span><br><span class="line"><span class="meta">@app.before_request</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">before_request</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;before request started&#x27;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="meta">@app.before_first_request</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">before_request</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;before first request started&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>结果如下图:</p>
+<p>这次 first_request 胜出了</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwr87mt5p0j30kf02m749.jpg"></p>
+<h3 id="after-request"><a href="#after-request" class="headerlink" title="after_request"></a>after_request</h3><blockquote>
+<p>Register a function to be run after each request</p>
+</blockquote>
+<p>在每次请求结束后运行</p>
+<p>除了运行的时间和上面不同之外，after_request 这个函数带有一个参数，用来接收<a target="_blank" rel="noopener" href="http://flask.pocoo.org/docs/1.0/api/#flask.Flask.response_class">response_class</a>，一个响应对象，<strong>一般用来统一修改响应的内容，比如修改响应头。</strong></p>
+<h3 id="teardown-request"><a href="#teardown-request" class="headerlink" title="teardown_request"></a>teardown_request</h3><blockquote>
+<p>Register a function to be run at the end of each request, regardless of whether there was an exception or not.</p>
+</blockquote>
+<p>在每次请求结束调用，<strong>不管是否出现异常</strong>，同样 teardown_request 也需要一个参数，这个参数用来接收异常，当然没有异常的情况下这个参数的值为 <code>None</code>,<strong>一般它用来释放程序所占用的资源，比如释放数据库连接</strong></p>
+<p><strong>after_request 和 teardown_request 的区别</strong></p>
+<p>两者最大的区别是在于，从Flask 0.7开始，如果出现未处理的异常，<code>after_request</code> 将不会被执行,而后者将正常运行并接收异常，其次还有两者的执行顺序，让我们通过代码去了解一下.</p>
+<p><strong>例子</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, g, request</span><br><span class="line"> </span><br><span class="line">app = Flask(__name__)</span><br><span class="line"> </span><br><span class="line"><span class="meta">@app.before_request</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">before_request</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;before request started, %s&#x27;</span> % request.url)</span><br><span class="line"> </span><br><span class="line"><span class="meta">@app.before_first_request</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">before_request</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;before first request started, %s&#x27;</span> % request.url)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.after_request</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">after_request</span>(<span class="params">reponse</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;after request started, %s&quot;</span> % request.url)</span><br><span class="line">    <span class="keyword">return</span> reponse</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.teardown_request</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">teardown_request</span>(<span class="params">exception</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;teardown request,%s,%s&quot;</span> % (exception,request.url))</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>结果如下:</p>
+<p>结果很清晰，<code>after_request</code> 先执行（注意这个图和代码）</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwrgdsak0yj30l50440sy.jpg"></p>
+<p>说完了，<code>app</code> 层的关于 <code>request</code> 的钩子函数，接下来说一说 <code>blueprint</code> 层的</p>
+<h2 id="blueprint-层"><a href="#blueprint-层" class="headerlink" title="blueprint 层"></a>blueprint 层</h2><p>blueprint 层关于request 的钩子函数其实和app层基本一致，有两点区别:</p>
+<ol>
+<li><p>与 app 层相比，bluepint 层少了一个 <code>before_first_request</code> 的钩子函数</p>
+</li>
+<li><p>多了一些，可以在蓝图调用 app 层的钩子函数：before_app_first_request,before_app_request,after_app_request,after_app_request,teardown_app_request</p>
+</li>
+</ol>
+<h2 id="请求上下文-request-context"><a href="#请求上下文-request-context" class="headerlink" title="请求上下文(request context)"></a>请求上下文(request context)</h2><p>为什么这里会突然出现这个标题呢？我们在哪里用到了这个吗？还记得上个图吗，我们在所有的请求中都访问了<code>request</code>对象，并且成功了输出了 <code>url</code>,</p>
+<p>但是我们并没有传入它，它是一个全局对象吗？让我们测试一下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, g, request</span><br><span class="line"> </span><br><span class="line">app = Flask(__name__)</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_request</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;test request,%s&quot;</span> % request.url)</span><br><span class="line"></span><br><span class="line">test_request()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>看一下截图:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwrgkphzglj30m401y0sn.jpg"></p>
+<p>由此可见 <code>request</code> 对象仅可以在请求上下文的生命周期可以访问，由此不难得出,我们上面说到几个钩子函数也是挂载到请求上下文的生命周期的不同阶段从而发挥作用的。</p>
+<h1 id="g-对象"><a href="#g-对象" class="headerlink" title="g 对象"></a>g 对象</h1><p>flask 中有两种上下文，一是：请求上下文(request context),上面刚刚说到的，另外一种则是应用上下文(application context),</p>
+<p>g 对象则是在后者期间存储数据的命名空间对象。在<strong>一个请求</strong>之间用它来存储数据是再好不过了。</p>
+<p>注意我加粗的地方：一个请求，为什么说是在一个请求之间呢，上面说了 g 是在应用上下文中发挥作用的，这就意味着一旦它所处的应用上下文结束了，它也随之失效了，那么一个应用上下文的生命周期是多久呢？</p>
+<p>让我们看一下官网给的说明:</p>
+<blockquote>
+<p>The application context is created and destroyed as necessary. When a Flask application begins handling a request, it pushes an application context and a request context. When the request ends it pops the request context then the application context. Typically, an application context will have the same lifetime as a request.</p>
+</blockquote>
+<p>看不懂上面英文没有关系，我来总结一些，上面一段官网文字说道，一个应用上下文的生命周期和一个请求相同，这意味什么？也就以为着当一个请求结束了，当前的 g 也就失效了。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Python/" rel="tag"># Python</a>
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Flask/" rel="tag"># Flask</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/10/29/Increasing%20Triplet%20Subsequence/" rel="prev" title="Increasing Triplet Subsequence">
+                  <i class="fa fa-chevron-left"></i> Increasing Triplet Subsequence
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/11/06/%E7%94%A8%20python%20%E6%8A%93%E5%8F%96%E7%9F%A5%E4%B9%8E%E6%8C%87%E5%AE%9A%E5%9B%9E%E7%AD%94%E4%B8%8B%E7%9A%84%E8%A7%86%E9%A2%91/" rel="next" title="用 python 抓取知乎指定回答下的视频">
+                  用 python 抓取知乎指定回答下的视频 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"476376433abea8828aaca0ca140c4ba3"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

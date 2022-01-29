@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="Je pense, donc je suis">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Leetao&#39;s Blog">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/page/18/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="Je pense, donc je suis">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Leetao">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/page/18/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/18/index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Leetao's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/12/04/CentOS7%E5%AE%89%E8%A3%85Mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2016/12/04/CentOS7%E5%AE%89%E8%A3%85Mysql/" class="post-title-link" itemprop="url">CentOS7安装Mysql</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-12-04 00:00:00" itemprop="dateCreated datePublished" datetime="2016-12-04T00:00:00+08:00">2016-12-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="查看-CentOS-7的-yum-是否有-mysql-server-文件"><a href="#查看-CentOS-7的-yum-是否有-mysql-server-文件" class="headerlink" title="查看 CentOS 7的 yum 是否有 mysql-server 文件"></a>查看 CentOS 7的 yum 是否有 mysql-server 文件</h1><p>打开控制台,输入如下命令行:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list | grep mysql</span><br></pre></td></tr></table></figure>
+
+<p>注意:确保能上网, YUM 源配置到了 Internet 上,如果 Linux 无法上网则无法正确使用 yum 命令.</p>
+<h1 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h1><p>CentOS 7的yum源中没有正常安装MySQL时的mysql-sever文件,需要去官网上下载,<a target="_blank" rel="noopener" href="http://dev.mysql.com/downloads/repo/yum/">官网地址</a><br>然后从下列文件选择其中一个文件下载:<br><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1f8vis1jxhyj20th06z769.jpg"><br>然后在文件所在文件下,打开命令行使用如下命令(这里以 mysql57-community-release-el7-9.noarch.rpm 为例):</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql57-community-release-el7-9.noarch.rpm</span><br><span class="line">yum install install mysql-server</span><br></pre></td></tr></table></figure>
+
+<p>然后一路 yes 就 ok 了~<br>安装之后重启 mysql 服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
+
+<p>数据库安装成功了,接下来就是配置数据库了.</p>
+<h1 id="配置数据库"><a href="#配置数据库" class="headerlink" title="配置数据库"></a>配置数据库</h1><h2 id="获取临时密码"><a href="#获取临时密码" class="headerlink" title="获取临时密码"></a>获取临时密码</h2><p>为了加强安全性, MySQL 为 root 用户随机生成了密码,用于初次登录,使用如下命令获取临时密码:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &quot;password&quot; /var/log/mysqld.log</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1f8vjrbvjt5j20kb01q3ys.jpg"><br>然后将密码复制下来~,接着进入数据库:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+
+<p>然后安装命令行提示输入密码,成功进入数据库,然后尝试 <em>show databases</em>,你会发现提示你修改密码</p>
+<h2 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h2><p>修改密码的命令行如下:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> PASSWORD <span class="keyword">FOR</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> <span class="operator">=</span> PASSWORD(<span class="string">&#x27;Your new password&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>注意:如果你的密码设置的过于简单就会出现下列错误:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR <span class="number">1819</span> (HY000): Your password does <span class="keyword">not</span> satisfy the <span class="keyword">current</span> policy requirements</span><br></pre></td></tr></table></figure>
+
+<p>之所以会出现这个问题,跟 <strong>validate_password_policy</strong> 的值有关<br>validate_password_policy 有以下取值:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Policy Tests Performed 0 or LOW Length 1 or MEDIUM Length; numeric, lowercase/uppercase, and special characters 2 or STRONG Length; numeric, lowercase/uppercase, and special characters; dictionary file</span><br></pre></td></tr></table></figure>
+
+<p>默认是1，即MEDIUM，所以刚开始设置的密码必须符合长度，且必须含有数字，小写或大写字母，特殊字符.老实说平时数据库密码都很简单,方便记忆,所以这里同样为了可以设置简单的密码,需要修改两个全局参数.</p>
+<h3 id="修改-validate-password-policy-值"><a href="#修改-validate-password-policy-值" class="headerlink" title="修改 validate_password_policy 值"></a>修改 validate_password_policy 值</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_policy<span class="operator">=</span><span class="number">0</span>;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>修改完这个之后,判断密码的标准就基于密码的长度了.这个由 <strong>validate_password_length</strong> 来决定.</p>
+<h3 id="修改-valitdate-password-length"><a href="#修改-valitdate-password-length" class="headerlink" title="修改 valitdate_password_length"></a>修改 valitdate_password_length</h3><p>validate_password_length 参数默认为8,它也有最小值的限制,最小值为:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">validate_password_number_count </span><br><span class="line">+ validate_password_special_char_count </span><br><span class="line">+ (2 * validate_password_mixed_case_count)</span><br></pre></td></tr></table></figure>
+
+<p>其中，<strong>validate_password_number_count</strong> 指定了密码中数据的长度,<strong>alidate_password_special_char_count</strong> 指定了密码中特殊字符的长度,<strong>validate_password_mixed_case_count</strong> 指定了密码中大小字母的长度,由于这些参数默认值均为1,所以 <strong>validate_password_length</strong> 最小值为4.</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_length<span class="operator">=</span> <span class="number">4</span>;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>如果将值设置为 &lt; 4 ,valiadate_password_length 将仍为4.将上述两项设置完成之后,就可以设置一个长度为4位的简单 mysql 密码了.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/12/01/%E7%BC%96%E5%86%99%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84JavaScript-%E7%AC%AC%E4%B8%80%E7%AB%A0(%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96)%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2016/12/01/%E7%BC%96%E5%86%99%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84JavaScript-%E7%AC%AC%E4%B8%80%E7%AB%A0(%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96)%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">编写可维护的JavaScript-第一章(基本的格式化)笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-12-01 00:00:00" itemprop="dateCreated datePublished" datetime="2016-12-01T00:00:00+08:00">2016-12-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="缩进层级"><a href="#缩进层级" class="headerlink" title="缩进层级"></a>缩进层级</h1><p>保持一定的缩进,使用制表符进行缩进或者使用空格进行缩进.</p>
+<h1 id="语句结尾"><a href="#语句结尾" class="headerlink" title="语句结尾"></a>语句结尾</h1><p>每行代码结尾使用分号.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//合法代码</span></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;Nicholas&quot;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//合法代码,不推荐写法</span></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;Nicholas&quot;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述两种代码合法的原因有赖于分析器的自动分号插入(Automatic Semicolon Insertion, ASI) 机制,JavaScript 代码省略分号也是可以的.但是存在由于该机制导致的错误.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原始代码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;leetao&quot;</span>,</span><br><span class="line">        <span class="string">&quot;age&quot;</span>: <span class="string">&quot;unknown&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//分析器会将它理解成</span></span><br><span class="line">funcition <span class="function"><span class="title">getData</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;leetao&quot;</span>,</span><br><span class="line">        <span class="string">&quot;age&quot;</span>: <span class="string">&quot;unknown&quot;</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//通过将左括号移至于return同一行修复该问题</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;leetao&quot;</span>,</span><br><span class="line">        <span class="string">&quot;age&quot;</span>: <span class="string">&quot;unknown&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="行的长度"><a href="#行的长度" class="headerlink" title="行的长度"></a>行的长度</h1><p>每行的保持一定的长度,推荐80个字符.</p>
+<h1 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h1><p>当每行到达单行最大胆字符数字数限制时,在运算符后换行,下一行需要增加那个层级的缩进.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 好的做法: 在运算符后换行,第二行追加两个缩进</span></span><br><span class="line">callAFunction(<span class="built_in">document</span>, element, windoow, <span class="string">&quot;some string value&quot;</span>, <span class="literal">true</span>, <span class="number">123</span>,</span><br><span class="line">        navigator);</span><br><span class="line">        </span><br><span class="line"><span class="comment">// 不好的做法: 第二行只有一个缩进</span></span><br><span class="line">callAFunction(<span class="built_in">document</span>, element, windoow, <span class="string">&quot;some string value&quot;</span>, <span class="literal">true</span>, <span class="number">123</span>,</span><br><span class="line">    navigator);</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 不好的做法: 在运算符前换行</span></span><br><span class="line">callAFunction(<span class="built_in">document</span>, element, windoow, <span class="string">&quot;some string value&quot;</span>, <span class="literal">true</span>, <span class="number">123</span></span><br><span class="line">        , navigator);</span><br></pre></td></tr></table></figure>
+<p>总是将一个运算符置于行尾, ASI 不会自作主张地插入分号.对于语句同样遵循上述规则.不过对于语句,主体部分换行后未一个缩进.该规则存在一个特例: <strong>当给变量赋值时,第二行位置应当和赋值运算符的位置保持对齐.</strong></p>
+<h1 id="空行"><a href="#空行" class="headerlink" title="空行"></a>空行</h1><p>建议在下述位置添加空行:</p>
+<ol>
+<li>在方法之间.</li>
+<li>在方法中的局部变量和第一条语句之间.</li>
+<li>在多行或单行注释之前.</li>
+<li>在方法内的逻辑片段之间插入空行,提高可读性.</li>
+</ol>
+<h1 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h1><ol>
+<li>变量名遵循驼峰大小写命名法 (Camel Case),并且命名前缀应当是<strong>名词</strong>.</li>
+<li>函数名遵循驼峰大小写命名法 (Camel Case),并且命名前缀应当是<strong>动词</strong>.</li>
+<li>常量使用大小写字母和下划线来命名,下划线用以分割单词.</li>
+<li>构造函数的命名遵循大驼峰命名法 (Pascal Case) ,即以大写字母开始.</li>
+</ol>
+<h1 id="直接量"><a href="#直接量" class="headerlink" title="直接量"></a>直接量</h1><h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><ol>
+<li>多行字符串,使用字符串连接符 (+) 将字符串分成多份.</li>
+<li>字符串用单行引号括起来均可,但是一个项目应当保持一种风格.</li>
+</ol>
+<h2 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h2><p>为了避免歧义,不要省略小数点之前或者之后的数字.</p>
+<h2 id="null"><a href="#null" class="headerlink" title="null"></a>null</h2><p>建议使用 null 的场景:</p>
+<ol>
+<li>用来初始化一个变量,该变量可能赋值为一个对象.</li>
+<li>用来和一个已经初始化的变量比较,该变量是不是对象均可.</li>
+<li>当函数的参数期望是对象时,用作参数传入.</li>
+<li>当函数的返回值期望是对象时,用作返回值传出.</li>
+</ol>
+<p>下述场景不应当使用 null:</p>
+<ol>
+<li>不要使用 null 来检测是否传入某个参数.</li>
+<li>不要用 null 来检测一个未初始化的变量.</li>
+</ol>
+<h2 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h2><p>不管是值是 undefined 的变量还是未声明的变量， typeof 运算结果都是 “undefined”.通过禁止使用特殊值 undefined,可以有效地确保只在一种情况下 typeof 才会返回 “undefined”: 当变量未声明时.如果你使用了一个可能(或者可能不会)赋值为一个对象的变量时,则将其赋值未 null.</p>
+<h1 id="对象直接量"><a href="#对象直接量" class="headerlink" title="对象直接量"></a>对象直接量</h1><p>创建对象使用对象直接量，在直接量中直接写出所有属性,这种方式可以取代先显式创建地创建 Object 的实例然后添加属性的这种做法.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不好的写法</span></span><br><span class="line"><span class="keyword">var</span> book = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">book.title = <span class="string">&quot;title&quot;</span>;</span><br><span class="line">bookl.author = <span class="string">&quot;author&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>当定义对象直接量时,常常在第一行包含左花括号,每一个属性的名值对都独占一行,并保持一个缩进.最后右花括号也独占一行.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//好的写法</span></span><br><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">    <span class="string">&quot;title&quot;</span>: <span class="string">&quot;title&quot;</span>,</span><br><span class="line">    <span class="string">&quot;author&quot;</span>: <span class="string">&quot;author&quot;</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="数组直接量"><a href="#数组直接量" class="headerlink" title="数组直接量"></a>数组直接量</h1><p>不赞成显式地使用 Array  构造函数来创建数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不好的写法</span></span><br><span class="line"><span class="keyword">var</span> colors = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="string">&quot;red&quot;</span>, <span class="string">&quot;green&quot;</span>, <span class="string">&quot;blue&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> numbers = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 好的写法</span></span><br><span class="line"><span class="keyword">var</span> colors = [ <span class="string">&quot;red&quot;</span>, <span class="string">&quot;green&quot;</span>, <span class="string">&quot;blue&quot;</span> ];</span><br><span class="line"><span class="keyword">var</span> numbers = [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ];</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/11/11/Python%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E4%B9%8B%E5%86%99%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2016/11/11/Python%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E4%B9%8B%E5%86%99%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">Python读写文件之写文件</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-11-11 00:00:00" itemprop="dateCreated datePublished" datetime="2016-11-11T00:00:00+08:00">2016-11-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>文件读完了,我们就得开始尝试写文件了.关于读文件这里不再重复,可以参考<a target="_blank" rel="noopener" href="http://www.leetao94.cn/2016/11/11/Python%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E4%B9%8B%E8%AF%BB%E6%96%87%E4%BB%B6/">Python读写文件之读文件</a></p>
+<h1 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h1><p>与 <em>read()</em> 相对应的就是 <strong>write(string)</strong> 了,将内容写进文件当中,返回值为 <em>None</em>.这里我们的测试文件同样是 <em>test.txt</em>, 只不过我们将其内容清空了.<br><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1f9ohez44sbj209e083dg0.jpg"><br>不管读文件还是写文件,第一步都是需要打开文件的,同样关于访问模式这里也不再多说.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r+&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">&quot;1\n&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>是不是这样子就将内容写入到文件中了呢?不急,让我们打开文件看一看:<br><img src="http://ww2.sinaimg.cn/large/d9e82fa4jw1f9ohoddgkij208n04k3yi.jpg"><br>为了和最初文件区分,特意将顶部部分截图没有截上.通过文件我们发现,我们似乎并没有将内容写到文本中,这是为什么呢?当我们操作做文件的时候,需要使用 <em>f.close()</em> 去关闭文件对象,然后释放由打开文件占用的系统资源,然后在关闭之前会将内容写到文本中去.<br><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1f9ohvhi90nj20ep02jq36.jpg"><br>一旦关闭后,在尝试使用文件对象,则会失败.<br><img src="http://ww2.sinaimg.cn/large/d9e82fa4jw1f9ohwmbmnij20a004awf5.jpg"><br>如果留心看上面的 <em>write</em>()* 函数,会发现括号里面的内容是 String,所以如果你要想向文件写入非字符串的内容的话,第一步你需要做的是就是将它转换为 String 类型.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f=<span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r+&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>value = (<span class="string">&#x27;the answer&#x27;</span>,<span class="number">42</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="built_in">str</span>(value)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(s)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.close()</span><br></pre></td></tr></table></figure>
+<p><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1f9oi9k40zvj209o04jdg0.jpg"><br>关于文件写的操作大概就是这样了,最后再介绍函数.</p>
+<h2 id="tell"><a href="#tell" class="headerlink" title="tell()"></a>tell()</h2><p>返回一个数字,文件指针当前在文件中的位置(当前位置到文件开头位置的字节数)<br>实例如下(在操作前我们已经清空文本):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f=<span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r+&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">&quot;0123456789abcdef&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.seek(<span class="number">5</span>)  <span class="comment"># 将指针移动到文件中的第6字节处</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">1</span>)</span><br><span class="line"><span class="string">&#x27;5&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.tell()</span><br><span class="line"><span class="number">6L</span></span><br></pre></td></tr></table></figure>
+<p>上述中我们还是用了一个函数 <strong>seek()</strong>,这是我们要提到的第二个额外的函数</p>
+<h2 id="seek-offset-from-what"><a href="#seek-offset-from-what" class="headerlink" title="seek(offset,from_what)"></a>seek(offset,from_what)</h2><p>第一个参数 offset,顾名思义是偏移量,第二个参数这是指针从什么位置开始,0代表从头开始，1代表当前位置，2代表文件最末尾位置,默认值为0<br>实例如下(在操作前我们已经清空文本):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f=<span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r+&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">&quot;0123456789abcdef&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.seek(<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">1</span>)</span><br><span class="line"><span class="string">&#x27;5&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.seek(-<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">1</span>)</span><br><span class="line"><span class="string">&#x27;d&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>推荐关于文件操作的时候使用 <strong>with</strong> 关键词.使用这个关键词的好处是,哪怕在处理过程中发生异常,文件也可以正常关闭.除此之外,它也比 <strong>try-finally</strong> 写起来要短.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/11/11/Python%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E4%B9%8B%E8%AF%BB%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2016/11/11/Python%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E4%B9%8B%E8%AF%BB%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">Python读写文件之读文件</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-11-11 00:00:00" itemprop="dateCreated datePublished" datetime="2016-11-11T00:00:00+08:00">2016-11-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="读文件"><a href="#读文件" class="headerlink" title="读文件"></a>读文件</h1><h2 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h2><p>读写文件,自然第一步是打开文件,使用<strong>open( )</strong>,其返回一个文件对象,通常有两个参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">open</span>(filena,mode)</span><br></pre></td></tr></table></figure>
+<p>第一个参数是文件名,第二个参数则是文件对象的访问模式.<br>访问模式可参照下图:<br><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1f9ndo67e2sj20fu0dlmzh.jpg"></p>
+<h2 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h2><p>测试文件名为 test.txt ,内容如下:<br><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1f9ndwt2ewdj20ao051jrl.jpg"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&#x27;test.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span> f</span><br><span class="line">&lt;<span class="built_in">open</span> file <span class="string">&#x27;test.txt&#x27;</span>, mode <span class="string">&#x27;r&#x27;</span> at 80a0960&gt;</span><br></pre></td></tr></table></figure>
+<p>文件打开之后自然就是开始重头戏,读文件了.读文件有很多方式.</p>
+<h2 id="读取文件方式"><a href="#读取文件方式" class="headerlink" title="读取文件方式"></a>读取文件方式</h2><p>接上例,这里 <em>f</em> 为上述的文件对象</p>
+<h3 id="read"><a href="#read" class="headerlink" title="read()"></a>read()</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">&#x27;1\n2\n3\n4\n5\n6&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read()</span><br><span class="line"><span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>这里我们通过 <em>f.read(size)</em> 的方式去读取文件,其将读取的内容作为字符串返回.</p>
+<p><em>size</em> 是一个可选的参数,当 <em>size</em> 缺省或者为负数的时候,返回全部内容.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(-<span class="number">1</span>)</span><br><span class="line"><span class="string">&#x27;1\n2\n3\n4\n5\n6&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><em>size</em> 值合法则返回指定字节的内容,前提是文件大小不超过你的内存,换句话说 <em>read( )</em> 这种方式是将全部内容加载到内存中去.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">1</span>)</span><br><span class="line"><span class="string">&#x27;1&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">2</span>)</span><br><span class="line"><span class="string">&#x27;\n2&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">4</span>)</span><br><span class="line"><span class="string">&#x27;\n3\n4&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>当读到文件末尾的时候,<em>f.read( )</em> 将会返回空字符串 (“”)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">1</span>)</span><br><span class="line"><span class="string">&#x27;1&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">2</span>)</span><br><span class="line"><span class="string">&#x27;\n2&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">4</span>)</span><br><span class="line"><span class="string">&#x27;\n3\n4&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">4</span>)</span><br><span class="line"><span class="string">&#x27;\n5\n6&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">1</span>)</span><br><span class="line"><span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="readline"><a href="#readline" class="headerlink" title="readline()"></a>readline()</h3><p><em>f.read( )</em> 返回文件的单独一行.以 “\n” 作为每行的结束,最后一行的使不使用换行符则无所谓.<br>首先对最初的测试文件 <em>test.txt</em> 测试,其最初最后一行没有换行:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;1\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;2\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;3\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;4\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;5\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;6&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br></pre></td></tr></table></figure>
+
+<p>然后这里我们将测试文件 <em>test.txt</em> ,在最后一行换行,如下图：<br><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1f9nv9d7ehnj208t0530sq.jpg"><br>然后通过 <em>readline( )</em> 测试</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;1\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;2\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;3\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;4\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;5\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;6\n&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.readline()</span><br><span class="line"><span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>通过上述的两个用例,我们可以发现和 <em>read( )</em> 一样,如果返回空字符串,则说明到达文件末尾.当空白行被换行符分割,它将作为一个新的一行,这里就不测试了.</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>通过循环去读取一个文件,是最快最有效率的方式,如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">	<span class="built_in">print</span> line</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure>
+<p>如果你想一次性将所有内容作为 list 返回,可以使用 <em>list(f)</em> 或者 <em>f.readlines()</em></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/11/03/MVP%20for%20Android/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2016/11/03/MVP%20for%20Android/" class="post-title-link" itemprop="url">MVP for Android</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-11-03 00:00:00" itemprop="dateCreated datePublished" datetime="2016-11-03T00:00:00+08:00">2016-11-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>翻译自 MVP for Android: how to organize the presentation layer<br><a target="_blank" rel="noopener" href="http://antonioleiva.com/mvp-android">原文地址</a></p>
+</blockquote>
+<p>MVP(Model View Presenter) 模式是从著名的 MVC(Model View Controller)中衍生出来的.MVC 有段时间哪怕是现在在 Android 应用开发中也是有着举足轻重的作用.现在有越来越多的人们讨论它(MVP),但是却少有可靠的和结构清晰的信息.这就是为什么我想通过这篇博客来以带动讨论从而使得我们开动脑筋以期可以将它以最好的方式应用到我们项目当中去.</p>
+<h1 id="什么是-MVP"><a href="#什么是-MVP" class="headerlink" title="什么是 MVP"></a>什么是 MVP</h1><p>MVP 模式允许从逻辑上将展示层分离开,那就意味着接口是如何工作将会从如何展示中分离出来.理想状态下如果 MVP 模式实现这些逻辑,它将拥有完全不同的和可交互的视图.</p>
+<p>首先需要澄清的是 MVP 不是一个结构化的模式,它只对展示层有效.无论如何在你的架构中使用它总归会更好一点.</p>
+<h1 id="为什么使用-MVP"><a href="#为什么使用-MVP" class="headerlink" title="为什么使用 MVP"></a>为什么使用 MVP</h1><p>在 Android 中我们有一个问题,问题来源于 Android 的活动与接口和数据访问机制紧密耦合.我们可以找一些极端的例子,比如说 <em>CursorAdapter</em>,其在使用光标的情况下混用了多个适配器,按道理说光标应该归入到深层的数据访问层.</p>
+<p>对于一个应用来说如果想要易拓展和易维护的话,我们需要很好的定义各个分离的层.将来的趋势是什么,从一个 Web 服务器的数据库检索相同数据?我们需要重新装饰我们所有的视图.</p>
+<p>MVP 模式可以让视图和我们的数据源独立开来.我们将应用分成不少于三个不同的图层(layers)来测试他们的独立性.<br>使用 MVP 我们可以将绝多数的逻辑从活动分离出来,那样的话,我们可以在没有使用任何仪器下测试.</p>
+<h1 id="如何在-Android-中实现-MVP"><a href="#如何在-Android-中实现-MVP" class="headerlink" title="如何在 Android 中实现 MVP"></a>如何在 Android 中实现 MVP</h1><p>这是就是低耦合的开始.这里有许多不同种类的 MVP 并且每个人都可以调整模式去适应他们自己的需求,以便更舒服的使用它.模式种类基本上取决于我们给 presenter 的责任多少.</p>
+<p>视图有责任去启用和禁用进度条,或者它由 presenter 去完成吗?又由谁决定在 Action Bar 展示什么行为?这就是最艰难的决定开始的地方.我将会介绍通常我是如何工作的.但是我更希望这篇文章成为更严格的应用 MVP 模式的指导方针的讨论的地方,因为我们都知道这里没有一个标准的方法去实现它.</p>
+<h1 id="The-Presenter"><a href="#The-Presenter" class="headerlink" title="The Presenter"></a>The Presenter</h1><p>presenter负责充当视图和模型之间的中间人.它从模型中检索数据,然后将它格式化的返回到视图中去.但是与典型的 MVC 模式不同的是,它同样决定当你与视图交互的时候发生什么.</p>
+<h1 id="The-View"><a href="#The-View" class="headerlink" title="The View"></a>The View</h1><p>视图通常由一个活动(它可能是一个 Fragment,一个 View…取决于这个 app 是如何架构的)继承实现(implemented),其中包含一个 presenter 的引用.Presenter 将会提供一个独立的注入就像<a target="_blank" rel="noopener" href="http://square.github.io/dagger/">Dagger</a>.但是如果你不使用这样的东西,它将负责创建一个 presenter 对象.视图需要做的唯一一件事情就是当一个接口执行的时候,调用 presenter 其中的方法.</p>
+<h1 id="The-model"><a href="#The-model" class="headerlink" title="The model"></a>The model</h1><p>在拥有一个良好的分层架构的应用程序中,这种模式只会通往域层或业务逻辑.如果我们正在使用<a target="_blank" rel="noopener" href="https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html">Uncle Bob clean architecture </a>,模型可能是一个实现了一个用例的交互器.但这是另一个话题,我想在以后的文章中讨论.现在,我们可以意识到它可以作为我们希望显示在视图中的那些数据的提供者.</p>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>由于它解释起来有点冗长的，因此我在 Github 上创建了一个 <a href="https://github.com/antoniolg/androidmvp">MVP 样例</a>,样例包含一个登陆页面验证数据,验证成功后访问包含从模型中检索的一系列表数据的主页.本文并没有对代码进行任何解释,因为代码相当简单.当然如果你觉得理解起来比较困难 的话,我将再写一篇文章详细的解释它.</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>将界面与逻辑分离开在 Android 并不容易,但是 Model-View-Presenter 模式使得我们的活动,包含上百行甚至上千行的耦合的类得以解耦.在大型应用程序中组织好我们的代码至关重要.如果没有做好这点,维护和拓展就无从谈起.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/10/24/PHP%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83(%E4%B8%80)%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2016/10/24/PHP%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83(%E4%B8%80)%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" class="post-title-link" itemprop="url">PHP编码规范(一)基本代码规范</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-10-24 00:00:00" itemprop="dateCreated datePublished" datetime="2016-10-24T00:00:00+08:00">2016-10-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>此处的“类”指代所有的类、接口以及可复用代码块（traits）</p>
+<h3 id="4-1-常量"><a href="#4-1-常量" class="headerlink" title="4.1. 常量"></a>4.1. 常量</h3><p>类的常量中所有字母都<strong>必须</strong>大写，词间以下划线分隔。<br>参照以下代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Vendor</span>\<span class="title">Model</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> VERSION = <span class="string">&#x27;1.0&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> DATE_APPROVED = <span class="string">&#x27;2012-06-01&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-属性"><a href="#4-2-属性" class="headerlink" title="4.2. 属性"></a>4.2. 属性</h3><p>类的属性命名可以遵循 大写开头的驼峰式 (<code>$StudlyCaps</code>)、小写开头的驼峰式 (<code>$camelCase</code>) 又或者是 下划线分隔式 (<code>$under_score</code>)，本规范不做强制要求，但无论遵循哪种命名方式，都<strong>应该</strong>在一定的范围内保持一致。这个范围可以是整个团队、整个包、整个类或整个方法。</p>
+<h3 id="4-3-方法"><a href="#4-3-方法" class="headerlink" title="4.3. 方法"></a>4.3. 方法</h3><p>方法名称<strong>必须</strong>符合 <code>camelCase()</code> 式的小写开头驼峰命名规范。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/10/14/Visio%E7%9A%84UML%E7%AC%A6%E5%8F%B7%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2016/10/14/Visio%E7%9A%84UML%E7%AC%A6%E5%8F%B7%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" class="post-title-link" itemprop="url">Visio的UML符号使用说明</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-10-14 00:00:00" itemprop="dateCreated datePublished" datetime="2016-10-14T00:00:00+08:00">2016-10-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/comb_august/article/details/8839190">原文链接</a></p>
+</blockquote>
+<h1 id="关于Visio的UML的符号使用说明"><a href="#关于Visio的UML的符号使用说明" class="headerlink" title="关于Visio的UML的符号使用说明"></a>关于Visio的UML的符号使用说明</h1><ol>
+<li>继承（extends）：用空心三角形+实线来表示。</li>
+<li>实现接口（implements）：用空心三角形+虚线来表示。（Visio中小圆形加实线） </li>
+<li>关联（Association）：用实线箭头来表示（Visio中实线，二元关联和关联类） </li>
+<li>聚合（Aggregation）：用空心的菱形+实线箭头来表示</li>
+<li>组合（Composition）：用实心的菱形+实线箭头来表示（Visio中没有）</li>
+<li>依赖（Dependency）：用虚线箭头来表示。（Visio中有调用、导入、实例化等7种依赖关系）。 </li>
+<li>基数：连线两端的数字表明这一端的类可以有几个实例，比如：一个鸟应该有两只翅膀。如果一个类可能有无数个实例，则就用’n’来表示。关联、聚合、组合是有基数的。<br>此外Visio中还包括链接、约束、跟踪、精化、用法关系，包括信号、异常等符号。</li>
+</ol>
+<h1 id="各种类间的关系"><a href="#各种类间的关系" class="headerlink" title="各种类间的关系"></a>各种类间的关系</h1><p>种类间的关系：</p>
+<ol>
+<li>关联：类A与类B的实例之间存在特定的对应关系</li>
+<li>依赖：类A访问类B提供的服务</li>
+<li>聚集：类A为整体类，类B为局部类，类A的对象由类B的对象组合而成</li>
+<li>泛化：类A继承类B</li>
+<li>实现：类A实现了B接口 </li>
+</ol>
+<p>关联可以分为三种：一对一关联、一对多关联、多对多关联，注意：关联还要以分为单向关联和双向关联。</p>
+<p>聚合包括普通聚合和强聚合，强聚合不允许拆缷。</p>
+<h1 id="各种类关系示意图"><a href="#各种类关系示意图" class="headerlink" title="各种类关系示意图"></a>各种类关系示意图</h1><p><img src="http://ww4.sinaimg.cn/large/d9e82fa4gw1f8cshl7hhqj20ld0p5jxx.jpg"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/10/13/MySQL%E7%9A%84%E5%B7%A6%E8%BF%9E%E6%8E%A5,%E5%8F%B3%E8%BF%9E%E6%8E%A5%E5%92%8C%E5%86%85%E8%BF%9E%E6%8E%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2016/10/13/MySQL%E7%9A%84%E5%B7%A6%E8%BF%9E%E6%8E%A5,%E5%8F%B3%E8%BF%9E%E6%8E%A5%E5%92%8C%E5%86%85%E8%BF%9E%E6%8E%A5/" class="post-title-link" itemprop="url">MySQL的左连接,右连接和内连接</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-10-13 00:00:00" itemprop="dateCreated datePublished" datetime="2016-10-13T00:00:00+08:00">2016-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="创建测试表"><a href="#创建测试表" class="headerlink" title="创建测试表"></a>创建测试表</h1><p>这里创建两张测试表 </p>
+<h2 id="创建-test-provinceid-表"><a href="#创建-test-provinceid-表" class="headerlink" title="创建 test_provinceid 表"></a>创建 test_provinceid 表</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `test_province` (</span><br><span class="line">	`id` <span class="type">CHAR</span>(<span class="number">2</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	`pname` <span class="type">CHAR</span>(<span class="number">6</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	<span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">)</span><br><span class="line">COMMENT<span class="operator">=</span><span class="string">&#x27;省份&#x27;</span></span><br><span class="line"><span class="keyword">COLLATE</span><span class="operator">=</span><span class="string">&#x27;utf8_general_ci&#x27;</span></span><br><span class="line">ENGINE<span class="operator">=</span>InnoDB;</span><br></pre></td></tr></table></figure>
+<h2 id="创建-test-cityid-表"><a href="#创建-test-cityid-表" class="headerlink" title="创建 test_cityid 表"></a>创建 test_cityid 表</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `test_city` (</span><br><span class="line">	`id` <span class="type">CHAR</span>(<span class="number">2</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	`pid` <span class="type">CHAR</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	`cname` <span class="type">CHAR</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">COLLATE</span> <span class="string">&#x27;latin1_swedish_ci&#x27;</span>,</span><br><span class="line">	<span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">)</span><br><span class="line">COMMENT<span class="operator">=</span><span class="string">&#x27;城市&#x27;</span></span><br><span class="line"><span class="keyword">COLLATE</span><span class="operator">=</span><span class="string">&#x27;utf8_general_ci&#x27;</span></span><br><span class="line">ENGINE<span class="operator">=</span>InnoDB;</span><br></pre></td></tr></table></figure>
+<h2 id="插入测试数据"><a href="#插入测试数据" class="headerlink" title="插入测试数据"></a>插入测试数据</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_province` (`id`, `pname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;AH&#x27;</span>, <span class="string">&#x27;安徽省&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_province` (`id`, `pname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;ZJ&#x27;</span>, <span class="string">&#x27;浙江&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_province` (`id`, `pname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;HN&#x27;</span>, <span class="string">&#x27;河南&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_city` (`id`, `pid`, `cname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;01&#x27;</span>, <span class="string">&#x27;AH&#x27;</span>, <span class="string">&#x27;合肥&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_city` (`id`, `pid`, `cname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;04&#x27;</span>, <span class="string">&#x27;AH&#x27;</span>, <span class="string">&#x27;六安&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_city` (`id`, `pid`, `cname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;02&#x27;</span>, <span class="string">&#x27;HN&#x27;</span>, <span class="string">&#x27;郑州&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_city` (`id`, `pid`, `cname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;03&#x27;</span>, <span class="string">&#x27;HB&#x27;</span>, <span class="string">&#x27;石家庄&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>数据库中 test_province 数据现在有如下这些:<br><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1f8qv8m5xg0j203z027t8n.jpg"><br>数据库中 test_city 数据现在有如下这些:<br><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1f8qv1x80zbj205902sjrf.jpg"></p>
+<h1 id="左连接"><a href="#左连接" class="headerlink" title="左连接"></a>左连接</h1><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> a  <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> b </span><br><span class="line"><span class="keyword">ON</span> a.key <span class="operator">=</span> b.key</span><br></pre></td></tr></table></figure>
+<p>左连接以左边的表作为主表,这里我们以 test_province 为主表,查看一个省份在 test_city 中有哪些城市</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_province a <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_city) b <span class="keyword">on</span> a.id <span class="operator">=</span> b.pid</span><br></pre></td></tr></table></figure>
+<h2 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h2><p><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1f8qveidj0ej209b02q74l.jpg"><br>注意:这里将省份存在,城市不存在的数据也显示出来了</p>
+<h1 id="右连接"><a href="#右连接" class="headerlink" title="右连接"></a>右连接</h1><h2 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> a  <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> b </span><br><span class="line"><span class="keyword">ON</span> a.key <span class="operator">=</span> b.key</span><br></pre></td></tr></table></figure>
+<p>有上述的左连接的认知,我们不难得出,右连接是以右边的表作为主表的认识,这里我们将上面的语句简单修改一下</p>
+<h2 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_province a <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_city) b <span class="keyword">on</span> a.id <span class="operator">=</span> b.pid</span><br></pre></td></tr></table></figure>
+<h2 id="执行结果-1"><a href="#执行结果-1" class="headerlink" title="执行结果"></a>执行结果</h2><p><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1f8qv7cnbavj208w028mxc.jpg"><br>注意:这里将城市存在,省份不存在的数据也显示出来了</p>
+<h1 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h1><h2 id="语法-2"><a href="#语法-2" class="headerlink" title="语法"></a>语法</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> a  <span class="keyword">INNER</span> <span class="keyword">JOIN</span> b </span><br><span class="line"><span class="keyword">ON</span> a.key <span class="operator">=</span> b.key</span><br></pre></td></tr></table></figure>
+<p>左连接以左边的表作为主表,有连接以右边的表作为主表,还差一个以双方作为主表的连接,那就是内连接啦,内连接的想法很简单,你有我有大家都有才是真的有,同样简单修改一下语句</p>
+<h2 id="测试-2"><a href="#测试-2" class="headerlink" title="测试"></a>测试</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_province a <span class="keyword">INNER</span> <span class="keyword">JOIN</span> (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_city) b <span class="keyword">on</span> a.id <span class="operator">=</span> b.pid</span><br></pre></td></tr></table></figure>
+
+<h2 id="执行结果-2"><a href="#执行结果-2" class="headerlink" title="执行结果"></a>执行结果</h2><p><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1f8qvcx4pd3j207x02d3yo.jpg"><br>注意: 这里只显示了城市和省份想匹配的数据</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/10/12/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2016/10/12/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">单例模式</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-10-12 00:00:00" itemprop="dateCreated datePublished" datetime="2016-10-12T00:00:00+08:00">2016-10-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="单例模式的定义"><a href="#单例模式的定义" class="headerlink" title="单例模式的定义"></a>单例模式的定义</h3><p>维基百科的定义</p>
+<blockquote>
+<p>In software engineering, the singleton pattern is a design pattern that restricts the instantiation of a class to one object. This is useful when exactly one object is needed to coordinate actions across the system. The concept is sometimes generalized to systems that operate more efficiently when only one object exists, or that restrict the instantiation to a certain number of objects. </p>
+</blockquote>
+<p>翻译后的意思</p>
+<blockquote>
+<p>在软件工程中,单例模式是一种设计模式,它限制了一个类的只能实例化出唯一一个对象。这是十分有用的尤其一个对象需要协调整个系统运作.这个概念在有的时候会被广义的认知当且仅当只有一个对象存在是,系统将运行的更加有效率或者将对象的实例化限制在一定的数量下.</p>
+</blockquote>
+<h3 id="单例模式的-UML-类图"><a href="#单例模式的-UML-类图" class="headerlink" title="单例模式的 UML 类图"></a>单例模式的 UML 类图</h3><p><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1f8premihj7j20et084wf0.jpg"></p>
+<p>从上面的类图可以看出,单例模式中有一个构造函数 <em>Singleton</em>,但是这个构造函数是私有的 (‘-‘ 符号代表私有变量)，然后有一个公有的方法 getInstance()<br>看完 UML 类图,接下来让我们实现一个简单的单例模式</p>
+<h3 id="单例模式的实现"><a href="#单例模式的实现" class="headerlink" title="单例模式的实现"></a>单例模式的实现</h3><p>java 的单例模式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pubic <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton instance = <span class="keyword">new</span> Singletion();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singletion <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>java的单例模式有七种写法,这里就不一一列举了,可以参考<a target="_blank" rel="noopener" href="http://blog.csdn.net/zoushaohua84/article/details/46892889">java 单例模式的七种写法</a></p>
+<h3 id="单例模式的特点以及应用场景"><a href="#单例模式的特点以及应用场景" class="headerlink" title="单例模式的特点以及应用场景"></a>单例模式的特点以及应用场景</h3><p>从上述 UML 类图以及代码不难总结出单例模式有以下特点:</p>
+<ol>
+<li>单例模式下该类有且只有一个实例</li>
+<li>单例模式下该类自己创建自己的唯一实例</li>
+<li>单例模式下该类必须给其他对象提供获取该实例的方法</li>
+</ol>
+<p>单例模式的应用可以从单例模式的优点说起,由于单例模式在系统运行过程中只存在唯一一个实例对象,可以节约系统资源,对于一些需要频繁创建和销毁的对象单例模式无疑可以提高系统的性能,在实际应用中 数据库通常使用单例模式较多,避免重复连接数据库造成资源的浪费</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/10/11/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8virtualenv/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2016/10/11/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8virtualenv/" class="post-title-link" itemprop="url">为什么使用virtualenv</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-10-11 00:00:00" itemprop="dateCreated datePublished" datetime="2016-10-11T00:00:00+08:00">2016-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="virtualenv-的安装"><a href="#virtualenv-的安装" class="headerlink" title="virtualenv 的安装"></a>virtualenv 的安装</h1><h2 id="Ubuntu-下-virtualenv-的安装"><a href="#Ubuntu-下-virtualenv-的安装" class="headerlink" title="Ubuntu 下 virtualenv 的安装"></a>Ubuntu 下 virtualenv 的安装</h2><p>Ubuntu 下的安装 python 的第三方依赖库就不得不提 python 的三大神器之 <strong>pip</strong>.默认情况下 Ubuntu 是没有安装的,可以在命令行下使用<em>pip xxx</em> 进行简单测试.</p>
+<h3 id="pip-的安装"><a href="#pip-的安装" class="headerlink" title="pip 的安装"></a>pip 的安装</h3><p>pip 安装有很多方法,最简单的就是命令行输入下列命令,然后回车</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-pip</span><br></pre></td></tr></table></figure>
+<p>当然还有其他的安装方式,可以参考<a target="_blank" rel="noopener" href="https://pip.pypa.io/en/stable/installing/">How to install pip</a></p>
+<p>pip 安装完成之后,接下来就是重头戏了.</p>
+<h3 id="virtualenv-的安装-1"><a href="#virtualenv-的安装-1" class="headerlink" title="virtualenv 的安装"></a>virtualenv 的安装</h3><p>在命令行下输入如下命令,然后回车</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install virtualenv</span><br></pre></td></tr></table></figure>
+<p>同样安装方法有很多种,可以参考<a target="_blank" rel="noopener" href="https://virtualenv.pypa.io/en/stable/installation/">How to install virtualenv</a></p>
+<h3 id="virtualenv-的简单入门"><a href="#virtualenv-的简单入门" class="headerlink" title="virtualenv 的简单入门"></a>virtualenv 的简单入门</h3><p><strong>创建虚拟环境</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtualenv ENV</span><br></pre></td></tr></table></figure>
+
+<p>创建一个名为 <strong>ENV</strong>的文件夹,在创建环境时会依赖系统环境的site-packages，如果想完全不依赖系统的site-packages，可以加上参数–no-site-packages来建立虚拟环境.<br>然后进入到<strong>ENV</strong>的目录下,目录下有如下文件夹:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">:~/ENV$ ls</span></span><br><span class="line">bin  include  lib  local  pip-selfcheck.json</span><br></pre></td></tr></table></figure>
+<p><strong>激活虚拟环境</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source bin/activate</span><br></pre></td></tr></table></figure>
+<p>激活成功后,命令行前面会出现**(ENV)**的符号,如下图所示:<br><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1f8njgfw9bcj20k200yt8w.jpg"><br><strong>注意</strong>:</p>
+<ol>
+<li><em>ENV/lib</em> 和 <em>ENV/include</em> 包含了该环境下所支持的库.在当前环境下安装的包将会保存在 <em>ENV/lib/pythonX.X/site-packages</em> 下</li>
+<li><em>ENV/bin</em> 则是 编译器所在之处了,在当前环境下你的 python 脚本文件的头部写法应该是这样的 <em>#!/path/to/ENV/bin/python</em></li>
+<li>在 virtualenv 环境下 pip 和 setuptools 是默认安装的,然后你可以很容易的安装其他的三方库</li>
+</ol>
+<p><strong>退出虚拟环境</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+
+<h2 id="Windows-下-virtualenv-的安装"><a href="#Windows-下-virtualenv-的安装" class="headerlink" title="Windows 下 virtualenv 的安装"></a>Windows 下 virtualenv 的安装</h2><p>windows 下安装 virtualenv 跟Ubuntu下安装大同小异,实现安装好 pip,然后将其路径添加到系统环境变量,然后紧接着安装 virtualenv ,然后完成之后尝试在任意路径新建新的虚拟环境了.</p>
+<h1 id="为什么要使用-virtualenv"><a href="#为什么要使用-virtualenv" class="headerlink" title="为什么要使用 virtualenv"></a>为什么要使用 virtualenv</h1><p>老实说最初我并不怎么喜欢使用 <strong>virtualenv</strong>,但是随着后来写的代码越来越多,项目所依赖的第三库也各不相同,需要别人去协助的我的时候,由于没有使用<strong>virtualenv</strong>,导致本地的 python 中的三方库十分的多,这样导致还需要人工去判断当前项目使用哪些库何其麻烦.而 virtualenv 的作用就是用来建立一个虚拟的python环境，一个专属于项目的python环境,保持一个相当干净的环境<br>使用 <strong>virtualenv</strong> 后导出已安装的包,只需要如下命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip freeze &gt; &lt;目录&gt;/requirements.txt</span><br></pre></td></tr></table></figure>
+<p>然后别人安装你的依赖,也只需要一个简单的命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/LeetaoGoooo/leetaogoooo.github.io.git/page/17/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/LeetaoGoooo/leetaogoooo.github.io.git/">1</a><span class="space">&hellip;</span><a class="page-number" href="/LeetaoGoooo/leetaogoooo.github.io.git/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/LeetaoGoooo/leetaogoooo.github.io.git/page/19/">19</a><a class="extend next" rel="next" href="/LeetaoGoooo/leetaogoooo.github.io.git/page/19/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"7d069a2ee22db68c02b4fea55f525283"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

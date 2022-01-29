@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="部署过程中出现错误 [emerg] 10255#0: bind() to 0.0.0.0:80 failed (98: Address already in use)  解决办法,使用如下命令关闭占用80端口的程序 1sudo fuser -k 80&#x2F;tcp  准备工作安装相关的软件使用如下命令行,完成相应的 python-pip python-dev 和 ngnix 安装 12sudo apt-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How To Serve Flask Applications with uWSGI and Nginx on Ubuntu 14.04">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/04/10/How%20To%20Serve%20Flask%20Applications%20with%20uWSGI%20and%20Nginx%20on%20Ubuntu%2014.04/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="部署过程中出现错误 [emerg] 10255#0: bind() to 0.0.0.0:80 failed (98: Address already in use)  解决办法,使用如下命令关闭占用80端口的程序 1sudo fuser -k 80&#x2F;tcp  准备工作安装相关的软件使用如下命令行,完成相应的 python-pip python-dev 和 ngnix 安装 12sudo apt-">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/d9e82fa4ly1fehvhoila8j205601ea9u.jpg">
+<meta property="article:published_time" content="2017-04-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.012Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/d9e82fa4ly1fehvhoila8j205601ea9u.jpg">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/04/10/How%20To%20Serve%20Flask%20Applications%20with%20uWSGI%20and%20Nginx%20on%20Ubuntu%2014.04/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/04/10/How%20To%20Serve%20Flask%20Applications%20with%20uWSGI%20and%20Nginx%20on%20Ubuntu%2014.04/","path":"2017/04/10/How To Serve Flask Applications with uWSGI and Nginx on Ubuntu 14.04/","title":"How To Serve Flask Applications with uWSGI and Nginx on Ubuntu 14.04"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>How To Serve Flask Applications with uWSGI and Nginx on Ubuntu 14.04 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF"><span class="nav-number">1.</span> <span class="nav-text">部署过程中出现错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%9B%B8%E5%85%B3%E7%9A%84%E8%BD%AF%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">安装相关的软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-Python%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="nav-number">2.2.</span> <span class="nav-text">创建 Python的虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAflask%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.3.</span> <span class="nav-text">创建flask项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Flask-%E5%92%8C-uWSGI"><span class="nav-number">2.3.1.</span> <span class="nav-text">安装 Flask 和 uWSGI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8"><span class="nav-number">2.3.2.</span> <span class="nav-text">创建应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-WSGI-%E5%85%A5%E5%8F%A3"><span class="nav-number">2.3.3.</span> <span class="nav-text">创建 WSGI 入口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-uWSGI"><span class="nav-number">2.4.</span> <span class="nav-text">配置 uWSGI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95-uWSGI-%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.4.1.</span> <span class="nav-text">测试 uWSGI 的服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-uWSGI-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.4.2.</span> <span class="nav-text">创建 uWSGI 配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%AC"><span class="nav-number">2.4.3.</span> <span class="nav-text">创建启动脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Nginx-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">2.5.</span> <span class="nav-text">配置 Nginx 反向代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-Nginx-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.5.1.</span> <span class="nav-text">创建 Nginx 配置文件</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/04/10/How%20To%20Serve%20Flask%20Applications%20with%20uWSGI%20and%20Nginx%20on%20Ubuntu%2014.04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          How To Serve Flask Applications with uWSGI and Nginx on Ubuntu 14.04
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-04-10 00:00:00" itemprop="dateCreated datePublished" datetime="2017-04-10T00:00:00+08:00">2017-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="部署过程中出现错误"><a href="#部署过程中出现错误" class="headerlink" title="部署过程中出现错误"></a>部署过程中出现错误</h1><blockquote>
+<p>[emerg] 10255#0: bind() to 0.0.0.0:80 failed (98: Address already in use)</p>
+</blockquote>
+<p>解决办法,使用如下命令关闭占用80端口的程序</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fuser -k 80/tcp</span><br></pre></td></tr></table></figure>
+
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="安装相关的软件"><a href="#安装相关的软件" class="headerlink" title="安装相关的软件"></a>安装相关的软件</h2><p>使用如下命令行,完成相应的 <em>python-pip python-dev</em> 和 <em>ngnix</em> 安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install python-pip python-dev nginx</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建-Python的虚拟环境"><a href="#创建-Python的虚拟环境" class="headerlink" title="创建 Python的虚拟环境"></a>创建 Python的虚拟环境</h2><p>参考我的另一文章<a target="_blank" rel="noopener" href="http://www.leetao94.cn/2016/10/11/why-I-use-virtualenv/">为什么使用virtualenv</a></p>
+<p>安装成功之后,然后创建为我们的flask项目创建一个目录，然后在该目录下创建虚拟环境,如下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/myproject</span><br><span class="line">cd ~/myproject</span><br><span class="line">virtualenv myprojectenv</span><br></pre></td></tr></table></figure>
+
+<p>关于 <em>virtuelenv</em> 相关使用这里不再讲述</p>
+<h2 id="创建flask项目"><a href="#创建flask项目" class="headerlink" title="创建flask项目"></a>创建flask项目</h2><h3 id="安装-Flask-和-uWSGI"><a href="#安装-Flask-和-uWSGI" class="headerlink" title="安装 Flask 和 uWSGI"></a>安装 Flask 和 uWSGI</h3><p>使用 <em>pip</em> 安装 Falsk 和 uWSGI,这里我们不需要激活虚拟环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install uwsgi flask</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h3><p>这里作为演示,我们将会在一个文件中创建一个简单的应用.使用下面命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/myproject/myproject.py</span><br></pre></td></tr></table></figure>
+
+<p>然后在文件中键入下述代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line">application = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@application.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&lt;h1 style=&#x27;color:blue&#x27;&gt;Hello There!&lt;/h1&gt;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    application.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>保存并退出,然后我们通过命令行运行我们的应用了:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python myproject.py</span><br></pre></td></tr></table></figure>
+
+<p>然后通过浏览器访问,终端输出的 IP 地址或者域名(xxxx:5000)，然后你可能会看见下图:</p>
+<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1fehvhoila8j205601ea9u.jpg"></p>
+<h3 id="创建-WSGI-入口"><a href="#创建-WSGI-入口" class="headerlink" title="创建 WSGI 入口"></a>创建 WSGI 入口</h3><p>经过刚才验证,我们已经可以确认项目可以运行,接下来我们将创建一个文件，作为我们应用的入口.通过这个文件我们可以很好的与 uWSGI 进行交互.通过命令行创建 <em>wsgi.py</em> 文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/myproject/wsgi.py</span><br></pre></td></tr></table></figure>
+
+<p>这个文件十分简单,我们可以简单的将我们的 flask 应用实例引入进来，然后运行它</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># wsgi.py</span></span><br><span class="line"><span class="keyword">from</span> myproject <span class="keyword">import</span> application</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    application.run()</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置-uWSGI"><a href="#配置-uWSGI" class="headerlink" title="配置 uWSGI"></a>配置 uWSGI</h2><p>我们的应用基本完成然后我们应用的入口也成功的创建了,接下来我们就需要开始 uWSGI 的配置了</p>
+<h3 id="测试-uWSGI-的服务"><a href="#测试-uWSGI-的服务" class="headerlink" title="测试 uWSGI 的服务"></a>测试 uWSGI 的服务</h3><p>我们需要做的第一件事就是测试 uWSGI 能不能运行我们的应用.不需要太麻烦，我们只需要通过下述的命令就可以测试:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --socket 0.0.0.0:8000 --protocol=http -w wsgi</span><br></pre></td></tr></table></figure>
+
+<p>现在你可以通过浏览器访问你的应用,类似xxxx:8000，如果你看见和刚才一样的页面就说明的测试基本是成功的.如果在此之前你激活了你的虚拟环境,那么接下来记得退出它,接下来的操作都是需要在本地的 Python 环境下.</p>
+<h3 id="创建-uWSGI-配置文件"><a href="#创建-uWSGI-配置文件" class="headerlink" title="创建 uWSGI 配置文件"></a>创建 uWSGI 配置文件</h3><p>同样是在之前的项目文件下创建 <em>myproject.ini</em> 文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/myproject/myproject.ini</span><br></pre></td></tr></table></figure>
+
+<p>然后在该文件中键入如下内容:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[uwsgi]</span><br><span class="line">module = wsgi</span><br><span class="line"></span><br><span class="line">master = true</span><br><span class="line">processes = 5</span><br><span class="line"></span><br><span class="line">socket = myproject.sock</span><br><span class="line">chmod-socket = 660</span><br><span class="line">vacuum = true</span><br><span class="line"></span><br><span class="line">die-on-term = true</span><br></pre></td></tr></table></figure>
+<p>输入完成之后保存并退出.</p>
+<h3 id="创建启动脚本"><a href="#创建启动脚本" class="headerlink" title="创建启动脚本"></a>创建启动脚本</h3><p>创建启动脚本的目的就是为了在服务运行的时候可以运行我们的 Flask 应用.我们需要在*/etc/init*目录下创建一个 <em>.conf</em>的文件,这里我们就以 <em>myproject.conf</em>为例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/init/myproject.conf</span><br></pre></td></tr></table></figure>
+
+<p>然后键入如下内容:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">description &quot;uWSGI server instance configured to serve myproject&quot;</span><br><span class="line"></span><br><span class="line">start on runlevel [2345]</span><br><span class="line">stop on runlevel [!2345]</span><br><span class="line"></span><br><span class="line">setuid user</span><br><span class="line">setgid www-data</span><br><span class="line"></span><br><span class="line">env PATH=/home/user/myproject/myprojectenv/bin</span><br><span class="line">chdir /home/user/myproject</span><br><span class="line">exec uwsgi --ini myproject.ini</span><br></pre></td></tr></table></figure>
+<p>添加完成后保存并退出,接下来我们就可以通过命令启动该进程了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo start myproject</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置-Nginx-反向代理"><a href="#配置-Nginx-反向代理" class="headerlink" title="配置 Nginx 反向代理"></a>配置 Nginx 反向代理</h2><p>我们的 uWSGI 应用现在已经被启动并运行了,在项目目录下等待着请求.我们还需要通过配置 Nginx 将 web 请求转发到该接口上.</p>
+<h3 id="创建-Nginx-配置文件"><a href="#创建-Nginx-配置文件" class="headerlink" title="创建 Nginx 配置文件"></a>创建 Nginx 配置文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/nginx/sites-available/myproject</span><br></pre></td></tr></table></figure>
+
+<p>然后键入如下命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name server_domain_or_IP;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        include uwsgi_params;</span><br><span class="line">        uwsgi_pass unix:/home/user/myproject/myproject.sock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>添加完成后保存并退出.为了保证我们的配置能够生效,我们需要将文件链接到 <em>sites-enabled</em> 目录下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /etc/nginx/sites-available/myproject /etc/nginx/sites-enabled</span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过下述命令测试我们创建的文件语法是否正确:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t</span><br></pre></td></tr></table></figure>
+<p>如果没有返回任何错误信息,我们可以重启 Nginx 重新加载我们的配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginix restart</span><br></pre></td></tr></table></figure>
+
+<p>现在你可以通过浏览器直接访问你的域名或者IP地址看到我们的应用了.</p>
+<blockquote>
+<p>参考地址:<a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-ubuntu-14-04">https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-ubuntu-14-04</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2017/03/28/Openlayers%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E5%8A%A0%E8%BD%BD%E6%95%88%E6%9E%9C/" rel="prev" title="Openlayers仿链家网加载效果">
+                  <i class="fa fa-chevron-left"></i> Openlayers仿链家网加载效果
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2017/06/02/How%20To%20Structure%20Large%20Flask%20Applications/" rel="next" title="How To Structure Large Flask Applications">
+                  How To Structure Large Flask Applications <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"f34d9e34b3343aaf2e72a85299005dcc"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

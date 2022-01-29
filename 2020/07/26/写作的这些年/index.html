@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="写作平台的迁移历史我从14年就开始写博客了，也就是大二的时候，陆陆续续地也在很多平台写过文章。最初的第一个平台是博客园，起初写的是自己刷题的记录，后来把大部分的文章都删了。接着就是在 Github 上使用 Hexo 搭建自己的个人博客，中间还穿插着在简书写过一段时间，后来简书出现过一次关于歧视程序员的事情，一怒之下就把所有写的文章也都删掉了。然后就在知乎上开了专栏，也开通了个人的微信公众号。随着时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="写作的这些年">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2020/07/26/%E5%86%99%E4%BD%9C%E7%9A%84%E8%BF%99%E4%BA%9B%E5%B9%B4/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="写作平台的迁移历史我从14年就开始写博客了，也就是大二的时候，陆陆续续地也在很多平台写过文章。最初的第一个平台是博客园，起初写的是自己刷题的记录，后来把大部分的文章都删了。接着就是在 Github 上使用 Hexo 搭建自己的个人博客，中间还穿插着在简书写过一段时间，后来简书出现过一次关于歧视程序员的事情，一怒之下就把所有写的文章也都删掉了。然后就在知乎上开了专栏，也开通了个人的微信公众号。随着时">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.051Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Trifles">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2020/07/26/%E5%86%99%E4%BD%9C%E7%9A%84%E8%BF%99%E4%BA%9B%E5%B9%B4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2020/07/26/%E5%86%99%E4%BD%9C%E7%9A%84%E8%BF%99%E4%BA%9B%E5%B9%B4/","path":"2020/07/26/写作的这些年/","title":"写作的这些年"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>写作的这些年 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E4%BD%9C%E5%B9%B3%E5%8F%B0%E7%9A%84%E8%BF%81%E7%A7%BB%E5%8E%86%E5%8F%B2"><span class="nav-number">1.</span> <span class="nav-text">写作平台的迁移历史</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%88%9D%E8%A1%B7"><span class="nav-number">2.</span> <span class="nav-text">写博客的初衷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%86%99%E5%8D%9A%E5%AE%A2%E5%91%A2%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">为什么会写博客呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%86%99%E5%88%B0%E8%AE%B0%E4%BA%8B%E6%9C%AC%E8%BF%99%E7%A7%8D%E7%A7%81%E5%AF%86%E7%9A%84%E5%9C%B0%E6%96%B9%E5%91%A2%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">为什么不写到记事本这种私密的地方呢？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E8%A6%81%E5%A4%9A%E4%B9%85"><span class="nav-number">3.</span> <span class="nav-text">写一篇博客要多久</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%8C%E6%9C%9B%E4%BB%8E%E5%86%99%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%94%B6%E8%8E%B7%E4%BB%80%E4%B9%88"><span class="nav-number">4.</span> <span class="nav-text">希望从写博客中收获什么</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2020/07/26/%E5%86%99%E4%BD%9C%E7%9A%84%E8%BF%99%E4%BA%9B%E5%B9%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          写作的这些年
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-26 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-26T00:00:00+08:00">2020-07-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="写作平台的迁移历史"><a href="#写作平台的迁移历史" class="headerlink" title="写作平台的迁移历史"></a>写作平台的迁移历史</h1><p>我从14年就开始写博客了，也就是大二的时候，陆陆续续地也在很多平台写过文章。最初的第一个平台是博客园，起初写的是自己刷题的记录，后来把大部分的文章都删了。接着就是在 Github 上使用 Hexo 搭建自己的个人博客，中间还穿插着在简书写过一段时间，后来简书出现过一次关于歧视程序员的事情，一怒之下就把所有写的文章也都删掉了。然后就在知乎上开了专栏，也开通了个人的微信公众号。随着时间的推移和年龄的增长，也越来越懒的在博客上折腾了，但是在别的平台去写文章，总有一种受制于人的感觉，最后就索性自己写买了个服务器写了一个个人博客网站，也就是现在的 Leetao’s Blog。</p>
+<h1 id="写博客的初衷"><a href="#写博客的初衷" class="headerlink" title="写博客的初衷"></a>写博客的初衷</h1><h2 id="为什么会写博客呢？"><a href="#为什么会写博客呢？" class="headerlink" title="为什么会写博客呢？"></a>为什么会写博客呢？</h2><p>作为一个每天都在接受新知识的程序员，有时候难免会遭遇各种问题，为了避免重蹈覆辙，所以就需要一个地方去记录这些东西。</p>
+<h2 id="为什么不写到记事本这种私密的地方呢？"><a href="#为什么不写到记事本这种私密的地方呢？" class="headerlink" title="为什么不写到记事本这种私密的地方呢？"></a>为什么不写到记事本这种私密的地方呢？</h2><p>自己吃过的亏分享出来，让别的人引以为戒，也可以帮助遇到相同问题的人快速的解决问题，最好的是可以和别人的思维产生碰撞，激发出新的想法来。<br>看到文章被别人评论，点赞，评论会有一种难以言表地成就感，我想这可能也是比较大的驱动力之一了。<br>对自己近期进行阶段性的回顾，工作久了就怕自己停滞不前，通过写博客可以帮助自己复盘，梳理自己是否有遗漏的点，是否学习到新的知识了。</p>
+<h1 id="写一篇博客要多久"><a href="#写一篇博客要多久" class="headerlink" title="写一篇博客要多久"></a>写一篇博客要多久</h1><p>写一篇文章不容易，写一篇让大家觉得好的文章更不容易。我通常写一篇博客，文章内容可能只有几百字，但是写起来可能会花掉我好几个小时，我得去思考如何写起来能让文章看起来更流畅，有条理性，希望读者能够从在我梳理的框架下很快的理解我写的东西。为了避免文章的可能出现错误，导致误导别人，需要去反复查证。为了可以在最短的篇幅中输出尽可能的知识，我可能会浏览很多同类的文章，去对比发现自己有没有遗漏什么重要的知识点。这也可能是自己写博客不太多的原因，当然有时候不知道写什么也是一大原因。</p>
+<h1 id="希望从写博客中收获什么"><a href="#希望从写博客中收获什么" class="headerlink" title="希望从写博客中收获什么"></a>希望从写博客中收获什么</h1><p>首先是写作本身带来的乐趣了，写作本身就是一件很有意思的事情，能够帮助自己平静下来，很显然当一个人心浮气躁的时候是无法完成写作的，当你全身心地投入到写作当中，你就自然而然的安静下来了。</p>
+<p>其次写博客最大的希望是收获读者的认可了。不过现在我发现一个现象，包括我自己，大家很少去对浏览的博客去写什么评论，点赞之类的。更多的可能是解决问题，关闭网页；新建文件夹，收藏一下，很少去和作者互动一下。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Trifles/" rel="tag"># Trifles</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2020/07/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%20-%E3%80%90Python%E7%AF%87%E3%80%91/" rel="prev" title="设计模式 -【Python篇】">
+                  <i class="fa fa-chevron-left"></i> 设计模式 -【Python篇】
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2020/08/06/2020%E5%B9%B4%E5%85%A8%E5%B9%B4%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%B1%87%E6%80%BB-(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/" rel="next" title="2020年全年读书笔记汇总-(持续更新)">
+                  2020年全年读书笔记汇总-(持续更新) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"be179b7447f4ef645d2d9e219c2291fd"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

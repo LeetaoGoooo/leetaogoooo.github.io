@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="What is Arrow function关于什么是箭头函数,让我们看一下 MDN 给出的定义  An arrow function expression has a shorter syntax than a function expression and does not have its own this, arguments, super, or new.target. These fu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6 arrow function and function declaration expressions">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/08/06/ES6%20arrow%20function%20and%20function%20declaration%20expressions/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="What is Arrow function关于什么是箭头函数,让我们看一下 MDN 给出的定义  An arrow function expression has a shorter syntax than a function expression and does not have its own this, arguments, super, or new.target. These fu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fu16qj14wxj30fb05lt8o.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fu1ew99prrj306p04xaa4.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006wYWbGly1fu1h993a8wj306804vdfw.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006wYWbGly1fu1hs0sg5ej307e025a9z.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006wYWbGly1fu1hxp6bmdj30bk01saa2.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fu18ws4mtxj327n0t2whp.jpg">
+<meta property="article:published_time" content="2018-08-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.007Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fu16qj14wxj30fb05lt8o.jpg">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/08/06/ES6%20arrow%20function%20and%20function%20declaration%20expressions/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/08/06/ES6%20arrow%20function%20and%20function%20declaration%20expressions/","path":"2018/08/06/ES6 arrow function and function declaration expressions/","title":"ES6 arrow function and function declaration expressions"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ES6 arrow function and function declaration expressions | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#What-is-Arrow-function"><span class="nav-number">1.</span> <span class="nav-text">What is Arrow function</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Are-arrow-function-and-funciton-declaration-equivalen"><span class="nav-number">2.</span> <span class="nav-text">Are arrow function and funciton declaration equivalen</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#this"><span class="nav-number">2.1.</span> <span class="nav-text">this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arguments"><span class="nav-number">2.2.</span> <span class="nav-text">arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new"><span class="nav-number">2.3.</span> <span class="nav-text">new</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Compatibility"><span class="nav-number">3.</span> <span class="nav-text">Compatibility</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/08/06/ES6%20arrow%20function%20and%20function%20declaration%20expressions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ES6 arrow function and function declaration expressions
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-08-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-08-06T00:00:00+08:00">2018-08-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="What-is-Arrow-function"><a href="#What-is-Arrow-function" class="headerlink" title="What is Arrow function"></a>What is Arrow function</h1><p>关于什么是箭头函数,让我们看一下 MDN 给出的定义</p>
+<blockquote>
+<p>An <strong>arrow function expression</strong> has a shorter syntax than a function expression and does not have its own <code>this</code>, <code>arguments</code>, <code>super</code>, or <code>new.target</code>. These function expressions are best suited for non-method functions, and they cannot be used as constructors.</p>
+</blockquote>
+<p>不难看出上面的定义说出了箭头函数的一些特点:没有自己的this，arguments，super或 new.target,更适用于那些本来需要匿名函数的地方，并且它们不能用作构造函数。也就是意味着,如果在没有使用 <code>this</code>,<code>arguments</code> 或者 <code>new</code> 等前提下,你可以使用箭头函数替换原本的函数声明。</p>
+<h1 id="Are-arrow-function-and-funciton-declaration-equivalen"><a href="#Are-arrow-function-and-funciton-declaration-equivalen" class="headerlink" title="Are arrow function and funciton declaration equivalen"></a>Are arrow function and funciton declaration equivalen</h1><p>结合上述的说明，很容易得知,箭头函数和函数声明并不相同。通过几个简单的例子说明这一点:</p>
+<h2 id="this"><a href="#this" class="headerlink" title="this"></a>this</h2><ol>
+<li>   <strong>箭头函数</strong> 默认指向定义它时,它所处的上下文对象,而不是执行期间的对象</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> exampleObj = &#123;</span><br><span class="line">    <span class="attr">a</span>: <span class="string">&#x27;test&#x27;</span>,</span><br><span class="line">    <span class="attr">arrowOutputA</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.a);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">funcOutputA</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.a);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exampleObj.arrowOutputA();</span><br><span class="line">exampleObj.funcOutputA();</span><br></pre></td></tr></table></figure>
+
+<p>输出结果如下:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fu16qj14wxj30fb05lt8o.jpg"></p>
+<p>关于 <code>this</code> 如果不是特别了解可以阅读下述链接 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this">this</a></p>
+<ol start="2">
+<li>   箭头函数 <code>this</code> 不可变. <code>call()</code>,<code>apply()</code>,<code>bind()</code> 这些方法也 无法改变 箭头函数 <code>this</code> 的指向</li>
+</ol>
+<p>让我们通过一组代码对照一下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.name = <span class="string">&#x27;window&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> exampeObj = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&#x27;example&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">showName.call(exampeObj)</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fu1ew99prrj306p04xaa4.jpg"></p>
+<p>从上图我们可以看到,上述代码的 <code>this</code> 指向由从 <code>window</code> 变成了 <code>exampleObj</code><br>kan chu</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.name = <span class="string">&#x27;window&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> exampleObj = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&#x27;example&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> showName = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">showName.call(exampleObj);</span><br></pre></td></tr></table></figure>
+
+<p>输出的结果如下:</p>
+<p><img src="https://ws1.sinaimg.cn/large/006wYWbGly1fu1h993a8wj306804vdfw.jpg"></p>
+<p>从上述结果我们不难看出,箭头函数的 <code>this</code> 指向没有发生任何改变</p>
+<h2 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h2><p>上述内容提到箭头函数无法绑定 <code>arguments</code> 参数对象,因此不能通过arguments对象访问传入参数，但是可以用 <code>rest</code> 参数实现。关于 rest 参数具体内容可以访问 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Rest_parameters">Rest parameters</a>去进一步了解。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> example = <span class="function">(<span class="params">...params</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(params);</span><br><span class="line">&#125;</span><br><span class="line">example(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<p>结果如下:</p>
+<p><img src="https://ws1.sinaimg.cn/large/006wYWbGly1fu1hs0sg5ej307e025a9z.jpg"></p>
+<h2 id="new"><a href="#new" class="headerlink" title="new"></a>new</h2><p>箭头函数内部并没有 <code>Construct</code> 方法，所以没有原型属性（prototype),想开头说的那样没法当构造函数,所以很显然也不能用 <code>new</code> 关键字来实例化对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> exampleNew = <span class="function">(<span class="params">x</span>) =&gt;</span> &#123;<span class="built_in">this</span>.name = x&#125;;</span><br><span class="line"><span class="keyword">var</span> example = <span class="keyword">new</span> exampleNew();</span><br></pre></td></tr></table></figure>
+
+<p>结果如下图:</p>
+<p><img src="https://ws1.sinaimg.cn/large/006wYWbGly1fu1hxp6bmdj30bk01saa2.jpg"></p>
+<h1 id="Compatibility"><a href="#Compatibility" class="headerlink" title="Compatibility"></a>Compatibility</h1><p>最后看一下箭头函数的兼容性:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fu18ws4mtxj327n0t2whp.jpg"></p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24900875/whats-the-meaning-of-an-arrow-formed-from-equals-greater-than-in-javas">What’s the meaning of “=&gt;” (an arrow formed from equals &amp; greater than) in JavaScript?</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/34361379/arrow-function-vs-function-declaration-expressions-are-they-equivalent-exch">Arrow function vs function declaration / expressions: Are they equivalent / exchangeable?</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/06/30/X-Frame-Options/" rel="prev" title="X-Frame-Options">
+                  <i class="fa fa-chevron-left"></i> X-Frame-Options
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/08/11/Ubuntu%E4%B8%8BFTP%E9%85%8D%E7%BD%AE%E5%8D%95%E7%94%A8%E6%88%B7%E5%A4%9A%E7%9B%AE%E5%BD%95/" rel="next" title="Ubuntu下FTP配置单用户多目录">
+                  Ubuntu下FTP配置单用户多目录 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"3c96a2a522f1b9182b0600a6b910bda9"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

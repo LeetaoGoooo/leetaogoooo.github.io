@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="What is Flask?用了这么久的 Flask 框架,那么 Flask 究竟是什么呢？借用官方文档的一句话来说明这个问题:  Flask is a lightweight WSGI web application framework.  不难理解上面的一句话: Flask 是一个基于 WSGI 的轻量级的应用框架.那么 WSGI 又是什么? What is WSGI ? The Web Se">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flask的源码系列——前身">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/04/23/Flask%E7%9A%84%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%89%8D%E8%BA%AB/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="What is Flask?用了这么久的 Flask 框架,那么 Flask 究竟是什么呢？借用官方文档的一句话来说明这个问题:  Flask is a lightweight WSGI web application framework.  不难理解上面的一句话: Flask 是一个基于 WSGI 的轻量级的应用框架.那么 WSGI 又是什么? What is WSGI ? The Web Se">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fqmp1h5mwbj30mg09e74l.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fqmsl2kaf4j30xr0b23yw.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fqmnnn8ekjj324r1f9445.jpg">
+<meta property="article:published_time" content="2018-04-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.010Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Flask">
+<meta property="article:tag" content="源码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fqmp1h5mwbj30mg09e74l.jpg">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/04/23/Flask%E7%9A%84%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%89%8D%E8%BA%AB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/04/23/Flask%E7%9A%84%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%89%8D%E8%BA%AB/","path":"2018/04/23/Flask的源码系列——前身/","title":"Flask的源码系列——前身"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Flask的源码系列——前身 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#What-is-Flask"><span class="nav-number">1.</span> <span class="nav-text">What is Flask?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#What-is-WSGI"><span class="nav-number">2.</span> <span class="nav-text">What is WSGI ?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-is-WSGI-necessary"><span class="nav-number">2.1.</span> <span class="nav-text">Why is WSGI necessary?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WSGI%E2%80%99s-Purpose"><span class="nav-number">2.2.</span> <span class="nav-text">WSGI’s Purpose</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-PEP-3333"><span class="nav-number">2.3.</span> <span class="nav-text">What is  PEP 3333  ?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#References"><span class="nav-number">3.</span> <span class="nav-text">References</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/04/23/Flask%E7%9A%84%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%89%8D%E8%BA%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flask的源码系列——前身
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-04-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-23T00:00:00+08:00">2018-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="What-is-Flask"><a href="#What-is-Flask" class="headerlink" title="What is Flask?"></a>What is Flask?</h1><p>用了这么久的 Flask 框架,那么 Flask 究竟是什么呢？借用官方文档的一句话来说明这个问题:</p>
+<blockquote>
+<p>Flask is a lightweight WSGI web application framework.</p>
+</blockquote>
+<p>不难理解上面的一句话: Flask 是一个基于 <strong>WSGI</strong> 的轻量级的应用框架.那么 WSGI 又是什么?</p>
+<h1 id="What-is-WSGI"><a href="#What-is-WSGI" class="headerlink" title="What is WSGI ?"></a>What is WSGI ?</h1><blockquote>
+<p>The Web Server Gateway Interface (WSGI) is a simple calling convention for web servers to forward requests to web applications or frameworks written in the Python programming language. ——[ 1 ]<br>WSGI is the Web Server Gateway Interface. It is a specification that describes how a web server communicates with web applications, and how web applications can be chained together to process one request.<br>WSGI is a Python standard described in detail in PEP 3333. ——[ 2 ] </p>
+</blockquote>
+<p>
+上面三段话翻译过来的大致意思是:<p> Web 服务器网关接口（WSGI）是一种简单的调用约定，用于 Web 服务器将请求转发到用 Python 编程语言编写的 Web 应用程序或框架。
+WSGI 是 Web 服务器网关接口。它描述了 web 服务器如何与 web 应用程序通信，以及如何将 web 应用程序链接在一起处理一个请求。
+WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详细描述的 Python 标准。
+
+<h2 id="Why-is-WSGI-necessary"><a href="#Why-is-WSGI-necessary" class="headerlink" title="Why is WSGI necessary?"></a>Why is WSGI necessary?</h2><p>最初的传统的 Web 服务器是没有办法运行 Python 的应用程序的。直到 1990年末,一个  Grisha Trubetskoy 的开发者提出了一个 <a target="_blank" rel="noopener" href="https://grisha.org/blog/2013/10/25/mod-python-the-long-story/">mod_python 的 Apache module</a>。然后再随后的几年和2000年初,apache 装载了 mod_python 模块,然后绝大多数的 python web 应用程序都得以运行。然而 mod_python 并不是一个标准的规格,随着 mod_module 开发的停滞不前和安全隐患被发现, python 社区意识到必须要有一个始终如一运行 python 代码的方法，因此 wsgi 应运而生。直到现在，WSGI仍然是运行 python web 应用程序的公认方法。</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fqmp1h5mwbj30mg09e74l.jpg"></p>
+<p>如上图所示，WSGI 服务器只是调用在 PEP 3333 标准中定义的 WSGI 应用程序上的可调用对象。</p>
+<h2 id="WSGI’s-Purpose"><a href="#WSGI’s-Purpose" class="headerlink" title="WSGI’s Purpose"></a>WSGI’s Purpose</h2><p>所以为什么不直接将 WSGI 服务器直接指向 WSGI 的应用框架呢?<br>    1. <strong>WSGI 能够提供可好的可拓展性.</strong>  基于 WSGI，开发人员可以随时将 Web 组件替换为其他的。比如说由 Green Unicorn 无缝切换到 uWSGI。<br>    2. <strong>WSGI服务器提升了负载规模</strong> 一次为千个请求提供动态内容数是WSGI服务器，而不是框架。 WSGI服务器处理来自Web服务器的处理请求，并决定如何将这些请求传递给应用程序框架的进程。</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fqmsl2kaf4j30xr0b23yw.jpg"></p>
+<h2 id="What-is-PEP-3333"><a href="#What-is-PEP-3333" class="headerlink" title="What is  PEP 3333  ?"></a>What is  PEP 3333  ?</h2><p>PEP 3333 一直出现在上文中,那么 PEP 3333 的究竟说了什么呢,有兴趣的读者可以直接点击<a target="_blank" rel="noopener" href="https://www.python.org/dev/peps/pep-3333">PEP 3333</a>查看原文。嫌麻烦的话，可以直接看下图，一图胜千言,我花了一点时间将 PEP 3333 中的主要内容整理成了一个简单的脑图</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fqmnnn8ekjj324r1f9445.jpg"></p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p>[ 1 ] <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface">Web Server Gateway Interface</a></p>
+<p>[ 2 ] <a target="_blank" rel="noopener" href="http://wsgi.readthedocs.io/en/latest/what.html">What is WSGI?</a></p>
+<p>[ 3 ] <a target="_blank" rel="noopener" href="https://www.python.org/dev/peps/pep-3333">PEP 3333</a></p>
+<p>[ 4 ] <a target="_blank" rel="noopener" href="https://www.fullstackpython.com/wsgi-servers.html">WSGI Servers</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Python/" rel="tag"># Python</a>
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Flask/" rel="tag"># Flask</a>
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/%E6%BA%90%E7%A0%81/" rel="tag"># 源码</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/03/26/Parsing%20error%20x-invalid-end-tag/" rel="prev" title="Parsing error x-invalid-end-tag">
+                  <i class="fa fa-chevron-left"></i> Parsing error x-invalid-end-tag
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/04/26/special%20method%20%20__call__%20python/" rel="next" title="special method  __call__ python">
+                  special method  __call__ python <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"5e868548e6ca7110f5d3275abdf42cf6"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

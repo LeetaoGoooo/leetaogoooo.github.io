@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content=":|| Oracle base  | &#x2F;u01&#x2F;app&#x2F;oracle ||  Software location    |   &#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;12.1.0&#x2F;dbhome_1 || Database file location     |    &#x2F;u02 || Global database name | orcl | 另外请设置合适的 Database editi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle Database 12c Installation on CentOS 7">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/12/22/Oracle%20Database%2012c%20Installation%20on%20CentOS%207/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content=":|| Oracle base  | &#x2F;u01&#x2F;app&#x2F;oracle ||  Software location    |   &#x2F;u01&#x2F;app&#x2F;oracle&#x2F;product&#x2F;12.1.0&#x2F;dbhome_1 || Database file location     |    &#x2F;u02 || Global database name | orcl | 另外请设置合适的 Database editi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/d9e82fa4jw1fayixxs23xj20mb0hrade.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/d9e82fa4jw1fazb19p2b9j20ma0hrwhm.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/d9e82fa4jw1fazb8q5fr0j20mb0hrdk3.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/d9e82fa4jw1fazbxepb3jj20m50hrtbx.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/d9e82fa4jw1fazc7e2v94j20f30bpwfv.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/d9e82fa4jw1fazcaw8touj20h10c7ab7.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/d9e82fa4jw1fazcr0uoa9j20fr0auac2.jpg">
+<meta property="article:published_time" content="2016-12-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.023Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Oracle">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/d9e82fa4jw1fayixxs23xj20mb0hrade.jpg">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/12/22/Oracle%20Database%2012c%20Installation%20on%20CentOS%207/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/12/22/Oracle%20Database%2012c%20Installation%20on%20CentOS%207/","path":"2016/12/22/Oracle Database 12c Installation on CentOS 7/","title":"Oracle Database 12c Installation on CentOS 7"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Oracle Database 12c Installation on CentOS 7 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90%E5%90%8E%E7%9A%84%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.</span> <span class="nav-text">安装完成后的任务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">1.1.</span> <span class="nav-text">防火墙</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Oracle-%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.</span> <span class="nav-text">Oracle 工作环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.3.</span> <span class="nav-text">登录数据库</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2016/12/22/Oracle%20Database%2012c%20Installation%20on%20CentOS%207/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Oracle Database 12c Installation on CentOS 7
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-12-22 00:00:00" itemprop="dateCreated datePublished" datetime="2016-12-22T00:00:00+08:00">2016-12-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>:|<br>| Oracle base  | /u01/app/oracle |<br>|  Software location    |   /u01/app/oracle/product/12.1.0/dbhome_1 |<br>| Database file location     |    /u02 |<br>| Global database name | orcl |</p>
+<p>另外请设置合适的 Database edition（数据库版本）及 Character set（字符集）。请为数据库的管理订立一个安全的口令，最后请取消勾选 Create as Container database 项目</p>
+<p><strong>口令</strong>:密码由数字和字母组成,必须包含一个大写字母和一个小写字母<br><strong>字符集</strong>:Unicode(AL32UTF8)</p>
+<p><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1fayixxs23xj20mb0hrade.jpg"></p>
+<blockquote>
+<p>第五步 —— 创建库存</p>
+</blockquote>
+<p>安装缺省的设置 /u01/app/oraInventory 并按 Next。</p>
+<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1fazb19p2b9j20ma0hrwhm.jpg"></p>
+<blockquote>
+<p>第六步 —— 检查先决条件</p>
+</blockquote>
+<p>安装程序会自动检查所有必须的操作系统组件及内核设置。</p>
+<blockquote>
+<p>第七步 —— 摘要</p>
+</blockquote>
+<p>这是配置安装的最后机会,请按 Install。</p>
+<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1fazb8q5fr0j20mb0hrdk3.jpg"></p>
+<blockquote>
+<p>第八步 —— 安装</p>
+</blockquote>
+<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1fazbxepb3jj20m50hrtbx.jpg"></p>
+<p>当询问窗口出现时，请登录成为 root 并执行两个脚本：</p>
+<p><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1fazc7e2v94j20f30bpwfv.jpg"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# /u01/app/oraInventory/orainstRoot.sh</span><br><span class="line">Changing permissions of /u01/app/oraInventory.</span><br><span class="line">Adding read,write permissions for group.</span><br><span class="line">Removing read,write,execute permissions for world.</span><br><span class="line">Changing groupname of /u01/app/oraInventory to oinstall.</span><br><span class="line">The execution of the script is complete.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# /u01/app/oracle/product/12.1.0/dbhome_2/root.sh</span><br><span class="line">Performing root user operation.</span><br><span class="line">The following environment variables are set as:</span><br><span class="line">    ORACLE_OWNER= oracle</span><br><span class="line">    ORACLE_HOME=  /u01/app/oracle/product/12.1.0/dbhome_2</span><br><span class="line">Enter the full pathname of the local bin directory: [/usr/local/bin]: &lt;PRESS ENTER&gt;</span><br><span class="line">   Copying dbhome to /usr/local/bin ...</span><br><span class="line">   Copying oraenv to /usr/local/bin ...</span><br><span class="line">   Copying coraenv to /usr/local/bin ...</span><br><span class="line">Creating /etc/oratab file...</span><br><span class="line">Entries will be added to the /etc/oratab file as needed by</span><br><span class="line">Database Configuration Assistant when a database is created</span><br><span class="line">Finished running generic part of root script.</span><br><span class="line">Now product-specific root actions will be performed.</span><br><span class="line">You can follow the installation in a separated window.</span><br></pre></td></tr></table></figure>
+
+<p>这两个脚本都必须以 root 的身份来执行,然后出现一个进度条,等待安装完成</p>
+<p><img src="http://ww2.sinaimg.cn/large/d9e82fa4jw1fazcaw8touj20h10c7ab7.jpg"></p>
+<blockquote>
+<p>第九步 —— 顺利完成安装</p>
+</blockquote>
+<p>最后一个画面将会通知你安装已经完成并显示 Oracle 企业级管理员的 URL。</p>
+<p><img src="http://ww2.sinaimg.cn/large/d9e82fa4jw1fazcr0uoa9j20fr0auac2.jpg"></p>
+<p><a target="_blank" rel="noopener" href="https://localhost:5500/em">https://localhost:5500/em</a></p>
+<p>请按 OK 来关闭安装程序。</p>
+<h1 id="安装完成后的任务"><a href="#安装完成后的任务" class="headerlink" title="安装完成后的任务"></a>安装完成后的任务</h1><h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><p>请登录成为 root 并检查已引导的本地</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# firewall-cmd --get-active-zones</span><br><span class="line">public</span><br><span class="line">  interfaces: eno16777736</span><br></pre></td></tr></table></figure>
+
+<p>打开相关的端口</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# firewall-cmd --zone=public --add-port=1521/tcp --add-port=5500/tcp --add-port=5520/tcp --add-port=3938/tcp --permanent</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# firewall-cmd --reload</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# firewall-cmd --list-ports</span><br><span class="line">1521/tcp 3938/tcp 5500/tcp 5520/tcp</span><br></pre></td></tr></table></figure>
+
+<h2 id="Oracle-工作环境"><a href="#Oracle-工作环境" class="headerlink" title="Oracle 工作环境"></a>Oracle 工作环境</h2><p>请登录为 oracle 用户并在 <em>/home/oracle/.bash_profile</em> 内加入下列数值</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# su oracle</span><br><span class="line">[oracle@bogon lt94]$ vim /home/oracle/.bash_profile</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TMPDIR=$TMP; export TMPDIR</span><br><span class="line">ORACLE_BASE=/u01/app/oracle; export ORACLE_BASE</span><br><span class="line">ORACLE_HOME=$ORACLE_BASE/product/12.1.0/dbhome_2; export ORACLE_HOME</span><br><span class="line">ORACLE_SID=orcl; export ORACLE_SID</span><br><span class="line">PATH=$ORACLE_HOME/bin:$PATH; export PATH</span><br><span class="line">LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib:/usr/lib64; export LD_LIBRARY_PATH</span><br><span class="line">CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib; export CLASSPATH</span><br></pre></td></tr></table></figure>
+
+<p>重新加载 bash_profile 使其生效</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[oracle@bogon lt94]$ . /home/oracle/.bash_profile </span><br></pre></td></tr></table></figure>
+
+<h2 id="登录数据库"><a href="#登录数据库" class="headerlink" title="登录数据库"></a>登录数据库</h2><p>最后请登录数据库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[oracle@bogon lt94]$ sqlplus system@orcl</span><br><span class="line"></span><br><span class="line">SQL*Plus: Release 12.1.0.2.0 Production on Wed Dec 21 18:28:20 2016</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2014, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Enter password: </span><br><span class="line">Last Successful login time: Wed Dec 21 2016 18:25:24 -08:00</span><br><span class="line"></span><br><span class="line">Connected to:</span><br><span class="line">Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">SQL&gt;</span><span class="bash"> </span></span><br></pre></td></tr></table></figure>
+
+<p>请利用 Oracle 企业级管理员来管理数据库：<br>https://&lt;主机名称&gt;:5500/em</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Oracle/" rel="tag"># Oracle</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2016/12/19/Install%20Oracle%2011g%20Express%20(XE)%20on%20CentOS%207/" rel="prev" title="Install Oracle 11g Express (XE) on CentOS 7">
+                  <i class="fa fa-chevron-left"></i> Install Oracle 11g Express (XE) on CentOS 7
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2017/02/22/selenium%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" rel="next" title="selenium的安装与使用">
+                  selenium的安装与使用 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"e9ec6104a25ab0f1949b386692dbd043"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

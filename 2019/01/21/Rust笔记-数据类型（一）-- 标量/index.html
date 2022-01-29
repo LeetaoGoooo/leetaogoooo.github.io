@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="数据类型在Rust中每个值都有自己确定的类型，接下来我们会介绍两类数据类型子集：标量（scalar）和 复合 （compound） Rust是静态类型语言，也就意味着在编译期它必须知道所有变量的类型，正常情况下编译器可以根据变量的值推断出变量的类型，也存在没有办法推断的情况，这个时候我们就必须声明这个变量的类型。看一个简单的例子： 1234#![allow(unused_variables)]fn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rust笔记-数据类型（一）-- 标量">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/01/21/Rust%E7%AC%94%E8%AE%B0-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%88%E4%B8%80%EF%BC%89--%20%E6%A0%87%E9%87%8F/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="数据类型在Rust中每个值都有自己确定的类型，接下来我们会介绍两类数据类型子集：标量（scalar）和 复合 （compound） Rust是静态类型语言，也就意味着在编译期它必须知道所有变量的类型，正常情况下编译器可以根据变量的值推断出变量的类型，也存在没有办法推断的情况，这个时候我们就必须声明这个变量的类型。看一个简单的例子： 1234#![allow(unused_variables)]fn">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fz0m169c0yj309r0b0dg7.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fz6caie08aj307x069wej.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fz8o9hyw9xj30ha052gm9.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fzegq9txl2j30as030glh.jpg">
+<meta property="article:published_time" content="2019-01-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.027Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Rust学习笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006wYWbGly1fz0m169c0yj309r0b0dg7.jpg">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/01/21/Rust%E7%AC%94%E8%AE%B0-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%88%E4%B8%80%EF%BC%89--%20%E6%A0%87%E9%87%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/01/21/Rust%E7%AC%94%E8%AE%B0-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%88%E4%B8%80%EF%BC%89--%20%E6%A0%87%E9%87%8F/","path":"2019/01/21/Rust笔记-数据类型（一）-- 标量/","title":"Rust笔记-数据类型（一）-- 标量"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Rust笔记-数据类型（一）-- 标量 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">标量类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">整型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B%E6%BA%A2%E5%87%BA-Integer-Overflow"><span class="nav-number">3.</span> <span class="nav-text">整型溢出 (Integer Overflow)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">浮点型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">布尔型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">字符类型</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/01/21/Rust%E7%AC%94%E8%AE%B0-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%88%E4%B8%80%EF%BC%89--%20%E6%A0%87%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Rust笔记-数据类型（一）-- 标量
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-21 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-21T00:00:00+08:00">2019-01-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>在Rust中每个值都有自己确定的类型，接下来我们会介绍两类数据类型子集：<strong>标量（scalar）</strong>和 <strong>复合 （compound）</strong></p>
+<p>Rust是静态类型语言，也就意味着在编译期它必须知道所有变量的类型，正常情况下编译器可以根据变量的值推断出变量的类型，也存在没有办法推断的情况，这个时候我们就必须声明这个变量的类型。看一个简单的例子：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#![allow(unused_variables)]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line"><span class="keyword">let</span> guess: <span class="built_in">u32</span> = <span class="string">&quot;42&quot;</span>.parse().expect(<span class="string">&quot;Not a number!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里我们将字符串42转换成数字的时候必须声明转化后的类型，否则的话编译的时候会出错。我们尝试把 u32 去掉编译，结果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">error[E0282]: type annotations needed</span><br><span class="line"> --&gt; src/main.rs:2:9</span><br><span class="line">  |</span><br><span class="line">2 |     let guess = &quot;42&quot;.parse().expect(&quot;Not a number!&quot;);</span><br><span class="line">  |         ^^^^^</span><br><span class="line">  |         |</span><br><span class="line">  |         cannot infer type for `_`</span><br><span class="line">  |         consider giving `guess` a type</span><br></pre></td></tr></table></figure>
+
+<p>最上面我们说道，当编译器无法推断出变量的类型的时候就需要我们自己声明变量类型，这就说明 parse 这个函数返回类型不确定，那么 parse 返回的类型有哪些呢？看一下官方文档</p>
+<blockquote>
+<p>parse can parse any type that implements the FromStr trait.</p>
+</blockquote>
+<p>那么有哪些类型实现了 FromStr, 简单截部分结果:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fz0m169c0yj309r0b0dg7.jpg"></p>
+<p>说完了这些，让我们时候看一下两类数据类型子集了</p>
+<h1 id="标量类型"><a href="#标量类型" class="headerlink" title="标量类型"></a>标量类型</h1><p>Rust 有四个基本的标量类型: 整型(integer),浮点型(floating-point),布尔型(Boolean)，以及字符类型(character)</p>
+<h2 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h2><p>对于整型，学过其他语言的肯定不会模型，也就是整数类型，说明其是没有小数部分的数字。那么 Rust 中的整型有哪些呢？</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fz6caie08aj307x069wej.jpg"></p>
+<p><strong>Signed</strong> 和 <strong>Unsigned</strong> 分别代表着<strong>有符号</strong>和<strong>无符号</strong>,即数字是否能为负值. 一个有符号的变体可以存储 -2^(n-1) 到 2^(n-1) - 1, n 代表字节长度，比如 i8的取值范围在 -2^7 到 2^7 - 1. 而无符号的变体可以储存从 0 到 2^n - 1 的数字,则 u8 的取值范围在 0 到 2^8 - 1.</p>
+<p>最后说一说，isize 和 usize 类型，它取决于运行程序的计算机架构:64位的<br>则它们是64位的，32位的则是32位的，通常它们主要用来作为某些集合的索引.</p>
+<p>除了常见的10进制，Rust 同样也支持 16进制,8进制，二进制以及 byte 类型(仅支持 u8),Rust 允许在数字后面使用类型后缀，eg: 57u8, 同样也允许使用 <strong>_</strong> 作为分隔符，方便读数,eg: 1_000. 此外 Rust  默认的类型是 i32,通常情况下它的速度会是最快的.</p>
+<p>关于整型，Rust  里面还有一个有趣的问题 – 整型溢出(Integer Overflow )</p>
+<h1 id="整型溢出-Integer-Overflow"><a href="#整型溢出-Integer-Overflow" class="headerlink" title="整型溢出 (Integer Overflow)"></a>整型溢出 (Integer Overflow)</h1><p>“整型溢出” 其实很简单，以 u8 为例，它的取值范围为 0-255，如果你把它变成了 256，(<strong>这里的变成是指通过算术运算：+,-,*,/ 等等</strong>)这就叫 “整型溢出”，对于这个 Rust 有一个有趣的规则：当在 debug 模式编译时，Rust 检查这类问题并使程序 panic（这个术语被 Rust 用来表明程序因错误而退出，在 release 构建中，Rust 不检测溢出，相反会进行一种被称为 “two’s complement wrapping” 的操作。简而言之，256 变成 0，257 变成 1，依此类推。</p>
+<p>让我们通过例子直观感受一下：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 这个项目是通过 cargo 构建的</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> x : <span class="built_in">u8</span> = <span class="number">255</span>;</span><br><span class="line">    <span class="keyword">let</span> x: <span class="built_in">u8</span> = x + <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>,x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看一下编译结果:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fz8o9hyw9xj30ha052gm9.jpg"></p>
+<p>说完了整型，就得说一说 Rust 的浮点型了</p>
+<h1 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h1><p>Rust 有两个原生的浮点类型:f32,f64，默认是 f64，因为两者速度相当，但是后者精度更高，采用 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/IEEE%20754/3869922?fr=aladdin">IEEE-754</a> 标准表示。f32 是单精度浮点数，f64 是双精度浮点数。深入理解可以阅读下面的链接：</p>
+<h1 id="布尔型"><a href="#布尔型" class="headerlink" title="布尔型"></a>布尔型</h1><p>和其他编程语言一样，Rust 的布尔类型也有两个值:true 和 false. 其中布尔类型用 bool 表示.</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> t = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> f: <span class="built_in">bool</span> = <span class="literal">false</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="字符类型"><a href="#字符类型" class="headerlink" title="字符类型"></a>字符类型</h1><p>说完了数字，我们说一说 Rust 的字符， Rust 的 char 类型是语言中最原生的字母类型，唯一需要注意的是：<strong>char 由单引号指定，不同于字符串使用双引号</strong>,看一个具体的例子:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fzegq9txl2j30as030glh.jpg"></p>
+<p>值得注意的是,Rust 的 char 类型代表了一个 Unicode 标量值（Unicode Scalar Value），这意味着它可以比 ASCII 表示更多内容,拼音字母（Accented letters），中文、日文、韩文等字符，emoji（绘文字）以及零长度的空白字符都是有效的 char 值。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Rust%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># Rust学习笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/01/09/Rust%E7%AC%94%E8%AE%B0-%E5%8F%98%E9%87%8F/" rel="prev" title="Rust笔记-变量">
+                  <i class="fa fa-chevron-left"></i> Rust笔记-变量
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/01/23/nginx%20root%20%E5%92%8C%20alias%20%E9%85%8D%E7%BD%AE%E5%8C%BA%E5%88%AB/" rel="next" title="nginx root 和 alias 配置区别">
+                  nginx root 和 alias 配置区别 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"3741bd19d24c701a076aec73d1849578"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

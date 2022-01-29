@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="在 Python 中一切都可以看作为对象。每个对象都有各自的 id, type 和 value。   id: 当一个对象被创建后，它的 id 就不会在改变，这里的 id 其实就是对象在内存中的地址，可以使用 id() 去查看对象在内存中地址。  type: 和 id 一样当对象呗创建之后，它的 type 也不能再被改变，type 决定了该对象所能够支持的操作  value: 对象的值  一个对象可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 中 可变对象和不可变对象">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/05/29/Python%20%E4%B8%AD%20%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E5%92%8C%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="在 Python 中一切都可以看作为对象。每个对象都有各自的 id, type 和 value。   id: 当一个对象被创建后，它的 id 就不会在改变，这里的 id 其实就是对象在内存中的地址，可以使用 id() 去查看对象在内存中地址。  type: 和 id 一样当对象呗创建之后，它的 type 也不能再被改变，type 决定了该对象所能够支持的操作  value: 对象的值  一个对象可">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.024Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Python 基础">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/05/29/Python%20%E4%B8%AD%20%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E5%92%8C%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/05/29/Python%20%E4%B8%AD%20%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E5%92%8C%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/","path":"2019/05/29/Python 中 可变对象和不可变对象/","title":"Python 中 可变对象和不可变对象"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python 中 可变对象和不可变对象 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">不可变对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">可变对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-1"><span class="nav-number">2.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">函数参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-2"><span class="nav-number">3.1.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eg0"><span class="nav-number">3.1.1.</span> <span class="nav-text">eg0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eg1"><span class="nav-number">3.1.2.</span> <span class="nav-text">eg1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/05/29/Python%20%E4%B8%AD%20%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E5%92%8C%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python 中 可变对象和不可变对象
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-29T00:00:00+08:00">2019-05-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>在 Python 中一切都可以看作为对象。每个对象都有各自的 id, type 和 value。</p>
+<ol>
+<li> id: 当一个对象被创建后，它的 id 就不会在改变，这里的 id 其实就是对象在内存中的地址，可以使用 <code>id()</code> 去查看对象在内存中地址。</li>
+<li> type: 和 id 一样当对象呗创建之后，它的 type 也不能再被改变，type 决定了该对象所能够支持的操作</li>
+<li> value: 对象的值</li>
+</ol>
+<p>一个对象可变与否就在于 value 值是否支持改变。</p>
+<h1 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h1><p>常见的不可变对象(immutable objects):</p>
+<ol>
+<li>   Number: int, float, complex</li>
+<li>   string</li>
+<li>   tuple</li>
+<li>   frozenset:set 的另外一种类型</li>
+</ol>
+<p>让我们通过例子感受一下</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x=1</span><br><span class="line">&gt;&gt;&gt; y=x</span><br><span class="line">&gt;&gt;&gt; id(x)==id(y)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; id(1)==id(y)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>这里创建了两个 <code>int</code> 对象，并且让 <code>x</code>,<code>y</code> 指向同一个对象，然后我们试着修改一下 <code>x</code>,让 <code>x+1</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;x=x+1</span><br></pre></td></tr></table></figure>
+
+<p>这个时候 <code>x</code> 的 <code>id</code> 值和 <code>y</code> 的 <code>id</code> 以及 1 的 <code>id</code> 还一样吗？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x=x+1</span><br><span class="line">&gt;&gt;&gt; id(x)==id(y)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; id(x)==id(1)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; id(1)==id(y)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>从结果不难看出来，<code>x</code> 所指向的对象已经改变了，但是 <code>1</code> 并没有改变。这就是不可变对象，对于不可变对象来说，一旦创建之后就不允许被改变。</p>
+<p><strong>注意</strong>: 不可变并不严格等同绝对的不可变</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a=([1],2,3)</span><br><span class="line">&gt;&gt;&gt; id(a)</span><br><span class="line">4338862696</span><br><span class="line">&gt;&gt;&gt; id(a[0])</span><br><span class="line">4338949128</span><br><span class="line">&gt;&gt;&gt; a[0][0]=0</span><br><span class="line">&gt;&gt;&gt; id(a)</span><br><span class="line">4338862696</span><br><span class="line">&gt;&gt;&gt; id(a[0])</span><br><span class="line">4338949128</span><br></pre></td></tr></table></figure>
+
+<p>从上面的例子不难看出，我们改变了 <code>a[0]</code> 的值，但是并没有影响它的 <code>id</code> 值。一个不可变容器对象如果包含对可变对象的引用，当后者的值改变时，前者的值也会改变；但是该容器仍属于不可变对象，因为它的 <code>id</code> 值不会改变的。</p>
+<h1 id="可变对象"><a href="#可变对象" class="headerlink" title="可变对象"></a>可变对象</h1><p>常见的可变对象(mutable objects):</p>
+<ol>
+<li> list</li>
+<li> dict</li>
+<li> set</li>
+</ol>
+<p>同样的通过例子感受一下</p>
+<h2 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c = [1,2,3]</span><br><span class="line">&gt;&gt;&gt; b = c</span><br><span class="line">&gt;&gt;&gt; id(b)==id(c)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>创建两个 <code>list</code> 对象，并且让 <code>c</code>,<code>d</code> 指向同一个对象，然后我们试着修改一下 <code>c</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c[0]=4</span><br></pre></td></tr></table></figure>
+
+<p>这个时候在看一下两个对象的 <code>id</code> 值是否一致</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; id(c)==id(b)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>修改之后，<code>c</code>,<code>d</code> 仍然指向同一个对象，所以不难得出结论,对于一个可变对象来说，修改 <code>value</code> 值并不会对它的 <code>id</code> 造成任何影响</p>
+<h1 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h1><p>对于可变对象和不可变对象，他们两者在函数当作参数传递的时候表现也有所不同</p>
+<h2 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h2><h3 id="eg0"><a href="#eg0" class="headerlink" title="eg0"></a>eg0</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_list</span>(<span class="params">nums_list</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;2 id:<span class="subst">&#123;<span class="built_in">id</span>(nums_list)&#125;</span>&#x27;</span>)</span><br><span class="line">    nums_list += [<span class="number">10</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;3 id:<span class="subst">&#123;<span class="built_in">id</span>(nums_list)&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">number_list = [<span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;1:<span class="subst">&#123;number_list&#125;</span>, id:<span class="subst">&#123;<span class="built_in">id</span>(number_list)&#125;</span>&#x27;</span>)      </span><br><span class="line">update_list(number_list)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;4:<span class="subst">&#123;number_list&#125;</span>, id:<span class="subst">&#123;<span class="built_in">id</span>(number_list)&#125;</span>&#x27;</span>) </span><br></pre></td></tr></table></figure>
+
+<p>看一下结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1:[5, 6], id:4457707912</span><br><span class="line">2 id:4457707912</span><br><span class="line">3 id:4457707912</span><br><span class="line">4:[5, 6, 10], id:4457707912</span><br></pre></td></tr></table></figure>
+
+<p>在看另外一个例子</p>
+<h3 id="eg1"><a href="#eg1" class="headerlink" title="eg1"></a>eg1</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_num</span>(<span class="params">number</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;2:<span class="subst">&#123;<span class="built_in">id</span>(number)&#125;</span>&#x27;</span>)</span><br><span class="line">    number += <span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;3:<span class="subst">&#123;<span class="built_in">id</span>(number)&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">num = <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;1:<span class="subst">&#123;num&#125;</span>, id:<span class="subst">&#123;<span class="built_in">id</span>(num)&#125;</span>&#x27;</span>)      </span><br><span class="line">add_num(num)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;4:<span class="subst">&#123;num&#125;</span>, id:<span class="subst">&#123;<span class="built_in">id</span>(num)&#125;</span>&#x27;</span>)      </span><br></pre></td></tr></table></figure>
+
+<p>看一下结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1:1, id:4343768416</span><br><span class="line">2 id:4343768416</span><br><span class="line">3 id:4343768448</span><br><span class="line">4:1, id:4343768416</span><br></pre></td></tr></table></figure>
+
+<p>有其他有些文章中，上面 eg0 被称为引用传递，eg1 被称为值传递。然而在官方文档中，并没有找到有关的这两个名词的任何内容，或者这种方式并不是上述的两者任意一种。</p>
+<p>这里的重点是：<strong>对于可变对象，在函数中的值的改变，会导致对象改变；对于不可变对象，在函数中值的改变，对其不会造成任何影响</strong></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="http://stupidpythonideas.blogspot.com/2013/11/does-python-pass-by-value-or-by.html">Does Python pass by value, or pass by reference?</a></p>
+<p><a target="_blank" rel="noopener" href="https://jeffknupp.com/blog/2012/11/13/is-python-callbyvalue-or-callbyreference-neither/">Is Python call-by-value or call-by-reference? Neither.</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Python/" rel="tag"># Python</a>
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Python-%E5%9F%BA%E7%A1%80/" rel="tag"># Python 基础</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/05/22/f-strings/" rel="prev" title="f-strings">
+                  <i class="fa fa-chevron-left"></i> f-strings
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/06/19/Seleuim%20%E6%96%B0%E5%BB%BA%20table%20%E9%A1%B5/" rel="next" title="Seleuim 新建 table 页">
+                  Seleuim 新建 table 页 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"c493205b962fc4bdcd548b3564f56b04"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

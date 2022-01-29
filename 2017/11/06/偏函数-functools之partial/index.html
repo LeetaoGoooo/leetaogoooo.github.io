@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="前段时间在讲述 Flask-Login 的源码中遇见了一个函数 ——partial,这个函数来自于functools模块,这个模块定义为”The functools module is for higher-order functions: functions that act on or return other functions. In general, any callable objec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="偏函数-functools之partial">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/11/06/%E5%81%8F%E5%87%BD%E6%95%B0-functools%E4%B9%8Bpartial/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="前段时间在讲述 Flask-Login 的源码中遇见了一个函数 ——partial,这个函数来自于functools模块,这个模块定义为”The functools module is for higher-order functions: functions that act on or return other functions. In general, any callable objec">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-11-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.049Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/11/06/%E5%81%8F%E5%87%BD%E6%95%B0-functools%E4%B9%8Bpartial/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/11/06/%E5%81%8F%E5%87%BD%E6%95%B0-functools%E4%B9%8Bpartial/","path":"2017/11/06/偏函数-functools之partial/","title":"偏函数-functools之partial"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>偏函数-functools之partial | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#functools-partial"><span class="nav-number">1.</span> <span class="nav-text">functools.partial</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/11/06/%E5%81%8F%E5%87%BD%E6%95%B0-functools%E4%B9%8Bpartial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          偏函数-functools之partial
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-11-06 00:00:00" itemprop="dateCreated datePublished" datetime="2017-11-06T00:00:00+08:00">2017-11-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>前段时间在讲述 Flask-Login 的源码中遇见了一个函数 ——<code>partial</code>,这个函数来自于<code>functools</code>模块,这个模块定义为”The functools module is for higher-order functions: functions that act on or return other functions. In general, any callable object can be treated as a function for the purposes of this module”,翻译成中文的大概意思就是”functools 用于高阶函数：指那些作用于函数或者返回其他函数的函数。总的来说，这个模块的目标就是将任何可调用的对象都可以被视为函数。”</p>
+<h1 id="functools-partial"><a href="#functools-partial" class="headerlink" title="functools.partial"></a>functools.partial</h1><p>返回一个新的部分对象,当被调用的时候,相当于原有的对象携带了默认的参数.如果在调用过程中传递了更多的参数,将会被追加到args.如果提供了其他的关键字参数,则会覆盖或者扩展关键字:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partial</span>(<span class="params">func, *args, **keywords</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">newfunc</span>(<span class="params">*fargs, **fkeywords</span>):</span></span><br><span class="line">        newkeywords = keywords.copy()</span><br><span class="line">        newkeywords.update(fkeywords)</span><br><span class="line">        <span class="keyword">return</span> func(*(args + fargs), **newkeywords)</span><br><span class="line">    newfunc.func = func</span><br><span class="line">    newfunc.args = args</span><br><span class="line">    newfunc.keywords = keywords</span><br><span class="line">    <span class="keyword">return</span> newfunc</span><br></pre></td></tr></table></figure>
+
+<p>当函数的参数个数太多，需要简化时，使用functools.partial可以创建一个新的函数，这个新函数可以固定住原函数的部分参数，从而在调用时更简单.</p>
+<p> eg:</p>
+<p> <code>int()</code>函数,可以将字符串转为整数,简单看一下它的函数使用说明:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">int</span>(<span class="params"><span class="built_in">object</span></span>)</span></span><br><span class="line"><span class="class">|  <span class="title">int</span>(<span class="params">x=<span class="number">0</span></span>) -&gt; integer</span></span><br><span class="line"><span class="class">|  <span class="built_in">int</span>(x, base=10) -&gt; integer</span></span><br><span class="line"><span class="class">|</span></span><br><span class="line"><span class="class">|  Convert a number <span class="keyword">or</span> string to an integer, <span class="keyword">or</span> <span class="keyword">return</span> 0 <span class="keyword">if</span> no arguments</span></span><br><span class="line"><span class="class">|  are given.  If x <span class="keyword">is</span> a number, <span class="keyword">return</span> x.__int__().  For floating point</span></span><br><span class="line"><span class="class">|  numbers, this truncates towards zero.</span></span><br><span class="line"><span class="class">|</span></span><br><span class="line"><span class="class">|  If x <span class="keyword">is</span> <span class="keyword">not</span> a number <span class="keyword">or</span> <span class="keyword">if</span> base <span class="keyword">is</span> given, then x must be a string,</span></span><br><span class="line"><span class="class">|  <span class="built_in">bytes</span>, <span class="keyword">or</span> <span class="built_in">bytearray</span> instance representing an integer literal <span class="keyword">in</span> the</span></span><br><span class="line"><span class="class">|  given base.  The literal can be preceded by &#x27;+&#x27; <span class="keyword">or</span> &#x27;-&#x27; <span class="keyword">and</span> be surrounded</span></span><br><span class="line"><span class="class">|  by whitespace.  The base defaults to 10.  Valid bases are 0 <span class="keyword">and</span> 2-36.</span></span><br><span class="line"><span class="class">|  Base 0 means to interpret the base <span class="keyword">from</span> the string <span class="keyword">as</span> an integer literal.</span></span><br><span class="line"><span class="class">|  &gt;&gt;&gt; <span class="built_in">int</span>(&#x27;0b100&#x27;, base=0)</span></span><br><span class="line"><span class="class">|  4</span></span><br></pre></td></tr></table></figure>
+<p>从上述说明中我们可以看见,int还有一个额外的参数<code>base</code>,base 默认值为10,也就意味着默认情况下将字符串转化为十进制的数.如果我们需要转化成二进制怎么办?在不使用其他模块的情况下,只需要<code>int(x,base=2)</code>,那么如果是借助<code>partial</code>,该如何使用呢?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line">&gt;&gt;&gt;int2 = partial(<span class="built_in">int</span>,base=<span class="number">2</span>) <span class="comment"># 这里是传递了关键字参数,即keywords</span></span><br><span class="line">&gt;&gt;&gt;int2(<span class="string">&#x27;1000&#x27;</span>)</span><br><span class="line">&gt;&gt;&gt;<span class="number">8</span></span><br><span class="line">&gt;&gt;&gt;str_3_int = partial(<span class="built_in">int</span>,<span class="string">&#x27;3&#x27;</span>) <span class="comment"># 传递了参数args</span></span><br><span class="line">&gt;&gt;&gt;str_3_int()</span><br><span class="line">&gt;&gt;&gt;<span class="number">3</span> <span class="comment"># 不够清楚的话可以接着看下面的例子</span></span><br><span class="line">&gt;&gt;&gt;max_with_10 = partial(<span class="built_in">max</span>,<span class="number">10</span>)</span><br><span class="line">&gt;&gt;&gt;max_with_10(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">&gt;&gt;&gt;<span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2017/10/28/Flask-Login%E7%94%A8%E6%88%B7%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86/" rel="prev" title="Flask-Login用户会话管理">
+                  <i class="fa fa-chevron-left"></i> Flask-Login用户会话管理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2017/11/13/%E5%9C%A8Ubuntu14.04%E4%B8%8A%E4%BD%BF%E7%94%A8Gunicorn%E5%92%8CNginx%E9%83%A8%E7%BD%B2Flask%E5%BA%94%E7%94%A8/" rel="next" title="在Ubuntu14.04上使用Gunicorn和Nginx部署Flask应用">
+                  在Ubuntu14.04上使用Gunicorn和Nginx部署Flask应用 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"19dbf6d9b7fade4f66e86a1e7a254d08"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="关于python的版本管理,库管理使用不少工具,现在对这些工具进行一下简单的总结. PyPIvirtualenvvirtualenv 是一个非常实用的三方包,可以为 Python 创建各自独立开的python库.具体用法可以参考我之前的文章为什么使用virtualenv pyenvpyenv 是用来隔离开各种版本的 Python. 举个例子,比如你想在各个版本的Python中测试你的代码,你就需要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="venv, pyvenv, pyenv, virtualenv, virtualenvwrapper, pipenv 之间的区别">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/10/11/venv,%20pyvenv,%20pyenv,%20virtualenv,%20virtualenvwrapper,%20pipenv%20%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="关于python的版本管理,库管理使用不少工具,现在对这些工具进行一下简单的总结. PyPIvirtualenvvirtualenv 是一个非常实用的三方包,可以为 Python 创建各自独立开的python库.具体用法可以参考我之前的文章为什么使用virtualenv pyenvpyenv 是用来隔离开各种版本的 Python. 举个例子,比如你想在各个版本的Python中测试你的代码,你就需要">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-10-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.047Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/10/11/venv,%20pyvenv,%20pyenv,%20virtualenv,%20virtualenvwrapper,%20pipenv%20%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/10/11/venv,%20pyvenv,%20pyenv,%20virtualenv,%20virtualenvwrapper,%20pipenv%20%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/","path":"2017/10/11/venv, pyvenv, pyenv, virtualenv, virtualenvwrapper, pipenv 之间的区别/","title":"venv, pyvenv, pyenv, virtualenv, virtualenvwrapper, pipenv 之间的区别"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>venv, pyvenv, pyenv, virtualenv, virtualenvwrapper, pipenv 之间的区别 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PyPI"><span class="nav-number">1.</span> <span class="nav-text">PyPI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#virtualenv"><span class="nav-number">1.1.</span> <span class="nav-text">virtualenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyenv"><span class="nav-number">1.2.</span> <span class="nav-text">pyenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyenv-virtualenv"><span class="nav-number">1.3.</span> <span class="nav-text">pyenv-virtualenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#virtualenvwrapper"><span class="nav-number">1.4.</span> <span class="nav-text">virtualenvwrapper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyenv-virtualenvwrapper"><span class="nav-number">1.5.</span> <span class="nav-text">pyenv-virtualenvwrapper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pipenv"><span class="nav-number">1.6.</span> <span class="nav-text">pipenv</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Standard-library"><span class="nav-number">2.</span> <span class="nav-text">Standard library</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pyenv-1"><span class="nav-number">2.1.</span> <span class="nav-text">pyenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#venv"><span class="nav-number">2.2.</span> <span class="nav-text">venv</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">3.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2017/10/11/venv,%20pyvenv,%20pyenv,%20virtualenv,%20virtualenvwrapper,%20pipenv%20%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          venv, pyvenv, pyenv, virtualenv, virtualenvwrapper, pipenv 之间的区别
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-10-11 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-11T00:00:00+08:00">2017-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>关于python的版本管理,库管理使用不少工具,现在对这些工具进行一下简单的总结.</p>
+<h1 id="PyPI"><a href="#PyPI" class="headerlink" title="PyPI"></a>PyPI</h1><h2 id="virtualenv"><a href="#virtualenv" class="headerlink" title="virtualenv"></a>virtualenv</h2><p>virtualenv 是一个非常实用的三方包,可以为 Python 创建各自独立开的python库.具体用法可以参考我之前的文章<a target="_blank" rel="noopener" href="http://www.leetao94.cn/2016/10/11/why-I-use-virtualenv/">为什么使用virtualenv</a></p>
+<h2 id="pyenv"><a href="#pyenv" class="headerlink" title="pyenv"></a>pyenv</h2><p>pyenv 是用来隔离开各种版本的 Python. 举个例子,比如你想在各个版本的Python中测试你的代码,你就需要一个方法去切换各种版本的Python. 通过使用 pyenv,激活你所需要的版本,它将<code><del>/.pyenv/shims</code>作为 Python 环境变量的前缀,这个路径下包含着一些可以 Python 命令文件(<code>python, pip</code>).这些不是Python附带命令的副本;它们是特殊的脚本，可以根据<code>PYENV_VERVE</code>环境变量,<code>.python-version</code>文件或者<code></del>/.pyenv/version</code>动态决定运行哪个版本的 Python.具体安装步骤的可以参考<a href="https://github.com/pyenv/pyenv-installer">pyenv-installer</a></p>
+<p>接下来的三个我都基本没有使用过</p>
+<h2 id="pyenv-virtualenv"><a href="#pyenv-virtualenv" class="headerlink" title="pyenv-virtualenv"></a>pyenv-virtualenv</h2><p>pyenv-virtualenv 是由 pyenv 作者编写的一个插件,它可以使方便地同时使用 pyenv 和 virtualenv. 如果您使用Python3.3或更高版本，pyenv-virtualenv 将尝试运行 <strong>python -m venv</strong>(如果可用)，而不是运行<strong>virtualenv</strong>. 当然如果你不想使用这个比较方便的特性的话,你也可以同时使用 virtualenv 和 pyenv 而不用 pyenv-virtualenv.</p>
+<h2 id="virtualenvwrapper"><a href="#virtualenvwrapper" class="headerlink" title="virtualenvwrapper"></a>virtualenvwrapper</h2><p>看它的名称不难猜到它是对 virtualenv 的进一步封装,事实上也是这样它是对 virtualenv 的一组扩展.它提供了 mkviralenv、lssitepackage等命令, 特别是 workon 可以用于在不同的 virtualenv 目录之间切换.</p>
+<h2 id="pyenv-virtualenvwrapper"><a href="#pyenv-virtualenvwrapper" class="headerlink" title="pyenv-virtualenvwrapper"></a>pyenv-virtualenvwrapper</h2><p>pyenv-virtualenvwrapper 也是由 pyenv 编写的一个针对 pyenv 的插件,它可以方便地将虚拟包装程序集成到pyenv中.</p>
+<h2 id="pipenv"><a href="#pipenv" class="headerlink" title="pipenv"></a>pipenv</h2><p>pipenv 是由 requests 作者编写的,旨在将管道文件、pip和vialenv合并为命令行上的一个命令.具体内容可以去项目主页浏览<a href="https://github.com/kennethreitz/pipenv">pipenv</a></p>
+<h1 id="Standard-library"><a href="#Standard-library" class="headerlink" title="Standard library"></a>Standard library</h1><h2 id="pyenv-1"><a href="#pyenv-1" class="headerlink" title="pyenv"></a>pyenv</h2><p>pyenv 是 Python3中的附带脚本,但是在 Python3.6中废弃 了,具体内容见<a target="_blank" rel="noopener" href="https://docs.python.org/dev/whatsnew/3.6.html#id8">What’s New In Python 3.6</a></p>
+<h2 id="venv"><a href="#venv" class="headerlink" title="venv"></a>venv</h2><p>venv 是 Python3 中附带的一个包,你可以通过使用 <code>python -m venv</code>使用它,不过在有的发行版中将它分离成了一个单独的发行版包,如 Ubuntu/Debian 中的 python3-env. 它的用途与 virtualenv 类似，工作方式也非常相似，但它不需要复制Python二进制文件(Windows除外).</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ol>
+<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/41573587/what-is-the-difference-between-venv-pyvenv-pyenv-virtualenv-virtualenvwrappe">https://stackoverflow.com/questions/41573587/what-is-the-difference-between-venv-pyvenv-pyenv-virtualenv-virtualenvwrappe</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/29950300/what-is-the-relationship-between-virtualenv-and-pyenv">https://stackoverflow.com/questions/29950300/what-is-the-relationship-between-virtualenv-and-pyenv</a></p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2017/09/23/electron-searchMovies/" rel="prev" title="electron-searchMovies">
+                  <i class="fa fa-chevron-left"></i> electron-searchMovies
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2017/10/11/python%E6%93%8D%E4%BD%9Cmysql/" rel="next" title="python操作mysql">
+                  python操作mysql <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"e652552c2a4894126de410d633533595"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

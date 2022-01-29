@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="前言一直都有订阅 Rss 的习惯，前段时间配合钉钉的自定义机器人，建了一个在钉钉定时推送消息的群，当时是服务是跑在自己的小水管上的，并且是在自己博客的基础上的，依赖了 Flask。后续想着开源，考虑到单独一个 Rss 推送机器人依赖一个 Web 框架就显得比较笨重了，就着手将这部分服务独立出来。 钉钉 RSS 推送机器人钉钉 RSS 推送机器人，主要内容分为两部分，第一部分是钉钉机器人；第二部分是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="配合Github Actions 做一个自动推送的 Rss 订阅机器人">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2020/10/11/%20%E9%85%8D%E5%90%88Github%20Actions%E5%81%9A%E4%B8%80%E4%B8%AA%E8%87%AA%E5%8A%A8%E6%8E%A8%E9%80%81%E7%9A%84Rss%E8%AE%A2%E9%98%85%E6%9C%BA%E5%99%A8%E4%BA%BA/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="前言一直都有订阅 Rss 的习惯，前段时间配合钉钉的自定义机器人，建了一个在钉钉定时推送消息的群，当时是服务是跑在自己的小水管上的，并且是在自己博客的基础上的，依赖了 Flask。后续想着开源，考虑到单独一个 Rss 推送机器人依赖一个 Web 框架就显得比较笨重了，就着手将这部分服务独立出来。 钉钉 RSS 推送机器人钉钉 RSS 推送机器人，主要内容分为两部分，第一部分是钉钉机器人；第二部分是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/posts/1603444780.png">
+<meta property="og:image" content="https://github.com/posts/1603444871.png">
+<meta property="og:image" content="https://github.com/posts/1603444919.png">
+<meta property="og:image" content="https://github.com/posts/1603444956.png">
+<meta property="og:image" content="https://github.com/posts/1603444990.png">
+<meta property="og:image" content="https://github.com/posts/1603445024.png">
+<meta property="og:image" content="https://github.com/posts/1603445048.png">
+<meta property="article:published_time" content="2020-10-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.003Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Github Action">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/posts/1603444780.png">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2020/10/11/%20%E9%85%8D%E5%90%88Github%20Actions%E5%81%9A%E4%B8%80%E4%B8%AA%E8%87%AA%E5%8A%A8%E6%8E%A8%E9%80%81%E7%9A%84Rss%E8%AE%A2%E9%98%85%E6%9C%BA%E5%99%A8%E4%BA%BA/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2020/10/11/%20%E9%85%8D%E5%90%88Github%20Actions%E5%81%9A%E4%B8%80%E4%B8%AA%E8%87%AA%E5%8A%A8%E6%8E%A8%E9%80%81%E7%9A%84Rss%E8%AE%A2%E9%98%85%E6%9C%BA%E5%99%A8%E4%BA%BA/","path":"2020/10/11/ 配合Github Actions做一个自动推送的Rss订阅机器人/","title":"配合Github Actions 做一个自动推送的 Rss 订阅机器人"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>配合Github Actions 做一个自动推送的 Rss 订阅机器人 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%92%89%E9%92%89-RSS-%E6%8E%A8%E9%80%81%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="nav-number">2.</span> <span class="nav-text">钉钉 RSS 推送机器人</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%92%89%E9%92%89%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="nav-number">2.1.</span> <span class="nav-text">钉钉机器人</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%80"><span class="nav-number">2.1.1.</span> <span class="nav-text">步骤一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%8C"><span class="nav-number">2.1.2.</span> <span class="nav-text">步骤二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81"><span class="nav-number">2.2.</span> <span class="nav-text">消息推送</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">2.2.2.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RSS-%E8%A7%A3%E6%9E%90"><span class="nav-number">2.3.</span> <span class="nav-text">RSS 解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RSS-%E9%92%89%E9%92%89%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="nav-number">2.4.</span> <span class="nav-text">RSS 钉钉机器人</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="nav-number">2.4.1.</span> <span class="nav-text">模型定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E5%90%88%E4%BB%A3%E7%A0%81"><span class="nav-number">2.4.2.</span> <span class="nav-text">整合代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Github-Actions"><span class="nav-number">3.</span> <span class="nav-text">Github Actions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#workflows"><span class="nav-number">3.1.</span> <span class="nav-text">workflows</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2020/10/11/%20%E9%85%8D%E5%90%88Github%20Actions%E5%81%9A%E4%B8%80%E4%B8%AA%E8%87%AA%E5%8A%A8%E6%8E%A8%E9%80%81%E7%9A%84Rss%E8%AE%A2%E9%98%85%E6%9C%BA%E5%99%A8%E4%BA%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          配合Github Actions 做一个自动推送的 Rss 订阅机器人
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-10-11 00:00:00" itemprop="dateCreated datePublished" datetime="2020-10-11T00:00:00+08:00">2020-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>一直都有订阅 Rss 的习惯，前段时间配合钉钉的自定义机器人，建了一个在钉钉定时推送消息的群，当时是服务是跑在自己的小水管上的，并且是在自己博客的基础上的，依赖了 Flask。后续想着开源，考虑到单独一个 Rss 推送机器人依赖一个 Web 框架就显得比较笨重了，就着手将这部分服务独立出来。</p>
+<h1 id="钉钉-RSS-推送机器人"><a href="#钉钉-RSS-推送机器人" class="headerlink" title="钉钉 RSS 推送机器人"></a>钉钉 RSS 推送机器人</h1><p>钉钉 RSS 推送机器人，主要内容分为两部分，第一部分是钉钉机器人；第二部分是订阅推送。</p>
+<h2 id="钉钉机器人"><a href="#钉钉机器人" class="headerlink" title="钉钉机器人"></a>钉钉机器人</h2><p>因为是自定义内容，钉钉现有的机器人不支持，所以我们需要借助钉钉的自定义机器人。</p>
+<h3 id="步骤一"><a href="#步骤一" class="headerlink" title="步骤一"></a>步骤一</h3><p>【电脑钉钉 】-【群聊】-【群设置】-【智能群助手】-【添加更多】-【添加机器人】-【自定义】-【添加】，编辑机器人名称和选择添加的群组。完成必要的安全设置（至少选择一种），勾选 我已阅读并同意《自定义机器人服务及免责条款》，点击“完成”即可。<br><img src="/posts/1603444780.png"></p>
+<h3 id="步骤二"><a href="#步骤二" class="headerlink" title="步骤二"></a>步骤二</h3><p>复制出机器人的Webhook地址（格式如下截图），可用于向这个群发送消息。并点击【完成】，自定义机器人就添加成功了。<br><img src="/posts/1603444871.png"><br>为了安全考虑，这里我们在创建机器人的时候，勾选“<strong>加签</strong>”。这样子会获得 webhook 和 secret 两个参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">webhook = <span class="string">&#x27;https://oapi.dingtalk.com/robot/send?access_token=这里填写自己钉钉群自定义机器人的token&#x27;</span></span><br><span class="line">secret = <span class="string">&#x27;SEC11b9...这里填写自己的加密设置密钥&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="消息推送"><a href="#消息推送" class="headerlink" title="消息推送"></a>消息推送</h2><p>完成机器人的创建，就需要完成通过 api 将消息推送到群里，使用 <a href="https://github.com/zhuifengshen/DingtalkChatbot">DingtalkChatbot</a></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install DingtalkChatbot</span><br></pre></td></tr></table></figure>
+
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dingtalkchatbot.chatbot <span class="keyword">import</span> DingtalkChatbot</span><br><span class="line"><span class="comment"># WebHook地址</span></span><br><span class="line">webhook = <span class="string">&#x27;https://oapi.dingtalk.com/robot/send?access_token=这里填写自己钉钉群自定义机器人的token&#x27;</span></span><br><span class="line">secret = <span class="string">&#x27;SEC11b9...这里填写自己的加密设置密钥&#x27;</span>  <span class="comment"># 可选：创建机器人勾选“加签”选项时使用</span></span><br><span class="line"><span class="comment"># 初始化机器人小丁</span></span><br><span class="line">xiaoding = DingtalkChatbot(webhook)  <span class="comment"># 方式一：通常初始化方式</span></span><br><span class="line">xiaoding = DingtalkChatbot(webhook, secret=secret)  <span class="comment"># 方式二：勾选“加签”选项时使用（v1.5以上新功能）</span></span><br><span class="line">xiaoding = DingtalkChatbot(webhook, pc_slide=<span class="literal">True</span>)  <span class="comment"># 方式三：设置消息链接在PC端侧边栏打开（v1.5以上新功能）</span></span><br><span class="line"><span class="comment"># Text消息@所有人</span></span><br><span class="line">xiaoding.send_text(msg=<span class="string">&#x27;我就是小丁，小丁就是我！&#x27;</span>, is_at_all=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="RSS-解析"><a href="#RSS-解析" class="headerlink" title="RSS 解析"></a>RSS 解析</h2><p>rss 解析，这里使用 feedparser 进行解析。</p>
+<h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install DingtalkChatbot</span><br></pre></td></tr></table></figure>
+
+<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> feedparser</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>leetao_feed = feedparser.parse(<span class="string">&#x27;https://www.leetao94.cn/feeds&#x27;</span>) <span class="comment"># parse() 方法，解析对应的 url</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>leetao_feed.feed <span class="comment"># feed 对象</span></span><br><span class="line">&#123;<span class="string">&#x27;title&#x27;</span>: <span class="string">&quot;Peach Blog&#x27;s Feeds&quot;</span>, <span class="string">&#x27;title_detail&#x27;</span>: &#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;text/plain&#x27;</span>, <span class="string">&#x27;language&#x27;</span>: <span class="literal">None</span>, </span><br><span class="line">                                                 <span class="string">&#x27;base&#x27;</span>: <span class="string">&#x27;https://www.leetao94.cn/feeds&#x27;</span>, <span class="string">&#x27;value&#x27;</span>: <span class="string">&quot;Peach Blog&#x27;s Feeds&quot;</span>&#125;, </span><br><span class="line"> <span class="string">&#x27;id&#x27;</span>: <span class="string">&#x27;https://www.leetao94.cn/feeds&#x27;</span>, <span class="string">&#x27;guidislink&#x27;</span>: <span class="literal">True</span>, </span><br><span class="line"> <span class="string">&#x27;link&#x27;</span>: <span class="string">&#x27;https://www.leetao94.cn/&#x27;</span>, <span class="string">&#x27;updated&#x27;</span>: <span class="string">&#x27;2020-09-25T19:53:35Z&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;updated_parsed&#x27;</span>: time.struct_time(tm_year=<span class="number">2020</span>, tm_mon=<span class="number">9</span>, tm_mday=<span class="number">25</span>, tm_hour=<span class="number">19</span>, tm_min=<span class="number">53</span>, tm_sec=<span class="number">35</span>, tm_wday=<span class="number">4</span>, tm_yday=<span class="number">269</span>, tm_isdst=<span class="number">0</span>), </span><br><span class="line"> <span class="string">&#x27;links&#x27;</span>: [&#123;<span class="string">&#x27;href&#x27;</span>: <span class="string">&#x27;https://www.leetao94.cn/&#x27;</span>, <span class="string">&#x27;rel&#x27;</span>: <span class="string">&#x27;alternate&#x27;</span>, <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;text/html&#x27;</span>&#125;, </span><br><span class="line">           &#123;<span class="string">&#x27;href&#x27;</span>: <span class="string">&#x27;https://www.leetao94.cn/feeds&#x27;</span>, <span class="string">&#x27;rel&#x27;</span>: <span class="string">&#x27;self&#x27;</span>, <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;application/atom+xml&#x27;</span>&#125;], </span><br><span class="line"> <span class="string">&#x27;generator_detail&#x27;</span>: &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;Werkzeug&#x27;</span>&#125;, <span class="string">&#x27;generator&#x27;</span>: <span class="string">&#x27;Werkzeug&#x27;</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">type</span>(leetao_feed.entries) <span class="comment"># 解析出来的文章列表对象</span></span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">list</span>&#x27;&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">len</span>(<span class="params">leetao_feed.entries</span>)</span></span><br><span class="line"><span class="class">10</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">leetao_feed</span>.<span class="title">entries</span>[0] # 单个文章的内容</span></span><br><span class="line"><span class="class">&#123;&#x27;<span class="title">title</span>&#x27;:</span> <span class="string">&#x27;Mybatis中特殊符号#&#123;&#125;和$&#123;&#125;&#x27;</span>, </span><br><span class="line"> <span class="string">&#x27;title_detail&#x27;</span>: &#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;text/plain&#x27;</span>, </span><br><span class="line">                  <span class="string">&#x27;language&#x27;</span>: <span class="literal">None</span>, <span class="string">&#x27;base&#x27;</span>: <span class="string">&#x27;https://www.leetao94.cn/feeds&#x27;</span>,</span><br><span class="line">                  <span class="string">&#x27;value&#x27;</span>: <span class="string">&#x27;Mybatis中特殊符号#&#123;&#125;和$&#123;&#125;&#x27;</span>&#125;,</span><br><span class="line"> <span class="string">&#x27;id&#x27;</span>: <span class="string">&#x27;https://www.leetao94.cn/post/Mybatis中特殊符号#&#123;&#125;和$&#123;&#125;&#x27;</span>, </span><br><span class="line"> <span class="string">&#x27;guidislink&#x27;</span>: <span class="literal">True</span>, <span class="string">&#x27;link&#x27;</span>: <span class="string">&#x27;https://www.leetao94.cn/post/Mybatis中特殊符号#&#123;&#125;和$&#123;&#125;&#x27;</span>,</span><br><span class="line"> <span class="string">&#x27;updated&#x27;</span>: <span class="string">&#x27;2020-09-25T19:53:35Z&#x27;</span>, </span><br><span class="line"> <span class="string">&#x27;updated_parsed&#x27;</span>: time.struct_time(tm_year=<span class="number">2020</span>, tm_mon=<span class="number">9</span>, tm_mday=<span class="number">25</span>, tm_hour=<span class="number">19</span>, tm_min=<span class="number">53</span>, tm_sec=<span class="number">35</span>, tm_wday=<span class="number">4</span>, tm_yday=<span class="number">269</span>, tm_isdst=<span class="number">0</span>),</span><br><span class="line"> <span class="string">&#x27;published&#x27;</span>: <span class="string">&#x27;2020-09-25T19:53:35Z&#x27;</span>, </span><br><span class="line"> <span class="string">&#x27;published_parsed&#x27;</span>: time.struct_time(tm_year=<span class="number">2020</span>, tm_mon=<span class="number">9</span>, tm_mday=<span class="number">25</span>, tm_hour=<span class="number">19</span>, tm_min=<span class="number">53</span>, tm_sec=<span class="number">35</span>, tm_wday=<span class="number">4</span>, tm_yday=<span class="number">269</span>, tm_isdst=<span class="number">0</span>),</span><br><span class="line"> <span class="string">&#x27;links&#x27;</span>: [&#123;<span class="string">&#x27;href&#x27;</span>: <span class="string">&#x27;https://www.leetao94.cn/post/Mybatis中特殊符号#&#123;&#125;和$&#123;&#125;&#x27;</span>, </span><br><span class="line">            <span class="string">&#x27;rel&#x27;</span>: <span class="string">&#x27;alternate&#x27;</span>, <span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;text/html&#x27;</span>&#125;], <span class="string">&#x27;authors&#x27;</span>: [&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;Leetao&#x27;</span>&#125;], </span><br><span class="line"> <span class="string">&#x27;author_detail&#x27;</span>: &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;Leetao&#x27;</span>&#125;, <span class="string">&#x27;author&#x27;</span>: <span class="string">&#x27;Leetao&#x27;</span>, </span><br><span class="line"> <span class="string">&#x27;content&#x27;</span>: [&#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;text/html&#x27;</span>, <span class="string">&#x27;language&#x27;</span>: <span class="literal">None</span>, <span class="string">&#x27;base&#x27;</span>: <span class="string">&#x27;https://www.leetao94.cn/feeds&#x27;</span>,</span><br><span class="line">              <span class="string">&#x27;value&#x27;</span>: <span class="string">&#x27;...&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>具体用法可以参考官方文档：<a target="_blank" rel="noopener" href="https://pythonhosted.org/feedparser/">https://pythonhosted.org/feedparser/</a></p>
+<h2 id="RSS-钉钉机器人"><a href="#RSS-钉钉机器人" class="headerlink" title="RSS 钉钉机器人"></a>RSS 钉钉机器人</h2><p>准备工作完成之后，就是将机器人和 Rss 解析内容整合到一起，为了避免重复推送内容，很显然需要借助数据库，考虑简便性，采用 python 原生支持的 <strong>sqlite 数据库</strong>免安装；为了操作数据库方便，这里就使用轻量级的 ORM – <strong>peewee</strong>。</p>
+<h3 id="模型定义"><a href="#模型定义" class="headerlink" title="模型定义"></a>模型定义</h3><p>首先完成数据模型的定义，两个模型，一个是 RSS 源模型，一个是 History 历史记录模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># models.py</span></span><br><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> peewee <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line">db = SqliteDatabase(<span class="string">&#x27;rss.db&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BaseModel</span>(<span class="params">Model</span>):</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        database = db</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rss</span>(<span class="params">BaseModel</span>):</span></span><br><span class="line">    feed = CharField(unique=<span class="literal">True</span>) <span class="comment"># rss 源地址</span></span><br><span class="line">    cover = CharField(max_length=<span class="number">255</span>) <span class="comment"># 封面 </span></span><br><span class="line">    title = CharField(max_length=<span class="number">20</span>) <span class="comment"># rss 的标题</span></span><br><span class="line">    url = CharField(max_length=<span class="number">255</span>) <span class="comment"># 官网地址 可选</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">History</span>(<span class="params">BaseModel</span>):</span></span><br><span class="line">    url = CharField(max_length=<span class="number">255</span>)</span><br><span class="line">    publish_at = DateField(default=datetime.datetime.now)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_tables</span>():</span></span><br><span class="line">    <span class="keyword">with</span> db:</span><br><span class="line">        db.create_tables([Rss, History])</span><br></pre></td></tr></table></figure>
+<p>模型定义完成，接下来就是代码的整合了。</p>
+<h3 id="整合代码"><a href="#整合代码" class="headerlink" title="整合代码"></a>整合代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">rss.py</span></span><br><span class="line"><span class="string">钉钉 Rss 机器人</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> feedparser</span><br><span class="line"><span class="keyword">from</span> dingtalkchatbot.chatbot <span class="keyword">import</span> DingtalkChatbot, CardItem, ActionCard</span><br><span class="line"><span class="keyword">import</span> dateparser</span><br><span class="line"><span class="keyword">from</span> models <span class="keyword">import</span> db, Rss, History</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RssRobot</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.robot = DingtalkChatbot(</span><br><span class="line">            os.environ.get(<span class="string">&quot;DD_WEBHOOK&quot;</span>),</span><br><span class="line">            pc_slide=<span class="literal">True</span>, secret=os.environ.get(<span class="string">&quot;DD_SECRET&quot;</span>)) <span class="comment"># 两个环境变量</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_rss</span>(<span class="params">self</span>):</span></span><br><span class="line">        rss_list = Rss.select()</span><br><span class="line">        rss_card_dict = &#123;&#125;</span><br><span class="line">        post_url_list = [rss_history.url <span class="keyword">for</span> rss_history <span class="keyword">in</span></span><br><span class="line">                         History.select().where(History.publish_at == datetime.today().strftime(<span class="string">&quot;%Y-%m-%d&quot;</span>))] <span class="comment"># 查询当天的历史记录</span></span><br><span class="line">        <span class="keyword">for</span> rss <span class="keyword">in</span> rss_list:</span><br><span class="line">            rss_history_list = []</span><br><span class="line">            card_list = [</span><br><span class="line">                CardItem(title=rss.title, url=rss.url, pic_url=rss.cover)]</span><br><span class="line">            feed = feedparser.parse(rss.feed)            </span><br><span class="line">            <span class="keyword">for</span> entry <span class="keyword">in</span> feed.entries:</span><br><span class="line">                <span class="keyword">if</span> entry.link <span class="keyword">not</span> <span class="keyword">in</span> post_url_list <span class="keyword">and</span> self.is_today(entry): <span class="comment"># 判断链接是否是当天的并且没有推送过的</span></span><br><span class="line">                    card_list.append(CardItem(title=<span class="string">f&#x27;<span class="subst">&#123;entry.title&#125;</span>&#x27;</span>, url=entry.link,</span><br><span class="line">                                            pic_url=<span class="string">&#x27;https://ftp.bmp.ovh/imgs/2020/07/6cdb9f606677c9e3.jpg&#x27;</span>))</span><br><span class="line">                    rss_history_list.append(History(url=entry.link))</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(card_list) &gt; <span class="number">1</span>:</span><br><span class="line">                rss_card_dict[rss.title] = card_list</span><br><span class="line">                <span class="keyword">with</span> db.atomic():</span><br><span class="line">                    History.bulk_create(rss_history_list, batch_size=<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> rss_card_dict</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_today</span>(<span class="params">self, entry</span>):</span></span><br><span class="line">        <span class="keyword">return</span> dateparser.parse(entry[<span class="string">&#x27;updated&#x27;</span>]).date() == datetime.today().date()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send_rss</span>(<span class="params">self</span>):</span></span><br><span class="line">        rss_card_dict = self.parse_rss()</span><br><span class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> rss_card_dict:</span><br><span class="line">            self.robot.send_feed_card(rss_card_dict[key])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_rss</span>():</span></span><br><span class="line">    rss_bot = RssRobot()</span><br><span class="line">    rss_bot.send_rss()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    send_rss()</span><br></pre></td></tr></table></figure>
+<p>到这里，算是完成了 Rss 钉钉机器人的大部分功能了，还差唯一的定时推送，原本考虑是用 Python 的常见的定时任务库去完成的，但是考虑的后续部署，还需要一台服务器，奈何自己的阿里云服务器最低配不一定能支持住了，就想着结合 Github Actions 把服务器也省了。</p>
+<h1 id="Github-Actions"><a href="#Github-Actions" class="headerlink" title="Github Actions"></a>Github Actions</h1><p><code>Github Actions</code>是<code>Github</code>推出的一个新的功能，可以为我们的项目自动化地构建工作流，例如代码检查，自动化打包，测试，发布版本等等。入口在项目<code>pull request</code>的旁边。</p>
+<p><img src="/posts/1603444919.png"><br>这里就不再详细介绍 Github Actions 了，贴一下我写的 workflows 文件</p>
+<h2 id="workflows"><a href="#workflows" class="headerlink" title="workflows"></a>workflows</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 钉钉 rss 推送机器人</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">DingDingRssBot</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span>               </span><br><span class="line">  <span class="attr">schedule:</span>                              <span class="comment"># 设置定时任务</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">cron:</span> <span class="string">&#x27;0 0/1 * * *&#x27;</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">&#x27;Checkout codes&#x27;</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span>           <span class="comment"># 拉取最新的代码</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Python</span> <span class="number">3.7</span><span class="number">.6</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/setup-python@v2</span>       <span class="comment"># 设置 python 版本</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">python-version:</span> <span class="number">3.7</span><span class="number">.6</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span>          <span class="comment"># 安装依赖</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        cd robot</span></span><br><span class="line"><span class="string">        pip install -r requirements.txt</span></span><br><span class="line"><span class="string"></span>    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">send</span> <span class="string">rss</span>                      </span><br><span class="line">      <span class="attr">env:</span></span><br><span class="line">        <span class="attr">DD_WEBHOOK:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.webhook</span> <span class="string">&#125;&#125;</span></span><br><span class="line">        <span class="attr">DD_SECRET:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.secret</span> <span class="string">&#125;&#125;</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        cd robot</span></span><br><span class="line"><span class="string">        python rss.py</span></span><br><span class="line"><span class="string"></span>    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Commit</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        git config --global user.email leetao94cn@gmail.com</span></span><br><span class="line"><span class="string">        git config --global user.name lt94</span></span><br><span class="line"><span class="string">        git add .</span></span><br><span class="line"><span class="string">        git commit -m &quot;update&quot; -a</span></span><br><span class="line"><span class="string"></span>    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Push</span> <span class="string">changes</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">ad-m/github-push-action@master</span> </span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">branch:</span> <span class="string">main</span></span><br><span class="line">        <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.TOKEN</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+<p>其中三个环境变量需要我们自行配置，在项目的 Settings 中的 Secrets 中设置<br><img src="/posts/1603444956.png"></p>
+<p>其中 TOKEN 是 Person access tokens，需要在个人设置中申请，申请时需要勾选 <strong>admin:repo_hook,repo,workflow</strong> 三个选项。</p>
+<p><img src="/posts/1603444990.png"></p>
+<p>Person access tokens 主要是用来将修改推送到仓库的，借助 Github Actions 运行完成之后会把代码删除，会导致产生的修改丢失，这样子的话历史记录就无法保存，因此我们需要在每次推送完成之后，将对数据库的修改推送到仓库中。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>到此所有配置完成，Github Actions 会定时执行 rss 推送任务。<br><img src="/posts/1603445024.png"></p>
+<p>有兴趣的可以用钉钉搜索群号:35731271，或者扫描二维码</p>
+<p><img src="/posts/1603445048.png"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Python/" rel="tag"># Python</a>
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Github-Action/" rel="tag"># Github Action</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2020/09/25/Mybatis%E4%B8%AD%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7#%7B%7D%E5%92%8C$%7B%7D/" rel="prev" title="Mybatis中特殊符号#{}和${}">
+                  <i class="fa fa-chevron-left"></i> Mybatis中特殊符号#{}和${}
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2020/11/24/%E5%9C%A8Flask%E5%90%AF%E5%8A%A8%E6%97%B6%E5%90%AF%E5%8A%A8%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1/" rel="next" title="在Flask启动时启动后台任务">
+                  在Flask启动时启动后台任务 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"eb82432e60d53d8ae71359a4fd1475e8"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

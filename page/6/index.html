@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="Je pense, donc je suis">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Leetao&#39;s Blog">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/page/6/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="Je pense, donc je suis">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Leetao">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/page/6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/6/index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Leetao's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/06/24/%E4%BB%8E%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F%E8%B0%88%E8%B0%88%20Flask%20%E7%9A%84%20Signals/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/06/24/%E4%BB%8E%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F%E8%B0%88%E8%B0%88%20Flask%20%E7%9A%84%20Signals/" class="post-title-link" itemprop="url">从发布-订阅模式谈谈 Flask 的 Signals</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-06-24 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-24T00:00:00+08:00">2019-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="发布-订阅模式"><a href="#发布-订阅模式" class="headerlink" title="发布-订阅模式"></a>发布-订阅模式</h1><p><strong>发布-订阅模式</strong>,顾名思义,就像大家订报纸一样,出版社发布不同类型的报纸杂志不同的读者根据不同的需求预定符合自己口味的的报纸杂志,付费之后由邮局安排人员统一派送. </p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g4cgqcjzuvj30e102c3yp.jpg"></p>
+<p>上面一段话,提到了发布-订阅模式三个比较重要的点:</p>
+<ol>
+<li> 发布者:报社</li>
+<li> 订阅者:读者</li>
+<li> 调度中心:邮局</li>
+</ol>
+<p>不难看出上述过程中出版社和读者完全没有任何接触,在他们没有感知到对方的情况下通过邮局完成了整个流程,邮局就是传说中的中介(Broker)</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g4cgqtera9j30ci07ewer.jpg"></p>
+<p>那么使用发布-订阅模式的有什么优点呢?这里就简单的说两点:<strong>松耦合</strong>,<strong>可拓展性</strong>,稍后通过例子进行讲解. 关于更深入的理解可以参考:</p>
+<ol>
+<li> <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff649664(v=pandp.10)">Publish/Subscribe-MSDN</a></li>
+<li> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern#Message_filtering">Publish/Subscribe-Wikipedia</a></li>
+</ol>
+<p>对这个模式有所了解之后，让我们再回到 Flask 的 Signals</p>
+<h1 id="Flask-Signals"><a href="#Flask-Signals" class="headerlink" title="Flask - Signals"></a>Flask - Signals</h1><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>有了前面这个铺垫，不难意识到 Flask 的 Singals 其实就是我们上面说的<strong>发布－订阅模式</strong>的实现．官方文档对 Signals 的介绍过于简单，容易让初学者直接忽略过去，但是实际上这知识点十分重要，尤其在开发比较复杂的系统中，正确地使用 Singals 能够帮助我们实现系统的<strong>松耦合</strong>.</p>
+<p>这种松耦合是通过某些行为被触发时，自动发送定义好的一种信号，与这个信号绑定的一些业务逻辑或行为，接收到这个信号后，会自动执行各自相应的业务逻辑。这些行为的产生者就是我们在发布订阅模式中<strong>发布者</strong>,通过<strong>调度中心</strong>,消息被转发到相应的<strong>订阅者</strong>,然后每个订阅者执行自己的逻辑,互不干扰.</p>
+<p>就像我们在发布-订阅模式看到的那样,我们可以随时添加<strong>订阅者</strong>. 同样地,与该信号绑定的业务逻辑，可以是我们事先预定义好的，也可以是在后续开发中随需求变动新增上去的. 在基于 Signals 的机制下,系统会更加稳定和<strong>可扩展</strong>，也使得系统的业务逻辑更加清晰.</p>
+<p>既然有这么多好处,那么该怎么使用呢?别着急,看一下几个例子.</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><h3 id="Signal-的创建"><a href="#Signal-的创建" class="headerlink" title="Signal 的创建"></a>Signal 的创建</h3><p>两行代码就可以创建 Singals</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> blinker <span class="keyword">import</span> signal</span><br><span class="line">test= signal(<span class="string">&#x27;test&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>不过 Flask 文档中有另外一种写法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> blinker <span class="keyword">import</span> Namespace</span><br><span class="line">my_signals = Namespace()</span><br><span class="line">model_saved = my_signals.signal(<span class="string">&#x27;model-saved&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>两者本质上是没有任何区别的,原因我们可以看一下 blinker 的源码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://github.com/jek/blinker/blob/master/blinker/base.py</span></span><br><span class="line">signal = Namespace().signal</span><br></pre></td></tr></table></figure>
+
+<p>很显然从源码看两者基本上可以等价起来,前者只是帮助我们简化了一个步骤</p>
+<h3 id="Signal-的发送"><a href="#Signal-的发送" class="headerlink" title="Signal 的发送"></a>Signal 的发送</h3><p>signal 创建好了之后,接下来就是使用了,使用很简单通过调用 <strong>send()</strong> 函数.需要注意的是,官方文档给了一个建议:</p>
+<blockquote>
+<p>Try to always pick a good sender. If you have a class that is emitting a signal, pass self as sender. If you are emitting a signal from a random function, you can pass current_app._get_current_object() as sender.</p>
+</blockquote>
+<p>也就说明我们在实际使用过程中,最好将 <strong>send()</strong> 函数的第一个参数为 signal 的发送者</p>
+<ol>
+<li>在类中发送者(sender) 为 self</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Model</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">save</span>(<span class="params">self</span>):</span></span><br><span class="line">        model_saved.send(self)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在函数中发送者(sender) 为 current_app._get_current_object()</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">save</span>():</span></span><br><span class="line">    model_saved.send(current_app._get_current_object())</span><br></pre></td></tr></table></figure>
+
+<p>发送完消息,消息需要有人看,自然需要订阅者了.</p>
+<h3 id="Signal-的订阅"><a href="#Signal-的订阅" class="headerlink" title="Signal 的订阅"></a>Signal 的订阅</h3><p>订阅指定的 signal 可以通过使用 <strong>connect()</strong> 函数,当通过 send() 发送 signal 时,会自动触发这些订阅者,然后执行相应逻辑,从而完成相应的功能. 使用起来很简单,只需要给指定的函数加上一个 <strong>connect_via</strong> 或者 <strong>connect</strong> 的装饰器就可以了 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># connect_via</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask,current_app</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> blinker <span class="keyword">import</span> Namespace</span><br><span class="line">my_signals = Namespace()</span><br><span class="line">test = my_signals.signal(<span class="string">&#x27;test&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@test.connect_via(<span class="params">app</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">subscriber</span>(<span class="params">sender,**kwargs</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;Got a signal sent by <span class="subst">&#123;sender&#125;</span>,<span class="subst">&#123;kwargs&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span>():</span></span><br><span class="line">    test.send(current_app._get_current_object(),data=<span class="number">3</span>)</span><br><span class="line">    test.send(<span class="string">&#x27;test&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello, World!&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<p>让我们执行一下然后看一下结果:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> * Serving Flask app &quot;test&quot; (lazy loading)</span><br><span class="line"> * Environment: production</span><br><span class="line">   WARNING: This is a development server. Do not use it in a production deployment.</span><br><span class="line">   Use a production WSGI server instead.</span><br><span class="line"> * Debug mode: on</span><br><span class="line"> * Restarting with stat</span><br><span class="line"> * Debugger is active!</span><br><span class="line"> * Debugger PIN: 326-510-904</span><br><span class="line"> * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)</span><br><span class="line">Got a signal sent by &lt;Flask &#x27;test&#x27;&gt;,&#123;&#x27;data&#x27;: 3&#125;</span><br><span class="line">127.0.0.1 - - [24/Jun/2019 15:07:31] &quot;GET / HTTP/1.1&quot; 200 -</span><br></pre></td></tr></table></figure>
+
+<p>似乎少了依次输出?别着急,我们修改一下这个例子,使用 <strong>connect</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  connect</span></span><br><span class="line"><span class="meta">@test.connect</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">subscriber</span>(<span class="params">sender,**kwargs</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;Got a signal sent by <span class="subst">&#123;sender&#125;</span>,<span class="subst">&#123;kwargs&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>再次执行看一下结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> * Serving Flask app &quot;test&quot; (lazy loading)</span><br><span class="line"> * Environment: production</span><br><span class="line">   WARNING: This is a development server. Do not use it in a production deployment.</span><br><span class="line">   Use a production WSGI server instead.</span><br><span class="line"> * Debug mode: on</span><br><span class="line"> * Restarting with stat</span><br><span class="line"> * Debugger is active!</span><br><span class="line"> * Debugger PIN: 326-510-904</span><br><span class="line"> * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)</span><br><span class="line">Got a signal sent by &lt;Flask &#x27;test&#x27;&gt;,&#123;&#x27;data&#x27;: 3&#125;</span><br><span class="line">Got a signal sent by test,&#123;&#125;</span><br><span class="line">127.0.0.1 - - [24/Jun/2019 15:10:43] &quot;GET / HTTP/1.1&quot; 200 -</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="connect-via-和-connect"><a href="#connect-via-和-connect" class="headerlink" title="connect_via 和 connect"></a>connect_via 和 connect</h4><p>从上面最后一次输出,不难发现输出两次了,为什么第一次的时候只输出了一次呢? 很显然这就是  <strong>connect_via</strong> 和 <strong>connect</strong>  的区别,从上面的例子,我们不难看到, <strong>connect_via</strong> 多了一个参数,这个参数就是 sender,<strong>使用 connect 的订阅方式并不支持订阅指定的发布者,如果我们需要订阅指定的发布者需要使用 connect_via(sender)</strong></p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>Signals 是个好东西,大家应该学会使用它.</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/coderyjz/article/details/79422267">发布-订阅模式解释</a></p>
+</li>
+<li><p> <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff649664(v=pandp.10)">Publish/Subscribe-MSDN</a></p>
+</li>
+<li><p> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern#Message_filtering">Publish/Subscribe-Wikipedia</a></p>
+</li>
+<li><p> <a href="https://github.com/jek/blinker/blob/master/blinker/base.py#L460">bliker</a></p>
+</li>
+<li><p> <a target="_blank" rel="noopener" href="http://flask.pocoo.org/docs/0.12/signals/">Signals</a></p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/06/19/Seleuim%20%E6%96%B0%E5%BB%BA%20table%20%E9%A1%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/06/19/Seleuim%20%E6%96%B0%E5%BB%BA%20table%20%E9%A1%B5/" class="post-title-link" itemprop="url">Seleuim 新建 table 页</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-06-19 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-19T00:00:00+08:00">2019-06-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Seleuim 是一个用于 Web 应用程序测试的工具. Seleuim 可以直接运行在浏览器中,就像真正的用户一样. 因为有这种特性,所有有时候会被用来作为爬虫的一大杀器.</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>通常我们使用 Seleuim 基本上的逻辑都是这样的:</p>
+<ol>
+<li> 打开一个网页</li>
+<li> 关闭当前网页,然后打开另外一个网页</li>
+<li> 然后重复步骤 1,2</li>
+</ol>
+<p>从上面我们不难看出,在上述使用情景下,浏览器始终有一个 tab 页存活,当然这种使用方式已经能够满足我们绝大数的需求. </p>
+<h2 id="新的需求"><a href="#新的需求" class="headerlink" title="新的需求"></a>新的需求</h2><p>那么如果作到打开多个 tab 页呢?</p>
+<p>别着急,让我们看代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line">main_url = <span class="string">&#x27;https://www.leetao94.cn&#x27;</span> <span class="comment"># URL A</span></span><br><span class="line">tab_url = <span class="string">&#x27;https://www.baidu.com&#x27;</span> <span class="comment"># URL B</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开 URL A</span></span><br><span class="line">browser= webdriver.Chrome())</span><br><span class="line">browser.get(main_url)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Current Page Title is : %s&quot;</span> %browser.title)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开新的 Tab 页</span></span><br><span class="line">browser.execute_script(<span class="string">&quot;window.open(&#x27;&#x27;);&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换到新的 Tab 页,然后打开连接</span></span><br><span class="line">browser.switch_to.window(browser.window_handles[<span class="number">1</span>])</span><br><span class="line">browser.get(tab_url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新页面的逻辑</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Current Page Title is : %s&quot;</span> %browser.title)</span><br><span class="line">browser.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新返回 URL A</span></span><br><span class="line">browser.switch_to.window(browser.window_handles[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Current Page Title is : %s&quot;</span> %browser.title)</span><br></pre></td></tr></table></figure>
+
+<p>最后看一下效果:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g46g2l4n38g31l01g8e81.gif"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/05/29/Python%20%E4%B8%AD%20%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E5%92%8C%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/05/29/Python%20%E4%B8%AD%20%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E5%92%8C%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/" class="post-title-link" itemprop="url">Python 中 可变对象和不可变对象</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-29T00:00:00+08:00">2019-05-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在 Python 中一切都可以看作为对象。每个对象都有各自的 id, type 和 value。</p>
+<ol>
+<li> id: 当一个对象被创建后，它的 id 就不会在改变，这里的 id 其实就是对象在内存中的地址，可以使用 <code>id()</code> 去查看对象在内存中地址。</li>
+<li> type: 和 id 一样当对象呗创建之后，它的 type 也不能再被改变，type 决定了该对象所能够支持的操作</li>
+<li> value: 对象的值</li>
+</ol>
+<p>一个对象可变与否就在于 value 值是否支持改变。</p>
+<h1 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h1><p>常见的不可变对象(immutable objects):</p>
+<ol>
+<li>   Number: int, float, complex</li>
+<li>   string</li>
+<li>   tuple</li>
+<li>   frozenset:set 的另外一种类型</li>
+</ol>
+<p>让我们通过例子感受一下</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x=1</span><br><span class="line">&gt;&gt;&gt; y=x</span><br><span class="line">&gt;&gt;&gt; id(x)==id(y)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; id(1)==id(y)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>这里创建了两个 <code>int</code> 对象，并且让 <code>x</code>,<code>y</code> 指向同一个对象，然后我们试着修改一下 <code>x</code>,让 <code>x+1</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;x=x+1</span><br></pre></td></tr></table></figure>
+
+<p>这个时候 <code>x</code> 的 <code>id</code> 值和 <code>y</code> 的 <code>id</code> 以及 1 的 <code>id</code> 还一样吗？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x=x+1</span><br><span class="line">&gt;&gt;&gt; id(x)==id(y)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; id(x)==id(1)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; id(1)==id(y)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>从结果不难看出来，<code>x</code> 所指向的对象已经改变了，但是 <code>1</code> 并没有改变。这就是不可变对象，对于不可变对象来说，一旦创建之后就不允许被改变。</p>
+<p><strong>注意</strong>: 不可变并不严格等同绝对的不可变</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a=([1],2,3)</span><br><span class="line">&gt;&gt;&gt; id(a)</span><br><span class="line">4338862696</span><br><span class="line">&gt;&gt;&gt; id(a[0])</span><br><span class="line">4338949128</span><br><span class="line">&gt;&gt;&gt; a[0][0]=0</span><br><span class="line">&gt;&gt;&gt; id(a)</span><br><span class="line">4338862696</span><br><span class="line">&gt;&gt;&gt; id(a[0])</span><br><span class="line">4338949128</span><br></pre></td></tr></table></figure>
+
+<p>从上面的例子不难看出，我们改变了 <code>a[0]</code> 的值，但是并没有影响它的 <code>id</code> 值。一个不可变容器对象如果包含对可变对象的引用，当后者的值改变时，前者的值也会改变；但是该容器仍属于不可变对象，因为它的 <code>id</code> 值不会改变的。</p>
+<h1 id="可变对象"><a href="#可变对象" class="headerlink" title="可变对象"></a>可变对象</h1><p>常见的可变对象(mutable objects):</p>
+<ol>
+<li> list</li>
+<li> dict</li>
+<li> set</li>
+</ol>
+<p>同样的通过例子感受一下</p>
+<h2 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c = [1,2,3]</span><br><span class="line">&gt;&gt;&gt; b = c</span><br><span class="line">&gt;&gt;&gt; id(b)==id(c)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>创建两个 <code>list</code> 对象，并且让 <code>c</code>,<code>d</code> 指向同一个对象，然后我们试着修改一下 <code>c</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c[0]=4</span><br></pre></td></tr></table></figure>
+
+<p>这个时候在看一下两个对象的 <code>id</code> 值是否一致</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; id(c)==id(b)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>修改之后，<code>c</code>,<code>d</code> 仍然指向同一个对象，所以不难得出结论,对于一个可变对象来说，修改 <code>value</code> 值并不会对它的 <code>id</code> 造成任何影响</p>
+<h1 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h1><p>对于可变对象和不可变对象，他们两者在函数当作参数传递的时候表现也有所不同</p>
+<h2 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h2><h3 id="eg0"><a href="#eg0" class="headerlink" title="eg0"></a>eg0</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_list</span>(<span class="params">nums_list</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;2 id:<span class="subst">&#123;<span class="built_in">id</span>(nums_list)&#125;</span>&#x27;</span>)</span><br><span class="line">    nums_list += [<span class="number">10</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;3 id:<span class="subst">&#123;<span class="built_in">id</span>(nums_list)&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">number_list = [<span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;1:<span class="subst">&#123;number_list&#125;</span>, id:<span class="subst">&#123;<span class="built_in">id</span>(number_list)&#125;</span>&#x27;</span>)      </span><br><span class="line">update_list(number_list)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;4:<span class="subst">&#123;number_list&#125;</span>, id:<span class="subst">&#123;<span class="built_in">id</span>(number_list)&#125;</span>&#x27;</span>) </span><br></pre></td></tr></table></figure>
+
+<p>看一下结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1:[5, 6], id:4457707912</span><br><span class="line">2 id:4457707912</span><br><span class="line">3 id:4457707912</span><br><span class="line">4:[5, 6, 10], id:4457707912</span><br></pre></td></tr></table></figure>
+
+<p>在看另外一个例子</p>
+<h3 id="eg1"><a href="#eg1" class="headerlink" title="eg1"></a>eg1</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_num</span>(<span class="params">number</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;2:<span class="subst">&#123;<span class="built_in">id</span>(number)&#125;</span>&#x27;</span>)</span><br><span class="line">    number += <span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;3:<span class="subst">&#123;<span class="built_in">id</span>(number)&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">num = <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;1:<span class="subst">&#123;num&#125;</span>, id:<span class="subst">&#123;<span class="built_in">id</span>(num)&#125;</span>&#x27;</span>)      </span><br><span class="line">add_num(num)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;4:<span class="subst">&#123;num&#125;</span>, id:<span class="subst">&#123;<span class="built_in">id</span>(num)&#125;</span>&#x27;</span>)      </span><br></pre></td></tr></table></figure>
+
+<p>看一下结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1:1, id:4343768416</span><br><span class="line">2 id:4343768416</span><br><span class="line">3 id:4343768448</span><br><span class="line">4:1, id:4343768416</span><br></pre></td></tr></table></figure>
+
+<p>有其他有些文章中，上面 eg0 被称为引用传递，eg1 被称为值传递。然而在官方文档中，并没有找到有关的这两个名词的任何内容，或者这种方式并不是上述的两者任意一种。</p>
+<p>这里的重点是：<strong>对于可变对象，在函数中的值的改变，会导致对象改变；对于不可变对象，在函数中值的改变，对其不会造成任何影响</strong></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="http://stupidpythonideas.blogspot.com/2013/11/does-python-pass-by-value-or-by.html">Does Python pass by value, or pass by reference?</a></p>
+<p><a target="_blank" rel="noopener" href="https://jeffknupp.com/blog/2012/11/13/is-python-callbyvalue-or-callbyreference-neither/">Is Python call-by-value or call-by-reference? Neither.</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/05/22/f-strings/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/05/22/f-strings/" class="post-title-link" itemprop="url">f-strings</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-22T00:00:00+08:00">2019-05-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在 Python 3.6 之后,除了原有的 % 和 str.format() 字符串格式化的方法, 又新增了一种 f-strings. 官方也更加推荐使用 f-strings. 那么 f-strings 有哪些喜人的特性呢?</p>
+<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><h2 id="支持-Python-表达式"><a href="#支持-Python-表达式" class="headerlink" title="支持 Python 表达式"></a>支持 Python 表达式</h2><h3 id="运算表达式"><a href="#运算表达式" class="headerlink" title="运算表达式"></a>运算表达式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; num=1</span><br><span class="line">&gt;&gt;&gt; f&#x27;add=&#123;num+1&#125;&#x27;</span><br><span class="line">&#x27;add=2&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a=[1,2,3]</span><br><span class="line">&gt;&gt;&gt; f&#x27;len:&#123;len(a)&#125;&#x27;</span><br><span class="line">&#x27;len:3&#x27;</span><br></pre></td></tr></table></figure>
+<p>除了调用内置函数,自然也是支持自定义函数</p>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; class Test:</span><br><span class="line">...     def __str__(self):</span><br><span class="line">...             return &quot;Hello I&#x27;m __str__&quot;</span><br><span class="line">...     def __repr__(self):</span><br><span class="line">...             return &quot;Hello I&#x27;m __repr__&quot;</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; test = Test()</span><br><span class="line">&gt;&gt;&gt; f&#x27;&#123;test&#125;&#x27;</span><br><span class="line">&quot;Hello I&#x27;m __str__&quot;</span><br><span class="line">&gt;&gt;&gt; f&#x27;&#123;repr(test)&#125;&#x27;</span><br><span class="line">&quot;Hello I&#x27;m __repr__&quot;</span><br><span class="line">&gt;&gt;&gt; test</span><br><span class="line">Hello I&#x27;m __repr__</span><br></pre></td></tr></table></figure>
+
+<h2 id="支持-lambdas-表达式"><a href="#支持-lambdas-表达式" class="headerlink" title="支持 lambdas 表达式"></a>支持 lambdas 表达式</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f&#x27;&#123;(lambda x: x*2)(3)&#125;&#x27;</span><br><span class="line">&#x27;6&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="支持-Triple-quotes"><a href="#支持-Triple-quotes" class="headerlink" title="支持 Triple quotes"></a>支持 Triple quotes</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> f&#x27;&#x27;&#x27;&#123;test&#125;&#x27;&#x27;&#x27;</span><br><span class="line">&quot;Hello I&#x27;m __str__&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="支持-Raw-字符串"><a href="#支持-Raw-字符串" class="headerlink" title="支持 Raw 字符串"></a>支持 Raw 字符串</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt;&gt;&gt; header = &#x27;Subject&#x27;</span><br><span class="line">&gt;&gt;&gt; fr&#x27;&#123;header&#125;:\s+&#x27;</span><br><span class="line">&#x27;Subject:\\s+&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>: 虽然支持 fr’’ 但是并不支持 fb’’ 和 fu’’</p>
+<p>说完了特性,那么接下来就需要说一说 f-strings 和 str.format() 的区别了</p>
+<h1 id="f-strings-和-str-format-的区别"><a href="#f-strings-和-str-format-的区别" class="headerlink" title="f-strings 和 str.format() 的区别"></a>f-strings 和 str.format() 的区别</h1><h2 id="全表达式和有限制表达式"><a href="#全表达式和有限制表达式" class="headerlink" title="全表达式和有限制表达式"></a>全表达式和有限制表达式</h2><p>str.format() 和 f-strings 在一定程度上都支持表达式，但是前者有一定的局限性</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; points = 19</span><br><span class="line">&gt;&gt;&gt; total = 22</span><br><span class="line">&gt;&gt;&gt; &#x27;Correct answers: &#123;:.2%&#125;&#x27;.format(points/total)</span><br><span class="line">&#x27;Correct answers: 86.36%&#x27;</span><br><span class="line">&gt;&gt;&gt; &quot;repr() shows quotes: &#123;!r&#125;; str() doesn&#x27;t: &#123;!s&#125;&quot;.format(&#x27;test1&#x27;, &#x27;test2&#x27;)</span><br><span class="line">&quot;repr() shows quotes: &#x27;test1&#x27;; str() doesn&#x27;t: test2&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="索引的查找"><a href="#索引的查找" class="headerlink" title="索引的查找"></a>索引的查找</h2><p>在 str.format() 中，对于索引值看起来不像数字的都会被转换为字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; d = &#123;&#x27;a&#x27;: 10, &#x27;b&#x27;: 20&#125;</span><br><span class="line">&gt;&gt;&gt; &#x27;a=&#123;d[a]&#125;&#x27;.format(d=d)</span><br><span class="line">&#x27;a=10&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>:索引值直接被转换成字符串 ‘a’ 了，但是在 f-strings, 你需要使用 “a”</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f&#x27;a=&#123;d[&quot;a&quot;]&#125;&#x27;</span><br><span class="line">&#x27;a=10&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>是不是觉得很多余？实际上并不是，如果不这样子要求的话，你是没有办法使用变量作为索引的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = &#x27;b&#x27;</span><br><span class="line">&gt;&gt;&gt; f&#x27;a=&#123;d[a]&#125;&#x27;</span><br><span class="line">&#x27;a=20&#x27;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>自 3.6 之后，官方推荐使用 f-strings,相较于上面的说提到的特性，f-strings 的可读性也比 str.format() 更高，尤其当你的字符串比较长的时候更加明显，所以如果你在使用 3.6 之后的版本，可以尝试这从 str.format() 投入 f-strings 的怀抱了</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/05/10/%E5%AF%BC%E5%87%BA%20VuePress%20%E6%9E%84%E5%BB%BA%E7%9A%84%E7%BD%91%E7%AB%99%E4%B8%BA%20PDF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/05/10/%E5%AF%BC%E5%87%BA%20VuePress%20%E6%9E%84%E5%BB%BA%E7%9A%84%E7%BD%91%E7%AB%99%E4%B8%BA%20PDF/" class="post-title-link" itemprop="url">导出 VuePress 构建的网站为 PDF</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-10T00:00:00+08:00">2019-05-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>学 Rust 也有一段时间了,网上也有不少官方文档的中文翻译版,但是似乎只有 <a target="_blank" rel="noopener" href="https://rustlang-cn.org/">Rust中文网站</a> 文档一直是最新的,奈何并没有 PDF 供直接下载,是在是不太方便,为了方便阅读以及方便后续文档更新,决定用 Python 写一个爬虫将网页下载下来保持为 PDF. 最后完成结果如下:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g2vxu8uim5j30uo0dzmy4.jpg"></p>
+<p>是的没错,将官网样式也保留下来成功转为 PDF,接下来分享一下整个爬虫的过程,最终的爬虫<strong>可以导出任意 VuePress 搭建的网站为 PDF</strong>.</p>
+<h1 id="爬虫"><a href="#爬虫" class="headerlink" title="爬虫"></a>爬虫</h1><h2 id="依赖库的选定"><a href="#依赖库的选定" class="headerlink" title="依赖库的选定"></a>依赖库的选定</h2><ol>
+<li>requests</li>
+<li>BeautifulSoup4</li>
+<li>pdfkit</li>
+</ol>
+<p>关于 requests 和 BeautifulSoup4 库这里就不做介绍了, 写过爬虫的基本上都接触过, 重点说一下 pdfkit 库, 毫无疑问,它就是导出 PDF 的关键,简单说一下它的用法</p>
+<h3 id="PdfKit"><a href="#PdfKit" class="headerlink" title="PdfKit"></a>PdfKit</h3><p>PdfKit 库是对 Wkhtmltopdf 工具包的封装类,所以在使用之前,需要去官网下载相应的安装包安装到电脑上, <a target="_blank" rel="noopener" href="https://wkhtmltopdf.org/downloads.html">下载地址</a></p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g2vxuegyfaj31780rztcw.jpg"></p>
+<p><em>可选: 安装完成之后可以 Windows 下可以将安装路径添加到系统环境变量中</em></p>
+<p>安装完成之后,说一下 PdfKit 的常用方法,常用方法有三个</p>
+<h4 id="from-url"><a href="#from-url" class="headerlink" title="from_url"></a>from_url</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">from_url</span>(<span class="params">url, output_path, options=<span class="literal">None</span>, toc=<span class="literal">None</span>, cover=<span class="literal">None</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">             configuration=<span class="literal">None</span>, cover_first=<span class="literal">False</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Convert file of files from URLs to PDF document</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    :param url: URL or list of URLs to be saved</span></span><br><span class="line"><span class="string">    :param output_path: path to output PDF file. False means file will be returned as string.</span></span><br><span class="line"><span class="string">    :param options: (optional) dict with wkhtmltopdf global and page options, with or w/o &#x27;--&#x27;</span></span><br><span class="line"><span class="string">    :param toc: (optional) dict with toc-specific wkhtmltopdf options, with or w/o &#x27;--&#x27;</span></span><br><span class="line"><span class="string">    :param cover: (optional) string with url/filename with a cover html page</span></span><br><span class="line"><span class="string">    :param configuration: (optional) instance of pdfkit.configuration.Configuration()</span></span><br><span class="line"><span class="string">    :param configuration_first: (optional) if True, cover always precedes TOC</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns: True on success</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    r = PDFKit(url, <span class="string">&#x27;url&#x27;</span>, options=options, toc=toc, cover=cover,</span><br><span class="line">               configuration=configuration, cover_first=cover_first)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r.to_pdf(output_path)</span><br></pre></td></tr></table></figure>
+
+<p>从函数名上就很容易理解这个函数的作用,没错就是根据 url 下载网页为 PDF</p>
+<h4 id="from-file"><a href="#from-file" class="headerlink" title="from_file()"></a>from_file()</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">from_file</span>(<span class="params"><span class="built_in">input</span>, output_path, options=<span class="literal">None</span>, toc=<span class="literal">None</span>, cover=<span class="literal">None</span>, css=<span class="literal">None</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">              configuration=<span class="literal">None</span>, cover_first=<span class="literal">False</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Convert HTML file or files to PDF document</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    :param input: path to HTML file or list with paths or file-like object</span></span><br><span class="line"><span class="string">    :param output_path: path to output PDF file. False means file will be returned as string.</span></span><br><span class="line"><span class="string">    :param options: (optional) dict with wkhtmltopdf options, with or w/o &#x27;--&#x27;</span></span><br><span class="line"><span class="string">    :param toc: (optional) dict with toc-specific wkhtmltopdf options, with or w/o &#x27;--&#x27;</span></span><br><span class="line"><span class="string">    :param cover: (optional) string with url/filename with a cover html page</span></span><br><span class="line"><span class="string">    :param css: (optional) string with path to css file which will be added to a single input file</span></span><br><span class="line"><span class="string">    :param configuration: (optional) instance of pdfkit.configuration.Configuration()</span></span><br><span class="line"><span class="string">    :param configuration_first: (optional) if True, cover always precedes TOC</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns: True on success</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    r = PDFKit(<span class="built_in">input</span>, <span class="string">&#x27;file&#x27;</span>, options=options, toc=toc, cover=cover, css=css,</span><br><span class="line">               configuration=configuration, cover_first=cover_first)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r.to_pdf(output_path)</span><br></pre></td></tr></table></figure>
+<p>这个则是从文件中生成 PDF, 也是我最后选择的方案,至于为什么没有选择 <em>from_url()</em>,稍后等我分析完,就会明白了.</p>
+<h4 id="from-string"><a href="#from-string" class="headerlink" title="from_string"></a>from_string</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">from_string</span>(<span class="params"><span class="built_in">input</span>, output_path, options=<span class="literal">None</span>, toc=<span class="literal">None</span>, cover=<span class="literal">None</span>, css=<span class="literal">None</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">                configuration=<span class="literal">None</span>, cover_first=<span class="literal">False</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Convert given string or strings to PDF document</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    :param input: string with a desired text. Could be a raw text or a html file</span></span><br><span class="line"><span class="string">    :param output_path: path to output PDF file. False means file will be returned as string.</span></span><br><span class="line"><span class="string">    :param options: (optional) dict with wkhtmltopdf options, with or w/o &#x27;--&#x27;</span></span><br><span class="line"><span class="string">    :param toc: (optional) dict with toc-specific wkhtmltopdf options, with or w/o &#x27;--&#x27;</span></span><br><span class="line"><span class="string">    :param cover: (optional) string with url/filename with a cover html page</span></span><br><span class="line"><span class="string">    :param css: (optional) string with path to css file which will be added to a input string</span></span><br><span class="line"><span class="string">    :param configuration: (optional) instance of pdfkit.configuration.Configuration()</span></span><br><span class="line"><span class="string">    :param configuration_first: (optional) if True, cover always precedes TOC</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns: True on success</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    r = PDFKit(<span class="built_in">input</span>, <span class="string">&#x27;string&#x27;</span>, options=options, toc=toc, cover=cover, css=css,</span><br><span class="line">               configuration=configuration, cover_first=cover_first)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r.to_pdf(output_path)</span><br></pre></td></tr></table></figure>
+
+<p>这个方法则是从字符串中生成 PDF,很明显没有办法保持网页样式,所以不考虑.关于更多 PdfKit 的用法,可以去 <a target="_blank" rel="noopener" href="https://wkhtmltopdf.org/usage/wkhtmltopdf.txt">wkhtmltopdf文档</a> 查看</p>
+<h3 id="分析目标网页"><a href="#分析目标网页" class="headerlink" title="分析目标网页"></a>分析目标网页</h3><p>依赖库选定完毕,接下来就是分析目标网页,开始写爬虫的过程了.</p>
+<h2 id="测试-PdfKit"><a href="#测试-PdfKit" class="headerlink" title="测试 PdfKit"></a>测试 PdfKit</h2><p>PdfKit 自带一个 from_url 生成 PDF 的功能,如果可以生成合适的 PDF,那我们只需要获取所有网页链接就可以了,可以节省很多时间,先测试一下生成的效果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pdfkit</span><br><span class="line">pdfkit.from_url(<span class="string">&quot;https://rustlang-cn.org/office/rust/book/&quot;</span>, <span class="string">&#x27;out.pdf&#x27;</span>, configuration=pdfkit.configuration(</span><br><span class="line">                wkhtmltopdf=<span class="string">&quot;path/to/wkhtmltopdf.exe&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>导出结果如下:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g2vxuidy40j31430hzjs9.jpg"></p>
+<p>从结果不难看出,网页的样式保存下来了,但是侧边栏,顶部和底边导航栏也都被保留下来了,并且侧边栏还挡住了主要内容,所以使用 from_url 这个方法就被排除了.</p>
+<h2 id="最终方案"><a href="#最终方案" class="headerlink" title="最终方案"></a>最终方案</h2><p>通过测试,我们得知不能使用 from_url 那么只能通过使用 from_file 去导出了, 并且在我们将网页下载下来保存到本地之前,我们需要修改网页内容,移除<strong>顶部导航栏,侧边栏,以及底部导航栏</strong></p>
+<h3 id="获取相应元素"><a href="#获取相应元素" class="headerlink" title="获取相应元素"></a>获取相应元素</h3><p>现在让我们先获取页面下一页链接,打开浏览器调试模式,审查一下网页元素,不难发现所有下一页导航,都处于 <em><span class="next"></span></em>  之下的超链接 <em><a></a></em> 中,如下图:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g2vxutej20j30l0099t90.jpg"></p>
+<p>通过同样的方法,不难发现顶部导航栏,侧边栏,以及底部导航栏对应的元素,依次为 <em><div class="navbar"></div>,<div class="sidebar"></div>,<div class="page-edit"></div></em>, 找到对应的元素接着就是<strong>获取链接和销毁不必要元素</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DownloadVuePress2Pdf</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_content_and_next_url</span>(<span class="params">self, content</span>):</span> <span class="comment"># content 为网页内容</span></span><br><span class="line">         <span class="comment"># 获取链接和销毁不必要元素</span></span><br><span class="line">        navbar = soup.select(<span class="string">&#x27;.navbar&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(navbar):</span><br><span class="line">            navbar[<span class="number">0</span>].decompose()</span><br><span class="line"></span><br><span class="line">        sidebar = soup.select(<span class="string">&#x27;.sidebar&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(sidebar):</span><br><span class="line">            sidebar[<span class="number">0</span>].decompose()</span><br><span class="line"></span><br><span class="line">        page_edit = soup.select(<span class="string">&#x27;.page-edit&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(page_edit):</span><br><span class="line">            page_edit[<span class="number">0</span>].decompose()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 注意下一页链接在底部导航栏元素中,</span></span><br><span class="line">        <span class="comment"># 要先获取链接后,才能销毁元素,顺序不能颠倒</span></span><br><span class="line">        next_span = soup.select(<span class="string">&quot;.next&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(next_span):</span><br><span class="line">            next_span_href = next_span[<span class="number">0</span>].a[<span class="string">&#x27;href&#x27;</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            next_span_href = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        page_nav = soup.select(<span class="string">&#x27;.page-nav&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(page_nav):</span><br><span class="line">            page_nav[<span class="number">0</span>].decompose()</span><br></pre></td></tr></table></figure>
+
+<h3 id="保持导出-PDF-样式"><a href="#保持导出-PDF-样式" class="headerlink" title="保持导出 PDF 样式"></a>保持导出 PDF 样式</h3><p>为了使得导出 PDF 的样式和网页一致,我们有俩种方法:</p>
+<ol>
+<li> 根据源码在对应目录建立本地 css 文件,显然这种方法不具有普遍性,不能每导出一个网站,我们就新建一个 css 文件</li>
+<li> 既然本地的不行,那我们就将网页中的 css 链接 href 地址指向远程 css</li>
+</ol>
+<p>在上述代码中添加如下代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> link <span class="keyword">in</span> links:</span><br><span class="line">     <span class="keyword">if</span> <span class="keyword">not</span> link[<span class="string">&#x27;href&#x27;</span>].startswith(<span class="string">&quot;http&quot;</span>):</span><br><span class="line">        link[<span class="string">&#x27;href&#x27;</span>] = css_domain + link[<span class="string">&#x27;href&#x27;</span>] <span class="comment"># css_domain 为 css 默认域名,需要设置,获取方式可见下图</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g2vxuy2ubwj316s089gmk.jpg"></p>
+<h1 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h1><p>通过上述的方式,我们将网页下载下来保存到本地,全部下载完成之后,最后就是导出为 PDF 了,通过 from_file() 方法很容易完成导出这个操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pdfkit.from_file([文件列表], <span class="string">&quot;导出的文件名称.pdf&quot;</span>, options=options, configuration=config)</span><br></pre></td></tr></table></figure>
+<p>至此导出 Rust 官网文档为 PDF 的过程全部完成,效果如开头展示的那样</p>
+<p><strong>注意</strong>: 由于 VuePress 搭建的网站基本上布局格式一样, 所以上面的代码同样可以用来导出其他由 VuePress 构建的网站</p>
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><p>可以关注我的公众号,回复 <strong>20190509</strong> 获得</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/05/06/%E8%AE%A1%E7%AE%971-866278171%E4%B8%AD%E5%A5%87%E6%95%B0%E5%88%97%E4%B8%AD3%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%AA%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/05/06/%E8%AE%A1%E7%AE%971-866278171%E4%B8%AD%E5%A5%87%E6%95%B0%E5%88%97%E4%B8%AD3%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%AA%E6%95%B0/" class="post-title-link" itemprop="url">计算1-866278171中奇数列中3出现的个数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-06T00:00:00+08:00">2019-05-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>关于 计算1至N中X出现的个数</p>
+<blockquote>
+<p>编程之美上给出的规律：<br>1.如果第i位（自右至左，从1开始标号）上的数字为0，则第i位可能出现1的次数由更高位决定（若没有高位，视高位为0），等于更高位数字X当前位数的权重10^(i-1)。<br>2.如果第i位上的数字为1，则第i位上可能出现1的次数不仅受更高位影响，还受低位影响（若没有低位，视低位为0），等于更高位数字X当前位数的权重10^(i-1)+（低位数字+1）。<br>3.如果第i位上的数字大于1，则第i位上可能出现1的次数仅由更高位决定（若没有高位，视高位为0），等于（更高位数字+1）X当前位数的权重10^(i-1)。</p>
+</blockquote>
+<p>通用结论:</p>
+<ol>
+<li>从 1 至 10，在它们的个位数中，任意的 X 都出现了 1 次</li>
+<li>从 1 至 100，在它们的十位数中，任意的 X 都出现了 10 次</li>
+<li>从 1 至 1000，在它们的千位数中，任意的 X 都出现了 100 次</li>
+<li>依此类推，从 1 至 10^i，在它们的左数第二位（右数第 i 位）中，任意的 X 都出现了10^(i−1) 次</li>
+</ol>
+<p>得出的算法如下:</p>
+<p>当计算右数第 i 位包含的 X 的个数时：</p>
+<ol>
+<li><p> 取第 i 位左边（高位）的数字，乘以 10^(i−1)，得到基础值 a</p>
+</li>
+<li><p>取第 i 位数字，计算修正值：</p>
+<ol>
+<li>如果大于 X，则结果为 a+10^(i−1)</li>
+<li>如果小于 X，则结果为 a</li>
+<li>如果等 X，则取第 i 位右边（低位）数字，设为 b，最后结果为 a+b+1</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_x_between_one_and_n</span>(<span class="params">n,x</span>):</span></span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">0</span> <span class="keyword">or</span> x &lt; <span class="number">1</span> <span class="keyword">or</span> x &gt; <span class="number">9</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    high,low,current,tmp,i = <span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span></span><br><span class="line">    high = n</span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> high !=<span class="number">0</span>:</span><br><span class="line">        high = <span class="built_in">int</span>(n/<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>,i)))</span><br><span class="line">        tmp = <span class="built_in">int</span>(n%<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>,i)))</span><br><span class="line">        current = <span class="built_in">int</span>(tmp/<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>,i-<span class="number">1</span>)))</span><br><span class="line">        low = <span class="built_in">int</span>(tmp%<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>,i-<span class="number">1</span>)))</span><br><span class="line">        <span class="keyword">if</span> current == x:</span><br><span class="line">            total += high*<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>,i-<span class="number">1</span>))+low+<span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> current &lt; x:</span><br><span class="line">            total += high*<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>,i-<span class="number">1</span>))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            total += (high+<span class="number">1</span>)*<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>, i-<span class="number">1</span>))</span><br><span class="line">        i+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line"></span><br><span class="line">res =count_x_between_one_and_n(<span class="number">866278171</span>,<span class="number">3</span>)) <span class="comment"># 796741437</span></span><br><span class="line"><span class="comment"># 求为奇数的时候，当个位为3的时候，均为奇数，除去这一部分，这剩下的</span></span><br><span class="line"><span class="comment"># 奇偶数各占一半</span></span><br><span class="line">a = <span class="number">796741437</span> <span class="comment"># 总个数</span></span><br><span class="line">b = <span class="number">866278170</span>/<span class="number">10</span> <span class="comment"># 个位为 3 的个数</span></span><br><span class="line">c = (a - b)/<span class="number">2</span> + b <span class="comment"># 再加上个位为3的个数，得出奇数列中3出现的个数 441684627</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>Leetcode 也有类似的题目是求 1 出现的个数,相对比较简单一些,有兴趣可以尝试一下 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-digit-one/">数字1的个数</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/04/19/Mybatis%20%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E8%BF%94%E5%9B%9E%E6%8F%92%E5%85%A5id%E5%80%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/04/19/Mybatis%20%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E8%BF%94%E5%9B%9E%E6%8F%92%E5%85%A5id%E5%80%BC/" class="post-title-link" itemprop="url">Mybatis 批量插入返回插入id值</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-19 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-19T00:00:00+08:00">2019-04-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在 Mybatis 3.3.1 版本之后, Mybatis 支持批量插入返回自增主键 ID,相关 PR 可以参考 <a href="https://github.com/mybatis/mybatis-3/pull/547"><br>Support insert multiple rows and write-back id</a>, 但是使用的时候有一些注意事项,我在用的时候查了很多资料,发现网上基本上都是只提到一部分,大部分人都是测试失败了,因此整理了一下.</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="XML-形式"><a href="#XML-形式" class="headerlink" title="XML 形式"></a>XML 形式</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;insertList&quot;</span> <span class="attr">useGeneratedKeys</span>=<span class="string">&quot;true&quot;</span> <span class="attr">keyProperty</span>=<span class="string">&quot;id&quot;</span>&gt;</span></span><br><span class="line">  INSERT INTO country (countryname,countrycode )</span><br><span class="line">  VALUES</span><br><span class="line">  <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;list&quot;</span> <span class="attr">item</span>=<span class="string">&quot;item&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;,&quot;</span>&gt;</span></span><br><span class="line">    (#&#123;item.countryname&#125;,#&#123;item.countrycode&#125;)</span><br><span class="line">  <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意: keyProperty=”id” 和 collection=”list”</strong>,这两点不能有任何改变,否则就没办法成功获取插入后的 id</p>
+<h2 id="注解形式"><a href="#注解形式" class="headerlink" title="注解形式"></a>注解形式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Insert(&quot;&lt;script&gt;</span></span><br><span class="line"><span class="meta"> INSERT INTO country (countryname,countrycode )</span></span><br><span class="line"><span class="meta">  VALUES</span></span><br><span class="line"><span class="meta">  &lt;foreach collection=\&quot;list\&quot; item=\&quot;item\&quot; separator=\&quot;,\&quot;&gt;</span></span><br><span class="line"><span class="meta">    (#&#123;item.countryname&#125;,#&#123;item.countrycode&#125;)</span></span><br><span class="line"><span class="meta">  &lt;/foreach&gt;</span></span><br><span class="line"><span class="meta">&lt;/script&gt;&quot;)</span></span><br><span class="line"><span class="meta">@Options(useGeneratedKeys = true, keyProperty = &quot;id&quot;, keyColumn = &quot;id&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">batchInsert</span><span class="params">((<span class="meta">@Param(&quot;list&quot;)</span> List&lt;Country&gt; countryList)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意: @Param(“list”), collection=”list” 以及 keyProperty=”id”</strong> 这三点不能有任何改变,否则就没有办法成功</p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://github.com/mybatis/mybatis-3/pull/350">Support insert multiple rows and write-back id.More about insert multipl…</a><br><a href="https://github.com/mybatis/mybatis-3/pull/547">Support insert multiple rows and write-back id</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/03/20/%E6%8E%A5%E9%9B%A8%E6%B0%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/03/20/%E6%8E%A5%E9%9B%A8%E6%B0%B4/" class="post-title-link" itemprop="url">接雨水</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-20T00:00:00+08:00">2019-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g19h6pmm6lj30bg04jaa1.jpg"></p>
+<p>上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。<br><strong>感谢 Marcos</strong> 贡献此图。</p>
+<p><strong>示例:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [0,1,0,2,1,0,1,3,2,1,2,1]</span><br><span class="line">输出: 6</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>思路</strong></p>
+<p>思路一:</p>
+<p>结合数据和图,可以看出能够存积水的位置 i ,始终满足条件:</p>
+<ol>
+<li> height[i] &lt; height[i-n]</li>
+<li> height[i] &lt; height[i+m]</li>
+</ol>
+<p>其中 m,n 均大于 0,同时判定两个条件会很麻烦,我们试着先找出<strong>所有高度中最高的</strong>,以这个最高的将这个高度数组分为左右两边,然后依次从 left 遍历到最高的,从 right 遍历到最高的,遍历过程中,只需要找出<strong>局部最高 part_max</strong>,<br>局部最高与其余高度值的差值和即为积水和</p>
+<p>以给的例子为例,[0,1,0,2,1,0,1,3,2,1,2,1]:</p>
+<ol>
+<li>max_height = 3. 所在索引为 7</li>
+<li>以左边为例,从左到最高的数组为 [0,1,0,2,1,0,1], 对于的局部最高的数组为 [0,1,1,2,2,2,2]</li>
+<li>高度差依次为:[0,0,1,0,1,2,1]</li>
+<li>则左边积水和为 5</li>
+<li>同理可求右边为 1</li>
+<li>则最终结果为 6</li>
+</ol>
+<p>思路二:</p>
+<p>双指针:假设数组 height, 长度为 n, left_max = right_max = 0, 面积为 area = 0 ,两个指针left,right 初始分别位于 0, n - 1 的位置</p>
+<ol>
+<li>height[left]  &lt; height[right], 有解法一中可以知道,这个时候只要找到 left_max &gt; height[left] 就可以积水了,所以有:     <pre><code>         1.  如果 height[left] &gt; left_max: left_max = height[left]
+         2.  否则 area += left_max - height[left]
+         3.  left += 1
+     
+</code></pre>
+</li>
+<li>height[left] &gt;height[right]:<ol>
+<li> 如果 height[right] &gt; right_max: right_max = height[right]</li>
+<li> 否则 area += right_max - height[right]</li>
+<li> right -= 1</li>
+</ol>
+</li>
+</ol>
+<p><strong>解法</strong></p>
+<p>解法一:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">trap</span>(<span class="params">self, height: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        </span><br><span class="line">        height_len = <span class="built_in">len</span>(height)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> height_len &lt; <span class="number">3</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        max_value = <span class="number">0</span></span><br><span class="line">        max_index = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> key,value <span class="keyword">in</span> <span class="built_in">enumerate</span>(height):</span><br><span class="line">            <span class="keyword">if</span> value &gt; max_value:</span><br><span class="line">                max_value = value</span><br><span class="line">                max_index = key</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 面积      </span></span><br><span class="line">        area = <span class="number">0</span></span><br><span class="line">  </span><br><span class="line">        <span class="comment"># left -&gt; max</span></span><br><span class="line">        part_max = height[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">for</span> left <span class="keyword">in</span> <span class="built_in">range</span>(max_index):</span><br><span class="line">            <span class="keyword">if</span> height[left] &gt; part_max:</span><br><span class="line">                part_max = height[left]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                area += part_max - height[left]</span><br><span class="line">        <span class="comment"># right -&gt; max</span></span><br><span class="line">        part_max = height[height_len-<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">for</span> right <span class="keyword">in</span> <span class="built_in">range</span>(height_len-<span class="number">1</span>,max_index,-<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> height[right] &gt; part_max:</span><br><span class="line">                part_max = height[right]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                area += part_max - height[right]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> area        </span><br></pre></td></tr></table></figure>
+
+
+<p>解法二</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">trap</span>(<span class="params">self, height: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        height_len = <span class="built_in">len</span>(height)</span><br><span class="line">        <span class="keyword">if</span> height_len &lt; <span class="number">3</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        left_max = right_max = <span class="number">0</span></span><br><span class="line">        left,right = <span class="number">0</span>, height_len - <span class="number">1</span></span><br><span class="line">        area = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> left &lt; right:</span><br><span class="line">            <span class="keyword">if</span> height[left] &lt; height[right]:</span><br><span class="line">                <span class="keyword">if</span> height[left] &gt;= left_max:</span><br><span class="line">                    left_max = height[left]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    area += left_max - height[left]</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> height[right] &gt;= right_max:</span><br><span class="line">                    right_max = height[right]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    area += right_max - height[right]</span><br><span class="line">                right -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> area</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/03/16/%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/03/16/%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="post-title-link" itemprop="url">合并区间</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-16T00:00:00+08:00">2019-03-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给出一个区间的集合，请合并所有重叠的区间。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [[1,3],[2,6],[8,10],[15,18]]</span><br><span class="line">输出: [[1,6],[8,10],[15,18]]</span><br><span class="line">解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [[1,4],[4,5]]</span><br><span class="line">输出: [[1,5]]</span><br><span class="line">解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路</strong></p>
+<p>先排序然后遍历，排序按照 start 值大小排序，排序完后，遍历排序后的列表 sorted_list，假设当前元素位置 i, 判断 sorted_list[i-1].end &gt;= sorted_list[i]，说明两个区间有重合，将  sorted_list[i].start = sorted_list[i-1].end，<strong>注意判断 sorted_list[i-i].end 是否大于 sorted_list[i].end，如果大于，则 sorted_list[i].end = sorted_list[i-1].end</strong> </p>
+<p><strong>解法</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for an interval.</span></span><br><span class="line"><span class="comment"># class Interval:</span></span><br><span class="line"><span class="comment">#     def __init__(self, s=0, e=0):</span></span><br><span class="line"><span class="comment">#         self.start = s</span></span><br><span class="line"><span class="comment">#         self.end = e</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span>(<span class="params">self, intervals: <span class="type">List</span>[Interval]</span>) -&gt; <span class="type">List</span>[Interval]:</span></span><br><span class="line">        sorted_start_list = <span class="built_in">sorted</span>(intervals,key=<span class="keyword">lambda</span> x:x.start)</span><br><span class="line">        list_len = <span class="built_in">len</span>(sorted_start_list)</span><br><span class="line">        res_list = []</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; list_len - count:</span><br><span class="line">            <span class="keyword">if</span> sorted_start_list[i-<span class="number">1</span>].end &gt;= sorted_start_list[i].start:</span><br><span class="line">                <span class="keyword">if</span> sorted_start_list[i-<span class="number">1</span>].end &gt; sorted_start_list[i].end:</span><br><span class="line">                    sorted_start_list[i].end = sorted_start_list[i-<span class="number">1</span>].end</span><br><span class="line">                sorted_start_list[i].start = sorted_start_list[i-<span class="number">1</span>].start</span><br><span class="line">                sorted_start_list.remove(sorted_start_list[i-<span class="number">1</span>])</span><br><span class="line">                count += <span class="number">1</span></span><br><span class="line">                i -= <span class="number">1</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> sorted_start_list</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2019/03/16/%E6%9C%8B%E5%8F%8B%E5%9C%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2019/03/16/%E6%9C%8B%E5%8F%8B%E5%9C%88/" class="post-title-link" itemprop="url">朋友圈</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-16T00:00:00+08:00">2019-03-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>班上有 <strong>N</strong> 名学生。其中有些人是朋友，有些则不是。他们的友谊具有是传递性。如果已知 A 是 B 的朋友，B 是 C 的朋友，那么我们可以认为 A 也是 C 的朋友。所谓的朋友圈，是指所有朋友的集合。给定一个 <strong>N * N</strong> 的矩阵 <strong>M</strong>，表示班级中学生之间的朋友关系。如果M[i][j] = 1，表示已知第 i 个和 j 个学生<strong>互为</strong>朋友关系，否则为不知道。你必须输出所有学生中的已知的朋友圈总数。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: </span><br><span class="line">        [[1,1,0],</span><br><span class="line">         [1,1,0],</span><br><span class="line">         [0,0,1]]</span><br><span class="line">输出: 2 </span><br><span class="line">说明：已知学生0和学生1互为朋友，他们在一个朋友圈。</span><br><span class="line">第2个学生自己在一个朋友圈。所以返回2。</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: </span><br><span class="line">        [[1,1,0],</span><br><span class="line">         [1,1,1],</span><br><span class="line">         [0,1,1]]</span><br><span class="line">输出: 1</span><br><span class="line">说明：已知学生0和学生1互为朋友，学生1和学生2互为朋友，所以学生0和学生2也是朋友，所以他们三个在一个朋友圈，返回1。</span><br><span class="line">注意：N 在[1,200]的范围内。对于所有学生，有M[i][i] = 1。如果有M[i][j] = 1，则有M[j][i] = 1。</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路</strong></p>
+<p>方法一 :DFS,遍历所有人,对于每个人寻找他的好友,然后再找他好友的好友,这样深度优先遍历下去，通过 visited 数组记录是否已经遍历完这个人,遍历到相同朋友圈, visited[i] 则标识为已经遍历过,不再次纳入朋友圈个数统计中</p>
+<p>方法二: 并查集,将有关系的人放在一个集合中</p>
+<p><strong>解法</strong></p>
+<p>解法一</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findCircleNum</span>(<span class="params">self, M: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        len_m = <span class="built_in">len</span>(M)</span><br><span class="line">        visited = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len_m)]</span><br><span class="line">        friend_count = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">M,i,visited,len_m</span>):</span></span><br><span class="line">            visited[i] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(len_m):</span><br><span class="line">                <span class="keyword">if</span> M[i][j] == <span class="number">1</span> <span class="keyword">and</span> visited[j] == <span class="number">0</span>:</span><br><span class="line">                    dfs(M,j,visited,len_m)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len_m):</span><br><span class="line">            <span class="keyword">if</span> visited[i] == <span class="number">0</span>:</span><br><span class="line">                friend_count += <span class="number">1</span></span><br><span class="line">                dfs(M,i,visited,len_m)</span><br><span class="line">        <span class="keyword">return</span> friend_count</span><br></pre></td></tr></table></figure>
+
+<p>解法二</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findCircleNum</span>(<span class="params">self, M: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        len_m = <span class="built_in">len</span>(M)</span><br><span class="line">   </span><br><span class="line">        self.parent = [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len_m)] <span class="comment"># init </span></span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">find_set</span>(<span class="params">i</span>):</span></span><br><span class="line">            <span class="keyword">if</span> i == self.parent[i]:</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">            <span class="keyword">return</span> find_set(self.parent[i])</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">union</span>(<span class="params">i,j</span>):</span></span><br><span class="line">            find_i, find_j = find_set(i),find_set(j)</span><br><span class="line">            self.parent[find_j] = find_i</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len_m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(len_m):</span><br><span class="line">                <span class="keyword">if</span> M[i][j]:</span><br><span class="line">                    union(i,j)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>([i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len_m) <span class="keyword">if</span> find_set(i) == i])</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/LeetaoGoooo/leetaogoooo.github.io.git/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/LeetaoGoooo/leetaogoooo.github.io.git/">1</a><span class="space">&hellip;</span><a class="page-number" href="/LeetaoGoooo/leetaogoooo.github.io.git/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/LeetaoGoooo/leetaogoooo.github.io.git/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/LeetaoGoooo/leetaogoooo.github.io.git/page/19/">19</a><a class="extend next" rel="next" href="/LeetaoGoooo/leetaogoooo.github.io.git/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"d1ec227a65ef2e7e2646814db96370e5"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

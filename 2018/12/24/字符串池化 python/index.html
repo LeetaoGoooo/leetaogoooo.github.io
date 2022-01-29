@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="前言在 Python 中经常通过内存池化技术来提高其性能,那么问题来了,在什么情况下会池化呢? 让我们通过几个例子进行一下理解一下. 预备知识在查看例子之前,首先要提 python 中的一个函数 id(),让我们看一下函数说明: 12345id(obj, &#x2F;)    Return the identity of an object.    This is guaranteed to be uniq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串池化 python">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/12/24/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%A0%E5%8C%96%20python/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="前言在 Python 中经常通过内存池化技术来提高其性能,那么问题来了,在什么情况下会池化呢? 让我们通过几个例子进行一下理解一下. 预备知识在查看例子之前,首先要提 python 中的一个函数 id(),让我们看一下函数说明: 12345id(obj, &#x2F;)    Return the identity of an object.    This is guaranteed to be uniq">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.053Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/12/24/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%A0%E5%8C%96%20python/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/12/24/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%A0%E5%8C%96%20python/","path":"2018/12/24/字符串池化 python/","title":"字符串池化 python"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>字符串池化 python | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">3.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2018/12/24/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%A0%E5%8C%96%20python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          字符串池化 python
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-24 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-24T00:00:00+08:00">2018-12-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在 Python 中经常通过内存池化技术来提高其性能,那么问题来了,在什么情况下会池化呢? 让我们通过几个例子进行一下理解一下.</p>
+<h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><p>在查看例子之前,首先要提 python 中的一个函数 <strong>id()</strong>,让我们看一下函数说明:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id(obj, /)</span><br><span class="line">    Return the identity of an object.</span><br><span class="line"></span><br><span class="line">    This is guaranteed to be unique among simultaneously existing objects.</span><br><span class="line">    (CPython uses the object \<span class="string">&#x27;s memory address.)</span></span><br></pre></td></tr></table></figure>
+
+<p>通过上述说明,可以得知 id() 将会返回对像的唯一标识,在 CPython 中将会返回内存地址,也就是说如果两个对象 的 id 值一样,可以说着两个对象是相同的了.</p>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>example 00</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;&quot;</span></span><br><span class="line">b = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a),<span class="built_in">id</span>(b))</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = <span class="string">&quot;&quot;</span></span><br><span class="line">&gt;&gt;&gt; b = <span class="string">&quot;&quot;</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(id(a),id(b))</span><br><span class="line">2114853370544 2114853370544</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a is b)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>example 01</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;a&quot;</span></span><br><span class="line">b = <span class="string">&quot;a&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a),<span class="built_in">id</span>(b))</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = <span class="string">&quot;a&quot;</span></span><br><span class="line">&gt;&gt;&gt; b = <span class="string">&quot;a&quot;</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(id(a),id(b))</span><br><span class="line">2114883022608 2114883022608</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a is b)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>example 02</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;magic_string&quot;</span></span><br><span class="line">b = <span class="string">&quot;magic&quot;</span> + <span class="string">&quot;_&quot;</span> + <span class="string">&quot;string&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a),<span class="built_in">id</span>(b))</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = <span class="string">&quot;magic_string&quot;</span></span><br><span class="line">&gt;&gt;&gt; b = <span class="string">&quot;magic&quot;</span> + <span class="string">&quot;_&quot;</span> + <span class="string">&quot;string&quot;</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(id(a),id(b))</span><br><span class="line">2114887161136 2114887161136</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a is b)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>example 03</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;magic!&quot;</span></span><br><span class="line">b = <span class="string">&quot;mgaic!&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a),<span class="built_in">id</span>(b))</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = <span class="string">&quot;magic!&quot;</span></span><br><span class="line">&gt;&gt;&gt; b = <span class="string">&quot;mgaic!&quot;</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(id(a),id(b))</span><br><span class="line">2114885855416 2114889455408</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a is b)</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+
+<p>example 04</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a,b = <span class="string">&quot;magic!&quot;</span>,<span class="string">&quot;magic!&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a),<span class="built_in">id</span>(b))</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a,b = <span class="string">&quot;magic!&quot;</span>,<span class="string">&quot;magic!&quot;</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(id(a),id(b))</span><br><span class="line">2114885691912 2114885691912</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a is b)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>example 05</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;!&quot;</span></span><br><span class="line">b = <span class="string">&quot;!&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a),<span class="built_in">id</span>(b))</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = <span class="string">&quot;!&quot;</span></span><br><span class="line">&gt;&gt;&gt; b = <span class="string">&quot;!&quot;</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(id(a),id(b))</span><br><span class="line">140564571922024 140564571922024</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a is b)</span><br><span class="line">True</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>example 06</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(a*<span class="number">20</span> <span class="keyword">is</span> <span class="string">&#x27;aaaaaaaaaaaaaaaaaaaa&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(a*<span class="number">21</span> <span class="keyword">is</span> <span class="string">&#x27;aaaaaaaaaaaaaaaaaaaaa&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a*20 is <span class="string">&#x27;aaaaaaaaaaaaaaaaaaaa&#x27;</span>)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a*21 is <span class="string">&#x27;aaaaaaaaaaaaaaaaaaaaa&#x27;</span>)</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通过上述 7 个例子,我们不难对 python 的字符串池化有个大概的认识,我们这里做个简单的总结:</p>
+<ol>
+<li>通过 example 00,01,05,我们可以得出对于长度为 0 或者 1 的字符串会被池化</li>
+<li>通过 example 02,03,我们可以得出字符串中只包含字母数字以及下划线的字符串会被池化</li>
+<li>通过 example 04, 我们可以得出当在同一行对不同变量，赋值如果相同的话，它们将会指向同一个对象，注意这里面的 “magic!” 并不符合池化的要求，这只是一种编译器的优化</li>
+<li>example 06 所出现的现象在 python 中有一个专业的术语，讲常量折叠(constant folding),顾名思义，在编译优化时，讲能够计算出的结果的变量直接替换为常量.但是这没有限制吗？显然不是的，在我们的例子中已经发现，当长度超过20的时候，折叠就会失效了，试想一下，如果没有限制的话，初始化的字符串过长，将会严重导致性能的下降以及内存的消耗</li>
+</ol>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ol>
+<li><p><a target="_blank" rel="noopener" href="http://guilload.com/python-string-interning/">The internals of Python string interning</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://late.am/post/2012/03/26/exploring-python-code-objects.html">exploring python code objects</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15541404/python-string-interning">Python string interning</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.laurentluce.com/posts/python-string-objects-implementation/">Python String objects implementation</a></p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/12/21/%E8%A7%A3%E5%86%B3%20openpyxl%20%E5%9E%82%E7%9B%B4%E5%88%86%E9%A1%B5%E7%AC%A6%E5%92%8C%E6%B0%B4%E5%B9%B3%E5%88%86%E9%A1%B5%E7%AC%A6%E5%90%8C%E6%97%B6%E6%B7%BB%E5%8A%A0%E7%9A%84%E9%97%AE%E9%A2%98/" rel="prev" title="解决 openpyxl 垂直分页符和水平分页符同时添加的问题">
+                  <i class="fa fa-chevron-left"></i> 解决 openpyxl 垂直分页符和水平分页符同时添加的问题
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2018/12/31/Dict%20%E9%94%AE%E5%80%BC%E5%92%8C%20Number%20%E7%9A%84%E6%95%85%E4%BA%8B/" rel="next" title="Dict 键值和 Number 的故事">
+                  Dict 键值和 Number 的故事 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"9451168a16c3675d26bf3e677ef24a87"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

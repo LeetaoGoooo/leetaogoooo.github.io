@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/LeetaoGoooo/leetaogoooo.github.io.git/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"github.com","root":"/LeetaoGoooo/leetaogoooo.github.io.git/","images":"/LeetaoGoooo/leetaogoooo.github.io.git/images","scheme":"Muse","darkmode":false,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/config.js"></script>
+<meta name="description" content="前言主备同步，也叫主从复制，是 mysql 提供的一种高可用的解决方案，保证主备数据一致性的解决方案。在生产环境中，会有很多不可控因素，比如数据库服务器宕机等，因此在生产环境中，都会采用主备同步。在应用的规模不大的情况下，一般会采用一主一备。除此之外，采用主备同步还可以：  提高数据库的读并发性，大多数应用都是读比写要多，采用主备同步方案，当使用规模越来越大的时候，可以扩展备库来提升读能力。 备份">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql 实现主备同步之M-S结构">
+<meta property="og:url" content="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2021/04/29/mysql%20%E5%AE%9E%E7%8E%B0%E4%B8%BB%E5%A4%87%E5%90%8C%E6%AD%A5%E4%B9%8BM-S%E7%BB%93%E6%9E%84/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="前言主备同步，也叫主从复制，是 mysql 提供的一种高可用的解决方案，保证主备数据一致性的解决方案。在生产环境中，会有很多不可控因素，比如数据库服务器宕机等，因此在生产环境中，都会采用主备同步。在应用的规模不大的情况下，一般会采用一主一备。除此之外，采用主备同步还可以：  提高数据库的读并发性，大多数应用都是读比写要多，采用主备同步方案，当使用规模越来越大的时候，可以扩展备库来提升读能力。 备份">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/posts/1619685348.png">
+<meta property="og:image" content="https://github.com/posts/1619685453.png">
+<meta property="article:published_time" content="2021-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-29T09:44:21.040Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/posts/1619685348.png">
+
+
+<link rel="canonical" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2021/04/29/mysql%20%E5%AE%9E%E7%8E%B0%E4%B8%BB%E5%A4%87%E5%90%8C%E6%AD%A5%E4%B9%8BM-S%E7%BB%93%E6%9E%84/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2021/04/29/mysql%20%E5%AE%9E%E7%8E%B0%E4%B8%BB%E5%A4%87%E5%90%8C%E6%AD%A5%E4%B9%8BM-S%E7%BB%93%E6%9E%84/","path":"2021/04/29/mysql 实现主备同步之M-S结构/","title":"mysql 实现主备同步之M-S结构"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>mysql 实现主备同步之M-S结构 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/LeetaoGoooo/leetaogoooo.github.io.git/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/LeetaoGoooo/leetaogoooo.github.io.git/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E5%A4%87%E5%90%8C%E6%AD%A5%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">主备同步的实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E5%A4%87%E6%A8%A1%E5%BC%8F%E4%B8%8E%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.</span> <span class="nav-text">主备模式与实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#M-S%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">M-S结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.1.1.</span> <span class="nav-text">实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-master-%E9%85%8D%E7%BD%AE"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">修改 master 配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%90%AF-master-%E7%9A%84-mysql"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">重启 master 的 mysql</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%90%8C%E6%AD%A5%E5%B8%90%E5%8F%B7"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">创建同步帐号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">3.1.1.4.</span> <span class="nav-text">数据初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-slave-%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">3.1.1.5.</span> <span class="nav-text">修改 slave 的配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%90%AF-slave-%E7%9A%84-mysql"><span class="nav-number">3.1.1.6.</span> <span class="nav-text">重启 slave 的 mysql</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5-master-%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">3.1.1.7.</span> <span class="nav-text">导入 master 的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%B7%9F%E8%B8%AA%E4%B8%BB%E5%BA%93%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6"><span class="nav-number">3.1.1.8.</span> <span class="nav-text">设置跟踪主库日志文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8-slave-%E6%9C%8D%E5%8A%A1-%E5%B9%B6%E6%9F%A5%E7%9C%8Bslave%E6%9C%8D%E5%8A%A1%E4%BF%A1%E6%81%AF"><span class="nav-number">3.1.1.9.</span> <span class="nav-text">启动 slave 服务,并查看slave服务信息</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/LeetaoGoooo/leetaogoooo.github.io.git/archives/">
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Zhihu → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/LeetaoGoooo/leetaogoooo.github.io.git/2021/04/29/mysql%20%E5%AE%9E%E7%8E%B0%E4%B8%BB%E5%A4%87%E5%90%8C%E6%AD%A5%E4%B9%8BM-S%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/LeetaoGoooo/leetaogoooo.github.io.git/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mysql 实现主备同步之M-S结构
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-29 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-29T00:00:00+08:00">2021-04-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-29 17:44:21" itemprop="dateModified" datetime="2022-01-29T17:44:21+08:00">2022-01-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>主备同步，也叫主从复制，是 mysql 提供的一种高可用的解决方案，保证主备数据一致性的解决方案。<br>在生产环境中，会有很多不可控因素，比如数据库服务器宕机等，因此在生产环境中，都会采用主备同步。在应用的规模不大的情况下，一般会采用一主一备。除此之外，采用主备同步还可以：</p>
+<ul>
+<li>提高数据库的读并发性，大多数应用都是读比写要多，采用主备同步方案，当使用规模越来越大的时候，可以扩展备库来提升读能力。</li>
+<li>备份，主备同步可以得到一份实时的完整的备份数据库。</li>
+<li>快速恢复，当主库出错了（比如误删表），通过备库来快速恢复数据。</li>
+</ul>
+<p>那么主备同步的原理是什么？</p>
+<h1 id="主备同步的实现原理"><a href="#主备同步的实现原理" class="headerlink" title="主备同步的实现原理"></a>主备同步的实现原理</h1><p>主备同步模式之所以能够实现，显然是有一种手段可以，将主的 mysql 服务（以下简称 master）执行的 DDL 和 DML 语句传递给 备份的 mysql 服务（以下简称为 slave），这个就是 MySQL 的 <strong>binlog</strong>，mysql 的 binlog 是 MySQL 最重要的日志，它记录了所有的DDL和DML(除了数据查询语句)语句，以事件形式记录，还包含语句所执行的消耗的时间，MySQL的二进制日志是事务安全型的。<br>所以 binlog 一般会有两个用途：</p>
+<ul>
+<li>主备模式下，master 将 binlog 传递给 slave，从而达到数据一致的目的</li>
+<li>数据恢复，可以通过 mysqlbinlog 工具来恢复数据</li>
+</ul>
+<p>当 master 将 binlog 传递到 slave 的时候，会被传到 slave 的 <strong>relay log</strong>，relay log 也叫<strong>中继日志</strong>，是连接 master 和 slave 的核心，relay-log 的结构和 binlog 非常相似，只不过他多了一个 master.info 和 relay-log.info 的文件。</p>
+<p>master.info 记录了上一次读取到 master 同步过来的 binlog 的位置，以及连接 master 和启动复制必须的所有信息。<br>relay-log.info 记录了文件复制的进度，下一个事件从什么位置开始，由 sql 线程负责更新。</p>
+<p><img src="/posts/1619685348.png" alt="数据库同步原理" title="数据库同步原理"></p>
+<p> 说完了原理，接下来说说常见的俩种主备模式以及实践吧。</p>
+<h1 id="主备模式与实践"><a href="#主备模式与实践" class="headerlink" title="主备模式与实践"></a>主备模式与实践</h1><p>常见的主备模式有俩种分别是 <strong>M-S 结构</strong> 和 <strong>双 M 结构</strong>，本篇文章介绍前者 – <strong>M-S 结构</strong></p>
+<h2 id="M-S结构"><a href="#M-S结构" class="headerlink" title="M-S结构"></a>M-S结构</h2><p>M-S结构，两个节点，一个当主库、一个当备库，不允许两个节点互换角色。</p>
+<p><img src="/posts/1619685453.png" alt="M-S结构" title="M-S结构"></p>
+<p>在状态1中，客户端的读写都直接访问节点A，而节点B是A的备库，只是将A的更新都同步过来，到本地执行。这样可以保持节点B和A的数据是相同的。<br>当需要切换的时候，就切成状态2。这时候客户端读写访问的都是节点B，而节点A是B的备库。</p>
+<h3 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h3><h4 id="修改-master-配置"><a href="#修改-master-配置" class="headerlink" title="修改 master 配置"></a>修改 master 配置</h4><p>首先修改 master 中的 my.cnf </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/my.cnf</span><br></pre></td></tr></table></figure>
+<p>在 my.cnf 中 [mysqld] 中添加</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">bind-address=192.168.1.100</span><br><span class="line">server-id=1</span><br><span class="line">binlog-ignore-db = &quot;mysql&quot;</span><br><span class="line">binlog-format = mixed </span><br><span class="line">log-bin=mysql-bin</span><br><span class="line">datadir=/var/lib/mysql</span><br><span class="line">innodb_flush_log_at_trx_commit=1</span><br><span class="line">sync_binlog=1</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">备注：</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> server-id 服务器唯一标识。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> log_bin 启动MySQL二进制日志，即数据同步语句，从数据库会一条一条的执行这些语句。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> binlog_do_db 指定记录二进制日志的数据库，即需要复制的数据库名，如果复制多个数据库，重复设置这个选项即可。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> binlog_ignore_db 指定不记录二进制日志的数据库，即不需要复制的数据库名，如果有多个数据库，重复设置这个选项即可。</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 其中需要注意的是,binlog_do_db和binlog_ignore_db为互斥选项，一般只需要一个即可。</span></span><br></pre></td></tr></table></figure>
+<h4 id="重启-master-的-mysql"><a href="#重启-master-的-mysql" class="headerlink" title="重启 master 的 mysql"></a>重启 master 的 mysql</h4><p>保存之后，然后重启 MySQL</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service restart mysql</span><br></pre></td></tr></table></figure>
+<h4 id="创建同步帐号"><a href="#创建同步帐号" class="headerlink" title="创建同步帐号"></a>创建同步帐号</h4><p>接着以 root 帐号登录 master 的 mysql，创建一个用于同步的帐号，以下建立同步帐号名为 replication,密码为 password, slave 的 ip 是 192.168.1.101</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">CREATE</span> <span class="keyword">USER</span> replication<span class="variable">@192</span><span class="number">.168</span><span class="number">.1</span><span class="number">.101</span>;</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">GRANT</span> REPLICATION SLAVE <span class="keyword">ON</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">TO</span> replication<span class="variable">@192</span><span class="number">.168</span><span class="number">.1</span><span class="number">.101</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;password&#x27;</span>;</span><br><span class="line">mysql<span class="operator">&gt;</span> flush privileges;</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">SHOW</span> MASTER STATUS;</span><br><span class="line">mysql<span class="operator">&gt;</span> exit;</span><br></pre></td></tr></table></figure>
+<h4 id="数据初始化"><a href="#数据初始化" class="headerlink" title="数据初始化"></a>数据初始化</h4><p>到此关于 master 的配置结束了，<strong>如果这个时候，要同步的数据库有数据，可以将数据 sql 文件，以便于前期的数据初始化</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump –skip-lock-tables –all-databases –user=root –password –master-data &gt; master.sql</span><br></pre></td></tr></table></figure>
+<h4 id="修改-slave-的配置"><a href="#修改-slave-的配置" class="headerlink" title="修改 slave 的配置"></a>修改 slave 的配置</h4><p>接下来对 slave 的进行修改，首先修改 my.cnf，将下述内容加到 [mysqld] 区域:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">server-id=2</span><br><span class="line">binlog-format=mixed</span><br><span class="line">log_bin=mysql-bin</span><br><span class="line">relay-log=mysql-relay-bin</span><br><span class="line">log-slave-updates=1 # 默认是关闭的，这个时候 salve 从 master 复制的数据不会写入到 log-bin 日志文件中，开启后，则会写入</span><br></pre></td></tr></table></figure>
+<h4 id="重启-slave-的-mysql"><a href="#重启-slave-的-mysql" class="headerlink" title="重启 slave 的 mysql"></a>重启 slave 的 mysql</h4><p>然后重启 mysql，重启之后，以 root 用户登录 MySQL, 新建要同步的数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">service restart mysql</span><br><span class="line">mysql -uroot -p</span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> create database database-name;</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">exit</span>;</span></span><br></pre></td></tr></table></figure>
+<h4 id="导入-master-的数据"><a href="#导入-master-的数据" class="headerlink" title="导入 master 的数据"></a>导入 master 的数据</h4><p>将 master 的导出的 sql 文件，加载到 slave 数据中，进行数据初始化</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql <span class="operator">-</span>u root <span class="operator">-</span>p database<span class="operator">-</span>name <span class="operator">&lt;</span> master.sql</span><br></pre></td></tr></table></figure>
+<h4 id="设置跟踪主库日志文件"><a href="#设置跟踪主库日志文件" class="headerlink" title="设置跟踪主库日志文件"></a>设置跟踪主库日志文件</h4><p>在开启 slave 服务之前，还需要进行一些设置</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> CHANGE MASTER <span class="keyword">TO</span> </span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> MASTER_HOST<span class="operator">=</span><span class="string">&#x27;192.168.1.100&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> MASTER_USER<span class="operator">=</span><span class="string">&#x27;replication&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> MASTER_PASSWORD<span class="operator">=</span><span class="string">&#x27;password&#x27;</span>, </span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> MASTER_LOG_FILE<span class="operator">=</span><span class="string">&#x27;mysql-bin.000001&#x27;</span>, </span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> MASTER_LOG_POS<span class="operator">=</span><span class="number">500</span>;</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">START</span> SLAVE;</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">SHOW</span> SLAVE STATUS \G;</span><br></pre></td></tr></table></figure>
+<p>每个参数的含义如下:</p>
+<ul>
+<li><p>master_host 为主库IP地址</p>
+</li>
+<li><p>master_user 为主库用户名</p>
+</li>
+<li><p>master_password 为主库密码</p>
+</li>
+<li><p>master_log_file 为主库日志文件</p>
+</li>
+<li><p>master_log_pos 为主库日志所占位置</p>
+</li>
+</ul>
+<p>其中 MASTER_LOG_FILE 及 MASTER_LOG_POS 是在 Master 上在 MySQL 执行 “SHOW MASTER STATUS;”  的结果。</p>
+<h4 id="启动-slave-服务-并查看slave服务信息"><a href="#启动-slave-服务-并查看slave服务信息" class="headerlink" title="启动 slave 服务,并查看slave服务信息"></a>启动 slave 服务,并查看slave服务信息</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">START</span> SLAVE;</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">SHOW</span> SLAVE STATUS \G;</span><br></pre></td></tr></table></figure>
+<p>如果没有错误信息的话，就说明配置成功了。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_36331058/article/details/113334531">mysql 实现主备同步</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qwe123147369/article/details/108670385">MySQL中的binlog和relay-log结构完全详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/135465843">MySQL主从复制与双主互备</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.yipzale.me/2018/07/03/mysql-log.html">Mysql log 日志</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/langtianya/p/5504774.html">mysql中binlog_format模式与配置详解</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-master-slave-replication-in-mysql">How To Set Up Master Slave Replication in MySQL</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/LeetaoGoooo/leetaogoooo.github.io.git/tags/MySQL/" rel="tag"># MySQL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2021/04/22/Scrapy%20%E4%B8%AD%20spider%20%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E7%9A%84%20pipelines/" rel="prev" title="Scrapy 中 spider 覆盖默认的 pipelines">
+                  <i class="fa fa-chevron-left"></i> Scrapy 中 spider 覆盖默认的 pipelines
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetaoGoooo/leetaogoooo.github.io.git/2021/05/22/Github%20Action%20%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA%20Flutter%20%20Android%20Apk/" rel="next" title="Github Action 自动构建 Flutter  Android Apk">
+                  Github Action 自动构建 Flutter  Android Apk <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/comments.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/utils.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/motion.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/schemes/muse.js"></script><script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":null,"distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"e28421d3653066f184958719f2b49f11"}</script>
+<script src="/LeetaoGoooo/leetaogoooo.github.io.git/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
