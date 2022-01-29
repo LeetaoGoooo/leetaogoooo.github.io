@@ -36,13 +36,13 @@ custom_file_path:
 # ---------------------------------------------------------------
 
 # Schemes
-scheme: Muse
+# scheme: Muse
 #scheme: Mist
-#scheme: Pisces
-#scheme: Gemini
+# scheme: Pisces
+scheme: Gemini
 
 # Dark Mode
-darkmode: false
+darkmode: true
 
 
 # ---------------------------------------------------------------
@@ -146,6 +146,7 @@ social:
   Zhihu: https://weibo.com/yourname || fab fa-zhihu
   #Google: https://plus.google.com/yourname || fab fa-google
   Twitter: https://twitter.com/leetaoGoooo || fab fa-twitter
+  RSS: /atom.xml || fa fa-rss
   #FB Page: https://www.facebook.com/yourname || fab fa-facebook
   #StackOverflow: https://stackoverflow.com/yourname || fab fa-stack-overflow
   #YouTube: https://youtube.com/yourname || fab fa-youtube
@@ -224,6 +225,11 @@ footer:
 # Post Settings
 # See: https://theme-next.js.org/docs/theme-settings/posts
 # ---------------------------------------------------------------
+# Automatically scroll page to section which is under <!-- more --> mark.
+scroll_to_more: true #选取博客正文<!--more-->前的内容
+
+# Automatically saving scroll position on each post/page in cookies.
+save_scroll: false
 
 # Automatically excerpt description in homepage as preamble text.
 excerpt_description: true
@@ -274,7 +280,6 @@ follow_me:
   #Twitter: https://twitter.com/username || fab fa-twitter
   #Telegram: https://t.me/channel_name || fab fa-telegram
   #WeChat: /images/wechat_channel.jpg || fab fa-weixin
-  RSS: /atom.xml || fa fa-rss
 
 # Related popular posts
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
