@@ -4,7 +4,7 @@ name: Blog CI/CD
 on:
   push:
     branches: 
-      - master
+      - gh-pages
 
 env:
   TZ: Asia/Shanghai
@@ -48,5 +48,5 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        repository-name: LeetaoGoooo/leetaogoooo.github.io
+        BRANCH: master
         FOLDER: public
