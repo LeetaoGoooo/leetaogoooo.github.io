@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-count">186</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +195,88 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/07/21/%E6%99%AE%E9%80%9A%E7%B1%BB%E6%96%B9%E6%B3%95%E5%92%8Cclassmethod%E5%92%8Cstaticmethod%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/07/21/%E6%99%AE%E9%80%9A%E7%B1%BB%E6%96%B9%E6%B3%95%E5%92%8Cclassmethod%E5%92%8Cstaticmethod%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">普通类方法和classmethod和staticmethod区别</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-07-21 00:00:00" itemprop="dateCreated datePublished" datetime="2017-07-21T00:00:00+08:00">2017-07-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>最近写Python的时候,写类方法的时候,编译器老是建议我把一些方法改成静态方法,所以静态方法和普通方法有什么区别呢？当然提到了静态方法,也顺带提一下类方法，其中关于静态方法和类方法的区别，下面一段英文我觉得已经很好的解释了。</p>
+<blockquote>
+<p>@classmethod means: when this method is called, we pass the class as the first argument instead of the instance of that class (as we normally do with methods). This means you can use the class and its properties inside that method rather than a particular instance.<br>@staticmethod means: when this method is called, we don’t pass an instance of the class to it (as we normally do with methods). This means you can put a function inside a class but you can’t access the instance of that class (this is useful when your method does not use the instance).</p>
+</blockquote>
+<p>看完上述的解释,估计会有一些认识了，接下来让我们看一个具体的示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    test = <span class="number">1</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,test</span>)</span></span><br><span class="line"><span class="function">        <span class="title">self</span>.<span class="title">test</span> = <span class="title">test</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    <span class="title">def</span> <span class="title">get_test</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(self.test)</span><br><span class="line">    </span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sget_test</span>(<span class="params">test</span>):</span></span><br><span class="line">        <span class="built_in">print</span> test</span><br><span class="line">    </span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">cget_test</span>(<span class="params">cls</span>):</span></span><br><span class="line">        <span class="built_in">print</span> cls.test</span><br><span class="line"></span><br><span class="line">a = Test(<span class="number">2</span>)</span><br><span class="line">a.get_test() <span class="comment">#[1]</span></span><br><span class="line">a.sget_test(<span class="number">3</span>) <span class="comment">#[2]</span></span><br><span class="line">A.sget_test(<span class="number">3</span>) <span class="comment">#[3]</span></span><br><span class="line">Test.cget_test() <span class="comment">#[4]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>其结果如下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">3</span><br><span class="line">3</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码其实反映了这三种方法的使用场景,普通方法参数自带<em>self</em>,这说明，其侧重于对象实体调用，即它有很大程度上需要使用该对象实体特有的某些属性，这里代码指的就是实体<em>a</em>初始化传递的参数<em>2</em>;而静态方法则不管，对于它来说,无论是对象实体还是类调用,它的表现都一样(见代码[2],[3]处),由于其这种特性常被用来组织类之间有逻辑关系的函数;最后对于类方法来说,很显然它关于的是类本身而不是实体,如果你把一些方法定义成类方法,那么实际上你是希望用类来调用这个方法,而不是用这个类的实例来调用这个方法,示例代码中无论怎么被实例化,其类属性test永远都不会变~~</p>
+<p>参考链接:<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/12179271/meaning-of-classmethod-and-staticmethod-for-beginner/12179325#12179325">Meaning of @classmethod and @staticmethod for beginner?</a><br><a target="_blank" rel="noopener" href="https://taizilongxu.gitbooks.io/stackoverflow-about-python/content/14/README.html">装饰器@staticmethod和@classmethod有什么区别?</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/07/18/any()%E5%92%8Call()%E5%AF%B9%E6%AF%94/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +308,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -303,7 +385,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -384,7 +466,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -460,7 +542,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -549,7 +631,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -644,7 +726,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -724,7 +806,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -795,7 +877,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -896,7 +978,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -926,227 +1008,6 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line"><span class="comment">//processing </span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="built_in">arguments</span>.callee, interval); </span><br><span class="line">&#125;, interval); </span><br></pre></td></tr></table></figure>
 
 <p>arguments.callee表示引用当前正在执行的函数，或者说是调用arguments.callee的函数对象的引用，它给匿名函数提供了一种自我引用的方式。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/06/02/How%20To%20Structure%20Large%20Flask%20Applications/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/06/02/How%20To%20Structure%20Large%20Flask%20Applications/" class="post-title-link" itemprop="url">How To Structure Large Flask Applications</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-06-02 00:00:00" itemprop="dateCreated datePublished" datetime="2017-06-02T00:00:00+08:00">2017-06-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>整理翻译自<a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-structure-large-flask-applications">How To Structure Large Flask Applications</a></p>
-</blockquote>
-<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>其实已经有许多关于如何组织架构 Python Web 应用的方法和约定。尽管现在有些框架本身承载了一些工具(脚手架)从而可以达到实现自动化和降低任务难度的效果,但是究根结底几乎所有的解决方案都是依赖于打包/模块化应用作为代码块从而达到分发到相关的文件和文件夹的目的。</p>
-<p>最小的 web 应用开发框架 Flask 有着它特有的(工具)-blueprints。</p>
-<p>在这篇数码海洋的文章里,我们将会了解到如何使用 Flask 的 blueprints 来创建一个应用目录和组织架构它从而使其变成可重用的组件。这些将会给你的维护和组件的开发带来巨大的好处和便捷。</p>
-<h2 id="学术表"><a href="#学术表" class="headerlink" title="学术表"></a>学术表</h2><ol>
-<li>Flask：最小的应用开发框架</li>
-<li>关于我们在这篇文章的选择</li>
-<li>准备Flask系统<ol>
-<li>准备操作系统</li>
-<li>安装Python,pip以及virtualenv</li>
-</ol>
-</li>
-<li>组织架构应用的目录<ol>
-<li>创建应用目录</li>
-<li>创建虚拟环境</li>
-<li>创建应用文件</li>
-<li>安装 Flask</li>
-</ol>
-</li>
-<li>使用模块和 Blueprints(组件)<ol>
-<li>模块基础</li>
-<li>模块模板</li>
-</ol>
-</li>
-<li>创建应用(run.py,init.py 等等)<ol>
-<li>使用 nano 编辑 run.py</li>
-<li>使用 nano 编辑 config.py</li>
-</ol>
-</li>
-<li>创建一个模块/组件<ol>
-<li>组织架构模型</li>
-<li>定义模块数据类型</li>
-<li>定义模块表单</li>
-<li>定义应用控制器(views)</li>
-<li>在 “app/init.py” 中建立应用</li>
-<li>创建模板</li>
-<li>实际操作中查看你的模型</li>
-</ol>
-</li>
-</ol>
-<h2 id="Flask-最小的应用开发框架"><a href="#Flask-最小的应用开发框架" class="headerlink" title="Flask:最小的应用开发框架"></a>Flask:最小的应用开发框架</h2><p>Flask 迷你的框架但是丝毫不会影响重要事情的处理方式。相反, Flask 允许开发者使用他们渴望的并且熟悉的工具。出于这个目的,它由此产生了自己的扩展索引和大量已经存在并解决大多数事情的的工具从登陆到日志方方面面。</p>
-<p>它不是一个严格的“常规”框架，部分依赖于配置文件,这些配置文件使得其在开始使用和保持事项时变得更容易。</p>
-<h2 id="我们在文章中的选择"><a href="#我们在文章中的选择" class="headerlink" title="我们在文章中的选择"></a>我们在文章中的选择</h2><p>通过我们前面浏览的内容了解到,Flask 的方式就是让我们使用那些用起来最舒服的工具。在我们的文章中,我们将会使用最常见的扩展和库。这些选择包括:</p>
-<ol>
-<li>SQLAlchemy</li>
-<li>WTForms</li>
-</ol>
-<h3 id="Flask-SQLAlchemy"><a href="#Flask-SQLAlchemy" class="headerlink" title="Flask-SQLAlchemy"></a>Flask-SQLAlchemy</h3><p>在 Flask 中添加 SQLAlchemy 支持很快捷。这是一个很好的扩展。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Author: Armin Ronacher</span><br><span class="line">PyPI Page: Flask-SQLAlchemy</span><br><span class="line">Documentation: Read docs @ packages.python.org</span><br><span class="line">On Github: [mitsuhiko/flask-sqlalchemy](https://github.com/mitsuhiko/flask-sqlalchemy)</span><br></pre></td></tr></table></figure>
-
-<h3 id="Flask-WTF"><a href="#Flask-WTF" class="headerlink" title="Flask-WTF"></a>Flask-WTF</h3><p>Flask-WTF 提供简单的 WTForms 集成。集成包括可选择的 用来提供更好安全保障的 CSRF。这也是一个很好的扩展。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Author: Anthony Ford (created by Dan Jacob)</span><br><span class="line">PyPI Page: Flask-WTF</span><br><span class="line">Documentation: Read docs @ packages.python.org</span><br><span class="line">On Github: [ajford/flask-wtf](https://github.com/mitsuhiko/flask-wtf)</span><br></pre></td></tr></table></figure>
-
-<h2 id="准备-Flask-系统"><a href="#准备-Flask-系统" class="headerlink" title="准备 Flask 系统"></a>准备 Flask 系统</h2><h3 id="准备操作系统"><a href="#准备操作系统" class="headerlink" title="准备操作系统"></a>准备操作系统</h3><p>使用如下命令安装必要的开发工具</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aptitude update</span><br><span class="line">aptitude -y upgrade</span><br><span class="line">aptitude install -y build-essential python-dev python2.7-dev</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装python-pip以及virtualenv"><a href="#安装python-pip以及virtualenv" class="headerlink" title="安装python,pip以及virtualenv"></a>安装python,pip以及virtualenv</h3><p>参考 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/26663186">Flask入门——从无到有构建一个网站 （二）环境搭建</a></p>
-<h2 id="组织应用的目录"><a href="#组织应用的目录" class="headerlink" title="组织应用的目录"></a>组织应用的目录</h2><p>我们将使用典型的大型应用名称作为我们的应用的文件夹。在文件夹里，我们将会有一个虚拟环境与此同时还有应用的包以及一些其他的文件夹包括 用来运行 测试(开发)环境的 “run.py” 和 Flask 的配置文件 “config.py”</p>
-<p>下面给出的作为样例的目录结构，该目录结构是高度可扩展的,它构建的目的是充分利用 Flask 和其他库提供的工具。不要被它吓着了，我们将会一步一步构建它直至完成。</p>
-<p>目标样例结构:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">~/LargeApp</span><br><span class="line">    |-- run.py</span><br><span class="line">    |-- config.py</span><br><span class="line">    |__ /env             # Virtual Environment</span><br><span class="line">    |__ /app             # Our Application Module</span><br><span class="line">         |-- __init__.py</span><br><span class="line">         |-- /module_one</span><br><span class="line">             |-- __init__.py</span><br><span class="line">             |-- controllers.py</span><br><span class="line">             |-- models.py                </span><br><span class="line">         |__ /templates</span><br><span class="line">             |__ /module_one</span><br><span class="line">                 |-- hello.html</span><br><span class="line">         |__ /static</span><br><span class="line">         |__ ..</span><br><span class="line">         |__ .</span><br><span class="line">    |__ ..</span><br><span class="line">    |__ .</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建应用文件夹"><a href="#创建应用文件夹" class="headerlink" title="创建应用文件夹"></a>创建应用文件夹</h3><p>让我们开始创建我们需要的主要目录。<br>逐条去执行下述命令:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/LargeApp</span><br><span class="line">mkdir ~/LargeApp/app</span><br><span class="line">mkdir ~/LargeApp/app/templates</span><br><span class="line">mkdir ~/LargeApp/app/static   </span><br></pre></td></tr></table></figure>
-
-<p>执行完成之后我们的当前目录</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/LargeApp</span><br><span class="line">    |__ /app             # Our Application Module</span><br><span class="line">         |__ /templates</span><br><span class="line">         |__ /static</span><br></pre></td></tr></table></figure>
-<h3 id="创建一个虚拟环境"><a href="#创建一个虚拟环境" class="headerlink" title="创建一个虚拟环境"></a>创建一个虚拟环境</h3><p>使用一个虚拟环境能给你带来很多好处。对于你的每一个应用都强烈推荐使用一个新的虚拟环境。在你的应用中创建一个虚拟环境是一个很好的让你应用有序和干净的方法。</p>
-<p>使用下列命令创建一个虚拟环境</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/LargetApp</span><br><span class="line">virtualenv env</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建应用文件"><a href="#创建应用文件" class="headerlink" title="创建应用文件"></a>创建应用文件</h3><p>在这步，我们将会在使用 modules 和 blueprints 之前创建我们基础应用文件。</p>
-<p>运行下列文件创建基本应用文件:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">touch ~/LargeApp/run.py</span><br><span class="line">touch ~/LargeApp/config.py</span><br><span class="line">touch ~/LargeApp/app/__init__.py</span><br></pre></td></tr></table></figure>
-
-<p>我们当前的结构:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~/LargeApp</span><br><span class="line">    |-- run.py</span><br><span class="line">    |-- config.py</span><br><span class="line">    |__ /env             # Virtual Environment</span><br><span class="line">    |__ /app             # Our Application Module</span><br><span class="line">         |-- __init__.py</span><br><span class="line">         |__ /templates</span><br><span class="line">         |__ /static</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装-Flask-和相关依赖库"><a href="#安装-Flask-和相关依赖库" class="headerlink" title="安装 Flask 和相关依赖库"></a>安装 Flask 和相关依赖库</h3><p>目录什么都创建好之后，我们开始使用 pip 下载安装我们的Flask</p>
-<p>使用下述命令将 Flask 安装到虚拟环境当中:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd ~/LargeApp</span><br><span class="line">env/bin/pip install flask</span><br><span class="line">env/bin/pip install flask-sqlalchemy</span><br><span class="line">env/bin/pip install flask-wtf</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用-Modules-和-Blueprints（组件）"><a href="#使用-Modules-和-Blueprints（组件）" class="headerlink" title="使用 Modules 和 Blueprints（组件）"></a>使用 Modules 和 Blueprints（组件）</h2><h3 id="基础模块"><a href="#基础模块" class="headerlink" title="基础模块"></a>基础模块</h3><p>在走到这一步的时候，我们已经将我们的应用结构创建好了并且也将所有的依赖下载完成了。</p>
-<p>我们的目标是模块化可逻辑分组的所有相关模块。</p>
-<p>举个简单的例子比如认证系统。将所有视图，控制器，模型和帮助器置于一个位置，以允许可重用性的方式进行设置，这使得这种结构化成为维护应用程序同时提高生产力的好方法。</p>
-<p>目标案例模块(组件)结构(在/app里面)：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Our module example here is called *mod_auth*</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> You can name them as you like as long as conventions are followed</span></span><br><span class="line"></span><br><span class="line">/mod_auth</span><br><span class="line">    |-- __init__.py</span><br><span class="line">    |-- controllers.py</span><br><span class="line">    |-- models.py</span><br><span class="line">    |-- ..</span><br><span class="line">    |-- .</span><br></pre></td></tr></table></figure>
-
-<h3 id="模块模板"><a href="#模块模板" class="headerlink" title="模块模板"></a>模块模板</h3><p>为了使得达到最大的模块化，我们将遵循上述规定创建 “templates” 文件夹,同时并保护一个与模块相同或相似的相关名称的新文件夹，以包含其模板文件。</p>
-<p>目标样例模板目录结构(在 LargeApp 中):</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/templates</span><br><span class="line">    |-- 404.html</span><br><span class="line">    |__ /auth</span><br><span class="line">         |-- signin.html</span><br><span class="line">         |-- signup.html</span><br><span class="line">         |-- forgot.html</span><br><span class="line">         |-- ..</span><br><span class="line">         |-- .</span><br></pre></td></tr></table></figure>
-
-<h2 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h2><p>在本节中，我们将继续前面的步骤，并从我们的应用程序的实际编码开始，然后再转到创建第一个模块化组件（使用蓝图）：mod_auth，其用来处理所有与身份验证相关的过程。</p>
-<h3 id="使用-nano-编辑-“run-py”"><a href="#使用-nano-编辑-“run-py”" class="headerlink" title="使用 nano 编辑 “run.py”"></a>使用 nano 编辑 “run.py”</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/LargeApp/run.py</span><br></pre></td></tr></table></figure>
-
-<p>输入如下内容:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Run a <span class="built_in">test</span> server.</span></span><br><span class="line">from app import app</span><br><span class="line">app.run(host=&#x27;0.0.0.0&#x27;, port=8080, debug=True)</span><br></pre></td></tr></table></figure>
-
-<p>保存退出。</p>
-<h3 id="使用-nano-编辑-“config-py”"><a href="#使用-nano-编辑-“config-py”" class="headerlink" title="使用 nano 编辑 “config,py”"></a>使用 nano 编辑 “config,py”</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/LargeApp/config.py</span><br></pre></td></tr></table></figure>
-
-<p>输入如下内容:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Statement <span class="keyword">for</span> enabling the development environment</span></span><br><span class="line">DEBUG = True</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Define the application directory</span></span><br><span class="line">import os</span><br><span class="line">BASE_DIR = os.path.abspath(os.path.dirname(__file__))  </span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Define the database - we are working with</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> SQLite <span class="keyword">for</span> this example</span></span><br><span class="line">SQLALCHEMY_DATABASE_URI = &#x27;sqlite:///&#x27; + os.path.join(BASE_DIR, &#x27;app.db&#x27;)</span><br><span class="line">DATABASE_CONNECT_OPTIONS = &#123;&#125;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Application threads. A common general assumption is</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> using 2 per available processor cores - to handle</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> incoming requests using one and performing background</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> operations using the other.</span></span><br><span class="line">THREADS_PER_PAGE = 2</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Enable protection agains *Cross-site Request Forgery (CSRF)*</span></span><br><span class="line">CSRF_ENABLED     = True</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Use a secure, unique and absolutely secret key <span class="keyword">for</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> signing the data.</span> </span><br><span class="line">CSRF_SESSION_KEY = &quot;secret&quot;</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Secret key <span class="keyword">for</span> signing cookies</span></span><br><span class="line">SECRET_KEY = &quot;secret&quot;</span><br></pre></td></tr></table></figure>
-
-<p>保存退出。</p>
-<h2 id="创建模块-组件"><a href="#创建模块-组件" class="headerlink" title="创建模块/组件"></a>创建模块/组件</h2><p>本节是定义本文核心的第一个主要步骤。 在这里，我们将看到如何使用Flask的蓝图来创建一个模块（即组件）。</p>
-<h3 id="第一步-结构化模块"><a href="#第一步-结构化模块" class="headerlink" title="第一步 结构化模块"></a>第一步 结构化模块</h3><p>正如我们已经开始做的，让我们创建我们的第一个模块（mod_auth）目录和文件来开始工作。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Create the module directory inside the *app* module</span></span><br><span class="line">mkdir ~/LargeApp/app/mod_auth</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Create <span class="built_in">where</span> module<span class="string">&#x27;s templates will reside</span></span></span><br><span class="line">mkdir ~/LargeApp/app/templates/auth</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> Create __init__.py to set the directory as a Python module</span></span></span><br><span class="line">touch ~/LargeApp/app/mod_auth/__init__.py</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> Create module&#x27;</span>s controllers and models etc.</span></span><br><span class="line">touch ~/LargeApp/app/mod_auth/controllers.py</span><br><span class="line">touch ~/LargeApp/app/mod_auth/models.py</span><br><span class="line">touch ~/LargeApp/app/mod_auth/forms.py</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Create module<span class="string">&#x27;s templates</span></span></span><br><span class="line">touch ~/LargeApp/app/templates/auth/signin.html</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string"> Create a HTTP 404 Error page</span></span></span><br><span class="line">touch ~/LargeApp/app/templates/404.html</span><br></pre></td></tr></table></figure>
-
-<p>在上述操作过程之后,我们的目录结构类似这样:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">~/LargeApp</span><br><span class="line">    |-- run.py</span><br><span class="line">    |-- config.py</span><br><span class="line">    |__ /env             # Virtual Environment</span><br><span class="line">    |__ /app             # Our Application Module</span><br><span class="line">         |-- __init__.py</span><br><span class="line">         |-- /mod_auth   # Our first module, mod_auth</span><br><span class="line">             |-- __init__.py</span><br><span class="line">             |-- controllers.py</span><br><span class="line">             |-- models.py</span><br><span class="line">             |-- forms.py</span><br><span class="line">         |__ /templates</span><br><span class="line">             |-- 404.html</span><br><span class="line">             |__ /auth</span><br><span class="line">                 |-- signin.html</span><br><span class="line">         |__ /static</span><br></pre></td></tr></table></figure>
-
-<h3 id="第二步-定义模块数据模型"><a href="#第二步-定义模块数据模型" class="headerlink" title="第二步 定义模块数据模型"></a>第二步 定义模块数据模型</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/LargeApp/app/mod_auth/models.py</span><br></pre></td></tr></table></figure>
-
-<p>输入下述内容</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Import the database object (db) from the main application module</span></span><br><span class="line"><span class="comment"># We will define this inside /app/__init__.py in the next sections.</span></span><br><span class="line"><span class="keyword">from</span> app <span class="keyword">import</span> db</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define a base model for other database tables to inherit</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Base</span>(<span class="params">db.Model</span>):</span></span><br><span class="line"></span><br><span class="line">    __abstract__  = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">id</span>            = db.Column(db.Integer, primary_key=<span class="literal">True</span>)</span><br><span class="line">    date_created  = db.Column(db.DateTime,  default=db.func.current_timestamp())</span><br><span class="line">    date_modified = db.Column(db.DateTime,  default=db.func.current_timestamp(),</span><br><span class="line">                                           onupdate=db.func.current_timestamp())</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define a User model</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>(<span class="params">Base</span>):</span></span><br><span class="line"></span><br><span class="line">    __tablename__ = <span class="string">&#x27;auth_user&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># User Name</span></span><br><span class="line">    name    = db.Column(db.String(<span class="number">128</span>),  nullable=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Identification Data: email &amp; password</span></span><br><span class="line">    email    = db.Column(db.String(<span class="number">128</span>),  nullable=<span class="literal">False</span>,</span><br><span class="line">                                            unique=<span class="literal">True</span>)</span><br><span class="line">    password = db.Column(db.String(<span class="number">192</span>),  nullable=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Authorisation Data: role &amp; status</span></span><br><span class="line">    role     = db.Column(db.SmallInteger, nullable=<span class="literal">False</span>)</span><br><span class="line">    status   = db.Column(db.SmallInteger, nullable=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># New instance instantiation procedure</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name, email, password</span>):</span></span><br><span class="line"></span><br><span class="line">        self.name     = name</span><br><span class="line">        self.email    = email</span><br><span class="line">        self.password = password</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&lt;User %r&gt;&#x27;</span> % (self.name)      </span><br></pre></td></tr></table></figure>
-
-<p>保存并退出</p>
-<h3 id="第三步-定义模块表单"><a href="#第三步-定义模块表单" class="headerlink" title="第三步 定义模块表单"></a>第三步 定义模块表单</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/LargeApp/app/mod_auth/forms.py</span><br></pre></td></tr></table></figure>
-
-<p>输入下述内容:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Import Form and RecaptchaField (optional)</span></span><br><span class="line"><span class="keyword">from</span> flask.ext.wtf <span class="keyword">import</span> Form <span class="comment"># , RecaptchaField</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Import Form elements such as TextField and BooleanField (optional)</span></span><br><span class="line"><span class="keyword">from</span> wtforms <span class="keyword">import</span> TextField, PasswordField <span class="comment"># BooleanField</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Import Form validators</span></span><br><span class="line"><span class="keyword">from</span> wtforms.validators <span class="keyword">import</span> Required, Email, EqualTo</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define the login form (WTForms)</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoginForm</span>(<span class="params">Form</span>):</span></span><br><span class="line">    email    = TextField(<span class="string">&#x27;Email Address&#x27;</span>, [Email(),</span><br><span class="line">                Required(message=<span class="string">&#x27;Forgot your email address?&#x27;</span>)])</span><br><span class="line">    password = PasswordField(<span class="string">&#x27;Password&#x27;</span>, [</span><br><span class="line">                Required(message=<span class="string">&#x27;Must provide a password. ;-)&#x27;</span>)])</span><br></pre></td></tr></table></figure>
-
-<p>保存并退出</p>
-<h3 id="第四步-定义应用控制器-视图"><a href="#第四步-定义应用控制器-视图" class="headerlink" title="第四步 定义应用控制器(视图)"></a>第四步 定义应用控制器(视图)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/LargeApp/app/mod_auth/controllers.py</span><br></pre></td></tr></table></figure>
-
-<p>输入下述内容</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Import flask dependencies</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint, request, render_template, \</span><br><span class="line">                  flash, g, session, redirect, url_for</span><br><span class="line"></span><br><span class="line"><span class="comment"># Import password / encryption helper tools</span></span><br><span class="line"><span class="keyword">from</span> werkzeug <span class="keyword">import</span> check_password_hash, generate_password_hash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Import the database object from the main app module</span></span><br><span class="line"><span class="keyword">from</span> app <span class="keyword">import</span> db</span><br><span class="line"></span><br><span class="line"><span class="comment"># Import module forms</span></span><br><span class="line"><span class="keyword">from</span> app.mod_auth.forms <span class="keyword">import</span> LoginForm</span><br><span class="line"></span><br><span class="line"><span class="comment"># Import module models (i.e. User)</span></span><br><span class="line"><span class="keyword">from</span> app.mod_auth.models <span class="keyword">import</span> User</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define the blueprint: &#x27;auth&#x27;, set its url prefix: app.url/auth</span></span><br><span class="line">mod_auth = Blueprint(<span class="string">&#x27;auth&#x27;</span>, __name__, url_prefix=<span class="string">&#x27;/auth&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the route and accepted methods</span></span><br><span class="line"><span class="meta">@mod_auth.route(<span class="params"><span class="string">&#x27;/signin/&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">signin</span>():</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># If sign in form is submitted</span></span><br><span class="line">    form = LoginForm(request.form)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Verify the sign in form</span></span><br><span class="line">    <span class="keyword">if</span> form.validate_on_submit():</span><br><span class="line"></span><br><span class="line">        user = User.query.filter_by(email=form.email.data).first()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> user <span class="keyword">and</span> check_password_hash(user.password, form.password.data):</span><br><span class="line"></span><br><span class="line">            session[<span class="string">&#x27;user_id&#x27;</span>] = user.<span class="built_in">id</span></span><br><span class="line"></span><br><span class="line">            flash(<span class="string">&#x27;Welcome %s&#x27;</span> % user.name)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> redirect(url_for(<span class="string">&#x27;auth.home&#x27;</span>))</span><br><span class="line"></span><br><span class="line">        flash(<span class="string">&#x27;Wrong email or password&#x27;</span>, <span class="string">&#x27;error-message&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&quot;auth/signin.html&quot;</span>, form=form)</span><br></pre></td></tr></table></figure>
-
-<p>保存并退出</p>
-<h3 id="第五步-在应用中创建-“app-init-py”"><a href="#第五步-在应用中创建-“app-init-py”" class="headerlink" title="第五步 在应用中创建 “app/init.py”"></a>第五步 在应用中创建 “app/init.py”</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/LargeApp/app/__init__.py</span><br></pre></td></tr></table></figure>
-
-<p>输入以下内容:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Import flask and template operators</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"></span><br><span class="line"><span class="comment"># Import SQLAlchemy</span></span><br><span class="line"><span class="keyword">from</span> flask.ext.sqlalchemy <span class="keyword">import</span> SQLAlchemy</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define the WSGI application object</span></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Configurations</span></span><br><span class="line">app.config.from_object(<span class="string">&#x27;config&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define the database object which is imported</span></span><br><span class="line"><span class="comment"># by modules and controllers</span></span><br><span class="line">db = SQLAlchemy(app)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Sample HTTP error handling</span></span><br><span class="line"><span class="meta">@app.errorhandler(<span class="params"><span class="number">404</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">not_found</span>(<span class="params">error</span>):</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;404.html&#x27;</span>), <span class="number">404</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Import a module / component using its blueprint handler variable (mod_auth)</span></span><br><span class="line"><span class="keyword">from</span> app.mod_auth.controllers <span class="keyword">import</span> mod_auth <span class="keyword">as</span> auth_module</span><br><span class="line"></span><br><span class="line"><span class="comment"># Register blueprint(s)</span></span><br><span class="line">app.register_blueprint(auth_module)</span><br><span class="line"><span class="comment"># app.register_blueprint(xyz_module)</span></span><br><span class="line"><span class="comment"># ..</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Build the database:</span></span><br><span class="line"><span class="comment"># This will create the database file using SQLAlchemy</span></span><br><span class="line">db.create_all()</span><br></pre></td></tr></table></figure>
-
-<p>保存并退出</p>
-<h3 id="第六步-创建模板"><a href="#第六步-创建模板" class="headerlink" title="第六步 创建模板"></a>第六步 创建模板</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/LargeApp/app/templates/auth/signin.html</span><br></pre></td></tr></table></figure>
-
-<p>输入以下内容:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&#123;% macro render_field(field, placeholder=None) %&#125;</span><br><span class="line">&#123;% if field.errors %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% elif field.flags.error %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% else %&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br><span class="line">    &#123;% set css_class = &#x27;form-control &#x27; + kwargs.pop(&#x27;class&#x27;, &#x27;&#x27;) %&#125;</span><br><span class="line">    &#123;&#123; field(class=css_class, placeholder=placeholder, **kwargs) &#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% endmacro %&#125;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">legend</span>&gt;</span>Sign in<span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">    &#123;% with errors = get_flashed_messages(category_filter=[&quot;error&quot;]) %&#125;</span><br><span class="line">    &#123;% if errors %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;% for error in errors %&#125;</span><br><span class="line">    &#123;&#123; error &#125;&#125;<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">    &#123;% endwith %&#125;</span><br><span class="line"></span><br><span class="line">    &#123;% if form.errors %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;% for field, error in form.errors.items() %&#125;</span><br><span class="line">    &#123;% for e in error %&#125;</span><br><span class="line">    &#123;&#123; e &#125;&#125;<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line">    &#123;% endfor %&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span> <span class="attr">action</span>=<span class="string">&quot;.&quot;</span> <span class="attr">accept-charset</span>=<span class="string">&quot;UTF-8&quot;</span> <span class="attr">role</span>=<span class="string">&quot;form&quot;</span>&gt;</span></span><br><span class="line">      &#123;&#123; form.csrf_token &#125;&#125;</span><br><span class="line">      &#123;&#123; render_field(form.email, placeholder=&quot;Your Email Address&quot;,</span><br><span class="line">                                  autofocus=&quot;&quot;) &#125;&#125;</span><br><span class="line">      &#123;&#123; render_field(form.password, placeholder=&quot;Password&quot;) &#125;&#125;</span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;remember&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>&gt;</span> Remember Me</span><br><span class="line">      <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">role</span>=<span class="string">&quot;button&quot;</span> <span class="attr">href</span>=<span class="string">&quot;&quot;</span>&gt;</span>Forgot your password?<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;clearfix&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">name</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>Sign in<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>保存并退出</p>
-<h3 id="第七步-从网页浏览你定义的模块"><a href="#第七步-从网页浏览你定义的模块" class="headerlink" title="第七步 从网页浏览你定义的模块"></a>第七步 从网页浏览你定义的模块</h3><p>模块创建成功了，接下来就是查看我们定义的模板了</p>
-<p>运行 <code>run.py</code> 文件启动开发环境服务器</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/LargeApp</span><br><span class="line">env/bin/python run.py</span><br></pre></td></tr></table></figure>
-
-<p>上述命令将会初始化一个开发环境服务器，端口为 8080.<br>通过 URL 去访问我们的模块</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://[your droplet&#x27;s IP]/auth/signin</span><br></pre></td></tr></table></figure>
-<p>虽然您无法登录，但您可以通过输入一些示例数据或通过测试其验证器来查看它。</p>
 
       
     </div>

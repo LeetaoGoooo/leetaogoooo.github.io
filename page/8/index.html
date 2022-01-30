@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-count">186</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +195,80 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/30/%E5%9B%BD%E5%86%85%E5%90%AF%E5%8A%A8%20Docker%20%E8%87%AA%E5%B8%A6%E7%9A%84%20Kubernetes%20%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/01/30/%E5%9B%BD%E5%86%85%E5%90%AF%E5%8A%A8%20Docker%20%E8%87%AA%E5%B8%A6%E7%9A%84%20Kubernetes%20%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">国内启动 Docker 自带的 Kubernetes 方法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-30 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-30T00:00:00+08:00">2019-01-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Docker for Windows/Mac 上的 Kubernetes 启动时需要下载镜像,部分镜像国内无法访问,会出现 Kubernetes 一直 starting 的情况</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>Github 上有一个 <a target="_blank" rel="noopener" href="https://github.com/AliyunContainerService/k8s-for-docker-desktop">k8s-for-docker-desktop</a> 的项目,可以解决  18.09/18.06 版本(包含 Kubernetes 1.10.3),18.03 以及  Docker for Mac/Windows 18.09.1 (包含 Kubernetes 1.13.0) 启动问题,不过最新版本的 Docker for Mac/Windows(v2.0.0.2),如下图:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fzom77i37lj30oj0k2q5x.jpg"></p>
+<p>同样没有办法启动,针对这个我提交了一个 <a target="_blank" rel="noopener" href="https://github.com/AliyunContainerService/k8s-for-docker-desktop/pull/17">PR</a>, 也可以参考我 Fork 之后的新建的分支:<a target="_blank" rel="noopener" href="https://github.com/lt94/k8s-for-docker-desktop/tree/v2.0.0.2">v2.0.0.2</a> 按照说明安装启动 Kubernetes</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/25/about/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +300,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -344,7 +418,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -432,7 +506,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -535,7 +609,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -629,7 +703,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -718,7 +792,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -813,7 +887,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -909,7 +983,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -1005,7 +1079,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -1026,95 +1100,6 @@
 <h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>为了方便理解,我截了两张图,一张是 api_key 正确的情况下,一张是 错误的情况下</p>
 <h3 id="api-key-正确"><a href="#api-key-正确" class="headerlink" title="api_key 正确"></a>api_key 正确</h3><p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fytiw435blj30zh0g740b.jpg"></p>
 <h3 id="api-key-错误"><a href="#api-key-错误" class="headerlink" title="api_key 错误"></a>api_key 错误</h3><p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fytiwcjbcej30vk0i1abi.jpg"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/12/31/Dict%20%E9%94%AE%E5%80%BC%E5%92%8C%20Number%20%E7%9A%84%E6%95%85%E4%BA%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/12/31/Dict%20%E9%94%AE%E5%80%BC%E5%92%8C%20Number%20%E7%9A%84%E6%95%85%E4%BA%8B/" class="post-title-link" itemprop="url">Dict 键值和 Number 的故事</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-12-31 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-31T00:00:00+08:00">2018-12-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>字典(Dict)，在大家写 Python 程序中，肯定会经常用到它，但是它在官方的文档有一段话，不知道大家有没有注意到，官方原文是这样的</p>
-<blockquote>
-<p>A dictionary’s keys are almost arbitrary values. Values that are not hashable, that is, values containing lists, dictionaries or other mutable types (that are compared by value rather than by object identity) may not be used as keys. Numeric types used for keys obey the normal rules for numeric comparison: if two numbers compare equal (such as 1 and 1.0) then they can be used interchangeably to index the same dictionary entry. (Note however, that since computers store floating-point numbers as approximations it is usually unwise to use them as dictionary keys.)</p>
-</blockquote>
-<p>如果你看到这里已经明白了我想说的内容的话，那么恭喜你可以节约几分钟的时间了，不需要阅读本篇文章了，没看明白的小伙伴，可以接着看下面的例子。</p>
-<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = &#123;&#125;</span><br><span class="line">&gt;&gt;&gt; a[1.0]=<span class="string">&quot;元旦快乐&quot;</span></span><br><span class="line">&gt;&gt;&gt; a[1] = <span class="string">&quot;新年快乐&quot;</span></span><br><span class="line"><span class="comment"># a[1.0] = ?</span></span><br></pre></td></tr></table></figure>
-<p>问题来了，这时候我们试着输出 <strong>a[1.0]</strong> 会发生什么呢？</p>
-<p><img src="https://t1.picb.cc/uploads/2018/12/31/Jo1ch0.png"></p>
-<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>是不是觉得很神奇？这是为什么呢？划重点的时候到了,注意上面的官方文档中的一句话。</p>
-<blockquote>
-<p>Numeric types used for keys obey the normal rules for numeric comparison: if two numbers compare equal (such as 1 and 1.0) then they can be used interchangeably to index the same dictionary entry.</p>
-</blockquote>
-<p>其意思很简单，用于键数字类型遵循正常数值比较规则：如果两个数比较相等（如1和1.0），那么他们可以互换使用，以索引相同的字典条目。</p>
-<p>等等，这是不是就意味着 <strong>1 == 1.0 ?</strong>,真的是这样吗？别着急，看下去。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; 1 == 1.0</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">hash</span>(1) == <span class="built_in">hash</span>(1.0)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
-
-<p>所以这就不难理解，为什么 a[1.0] 的值，被后面的 a[1] 覆盖了。最后官方也建议，不要用他们作为字典的键值。</p>
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://docs.python.org/3.6/library/stdtypes.html#mapping-types-dict">Mapping Types – dict</a></p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/32209155/why-can-a-floating-point-dictionary-key-overwrite-an-integer-key-with-the-same-v/32211042#32211042">Why can a floating point dictionary key overwrite an integer key with the same value?</a></p>
 
       
     </div>

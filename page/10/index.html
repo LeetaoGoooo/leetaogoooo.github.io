@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-count">186</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +195,87 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/10/25/Longest%20Substring%20Without%20Repeating%20Characters/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/10/25/Longest%20Substring%20Without%20Repeating%20Characters/" class="post-title-link" itemprop="url">Longest Substring Without Repeating Characters</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-25 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-25T00:00:00+08:00">2018-10-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给定一个字符串，找出不含有重复字符的最长子串的长度。</p>
+<p>示例 1:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;abcabcbb&quot;</span><br><span class="line">输出: 3 </span><br><span class="line">解释: 无重复字符的最长子串是 &quot;abc&quot;，其长度为 3。</span><br></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;bbbbb&quot;</span><br><span class="line">输出: 1</span><br><span class="line">解释: 无重复字符的最长子串是 &quot;b&quot;，其长度为 1。</span><br></pre></td></tr></table></figure>
+
+<p>示例 3:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;pwwkew&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 无重复字符的最长子串是 &quot;wke&quot;，其长度为 3。</span><br><span class="line">     请注意，答案必须是一个子串，&quot;pwke&quot; 是一个子序列 而不是子串。</span><br></pre></td></tr></table></figure>
+
+<p><strong>Solution</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(s) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        max_len = <span class="number">1</span></span><br><span class="line">        store_str = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> strs <span class="keyword">in</span> s:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(store_str) == <span class="number">0</span>:</span><br><span class="line">                store_str += strs</span><br><span class="line">            <span class="keyword">elif</span> strs <span class="keyword">not</span> <span class="keyword">in</span> store_str:</span><br><span class="line">                store_str += strs</span><br><span class="line">                max_len = <span class="built_in">max</span>(max_len,<span class="built_in">len</span>(store_str))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                repeat_index = store_str.index(strs)</span><br><span class="line">                store_str = store_str[repeat_index+<span class="number">1</span>:] + strs</span><br><span class="line">        <span class="keyword">return</span> max_len</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/10/25/Set%20Matrix%20Zeroes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +307,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -311,7 +392,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -389,7 +470,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -484,7 +565,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -572,7 +653,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -657,7 +738,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -742,7 +823,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -831,7 +912,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -942,7 +1023,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -978,88 +1059,6 @@
 <h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/X-Frame-Options">X-Frame-Options 响应头</a></p>
 <p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">X-Frame-Options</a></p>
 <p><a target="_blank" rel="noopener" href="http://erlend.oftedal.no/blog/tools/xframeoptions/">X-Frame-Options Compatibility Test</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/05/28/Anaconda%20Navigator%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/05/28/Anaconda%20Navigator%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5/" class="post-title-link" itemprop="url">Anaconda Navigator启动失败</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-05-28 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-28T00:00:00+08:00">2018-05-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>我的最终启动失败的原因是:No Module named ‘pywintypes’ 缺失引起的 Anaconda Navigator 启动失败,但是解决问题的方法是通用的.</p>
-<h1 id="定位问题"><a href="#定位问题" class="headerlink" title="定位问题"></a>定位问题</h1><h2 id="找到应用，点击打开文件位置"><a href="#找到应用，点击打开文件位置" class="headerlink" title="找到应用，点击打开文件位置"></a>找到应用，点击打开文件位置</h2><p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1frr9yiymh6j30r509vwjh.jpg"></p>
-<h2 id="右键快捷方式，将箭头所在栏的内容复制下来"><a href="#右键快捷方式，将箭头所在栏的内容复制下来" class="headerlink" title="右键快捷方式，将箭头所在栏的内容复制下来"></a>右键快捷方式，将箭头所在栏的内容复制下来</h2><p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1frra0iy6sij30lk0tvjsk.jpg"></p>
-<p>你会得到类似如下的命令:</p>
-<blockquote>
-<p>pathto\Anaconda3\pythonw.exe pathoto\Anaconda3\cwp.py pathto\Anaconda3 pathto\Anaconda3\pythonw.exe pathto\Anaconda3\Scripts\anaconda-navigator-script.py</p>
-</blockquote>
-<h2 id="打开命令行"><a href="#打开命令行" class="headerlink" title="打开命令行"></a>打开命令行</h2><p>打开命令行,将上述命令中的 <strong>pythonw.exe</strong> 换成 <strong>python.exe</strong>, 然后执行,出现 <strong>No Module named ‘pywintypes’</strong> 的错误</p>
-<h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><p>在当前命令行使用 conda 激活 base 环境,然后执行下述命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pypiwin32</span><br></pre></td></tr></table></figure>
-
-<p>安装完成之后,再次打开Anaconda Navigator成功.</p>
 
       
     </div>

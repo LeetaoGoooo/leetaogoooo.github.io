@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-count">186</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +195,93 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/12/05/%E7%BC%96%E5%86%99%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84JavaScript-%E7%AC%AC%E4%BA%8C%E7%AB%A0(%E6%B3%A8%E9%87%8A)%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/12/05/%E7%BC%96%E5%86%99%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84JavaScript-%E7%AC%AC%E4%BA%8C%E7%AB%A0(%E6%B3%A8%E9%87%8A)%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">编写可维护的JavaScript-第二章(注释)笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-12-05 00:00:00" itemprop="dateCreated datePublished" datetime="2016-12-05T00:00:00+08:00">2016-12-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="单行注释"><a href="#单行注释" class="headerlink" title="单行注释"></a>单行注释</h1><p>单行注释以两个斜线开始,以行尾结束.单行注释有三种使用方法:</p>
+<ol>
+<li> 独占一行的注释,用来解释下一行代码。这行注释之前总有一个空行,且缩进层级和下一行代码保持一致.</li>
+<li> 在代码行的尾部的注释。代码结束到注释之间至少有一个缩进。注释(包括之前的代码部分)不应该超过单行最大字符数限制,如果超过了,就将这条注释放置于当前代码行的上方。</li>
+<li> 被注释的打断代码</li>
+</ol>
+<h1 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h1><p>多行注释可以包裹跨行文本。</p>
+<h1 id="使用注释"><a href="#使用注释" class="headerlink" title="使用注释"></a>使用注释</h1><p>添加注释的一般原则是,在需要让代码变得更清晰时添加注释。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 不好的写法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化 count</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 好的写法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 改变这个值可能会让它变成青蛙</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用注释的场景"><a href="#使用注释的场景" class="headerlink" title="使用注释的场景"></a>使用注释的场景</h1><ol>
+<li> 难于理解的代码通常都应当加注释。</li>
+<li> 当代码看上去有错误的时应当加注释。</li>
+<li> 应当对方法、期望的从桉树和可能的返回值添加注释描述。</li>
+<li> 应当对自定义类型和期望的参数添加注释描述。</li>
+<li> 应当对包含文档花方法的对象添加注释描述。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/12/04/CentOS7%E5%AE%89%E8%A3%85Mysql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +313,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -334,7 +421,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -451,7 +538,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -534,7 +621,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -632,7 +719,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -718,7 +805,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -794,7 +881,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -887,7 +974,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -975,7 +1062,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -1009,104 +1096,6 @@
 </ol>
 <p>单例模式的应用可以从单例模式的优点说起,由于单例模式在系统运行过程中只存在唯一一个实例对象,可以节约系统资源,对于一些需要频繁创建和销毁的对象单例模式无疑可以提高系统的性能,在实际应用中 数据库通常使用单例模式较多,避免重复连接数据库造成资源的浪费</p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/10/11/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8virtualenv/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/10/11/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8virtualenv/" class="post-title-link" itemprop="url">为什么使用virtualenv</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-10-11 00:00:00" itemprop="dateCreated datePublished" datetime="2016-10-11T00:00:00+08:00">2016-10-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="virtualenv-的安装"><a href="#virtualenv-的安装" class="headerlink" title="virtualenv 的安装"></a>virtualenv 的安装</h1><h2 id="Ubuntu-下-virtualenv-的安装"><a href="#Ubuntu-下-virtualenv-的安装" class="headerlink" title="Ubuntu 下 virtualenv 的安装"></a>Ubuntu 下 virtualenv 的安装</h2><p>Ubuntu 下的安装 python 的第三方依赖库就不得不提 python 的三大神器之 <strong>pip</strong>.默认情况下 Ubuntu 是没有安装的,可以在命令行下使用<em>pip xxx</em> 进行简单测试.</p>
-<h3 id="pip-的安装"><a href="#pip-的安装" class="headerlink" title="pip 的安装"></a>pip 的安装</h3><p>pip 安装有很多方法,最简单的就是命令行输入下列命令,然后回车</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-pip</span><br></pre></td></tr></table></figure>
-<p>当然还有其他的安装方式,可以参考<a target="_blank" rel="noopener" href="https://pip.pypa.io/en/stable/installing/">How to install pip</a></p>
-<p>pip 安装完成之后,接下来就是重头戏了.</p>
-<h3 id="virtualenv-的安装-1"><a href="#virtualenv-的安装-1" class="headerlink" title="virtualenv 的安装"></a>virtualenv 的安装</h3><p>在命令行下输入如下命令,然后回车</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install virtualenv</span><br></pre></td></tr></table></figure>
-<p>同样安装方法有很多种,可以参考<a target="_blank" rel="noopener" href="https://virtualenv.pypa.io/en/stable/installation/">How to install virtualenv</a></p>
-<h3 id="virtualenv-的简单入门"><a href="#virtualenv-的简单入门" class="headerlink" title="virtualenv 的简单入门"></a>virtualenv 的简单入门</h3><p><strong>创建虚拟环境</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtualenv ENV</span><br></pre></td></tr></table></figure>
-
-<p>创建一个名为 <strong>ENV</strong>的文件夹,在创建环境时会依赖系统环境的site-packages，如果想完全不依赖系统的site-packages，可以加上参数–no-site-packages来建立虚拟环境.<br>然后进入到<strong>ENV</strong>的目录下,目录下有如下文件夹:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">:~/ENV$ ls</span></span><br><span class="line">bin  include  lib  local  pip-selfcheck.json</span><br></pre></td></tr></table></figure>
-<p><strong>激活虚拟环境</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source bin/activate</span><br></pre></td></tr></table></figure>
-<p>激活成功后,命令行前面会出现**(ENV)**的符号,如下图所示:<br><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1f8njgfw9bcj20k200yt8w.jpg"><br><strong>注意</strong>:</p>
-<ol>
-<li><em>ENV/lib</em> 和 <em>ENV/include</em> 包含了该环境下所支持的库.在当前环境下安装的包将会保存在 <em>ENV/lib/pythonX.X/site-packages</em> 下</li>
-<li><em>ENV/bin</em> 则是 编译器所在之处了,在当前环境下你的 python 脚本文件的头部写法应该是这样的 <em>#!/path/to/ENV/bin/python</em></li>
-<li>在 virtualenv 环境下 pip 和 setuptools 是默认安装的,然后你可以很容易的安装其他的三方库</li>
-</ol>
-<p><strong>退出虚拟环境</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
-
-<h2 id="Windows-下-virtualenv-的安装"><a href="#Windows-下-virtualenv-的安装" class="headerlink" title="Windows 下 virtualenv 的安装"></a>Windows 下 virtualenv 的安装</h2><p>windows 下安装 virtualenv 跟Ubuntu下安装大同小异,实现安装好 pip,然后将其路径添加到系统环境变量,然后紧接着安装 virtualenv ,然后完成之后尝试在任意路径新建新的虚拟环境了.</p>
-<h1 id="为什么要使用-virtualenv"><a href="#为什么要使用-virtualenv" class="headerlink" title="为什么要使用 virtualenv"></a>为什么要使用 virtualenv</h1><p>老实说最初我并不怎么喜欢使用 <strong>virtualenv</strong>,但是随着后来写的代码越来越多,项目所依赖的第三库也各不相同,需要别人去协助的我的时候,由于没有使用<strong>virtualenv</strong>,导致本地的 python 中的三方库十分的多,这样导致还需要人工去判断当前项目使用哪些库何其麻烦.而 virtualenv 的作用就是用来建立一个虚拟的python环境，一个专属于项目的python环境,保持一个相当干净的环境<br>使用 <strong>virtualenv</strong> 后导出已安装的包,只需要如下命令:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip freeze &gt; &lt;目录&gt;/requirements.txt</span><br></pre></td></tr></table></figure>
-<p>然后别人安装你的依赖,也只需要一个简单的命令:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
       
     </div>
 

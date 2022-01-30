@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-count">186</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +195,135 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/09/13/KGYoGNer0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/13/KGYoGNer0/" class="post-title-link" itemprop="url">Dataclasses 、 Attrs 和 Pydantic</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-13 18:14:35" itemprop="dateCreated datePublished" datetime="2021-09-13T18:14:35+08:00">2021-09-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Python3.7 引入了一个新的模块那就是 <code>dataclasses</code>，早在 3.6 版本的时候我就通过安装 <code>dataclasses</code> 三方库体验了一波，那么为什么要用 <code>dataclasses</code> 呢？</p>
+<h2 id="为什么使用-dataclasses"><a href="#为什么使用-dataclasses" class="headerlink" title="为什么使用 dataclasses"></a>为什么使用 dataclasses</h2><p>一个简单的场景，当你想定义一个对象的属性的时候，比如一本书，通常你会这样</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name: <span class="built_in">str</span>, price: <span class="built_in">float</span>, author:<span class="built_in">str</span> = <span class="string">&quot;佚名&quot;</span></span>):</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.price = price</span><br><span class="line">        self.author = author</span><br></pre></td></tr></table></figure>
+
+<p>如果在不定义 <code>__repr__</code> 的情况下，初始化这个对象，并输出的话:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>book = Book(<span class="string">&#x27;桃子&#x27;</span>,<span class="number">10.0</span>,author=<span class="string">&#x27;桃子&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>book</span><br><span class="line">&lt;__main__.Book <span class="built_in">object</span> at <span class="number">0x10b69cbb0</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">str</span>(book)</span><br><span class="line"><span class="string">&#x27;&lt;__main__.Book object at 0x10b69cbb0&gt;&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">repr</span>(book)</span><br><span class="line"><span class="string">&#x27;&lt;__main__.Book object at 0x10b69cbb0&gt;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>显然输出不够友好，对于属性比较少的对象，定义一个 <code>__repr__</code> 并不太麻烦，但是一旦需要定义的对象很多或者属性很多的情况下，这样子做就显得略微麻烦了一点。这个时候 <code>dataclasses</code> 就派上用场了。</p>
+<h1 id="dataclasses"><a href="#dataclasses" class="headerlink" title="dataclasses"></a>dataclasses</h1><p>我们用 <code>dataclasses</code> 把 <code>Book</code> 改造一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass</span><br><span class="line"></span><br><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span>:</span></span><br><span class="line">	name:<span class="built_in">str</span></span><br><span class="line">	price:<span class="built_in">float</span></span><br><span class="line">	author:<span class="built_in">str</span> = <span class="string">&#x27;桃子&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后简单验证一下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass,asdict,astuple</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>@dataclass</span><br><span class="line"><span class="meta">... </span><span class="class"><span class="keyword">class</span> <span class="title">Book</span>:</span></span><br><span class="line"><span class="meta">... </span>    name:<span class="built_in">str</span></span><br><span class="line"><span class="meta">... </span>    price:<span class="built_in">float</span></span><br><span class="line"><span class="meta">... </span>    author:<span class="built_in">str</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>book1 = Book(name=<span class="string">&#x27;桃子1&#x27;</span>,price=<span class="number">10.0</span>,author=<span class="string">&#x27;桃子1&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>book1</span><br><span class="line">Book(name=<span class="string">&#x27;桃子1&#x27;</span>, price=<span class="number">10.0</span>, author=<span class="string">&#x27;桃子1&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>asdict(book1)</span><br><span class="line">&#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;桃子1&#x27;</span>, <span class="string">&#x27;price&#x27;</span>: <span class="number">10.0</span>, <span class="string">&#x27;author&#x27;</span>: <span class="string">&#x27;桃子1&#x27;</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>astuple(b1)</span><br><span class="line">(<span class="string">&#x27;桃子1&#x27;</span>, <span class="number">12.0</span>, <span class="string">&#x27;桃子&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>dataclasses</code> 甚至还具备 <code>asdict</code> 函数可以将对象转成 <code>dict</code>，也存在 <code>astuple</code> 可以将对象转成<code>tupple</code> ,是不是很方便,但是还不够，有时候我们对不同对参数进行一定对校验，很遗憾 <code>dataclasses</code> 并不能做到，这个时候就需要看 <code>attrs</code> 和 <code>pydantic</code> 了。</p>
+<p>除此之外，<code>attrs</code> 和 <code>pydantic</code> 还有其他的 <code>dataclasses</code> 不具备的特性，见下表：</p>
+<p><img src="https://www.leetao94.cn/post-images/1631528189775.png"></p>
+<h1 id="attrs-vs-pydantic"><a href="#attrs-vs-pydantic" class="headerlink" title="attrs vs pydantic"></a>attrs vs pydantic</h1><p>attrs 和 pydantic 都需要通过 pip 安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install attrs</span><br><span class="line">pip install pydantic</span><br></pre></td></tr></table></figure>
+
+<h2 id="validator"><a href="#validator" class="headerlink" title="validator"></a>validator</h2><h3 id="attrs-中的-validators"><a href="#attrs-中的-validators" class="headerlink" title="attrs 中的 validators"></a>attrs 中的 validators</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import attr</span><br><span class="line"></span><br><span class="line">@attr.s</span><br><span class="line">class Book:</span><br><span class="line">    name: str = attr.ib(default=None)</span><br><span class="line">    price:<span class="built_in">float</span> = attr.ib(default=None,validator=attr.validators.instance_of(<span class="built_in">float</span>))</span><br><span class="line">    author: str = attr.ib(default=<span class="string">&#x27;桃子&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    @price.validator</span><br><span class="line">    def more_than_zero(self, attribute, value):</span><br><span class="line">        <span class="keyword">if</span> not value &gt; 0:</span><br><span class="line">            raise ValueError(<span class="string">&quot;价格不能少于 0 元!&quot;</span>)</span><br><span class="line"></span><br><span class="line">book = Book(name=<span class="string">&#x27;attrs&#x27;</span>,price=-1.0,author=<span class="string">&#x27;hynek Hynek Schlawack&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>运行一下，验证一下结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;test_attrs.py&quot;</span>, line 14, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    book = Book(name=<span class="string">&#x27;attrs&#x27;</span>,price=-1.0,author=<span class="string">&#x27;hynek Hynek Schlawack&#x27;</span>)</span><br><span class="line">  File <span class="string">&quot;&lt;attrs generated init __main__.Book&gt;&quot;</span>, line 6, <span class="keyword">in</span> __init__</span><br><span class="line">  File <span class="string">&quot;D:\workspace\python\test\venv\lib\site-packages\attr\_make.py&quot;</span>, line 2975, <span class="keyword">in</span> __call__</span><br><span class="line">    v(inst, attr, value)</span><br><span class="line">  File <span class="string">&quot;test_attrs.py&quot;</span>, line 12, <span class="keyword">in</span> more_than_zero</span><br><span class="line">    raise ValueError(<span class="string">&quot;价格不能少于 0 元!&quot;</span>)</span><br><span class="line">ValueError: 价格不能少于 0 元!</span><br></pre></td></tr></table></figure>
+
+<h3 id="pydantic-中的-validators"><a href="#pydantic-中的-validators" class="headerlink" title="pydantic 中的 validators"></a>pydantic 中的 validators</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel,validator, ValidationError</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span>(<span class="params">BaseModel</span>):</span></span><br><span class="line">    name:<span class="built_in">str</span></span><br><span class="line">    price:<span class="built_in">float</span></span><br><span class="line">    author:<span class="built_in">str</span> = <span class="string">&#x27;桃子&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @validator(<span class="params"><span class="string">&quot;price&quot;</span></span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">more_than_zero</span>(<span class="params">cls, v</span>):</span></span><br><span class="line">        <span class="keyword">assert</span> <span class="built_in">isinstance</span>(v,<span class="built_in">float</span>)</span><br><span class="line">        <span class="keyword">if</span> v &lt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&quot;价格不能少于 0 元!&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> v</span><br><span class="line"></span><br><span class="line">book = Book(name=<span class="string">&#x27;attrs&#x27;</span>,price=-<span class="number">1.0</span>,author=<span class="string">&#x27;hynek Hynek Schlawack&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>同样的验证一下结果:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;test_pydantic.py&quot;</span>, line <span class="number">15</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    book = Book(name=<span class="string">&#x27;attrs&#x27;</span>,price=-<span class="number">1.0</span>,author=<span class="string">&#x27;hynek Hynek Schlawack&#x27;</span>)</span><br><span class="line">  File <span class="string">&quot;pydantic\main.py&quot;</span>, line <span class="number">406</span>, <span class="keyword">in</span> pydantic.main.BaseModel.__init__</span><br><span class="line">pydantic.error_wrappers.ValidationError: <span class="number">1</span> validation error <span class="keyword">for</span> Book</span><br><span class="line">price</span><br><span class="line">  价格不能少于 <span class="number">0</span> 元! (<span class="built_in">type</span>=value_error)</span><br></pre></td></tr></table></figure>
+
+<p>除了 validators ，attrs 和 pydantic 还同时具有  converters（转换器） 功能。</p>
+<h2 id="converters"><a href="#converters" class="headerlink" title="converters"></a>converters</h2><p>转换器也是一个十分实用的功能，所谓的转换器就是在将参数在传递到 <code>__init__</code>  之前，将它按照需求转换成所需格式的数据。</p>
+<p>最常见的就是将 str 转成 datetime 格式，attrs 和 pydantic 在转换器的实现上有所区别：</p>
+<h3 id="attrs-中-的转换器"><a href="#attrs-中-的转换器" class="headerlink" title="attrs 中 的转换器"></a>attrs 中 的转换器</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> attr</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">conver_to_datetime</span>(<span class="params">user_input</span>) -&gt;  datetime:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(user_input,<span class="built_in">str</span>):</span><br><span class="line">        <span class="keyword">return</span> datetime.strptime(user_input, <span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)</span><br><span class="line">    <span class="keyword">elif</span> <span class="built_in">isinstance</span>(user_input,datetime):</span><br><span class="line">        <span class="keyword">return</span> user_input</span><br><span class="line">    <span class="keyword">raise</span> TypeError(<span class="string">&quot;不支持的参数类型，仅支持:str 和 datetime&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@attr.s</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span>:</span></span><br><span class="line">    <span class="comment"># ... 省略</span></span><br><span class="line">    publish_date: datetime = attr.ib(default=<span class="literal">None</span>, converter=conver_to_datetime)</span><br><span class="line"></span><br><span class="line">book = Book(name=<span class="string">&#x27;attrs&#x27;</span>,price=<span class="number">1.0</span>,author=<span class="string">&#x27;hynek Hynek Schlawack&#x27;</span>,publish_date=<span class="string">&#x27;2021-09-13 00:00:00&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(book)</span><br></pre></td></tr></table></figure>
+
+<p>运行程序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Book(name=<span class="string">&#x27;attrs&#x27;</span>, price=<span class="number">1.0</span>, author=<span class="string">&#x27;hynek Hynek Schlawack&#x27;</span>, publish_date=datetime.datetime(<span class="number">2021</span>, <span class="number">9</span>, <span class="number">13</span>, <span class="number">0</span>, <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+
+<p>不难看出，str 类型的字符串被成功转化了。</p>
+<h3 id="pydantic-中的转换器"><a href="#pydantic-中的转换器" class="headerlink" title="pydantic 中的转换器"></a>pydantic 中的转换器</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pydantic <span class="keyword">import</span> BaseModel,validator</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span>(<span class="params">BaseModel</span>):</span></span><br><span class="line">		<span class="comment"># 省略...</span></span><br><span class="line">    publish_date: datetime</span><br><span class="line"></span><br><span class="line"><span class="meta">    @validator(<span class="params"><span class="string">&quot;publish_date&quot;</span></span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">conver_to_datetime</span>(<span class="params">cls, user_input</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(user_input,<span class="built_in">str</span>):</span><br><span class="line">            <span class="keyword">return</span> datetime.strptime(user_input, <span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)</span><br><span class="line">        <span class="keyword">elif</span> <span class="built_in">isinstance</span>(user_input,datetime):</span><br><span class="line">            <span class="keyword">return</span> user_input</span><br><span class="line">        <span class="keyword">raise</span> TypeError(<span class="string">&quot;不支持的参数类型，仅支持:str 和 datetime&quot;</span>)</span><br><span class="line"></span><br><span class="line">book = Book(name=<span class="string">&#x27;attrs&#x27;</span>,price=<span class="number">1.0</span>,author=<span class="string">&#x27;hynek Hynek Schlawack&#x27;</span>, publish_date=<span class="string">&#x27;2021-09-13 16:03:00&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(book)</span><br></pre></td></tr></table></figure>
+
+<p>验证结果:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name=<span class="string">&#x27;attrs&#x27;</span> price=<span class="number">1.0</span> author=<span class="string">&#x27;hynek Hynek Schlawack&#x27;</span> publish_date=datetime.datetime(<span class="number">2021</span>, <span class="number">9</span>, <span class="number">13</span>, <span class="number">16</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p>从上面的代码不难看出，attrs 本身内置 converter 参数，可以通过传递内置函数或者自定义函数实现转化器的功能，而 pydantic 则需要借助 validator 去实现，在这一点上 pydantic 还是稍微逊色 attrs。</p>
+<p>除了上面提到的两个功能，attrs 和 pydantic 都具备 <code>immutable</code> 的方法用来修饰属性，从而实现属性不可修改。</p>
+<p>attrs 还具备 <code>slots</code> 和 <code>programmatic creation</code> 有兴趣的可以进一步阅读官方文档。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>从上面的例子，不难看出 pydantic 有下面几个问题：</p>
+<ol>
+<li>pydantic 不支持位置参数</li>
+<li>pydantic 的输出有点奇怪，没有带上类名</li>
+<li>pydantic 不支持 <code>slots</code> 和 <code>programmatic creation</code></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/samuelcolvin/pydantic/issues/2605">pydantic 不支持 Collection 类型</a> </li>
+</ol>
+<p>在参考文章中还提到了 pydantic 对 unions 的策略有问题，不容易定制，并且对定制的（非）结构化的支持很弱。</p>
+<p>所以如果有复杂的需求的话，建议使用 <code>attrs</code> ，只是想简单的呈现对象的属性的话，可以考虑用 <code>dataclasses</code> 。</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://jackmckew.dev/dataclasses-vs-attrs-vs-pydantic.html">dataclasses vs attrs vs Pydantic</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34963159">attrs 和 Python3.7 的 dataclasses</a></p>
+<p><a target="_blank" rel="noopener" href="https://threeofwands.com/why-i-use-attrs-instead-of-pydantic/amp/?__twitter_impression=true">Why I use attrs instead of pydantic</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/09/08/07txYm7YT/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +355,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -336,7 +465,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -427,7 +556,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -527,7 +656,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -617,7 +746,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -747,7 +876,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -831,7 +960,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -911,7 +1040,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -995,7 +1124,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
+      <time title="修改时间：2022-01-30 10:44:28" itemprop="dateModified" datetime="2022-01-30T10:44:28+08:00">2022-01-30</time>
     </span>
 
   
@@ -1036,85 +1165,6 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; Component(<span class="string">&#x27;WIDGET&#x27;</span>, <span class="string">&#x27;metle&#x27;</span>, 5)      <span class="comment"># Blocked: &#x27;metle&#x27; is misspelled</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">    ...</span><br><span class="line">ValueError: Expected <span class="string">&#x27;metle&#x27;</span> to be one of &#123;<span class="string">&#x27;metal&#x27;</span>, <span class="string">&#x27;plastic&#x27;</span>, <span class="string">&#x27;wood&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/howto/descriptor.html#id2">描述器使用指南</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/12/30/Zabbix%20Web%20%E7%95%8C%E9%9D%A2%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/30/Zabbix%20Web%20%E7%95%8C%E9%9D%A2%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/" class="post-title-link" itemprop="url">Zabbix Web 界面中文乱码</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-12-30 00:00:00" itemprop="dateCreated datePublished" datetime="2020-12-30T00:00:00+08:00">2020-12-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-01-30 09:03:27" itemprop="dateModified" datetime="2022-01-30T09:03:27+08:00">2022-01-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>通过 Docker 安装 Zabbix Web 界面默认的语言是英文，当切换成中文的时候，有些图标显示的标签就会乱码，不能正常显示，出现这个问题的原因是在于 zabbix 默认的字体对中文支持有问题，所以解决办法就是替换默认的字体。</p>
-<h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><p>首先找到自己的喜欢的字体，这里我用的是 simkai.ttf。</p>
-<h2 id="将字体复制到容器"><a href="#将字体复制到容器" class="headerlink" title="将字体复制到容器"></a>将字体复制到容器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp simkai.ttf zabbix-web-nginx-mysql:/usr/share/zabbix/assets/fonts/</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong>：复制到 zabbix-web 的容器而不是 zabbix-server 容器</p>
-<h2 id="替换默认字体文件"><a href="#替换默认字体文件" class="headerlink" title="替换默认字体文件"></a>替换默认字体文件</h2><p>进入到容器中然后替换默认的字体文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it  zabbix-web-nginx-mysql bash</span><br><span class="line"><span class="built_in">cd</span> /usr/share/zabbix/assets/fonts/</span><br><span class="line">mv DejaVuSans.ttf DejaVuSans.ttf.bak <span class="comment"># 不放心的话，可以先备份一下原来的字体文件</span></span><br><span class="line">mv simkai.ttf DejaVuSans.ttf</span><br></pre></td></tr></table></figure>
-
-<p>然后刷新页面，乱码的问题就解决了</p>
 
       
     </div>
