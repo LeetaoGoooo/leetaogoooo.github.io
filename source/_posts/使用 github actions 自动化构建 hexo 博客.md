@@ -9,7 +9,8 @@ comments: true
 
 # 前言
 每年都要折腾一下自己的博客，今年准备把所有的博客再次迁移到静态博客 Hexo 中，配合 Github Action 实现，只需要一个浏览器就可以自动部署博客。
-<-- more -->
+
+<!--more-->
 
 # 思路
 整体思路很简单，在你的 github-pages 的项目建立两个 分支 `master` 和 `gh-pages`，在 `gh-pages` 分支上完成 `hexo` 的构建，然后将构建后的静态网页推送到 `master` 分支上
