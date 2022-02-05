@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">186</span>
+          <span class="site-state-item-count">187</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-count">70</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +195,92 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/02/28/%E5%86%8D%E8%B0%88%20Python%20%E7%9A%84%E5%86%99%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/02/28/%E5%86%8D%E8%B0%88%20Python%20%E7%9A%84%E5%86%99%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">再谈 Python 的写文件操作</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-02-28 00:00:00" itemprop="dateCreated datePublished" datetime="2019-02-28T00:00:00+08:00">2019-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>关于 Python 对文件的读写操作网上有很多,基本上无外乎都是基于打开文件的 mode 的解释</p>
+<p><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1f9ndo67e2sj20fu0dlmzh.jpg"></p>
+<p>昨天我媳妇有这样一个需求,读入一个文件如果文件不存在则创建,然后写入,如果文件存在,则读取上次的文件内容,然后添加上这次的内容,是不是很简单,直接用**a或者a+**就可以了. 别着急,重点来了,<strong>文件内容是json数据,追加之后也应该是一个json数据</strong></p>
+<p>说的可能比较抽象,那就举个例子</p>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>两次写入文件内容,分别为 <em>{‘1’:’a’}</em> 和 <em>{‘2’:’b’}</em>,那么第一次写入,文件不存在,创建并写入,最终结果应该如下:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &#x27;1&#x27;:&#x27;a&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二次,文件存在,读取数据,合并数据重写写入,结果如下:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &#x27;1&#x27;:&#x27;a&#x27;,</span><br><span class="line">  &#x27;2&#x27;:&#x27;b&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很显然简单的使用 a 或者 a+ 模式是做不到上述要求的,有兴趣的可以自己尝试一下,它们只是简单的追加内容到上次文件末尾</p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><p>针对上述例子的要求,最容易想到的方案就是:<br>    1.先以 r 的模式,打开文件读取文件数据,得到 dictA<br>    2.然后以 w 的模式,打开文件,将本次数据 dictB 与 dictA 合并后写入 dictA</p>
+<p>首先肯定这种方案没有任何问题,能够解决问题,不过这显然不是最佳方案,因为多次打开文件,增加了 IO 的开销,那有没有只打开一次文件完成上述要求呢?显然是有的,再说解决方案之前,我们先说一下预备知识:<strong>为什么 a 模式下可以追加内容到文件末尾?</strong> 因为在 a 模式下,打开文件后,<strong>文件指针</strong>默认指向文件末尾.ok了,新的方案就这么出来了.</p>
+<p>新的方案基于文件指针,我们以 a 或者 a+ 模式打开文件,将文件指针移动到文件开头,读取文件内容,然后合并数据,然后清除文件内容,重新写入合并后的数据.最后看一下代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">new_dict = &#123;<span class="string">&#x27;c&#x27;</span>:<span class="string">&#x27;d&#x27;</span>&#125;</span><br><span class="line">old_dict = &#123;&#125;</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.json&#x27;</span>,<span class="string">&#x27;a+&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">if</span> os.path.getsize(<span class="string">&#x27;test.json&#x27;</span>):</span><br><span class="line">        f.seek(<span class="number">0</span>) <span class="comment"># 重点,移动指针</span></span><br><span class="line">        old_dict = json.load(f)</span><br><span class="line">    merge_dict = &#123;**old_dict,**new_dict&#125;</span><br><span class="line">    f.truncate(<span class="number">0</span>) <span class="comment"># 清空之前内容</span></span><br><span class="line">    json.dump(merge_dict,f)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/30/%E5%9B%BD%E5%86%85%E5%90%AF%E5%8A%A8%20Docker%20%E8%87%AA%E5%B8%A6%E7%9A%84%20Kubernetes%20%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +312,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -300,7 +386,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -418,7 +504,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -506,7 +592,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -609,7 +695,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -703,7 +789,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -792,7 +878,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -887,7 +973,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -983,7 +1069,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -1022,84 +1108,6 @@
 <p>翻译过来的意思大致就是: 当前实现为-5到256之间的所有整数保留一个整数对象数组，当您在该范围内创建一个int时，实际上只返回对现有对象的引用。 因此应该可以更改值1.我怀疑在这种情况下Python的行为是未定义的。:-)</p>
 <p>有了这个知识作为前提,就不难理解,上面的例子的答案了.</p>
 <h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://docs.python.org/3/c-api/long.html#c.PyLong_FromLong">Integer Objects</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/03/%E5%9F%BA%E4%BA%8E%20Ajax%20%E8%AF%B7%E6%B1%82%E7%9A%84%20Flask-Login%20%E8%AE%A4%E8%AF%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/01/03/%E5%9F%BA%E4%BA%8E%20Ajax%20%E8%AF%B7%E6%B1%82%E7%9A%84%20Flask-Login%20%E8%AE%A4%E8%AF%81/" class="post-title-link" itemprop="url">基于 Ajax 请求的 Flask-Login 认证</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-01-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-03T00:00:00+08:00">2019-01-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>index.html<br>example.py</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## index.html</span><br><span class="line"></span><br><span class="line">```index.html</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt; test login by Leetao&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;p id=&quot;test_login&quot;&gt;&lt;/p&gt;</span><br><span class="line">        &lt;button onclick=&quot;load_msg()&quot;&gt;未点击&lt;/button&gt;</span><br><span class="line">        &lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">        &lt;script&gt;</span><br><span class="line">            var load_msg = function () &#123;</span><br><span class="line">                $.get(&#x27;/hello?api_key=test_login&#x27;,function(data)&#123;</span><br><span class="line">                    $(&#x27;#test_login&#x27;)[0].innerText = data</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="example-py"><a href="#example-py" class="headerlink" title="example.py"></a>example.py</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify, render_template</span><br><span class="line"><span class="keyword">from</span> flask_login <span class="keyword">import</span> LoginManager, current_user, login_required</span><br><span class="line">login_manager = LoginManager()</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">login_manager.init_app(app)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,user_name</span>):</span></span><br><span class="line">        self.<span class="built_in">id</span> = <span class="string">&#x27;test_id&#x27;</span></span><br><span class="line">        self.user_name = user_name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_active</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_authenticated</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_anonymous</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_id</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> text_type(self.<span class="built_in">id</span>)</span><br><span class="line">        <span class="keyword">except</span> AttributeError:</span><br><span class="line">            <span class="keyword">raise</span> NotImplementedError(<span class="string">&#x27;No `id` attribute - override `get_id`&#x27;</span>)</span><br><span class="line"></span><br><span class="line">user = User(<span class="string">&quot;leetao&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@login_manager.request_loader</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_from_request</span>(<span class="params">request</span>):</span></span><br><span class="line">    api_key = request.args.get(<span class="string">&#x27;api_key&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> api_key == <span class="string">&#x27;test_login&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> user</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/hello&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(current_user.user_name)</span><br><span class="line">    <span class="keyword">return</span> jsonify(<span class="string">&#x27;Hello, World!&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&quot;index.html&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>为了方便理解,我截了两张图,一张是 api_key 正确的情况下,一张是 错误的情况下</p>
-<h3 id="api-key-正确"><a href="#api-key-正确" class="headerlink" title="api_key 正确"></a>api_key 正确</h3><p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fytiw435blj30zh0g740b.jpg"></p>
-<h3 id="api-key-错误"><a href="#api-key-错误" class="headerlink" title="api_key 错误"></a>api_key 错误</h3><p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fytiwcjbcej30vk0i1abi.jpg"></p>
 
       
     </div>

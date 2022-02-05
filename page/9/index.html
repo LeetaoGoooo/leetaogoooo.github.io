@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">186</span>
+          <span class="site-state-item-count">187</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-count">70</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +195,84 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/03/%E5%9F%BA%E4%BA%8E%20Ajax%20%E8%AF%B7%E6%B1%82%E7%9A%84%20Flask-Login%20%E8%AE%A4%E8%AF%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/01/03/%E5%9F%BA%E4%BA%8E%20Ajax%20%E8%AF%B7%E6%B1%82%E7%9A%84%20Flask-Login%20%E8%AE%A4%E8%AF%81/" class="post-title-link" itemprop="url">基于 Ajax 请求的 Flask-Login 认证</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-03T00:00:00+08:00">2019-01-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>index.html<br>example.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## index.html</span><br><span class="line"></span><br><span class="line">```index.html</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt; test login by Leetao&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;p id=&quot;test_login&quot;&gt;&lt;/p&gt;</span><br><span class="line">        &lt;button onclick=&quot;load_msg()&quot;&gt;未点击&lt;/button&gt;</span><br><span class="line">        &lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">        &lt;script&gt;</span><br><span class="line">            var load_msg = function () &#123;</span><br><span class="line">                $.get(&#x27;/hello?api_key=test_login&#x27;,function(data)&#123;</span><br><span class="line">                    $(&#x27;#test_login&#x27;)[0].innerText = data</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="example-py"><a href="#example-py" class="headerlink" title="example.py"></a>example.py</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, jsonify, render_template</span><br><span class="line"><span class="keyword">from</span> flask_login <span class="keyword">import</span> LoginManager, current_user, login_required</span><br><span class="line">login_manager = LoginManager()</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">login_manager.init_app(app)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,user_name</span>):</span></span><br><span class="line">        self.<span class="built_in">id</span> = <span class="string">&#x27;test_id&#x27;</span></span><br><span class="line">        self.user_name = user_name</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_active</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_authenticated</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_anonymous</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_id</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> text_type(self.<span class="built_in">id</span>)</span><br><span class="line">        <span class="keyword">except</span> AttributeError:</span><br><span class="line">            <span class="keyword">raise</span> NotImplementedError(<span class="string">&#x27;No `id` attribute - override `get_id`&#x27;</span>)</span><br><span class="line"></span><br><span class="line">user = User(<span class="string">&quot;leetao&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@login_manager.request_loader</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_from_request</span>(<span class="params">request</span>):</span></span><br><span class="line">    api_key = request.args.get(<span class="string">&#x27;api_key&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> api_key == <span class="string">&#x27;test_login&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> user</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/hello&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(current_user.user_name)</span><br><span class="line">    <span class="keyword">return</span> jsonify(<span class="string">&#x27;Hello, World!&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&quot;index.html&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>为了方便理解,我截了两张图,一张是 api_key 正确的情况下,一张是 错误的情况下</p>
+<h3 id="api-key-正确"><a href="#api-key-正确" class="headerlink" title="api_key 正确"></a>api_key 正确</h3><p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fytiw435blj30zh0g740b.jpg"></p>
+<h3 id="api-key-错误"><a href="#api-key-错误" class="headerlink" title="api_key 错误"></a>api_key 错误</h3><p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fytiwcjbcej30vk0i1abi.jpg"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/12/31/Dict%20%E9%94%AE%E5%80%BC%E5%92%8C%20Number%20%E7%9A%84%E6%95%85%E4%BA%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +304,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -315,7 +393,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -449,7 +527,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -550,7 +628,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -656,7 +734,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -739,7 +817,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -883,7 +961,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -972,7 +1050,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -1061,7 +1139,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -1140,90 +1218,6 @@
 </blockquote>
 <p>看不懂上面英文没有关系，我来总结一些，上面一段官网文字说道，一个应用上下文的生命周期和一个请求相同，这意味什么？也就以为着当一个请求结束了，当前的 g 也就失效了。</p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/10/29/Increasing%20Triplet%20Subsequence/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/29/Increasing%20Triplet%20Subsequence/" class="post-title-link" itemprop="url">Increasing Triplet Subsequence</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-10-29 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-29T00:00:00+08:00">2018-10-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给定一个未排序的数组，判断这个数组中是否存在长度为 3 的递增子序列。</p>
-<p>数学表达式如下:</p>
-<blockquote>
-<p>如果存在这样的 i, j, k,  且满足 0 ≤ i &lt; j &lt; k ≤ n-1，<p><br>使得 arr[i] &lt; arr[j] &lt; arr[k] ，返回 true ; 否则返回 false 。</p>
-</blockquote>
-<p><strong>说明</strong>: 要求算法的时间复杂度为 O(n)，空间复杂度为 O(1) 。</p>
-<p><strong>示例 1</strong>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,3,4,5]</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2</strong>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [5,4,3,2,1]</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure>
-
-<p><strong>Solution</strong></p>
-<p>维护一个最大值，最小值的二元组，然后记录下前 i 个元素前的最小递增二元组，当存在元素大于最大值后即为 true</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">increasingTriplet</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        max_value = <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">        min_value = <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> num &gt; max_value:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">elif</span> num &lt;= max_value <span class="keyword">and</span> num &gt; min_value:</span><br><span class="line">                max_value = num</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                min_value = num</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
       
     </div>
 

@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">186</span>
+          <span class="site-state-item-count">187</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-count">70</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +195,88 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/10/11/python%E6%93%8D%E4%BD%9Cmysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/10/11/python%E6%93%8D%E4%BD%9Cmysql/" class="post-title-link" itemprop="url">python操作mysql</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-10-11 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-11T00:00:00+08:00">2017-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="环境的安装"><a href="#环境的安装" class="headerlink" title="环境的安装"></a>环境的安装</h1><h2 id="windows-下-mysql-python-的安装"><a href="#windows-下-mysql-python-的安装" class="headerlink" title="windows 下 mysql-python 的安装"></a>windows 下 mysql-python 的安装</h2><p>从官网下载对应版本的软件:<br>64位:<a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1c1W9FXY">MySQL-python-1.2.3.win-amd64-py2.7.exe</a><br>32位:<a target="_blank" rel="noopener" href="http://pan.baidu.com/s/1jI9DeOQ">MySQL-python-1.2.5.win32-py2.7.exe</a><br>下载完成之后点击安装一路next就完成了,安装完成之后在命令行下进行简单的测试<br><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1f8okr3dogej20ht03hjro.jpg"><br>如果没有保存的话就说明 mysql-python 成功安装到本地了</p>
+<h2 id="mysql-python的简单使用"><a href="#mysql-python的简单使用" class="headerlink" title="mysql-python的简单使用"></a>mysql-python的简单使用</h2><h3 id="创建一张测试表"><a href="#创建一张测试表" class="headerlink" title="创建一张测试表"></a>创建一张测试表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `t_user` (</span><br><span class="line">	`id` <span class="type">INT</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">	`name` <span class="type">VARCHAR</span>(<span class="number">255</span>) <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	`age` <span class="type">VARCHAR</span>(<span class="number">255</span>) <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	<span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">)</span><br><span class="line"><span class="keyword">COLLATE</span><span class="operator">=</span><span class="string">&#x27;utf8_general_ci&#x27;</span></span><br><span class="line">ENGINE<span class="operator">=</span>InnoDB</span><br><span class="line">AUTO_INCREMENT<span class="operator">=</span><span class="number">9</span>;</span><br></pre></td></tr></table></figure>
+<p>在mysql下执行上述语句创建一张 user 表</p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-*- coding:utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">author:leetao</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> MySQLdb</span><br><span class="line">        </span><br><span class="line">conn=MySQLdb.connect(host=<span class="string">&quot;localhost&quot;</span>,user=<span class="string">&quot;root&quot;</span>,passwd=<span class="string">&quot;&quot;</span>,db=<span class="string">&quot;test&quot;</span>,charset=<span class="string">&quot;utf8&quot;</span>)    </span><br><span class="line">cursor = conn.cursor()      </span><br><span class="line">         </span><br><span class="line">sql = <span class="string">&quot;insert into t_user(name,age) values(%s,%s)&quot;</span>     </span><br><span class="line">param = (<span class="string">&quot;leetao&quot;</span>,<span class="string">&#x27;22&#x27;</span>)      </span><br><span class="line">cursor.execute(sql,param)</span><br><span class="line"></span><br><span class="line">cursor.close()</span><br><span class="line">conn.commit()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<p>执行完插入语句之后,让我们检测一下是否将数据插入到数据库中<br><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1f8olulb8irj20hy0440sy.jpg"><br>成功插入数据库,great!</p>
+<h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-*- coding:utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">author:leetao</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> MySQLdb</span><br><span class="line">        </span><br><span class="line">conn=MySQLdb.connect(host=<span class="string">&quot;localhost&quot;</span>,user=<span class="string">&quot;root&quot;</span>,passwd=<span class="string">&quot;&quot;</span>,db=<span class="string">&quot;test&quot;</span>,charset=<span class="string">&quot;utf8&quot;</span>)    </span><br><span class="line">cursor = conn.cursor()      </span><br><span class="line">         </span><br><span class="line">sql = <span class="string">&quot;update t_user set name=%s where id = 1&quot;</span>     </span><br><span class="line">param = (<span class="string">&quot;lt&quot;</span>)      </span><br><span class="line">cursor.execute(sql,param) </span><br><span class="line"></span><br><span class="line">cursor.close()</span><br><span class="line">conn.commit()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<p>同样的执行完脚本，然后查看修改是否发生效果<br><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1f8olz8fwbuj20hx03iwek.jpg"><br>修改成功,cool~~</p>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-*- coding:utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">author:leetao</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> MySQLdb</span><br><span class="line">        </span><br><span class="line">conn=MySQLdb.connect(host=<span class="string">&quot;localhost&quot;</span>,user=<span class="string">&quot;root&quot;</span>,passwd=<span class="string">&quot;&quot;</span>,db=<span class="string">&quot;test&quot;</span>,charset=<span class="string">&quot;utf8&quot;</span>)    </span><br><span class="line">cursor = conn.cursor()      </span><br><span class="line">         </span><br><span class="line">sql = <span class="string">&quot;select * from t_user where id = 1&quot;</span>     </span><br><span class="line">cursor.execute(sql)</span><br><span class="line"><span class="keyword">for</span> rows <span class="keyword">in</span> cursor.fetchall():</span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> rows:</span><br><span class="line">        <span class="built_in">print</span> row</span><br><span class="line"></span><br><span class="line">cursor.close()</span><br><span class="line">conn.commit()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<p>执行脚本,控制台成功输出如下结果:<br><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1f8om1nxqbbj20g101omwz.jpg"></p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-*- coding:utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">author:leetao</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> MySQLdb</span><br><span class="line">        </span><br><span class="line">conn=MySQLdb.connect(host=<span class="string">&quot;localhost&quot;</span>,user=<span class="string">&quot;root&quot;</span>,passwd=<span class="string">&quot;&quot;</span>,db=<span class="string">&quot;test&quot;</span>,charset=<span class="string">&quot;utf8&quot;</span>)    </span><br><span class="line">cursor = conn.cursor()   </span><br><span class="line">sql = <span class="string">&quot;delete from t_user where id = 1&quot;</span></span><br><span class="line">cursor.execute(sql)</span><br><span class="line"></span><br><span class="line">cursor.close()</span><br><span class="line">conn.commit()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<p>执行完删除后，数据库 t_user 表应该不存在任何数据了，通过 sql 语句验证一下结果<br><img src="http://ww2.sinaimg.cn/large/d9e82fa4jw1f8om5yvdaij20hv01tmx1.jpg"></p>
+<p>如上就是关于 python 对mysql的所有操作</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/10/11/venv,%20pyvenv,%20pyenv,%20virtualenv,%20virtualenvwrapper,%20pipenv%20%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +308,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -312,7 +394,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -400,7 +482,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -496,7 +578,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -579,7 +661,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -659,7 +741,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -734,7 +816,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -821,7 +903,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -910,7 +992,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -940,86 +1022,6 @@
 
 <p><em>相减</em></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findTheDifference</span>(<span class="params">self, s, t</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type t: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> t:</span><br><span class="line">            ans = ans + <span class="built_in">ord</span>(c)</span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> s:</span><br><span class="line">            ans = ans - <span class="built_in">ord</span>(c)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">chr</span>(ans)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/09/06/H-Index/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/09/06/H-Index/" class="post-title-link" itemprop="url">H-Index</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-09-06 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-06T00:00:00+08:00">2017-09-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Given an array of citations (each citation is a non-negative integer) of a researcher, write a function to compute the researcher’s h-index.</p>
-<p>According to the definition of h-index on Wikipedia: “A scientist has index h if h of his/her N papers have <strong>at least</strong> h citations each, and the other N − h papers have <strong>no more than</strong> h citations each.”</p>
-<p>For example, given citations = <code>[3, 0, 6, 1, 5]</code>, which means the researcher has <code>5</code> papers in total and each of them had received <code>3, 0, 6, 1, 5</code> citations respectively. Since the researcher has <code>3</code> papers with at least <code>3</code> citations each and the remaining two with no more than <code>3</code> citations each, his h-index is </code>3</code>.</p>
-<p><strong>Note</strong>: If there are several possible values for <code>h</code>, the maximum one is taken as the h-index.</p>
-<p><strong>Solution</strong></p>
-<p>需要明白h-index指数是怎么计算的,可以参考上面给的链接:<br><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/H-index">Wikipediap–h-index</a></p>
-<p>Python</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hIndex</span>(<span class="params">self, citations</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type citations: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        citations = <span class="built_in">sorted</span>(citations,reverse=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">for</span> index,value <span class="keyword">in</span> <span class="built_in">enumerate</span>(citations):</span><br><span class="line">            <span class="keyword">if</span> index+<span class="number">1</span> &gt; value:</span><br><span class="line">                <span class="keyword">return</span> index</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(citations)</span><br></pre></td></tr></table></figure>
-
-<p>Java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 来自讨论区</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hIndex</span><span class="params">(<span class="keyword">int</span>[] citations)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = citations.length;</span><br><span class="line">    <span class="keyword">int</span>[] buckets = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> c : citations) &#123;</span><br><span class="line">        <span class="keyword">if</span>(c &gt;= n) &#123;</span><br><span class="line">            buckets[n]++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            buckets[c]++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        count += buckets[i];</span><br><span class="line">        <span class="keyword">if</span>(count &gt;= i) &#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 

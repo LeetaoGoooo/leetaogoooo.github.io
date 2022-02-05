@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">186</span>
+          <span class="site-state-item-count">187</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-count">70</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +195,104 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/08/21/%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AAlist%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA%E7%9A%84%E6%80%9D%E8%80%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/08/21/%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AAlist%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA%E7%9A%84%E6%80%9D%E8%80%83/" class="post-title-link" itemprop="url">关于如何判断一个list是否为空的思考</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-21 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-21T00:00:00+08:00">2019-08-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>今天随手翻 stackoverflow，看到问题叫 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/53513/how-do-i-check-if-a-list-is-empty">How do I check if a list is empty?</a> 一看这个问题，不难猜到到这是一个刚学 Python 的人提问的，因为这个问题实在是太基础了，那么如何判断呢？</p>
+<h1 id="写法"><a href="#写法" class="headerlink" title="写法"></a>写法</h1><h2 id="写法一"><a href="#写法一" class="headerlink" title="写法一"></a>写法一</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = []</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(a) == <span class="number">0</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;empty list&quot;</span>)    </span><br></pre></td></tr></table></figure>
+
+<h2 id="写法二"><a href="#写法二" class="headerlink" title="写法二"></a>写法二</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = []</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> a:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;empty list&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这两种写法都很常见。那么问题来了，第一种写法用列表长度去判断列表为空可以理解，那么第二种写法直接去判断，这是怎么判断出来的呢？</p>
+<h1 id="if"><a href="#if" class="headerlink" title="if"></a>if</h1><p>为了解决这个问题，我们首先需要重新认识一下 <strong>if</strong>。关于 if 是用来做条件执行的这一点，大家肯定都知道。 </p>
+<p>这里我们顺便看一下官方文档的描述</p>
+<blockquote>
+<p>The if statement is used for conditional execution:</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if_stmt ::=  &quot;if&quot; expression &quot;:&quot; suite</span><br><span class="line">             (&quot;elif&quot; expression &quot;:&quot; suite)*</span><br><span class="line">             [&quot;else&quot; &quot;:&quot; suite]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>It selects exactly one of the suites by evaluating the expressions one by one until one is found to be <strong>true</strong>; then that suite is executed</p>
+</blockquote>
+<p>注意上面加粗的地方 <code>true</code>, 很明显 if 后面表达式预期值应该为 <code>true</code> 或者 <code>false</code>,也就是说写法二中的 <code>a</code> 最后的值也应该为 <code>true</code> 或者 <code>false</code>,那是怎么做到的呢？</p>
+<h1 id="bool"><a href="#bool" class="headerlink" title="bool"></a>bool</h1><p>最简单的办法去判断 <code>a</code> 是否为 <code>true</code> 或者 <code>false</code>，就是使用内置函数 <code>bool()</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = []</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">bool</span>(a)</span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>正常调用 <code>bool()</code> 这个函数的时候，会去调用变量的内建方法 <code>__bool__()</code>,那如何看一个变量有哪些内建方法呢？在上一篇<a href=""><code>__name__是什么</code></a>提到了一个的函数 <code>dir()</code>，在这里也同样可以用来使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; dir(a)</span><br><span class="line">[&#x27;__add__&#x27;, &#x27;__class__&#x27;, &#x27;__contains__&#x27;, &#x27;__delattr__&#x27;, &#x27;__delitem__&#x27;, &#x27;__dir__&#x27;, &#x27;__doc__&#x27;, &#x27;__eq__&#x27;, &#x27;__format__&#x27;, &#x27;__ge__&#x27;, &#x27;__getattribute__&#x27;, &#x27;__getitem__&#x27;, &#x27;__gt__&#x27;, &#x27;__hash__&#x27;, &#x27;__iadd__&#x27;, &#x27;__imul__&#x27;, &#x27;__init__&#x27;, &#x27;__init_subclass__&#x27;, &#x27;__iter__&#x27;, &#x27;__le__&#x27;, &#x27;__len__&#x27;, &#x27;__lt__&#x27;, &#x27;__mul__&#x27;, &#x27;__ne__&#x27;, &#x27;__new__&#x27;, &#x27;__reduce__&#x27;, &#x27;__reduce_ex__&#x27;, &#x27;__repr__&#x27;, &#x27;__reversed__&#x27;, &#x27;__rmul__&#x27;, &#x27;__setattr__&#x27;, &#x27;__setitem__&#x27;, &#x27;__sizeof__&#x27;, &#x27;__str__&#x27;, &#x27;__subclasshook__&#x27;, &#x27;append&#x27;, &#x27;clear&#x27;, &#x27;copy&#x27;, &#x27;count&#x27;, &#x27;extend&#x27;, &#x27;index&#x27;, &#x27;insert&#x27;, &#x27;pop&#x27;, &#x27;remove&#x27;, &#x27;reverse&#x27;, &#x27;sort&#x27;]</span><br></pre></td></tr></table></figure>
+
+<p>似乎没有看到 <code>__bool__()</code> 这个函数，那怎么办呢？ 不用着急，官方文档中还说了这样的一句话</p>
+<blockquote>
+<p>When this method (<code>__bool__()</code>) is not defined, <code>__len__()</code> is called, if it is defined, and the object is considered true if its result is nonzero. If a class defines neither <code>__len__()</code> nor <code>__bool__()</code>, all its instances are considered true.</p>
+</blockquote>
+<p>当一个变量没有定义 <code>__bool__</code> 的时候，不用着急，如果定义了 <code>__len()__</code> 这个函数也是可以的，当长度不为 0 的时候则为 <code>true</code>。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>之所以在写法二中可以用 <code>if</code> 直接判断列表 <code>a</code> 是否为空，是因为对于 <code>list</code> 来说，它没有内建方法 <code>__bool__()</code>,而有内建方法 <code>__len__()</code>，最后通过判断 <code>list</code> 长度是否为 0 来得出 <code>true</code> 或者 <code>false</code>  的，一旦为空，则判断结果为 <code>false</code></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/08/12/%E6%B1%82%E4%BC%97%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +324,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -312,7 +410,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -456,7 +554,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -540,7 +638,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -670,7 +768,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -769,7 +867,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -887,7 +985,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -984,7 +1082,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -1062,7 +1160,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
     </span>
 
   
@@ -1122,88 +1220,6 @@
 
 <p>解法二</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">trap</span>(<span class="params">self, height: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        height_len = <span class="built_in">len</span>(height)</span><br><span class="line">        <span class="keyword">if</span> height_len &lt; <span class="number">3</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        left_max = right_max = <span class="number">0</span></span><br><span class="line">        left,right = <span class="number">0</span>, height_len - <span class="number">1</span></span><br><span class="line">        area = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> left &lt; right:</span><br><span class="line">            <span class="keyword">if</span> height[left] &lt; height[right]:</span><br><span class="line">                <span class="keyword">if</span> height[left] &gt;= left_max:</span><br><span class="line">                    left_max = height[left]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    area += left_max - height[left]</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> height[right] &gt;= right_max:</span><br><span class="line">                    right_max = height[right]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    area += right_max - height[right]</span><br><span class="line">                right -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> area</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/03/16/%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/03/16/%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="post-title-link" itemprop="url">合并区间</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-03-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-16T00:00:00+08:00">2019-03-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:07:05" itemprop="dateModified" datetime="2022-02-05T21:07:05+08:00">2022-02-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给出一个区间的集合，请合并所有重叠的区间。</p>
-<p><strong>示例 1:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [[1,3],[2,6],[8,10],[15,18]]</span><br><span class="line">输出: [[1,6],[8,10],[15,18]]</span><br><span class="line">解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [[1,4],[4,5]]</span><br><span class="line">输出: [[1,5]]</span><br><span class="line">解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</span><br></pre></td></tr></table></figure>
-
-<p><strong>思路</strong></p>
-<p>先排序然后遍历，排序按照 start 值大小排序，排序完后，遍历排序后的列表 sorted_list，假设当前元素位置 i, 判断 sorted_list[i-1].end &gt;= sorted_list[i]，说明两个区间有重合，将  sorted_list[i].start = sorted_list[i-1].end，<strong>注意判断 sorted_list[i-i].end 是否大于 sorted_list[i].end，如果大于，则 sorted_list[i].end = sorted_list[i-1].end</strong> </p>
-<p><strong>解法</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for an interval.</span></span><br><span class="line"><span class="comment"># class Interval:</span></span><br><span class="line"><span class="comment">#     def __init__(self, s=0, e=0):</span></span><br><span class="line"><span class="comment">#         self.start = s</span></span><br><span class="line"><span class="comment">#         self.end = e</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span>(<span class="params">self, intervals: <span class="type">List</span>[Interval]</span>) -&gt; <span class="type">List</span>[Interval]:</span></span><br><span class="line">        sorted_start_list = <span class="built_in">sorted</span>(intervals,key=<span class="keyword">lambda</span> x:x.start)</span><br><span class="line">        list_len = <span class="built_in">len</span>(sorted_start_list)</span><br><span class="line">        res_list = []</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; list_len - count:</span><br><span class="line">            <span class="keyword">if</span> sorted_start_list[i-<span class="number">1</span>].end &gt;= sorted_start_list[i].start:</span><br><span class="line">                <span class="keyword">if</span> sorted_start_list[i-<span class="number">1</span>].end &gt; sorted_start_list[i].end:</span><br><span class="line">                    sorted_start_list[i].end = sorted_start_list[i-<span class="number">1</span>].end</span><br><span class="line">                sorted_start_list[i].start = sorted_start_list[i-<span class="number">1</span>].start</span><br><span class="line">                sorted_start_list.remove(sorted_start_list[i-<span class="number">1</span>])</span><br><span class="line">                count += <span class="number">1</span></span><br><span class="line">                i -= <span class="number">1</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> sorted_start_list</span><br></pre></td></tr></table></figure>
-
 
       
     </div>
