@@ -3,39 +3,26 @@ title: 'functools.lru_cache 的正确用法'
 date: 2022-01-26 17:29:53
 tags: [Python]
 published: true
-hideInList: false
-feature: 
-isTop: false
 ---
+
 # 前言
 
  >lru_cache 是 functools 库中的一个函数，它为函数提供缓存功能的装饰器，缓存 maxsize 组传入参数，在下次以相同参数调用时直接返回上一次的结果。
 
 从它的功能来说是一个不错的方法，可以在一定程度上提高函数的运行速度，但是它存在一个问题，**当你用functools.lru_cache装饰器来装饰一个实例方法时，封装该方法的类的实例在持有它们的进程中永远不会被垃圾回收。**
 
-<!--more-->
-
 ## 验证
 
 接下来让我们通过一个简单的例子去论证上述的观点。（以下代码运行于 python3.6.8）
 
 ``` python
-
 # test.py
-
-  
-
 import time
-
 from functools import lru_cache
-
 from typing import TypeVar
 
-  
 
 Number = TypeVar("Number", int, float, complex)
-
-  
   
 
 class TestLruCache:
@@ -44,7 +31,6 @@ class TestLruCache:
 	
 		self.delay = delay
 	
-	  
 	
 	@lru_cache(maxsize=128)
 	
@@ -54,40 +40,25 @@ class TestLruCache:
 		
 		return sum(args)
 	
-	  
 	
 	def __del__(self) -> None:
 	
 		print("Deleting instance ...")
 
-  
-  
-
 # 创建一个实例
 
 test = TestLruCache(2)
 
-  
-
 # 统计运行时长
 
 start_time = time.perf_counter()
-
 result = test.calculate(1, 2)
-
 end_time = time.perf_counter()
-
 print(f"计算耗时 {end_time-start_time} s, result: {result}.")
 
-  
-  
-
 start_time = time.perf_counter()
-
 result = test.calculate(1, 2)
-
 end_time = time.perf_counter()
-
 print(f"计算耗时 {end_time-start_time} s, result: {result}.")
 
 ```
@@ -101,13 +72,9 @@ print(f"计算耗时 {end_time-start_time} s, result: {result}.")
   
 
 ``` bash
-
 计算耗时 2.0021407306194305 s, result: 3.
-
 计算耗时 4.209578037261963e-06 s, result: 3.
-
 Deleting instance ...
-
 ```
 
   
@@ -129,29 +96,17 @@ Deleting instance ...
 ``` python
 
 $ python3 -i test.py
-
 计算耗时 2.004133677983191 s, result: 3.
-
 计算耗时 3.143970388919115e-06 s, result: 3.
-
 >>> import gc
-
 >>>
-
 >>> test.calculate(1,2)
-
 3
-
 >>>
-
 >>> test = None
-
 >>>
-
 >>> gc.collect()
-
 22
-
 ```
 
   
@@ -161,9 +116,7 @@ $ python3 -i test.py
 让我们排查一下究竟是谁还在引用实例
 
   
-
 ``` python
-
 $ python3 -i test.py
 
 计算耗时 2.004039512015879 s, result: 3.
@@ -171,23 +124,15 @@ $ python3 -i test.py
 计算耗时 3.3050309866666794e-06 s, result: 3.
 
 >>> test.calculate.cache_info()
-
+>>> 
 CacheInfo(hits=1, misses=1, maxsize=128, currsize=1)
-
 >>> test.calculate(1,2)
-
 3
-
 >>> test.calculate.cache_info()
-
 CacheInfo(hits=2, misses=1, maxsize=128, currsize=1)
-
 >>> test.calculate.cache_clear()
-
 >>> test = None
-
 Deleting instance ...
-
 ```
 
   
@@ -207,79 +152,43 @@ Deleting instance ...
 解决这个问题很简答，我们只需要让缓存成为实例的本地变量就行了，这样一来，从缓存到实例的引用就会随着实例一起被删除。看一下改造后的例子:
 
 ``` python
-
 import time
-
 from functools import lru_cache
-
 from typing import TypeVar
 
-  
-
 Number = TypeVar("Number", int, float, complex)
-
-  
-  
 
 class TestLruCache:
 
 	def __init__(self, delay: int = 1) -> None:
-	
-		self.delay = delay
-		
+		self.delay = delay	
 		self.calculate = lru_cache(maxsize=128)(self._calculate)
-	
-	  
-	
-	def _calculate(self, *args: Number) -> Number:
-	
-		time.sleep(self.delay)
 		
+	def _calculate(self, *args: Number) -> Number:
+		time.sleep(self.delay)
 		return sum(args)
 	
-	  
-	
 	def __del__(self) -> None:
-	
 		print("Deleting instance ...")
-
 ```
-
-  
 
 好了让我们验证一下改造后的程序是否可以:
 
-  
-
 ``` python
-
 $ python3 -i test.py
-
 >>> test = TestLruCache(2)
-
 >>> test.calculate(1,2)
-
 3
-
 >>> test.calculate.cache_info()
-
 CacheInfo(hits=0, misses=1, maxsize=128, currsize=1)
-
 >>> import gc
-
 >>> test = None
-
 >>> gc.collect()
-
 Deleting instance ...
-
 30
-
 ```
 
 注意到这次，我们不需要主动去清除缓存，但是需要显示的调用 `gc.collect()` 去执行垃圾回收。这是因为这种诡计创造了循环引用，垃圾回收需要做一些特殊的魔术来清除内存。在真正的代码中，Python 解释器会在后台为我们清理这些，而不需要我们调用垃圾回收。
-
-  
 
 # 类方法和静态方法
 
@@ -292,65 +201,38 @@ Deleting instance ...
 ``` python
 
 # -*coding: utf-8 -* # test1.py
-
-  
-
 from functools import lru_cache
-
 import time
 
-  
-  
 
 class Test:
 
 	@classmethod
-	
 	@lru_cache(maxsize=128)
-	
 	def test(cls, delay: int) -> int:
 		
 		cls.delay = delay
-		
-		time.sleep(delay)
-		
+		time.sleep(delay)		
 		return 42
 
-  
-
-	def __del__(self) -> None:
-	
+	def __del__(self) -> None:	
 		print("Deleting instance ...")
 
-  
-  
-
 test_1 = Test()
-
 test_2 = Test()
 
   
   
 
 start_time = time.perf_counter()
-
 result = test_1.test(2)
-
 end_time = time.perf_counter()
-
 print(f"耗时 {end_time start_time} s, result: {result}.")
-
-  
-  
 
 start_time = time.perf_counter()
-
 result = test_2.test(2)
-
 end_time = time.perf_counter()
-
 print(f"耗时 {end_time start_time} s, result: {result}.")
-
 ```
 
   
@@ -360,21 +242,14 @@ print(f"耗时 {end_time start_time} s, result: {result}.")
   
 
 ``` python
-
 $ python -i test1.py
-
 耗时 2.003696349042002 s, result: 42.
-
 耗时 4.3199979700148106e-06 s, result: 42.
 
 >>> test_1 = None
-
 Deleting instance ...
-
 >>> test_2 = None
-
 Deleting instance ...
-
 ```
 
   
@@ -386,38 +261,26 @@ Deleting instance ...
 ``` python
 
 from functools import lru_cache
-
 import time
-
-  
-  
 
 class Test:
 
 	@staticmethod
-	
 	@lru_cache(maxsize=128)
-	
 	def test(cls, delay: int) -> int:
-	
 		cls.delay = delay
-		
 		time.sleep(delay)
-		
 		return 42
-	
-	  
-	
-	def __del__(self) -> None:
-	
+
+	def __del__(self) -> None:	
 		print("Deleting instance ...")
 
 ```
 
-  
 
 # 参考链接
 
 [functools.lru_cache](https://docs.python.org/3.6/library/functools.html#functools.lru_cache)
 [Python LRU cache in a class disregards maxsize limit when decorated with a staticmethod or classmethod decorator](https://stackoverflow.com/questions/70409673/python-lru-cache-in-a-class-disregards-maxsize-limit-when-decorated-with-a-stati)
+
 
