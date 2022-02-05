@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-count">188</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -195,6 +195,89 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/08/24/Wiggle%20Sort%20II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/08/24/Wiggle%20Sort%20II/" class="post-title-link" itemprop="url">Wiggle Sort II</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-08-24 00:00:00" itemprop="dateCreated datePublished" datetime="2017-08-24T00:00:00+08:00">2017-08-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Given an unsorted array nums, reorder it such that <code>nums[0] < nums[1] > nums[2] < nums[3]....</code></p>
+<p><strong>Example:</strong><br>(1) Given nums = <code>[1, 5, 1, 1, 6, 4]</code>, one possible answer is <code>[1, 4, 1, 5, 1, 6]</code>.<br>(2) Given nums = <code>[1, 3, 2, 2, 3, 1]</code>, one possible answer is <code>[2, 3, 1, 3, 1, 2]</code>.</p>
+<p><strong>Note:</strong><br>You may assume all input has valid answer.</p>
+<p><strong>Follow Up:</strong><br>Can you do it in O(n) time and/or in-place with O(1) extra space?</p>
+<p><strong>Solutions</strong></p>
+<ol>
+<li>将列表进行排序</li>
+<li>找到排序后的中位数</li>
+<li>以中位数将列表分为前后两个部分A,B</li>
+<li>依次逆序输出A,B中的结果集</li>
+</ol>
+<p>Python</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wiggleSort</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: void Do not return anything, modify nums in-place instead.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        sorted_nums = <span class="built_in">sorted</span>(nums)</span><br><span class="line">        half = <span class="built_in">len</span>(sorted_nums[::<span class="number">2</span>])</span><br><span class="line">        nums[<span class="number">0</span>::<span class="number">2</span>],nums[<span class="number">1</span>::<span class="number">2</span>] = sorted_nums[<span class="number">0</span>:half][::-<span class="number">1</span>],sorted_nums[half:][::-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/08/21/Merge%20Intervals/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +309,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -305,7 +388,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -400,7 +483,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -477,7 +560,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -556,7 +639,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -646,7 +729,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -726,7 +809,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -809,7 +892,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -889,7 +972,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -913,102 +996,6 @@
 <p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fi0phj42urj30u20gw489.jpg"></p>
 <p>然后选择注册，然后点击旁听<br><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fi0piknqjjj30vs0gztbh.jpg"></p>
 <p>以上就可以获取免费学习的机会了<del>最后还是说一句，有条件的还是选择一两门付费吧</del></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/07/28/MySQL%E7%9A%84%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/07/28/MySQL%E7%9A%84%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98/" class="post-title-link" itemprop="url">MySQL的查询缓存</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-07-28 00:00:00" itemprop="dateCreated datePublished" datetime="2017-07-28T00:00:00+08:00">2017-07-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="什么是查询缓存"><a href="#什么是查询缓存" class="headerlink" title="什么是查询缓存"></a>什么是查询缓存</h1><p>MySQL的查询缓存其实就是保存查询返回的完整结果.如果执相同 SQL 语句的时候,并且查询缓存是打开的,则 MySQL 会直接返回结果（在这一过程中 MySQL 还检查了一次用户权限）,跳过解析,优化和执行过程.这里判断 SQL 语句是否相同是通过一个对大小写铭感的哈希查找实现的,这就意味着下面两条查询缓存是不同的:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT id FROM t_user;</span><br><span class="line">select id from t_user;</span><br></pre></td></tr></table></figure>
-
-<p>简单的了解了一下查询缓存,所以</p>
-<h1 id="如何查看查询缓存的相关参数"><a href="#如何查看查询缓存的相关参数" class="headerlink" title="如何查看查询缓存的相关参数"></a>如何查看查询缓存的相关参数</h1><p>使用下述命令:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW VARIABLES LIKE &#x27;%query_cache%&#x27;;  </span><br></pre></td></tr></table></figure>
-
-<p>结果:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fhzmb80z47j307603sa9w.jpg"></p>
-<p>其中:</p>
-<ol>
-<li>have_query_cache 查询缓存是否可用</li>
-<li>query_cache_limit 可缓存具体结果的最大值</li>
-<li>query_cache_size 查询缓存的大小</li>
-<li>query_cache_type 阻止或者支持查询缓存</li>
-</ol>
-<h1 id="如何查看-SQL-查询在缓存中的命中的累积次数"><a href="#如何查看-SQL-查询在缓存中的命中的累积次数" class="headerlink" title="如何查看 SQL 查询在缓存中的命中的累积次数"></a>如何查看 SQL 查询在缓存中的命中的累积次数</h1><p>使用下述命令:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW STATUS LIKE &#x27;Qcache_hits&#x27;;</span><br></pre></td></tr></table></figure>
-
-<h1 id="关于查询缓存"><a href="#关于查询缓存" class="headerlink" title="关于查询缓存"></a>关于查询缓存</h1><ol>
-<li>当查询语句中有一些不确定的数据时,则不会被缓存。</li>
-<li>如果表发生变化,那么跟这个表相关的所有的缓存数据都将失效,这里的变化包括:INSERT, UPDATE , DELETE, TRUNCATE, ALTER TABLE 等,由此可见对于频繁更新的表，显然是不适合使用查询缓存的.</li>
-<li>查询缓存可能可以降低查询时间,但是不能减少查询结果传输的时间消耗,所以是否使用它,需要结合实际情况参考.</li>
-</ol>
-<p>对于第一条有如下的简单示例:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(id) FROM t_user WHERE post_date &gt;= CURDATE(); // 不会被缓存</span><br><span class="line">SELECT COUNT(id) FROM t_user WHERE post_date &gt;= &#x27;2017-07-28&#x27;; // 会被缓存</span><br></pre></td></tr></table></figure>
 
       
     </div>

@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-count">188</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -195,6 +195,75 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/02/05/django%20bulk_create%20support%20post_save%20signal/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/05/django%20bulk_create%20support%20post_save%20signal/" class="post-title-link" itemprop="url">django bulk_create support post_save signal</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-02-05 00:00:00 / 修改时间：21:20:02" itemprop="dateCreated datePublished" datetime="2022-02-05T00:00:00+08:00">2022-02-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>django 默认 <code>bulk_create</code> 不支持 <code>signal</code>，可以通过自定义 <code>models.Manager</code> 支持这个特性</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomManager</span>(<span class="params">models.Manager</span>):</span>  </span><br><span class="line">	 <span class="function"><span class="keyword">def</span> <span class="title">bulk_create</span>(<span class="params">self, items, **kwargs</span>):</span>  </span><br><span class="line">		 <span class="keyword">for</span> i <span class="keyword">in</span> items:  </span><br><span class="line">		 post_save.send(i.__class__, instance=i, created=<span class="literal">True</span>)  </span><br><span class="line">		        <span class="keyword">return</span> <span class="built_in">super</span>().bulk_create(items, **kwargs)  </span><br><span class="line">		  </span><br><span class="line">		    <span class="function"><span class="keyword">def</span> <span class="title">bulk_update</span>(<span class="params">self, items, fields, **kwargs</span>):</span>  </span><br><span class="line">		 <span class="built_in">super</span>().bulk_update(items, fields, **kwargs)  </span><br><span class="line">		        <span class="keyword">for</span> i <span class="keyword">in</span> items:  </span><br><span class="line">		 post_save.send(i.__class__, instance=i, created=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<p>使用实例:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>(<span class="params">db.models</span>):</span></span><br><span class="line">	objects = CustomManager()</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/01/30/django%20orm%20custom%20mysql%20round%20function/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +295,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -304,7 +373,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -382,7 +451,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -463,7 +532,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -569,7 +638,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -665,7 +734,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -738,7 +807,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -833,7 +902,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -996,7 +1065,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -1011,89 +1080,6 @@
     <div class="post-body" itemprop="articleBody">
           <p>分享一个很久之前写的一个关于滴滴行程的脚本，脚本的主要功能是根据滴滴行程分享的 url 获取订单情况，通过定时轮询还可以获取乘客到目的地的距离和时间</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">@File    :   didi.py    </span></span><br><span class="line"><span class="string">@Description：滴滴行程分享 Api</span></span><br><span class="line"><span class="string">@Modify Time      @Author    @Version    @Description</span></span><br><span class="line"><span class="string">------------      -------    --------    -----------</span></span><br><span class="line"><span class="string">2021/5/29 8:47 上午   leetao      1.0         None</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> urllib.parse <span class="keyword">as</span> urlparse</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> parse_qs</span><br><span class="line"><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass, asdict</span><br><span class="line"></span><br><span class="line">_header = &#123;</span><br><span class="line">    <span class="string">&#x27;Accept&#x27;</span>: <span class="string">&#x27;application/json, text/plain, */*&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Accept-Language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DidiOrderParams</span>:</span></span><br><span class="line">    uid: <span class="built_in">str</span></span><br><span class="line">    oid: <span class="built_in">str</span></span><br><span class="line">    sign: <span class="built_in">str</span></span><br><span class="line">    productType: <span class="built_in">str</span></span><br><span class="line">    carProductid: <span class="built_in">str</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_didi</span>(<span class="params">url: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">    <span class="keyword">return</span> url.startswith(<span class="string">&quot;https://z.didi.cn&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_order_params</span>(<span class="params">url: <span class="built_in">str</span></span>) -&gt; DidiOrderParams:</span></span><br><span class="line">    resp = requests.get(url, allow_redirects=<span class="literal">False</span>, headers=_header)</span><br><span class="line">    <span class="keyword">if</span> resp.status_code == <span class="number">302</span>:</span><br><span class="line">        redirect_url = resp.headers[<span class="string">&#x27;location&#x27;</span>]</span><br><span class="line">        parsed = urlparse.urlparse(redirect_url)</span><br><span class="line">        params = parse_qs(parsed.query)</span><br><span class="line">        <span class="keyword">return</span> DidiOrderParams(uid=params[<span class="string">&#x27;uid&#x27;</span>], oid=params[<span class="string">&#x27;oid&#x27;</span>], sign=params[<span class="string">&#x27;sign&#x27;</span>],</span><br><span class="line">                               productType=params[<span class="string">&#x27;productType&#x27;</span>], carProductid=params[<span class="string">&#x27;carProductid&#x27;</span>])</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_order_info</span>(<span class="params">order_param: DidiOrderParams</span>) -&gt; <span class="built_in">str</span>:</span></span><br><span class="line">    resp = requests.get(<span class="string">&#x27;https://common.diditaxi.com.cn/webapp/sharetrips/page/getOrderStatus&#x27;</span>,</span><br><span class="line">                        params=asdict(order_param), headers=_header)</span><br><span class="line">    <span class="keyword">assert</span> resp.status_code == <span class="number">200</span></span><br><span class="line">    resp_json = resp.json()</span><br><span class="line">    <span class="keyword">assert</span> resp_json[<span class="string">&#x27;errno&#x27;</span>] == <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&#x27;本次行程 \n 起点：<span class="subst">&#123;resp_json[<span class="string">&quot;fromAddress&quot;</span>]&#125;</span> \n 终点: <span class="subst">&#123;resp_json[<span class="string">&quot;toAddress&quot;</span>]&#125;</span> \n 您的行程管家将定时为您播报行程情况&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_driver_loc</span>(<span class="params">order_param: DidiOrderParams</span>):</span></span><br><span class="line">    resp = requests.get(<span class="string">&#x27;https://common.diditaxi.com.cn/webapp/sharetrips/page/getDriverLoc&#x27;</span>,params=asdict(order_param),</span><br><span class="line">                        headers=_header)</span><br><span class="line">    <span class="keyword">assert</span> resp.status_code == <span class="number">200</span></span><br><span class="line">    resp_json = resp.json()</span><br><span class="line">    <span class="keyword">assert</span> resp_json[<span class="string">&#x27;errno&#x27;</span>] == <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;etaDistance&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> resp_json:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&#x27;本次行程已经结束&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&#x27;距离目的地还有：<span class="subst">&#123;resp_json[<span class="string">&quot;etaDistance&quot;</span>]&#125;</span> 公里，预计还有：<span class="subst">&#123;resp_json[<span class="string">&quot;etaTime&quot;</span>]&#125;</span> 分钟&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/09/23/jVldsA6pc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/09/23/jVldsA6pc/" class="post-title-link" itemprop="url">开启人生的新的阶段</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-09-23 18:55:35" itemprop="dateCreated datePublished" datetime="2021-09-23T18:55:35+08:00">2021-09-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>要不要换个新的城市开始新的生活？</p>
-</blockquote>
-<p>这是今年一直盘旋在我脑海里的想法。想法到落地中间并不是简单的 1 + 1 的问题，俩者之间隔着巨大的鸿沟，因为这意味着可能一切都需要重新开始。</p>
-<p>从零开始并不是想象的那么简单，需要离开从大学开始就一直生活的城市，一个对我来说生活了八年多的地方，离开熟悉的天空、熟悉的街道、熟悉的人和熟悉的工作环境。记得上次有这种想法的时候，是刚毕业一年多的时候，也就是四年前，很遗憾，那个时候一个人的勇气并不能够支撑着我背起行囊潇洒地离开这里。</p>
-<p>是的，没错，这次离开，是两个人一起。两个人能够在这种事情上达成一致的想法，是何其幸运的事情。在这里这些年最大的收获，就是收获了爱情，在开始新的阶段的时候，有人与我同行。</p>
-<p>勇气是打开新的阶段的钥匙的话，那么找工作就是到达终点前的“拦路虎”了。</p>
-<p>由于自己还处于在职状态，所以所有的面试基本上都只能约在下班之后了，自然面试前都准备工作也同样只能放在下班之后了。人生最让人觉得（有趣）无奈的事情就是，你越不想事情多的时候，基本上你的事情就会越来越多。恰巧开始准备复习的时候，负责的项目需要演示汇报，而这个时候郑州又赶上了暴雨加疫情，所谓的“涝疫结核”，一个多月的足不出户的生活，还有爷爷的离开。</p>
-<p>因为疫情的原因，有一两年没有回老家了，没想到再次回去就是收到爷爷病重的消息，紧接着就是在暴雨和疫情期间被告知爷爷离开的消息，我记得那天的没有下雨，天比较阴沉，我坐在沙发上接到老爸打来的电话，说的什么我已经记不清了，我只记得挂断电话之后，眼泪不由自主地流了下来。</p>
-<p>那个时候，我才切身体会道什么叫做紧绷着的弦，所有的事情都在不停地拉扯着神经。整个人变得有点焦虑，焦虑到夜里睡不着，焦虑到一个多月瘦了6-7斤，焦虑到茶饭不思。很难想象如果这个时候没有我的另一半一直陪着我，我该如何度过这一阶段。</p>
-<p>潮起日落，日子总是一天一天在指尖划过。度过最难过的一段时光，后面的面试除了时间上比较紧凑，面试后面还是比较顺利的。工作了五年之后，再次收获了一份满意的 offer，很快就要去新的城市开始新的生活了。你说我现在的心情是什么样的，有向往，也有紧张，向往全新的生活，对新的开始难免有点彷徨和紧张。</p>
-<p>最近处于离职的阶段，也算是闲了下来，可以偶尔跑跑步、看看书，前几天晚上还把藏在柜子里深处的尤克里里翻了出来，久违的轻松惬意，希望 2021 年接下来的日子都顺顺利利的。</p>
-<p><img src="https://www.leetao94.cn/post-images/1632399527176.jpg"></p>
-
       
     </div>
 

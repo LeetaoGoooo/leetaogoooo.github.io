@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-count">188</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -195,6 +195,94 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/10/13/MySQL%E7%9A%84%E5%B7%A6%E8%BF%9E%E6%8E%A5,%E5%8F%B3%E8%BF%9E%E6%8E%A5%E5%92%8C%E5%86%85%E8%BF%9E%E6%8E%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/10/13/MySQL%E7%9A%84%E5%B7%A6%E8%BF%9E%E6%8E%A5,%E5%8F%B3%E8%BF%9E%E6%8E%A5%E5%92%8C%E5%86%85%E8%BF%9E%E6%8E%A5/" class="post-title-link" itemprop="url">MySQL的左连接,右连接和内连接</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-10-13 00:00:00" itemprop="dateCreated datePublished" datetime="2016-10-13T00:00:00+08:00">2016-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="创建测试表"><a href="#创建测试表" class="headerlink" title="创建测试表"></a>创建测试表</h1><p>这里创建两张测试表 </p>
+<h2 id="创建-test-provinceid-表"><a href="#创建-test-provinceid-表" class="headerlink" title="创建 test_provinceid 表"></a>创建 test_provinceid 表</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `test_province` (</span><br><span class="line">	`id` <span class="type">CHAR</span>(<span class="number">2</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	`pname` <span class="type">CHAR</span>(<span class="number">6</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	<span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">)</span><br><span class="line">COMMENT<span class="operator">=</span><span class="string">&#x27;省份&#x27;</span></span><br><span class="line"><span class="keyword">COLLATE</span><span class="operator">=</span><span class="string">&#x27;utf8_general_ci&#x27;</span></span><br><span class="line">ENGINE<span class="operator">=</span>InnoDB;</span><br></pre></td></tr></table></figure>
+<h2 id="创建-test-cityid-表"><a href="#创建-test-cityid-表" class="headerlink" title="创建 test_cityid 表"></a>创建 test_cityid 表</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `test_city` (</span><br><span class="line">	`id` <span class="type">CHAR</span>(<span class="number">2</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	`pid` <span class="type">CHAR</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	`cname` <span class="type">CHAR</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">COLLATE</span> <span class="string">&#x27;latin1_swedish_ci&#x27;</span>,</span><br><span class="line">	<span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">)</span><br><span class="line">COMMENT<span class="operator">=</span><span class="string">&#x27;城市&#x27;</span></span><br><span class="line"><span class="keyword">COLLATE</span><span class="operator">=</span><span class="string">&#x27;utf8_general_ci&#x27;</span></span><br><span class="line">ENGINE<span class="operator">=</span>InnoDB;</span><br></pre></td></tr></table></figure>
+<h2 id="插入测试数据"><a href="#插入测试数据" class="headerlink" title="插入测试数据"></a>插入测试数据</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_province` (`id`, `pname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;AH&#x27;</span>, <span class="string">&#x27;安徽省&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_province` (`id`, `pname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;ZJ&#x27;</span>, <span class="string">&#x27;浙江&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_province` (`id`, `pname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;HN&#x27;</span>, <span class="string">&#x27;河南&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_city` (`id`, `pid`, `cname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;01&#x27;</span>, <span class="string">&#x27;AH&#x27;</span>, <span class="string">&#x27;合肥&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_city` (`id`, `pid`, `cname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;04&#x27;</span>, <span class="string">&#x27;AH&#x27;</span>, <span class="string">&#x27;六安&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_city` (`id`, `pid`, `cname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;02&#x27;</span>, <span class="string">&#x27;HN&#x27;</span>, <span class="string">&#x27;郑州&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `test`.`test_city` (`id`, `pid`, `cname`) <span class="keyword">VALUES</span> (<span class="string">&#x27;03&#x27;</span>, <span class="string">&#x27;HB&#x27;</span>, <span class="string">&#x27;石家庄&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>数据库中 test_province 数据现在有如下这些:<br><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1f8qv8m5xg0j203z027t8n.jpg"><br>数据库中 test_city 数据现在有如下这些:<br><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1f8qv1x80zbj205902sjrf.jpg"></p>
+<h1 id="左连接"><a href="#左连接" class="headerlink" title="左连接"></a>左连接</h1><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> a  <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> b </span><br><span class="line"><span class="keyword">ON</span> a.key <span class="operator">=</span> b.key</span><br></pre></td></tr></table></figure>
+<p>左连接以左边的表作为主表,这里我们以 test_province 为主表,查看一个省份在 test_city 中有哪些城市</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_province a <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_city) b <span class="keyword">on</span> a.id <span class="operator">=</span> b.pid</span><br></pre></td></tr></table></figure>
+<h2 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h2><p><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1f8qveidj0ej209b02q74l.jpg"><br>注意:这里将省份存在,城市不存在的数据也显示出来了</p>
+<h1 id="右连接"><a href="#右连接" class="headerlink" title="右连接"></a>右连接</h1><h2 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> a  <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> b </span><br><span class="line"><span class="keyword">ON</span> a.key <span class="operator">=</span> b.key</span><br></pre></td></tr></table></figure>
+<p>有上述的左连接的认知,我们不难得出,右连接是以右边的表作为主表的认识,这里我们将上面的语句简单修改一下</p>
+<h2 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_province a <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_city) b <span class="keyword">on</span> a.id <span class="operator">=</span> b.pid</span><br></pre></td></tr></table></figure>
+<h2 id="执行结果-1"><a href="#执行结果-1" class="headerlink" title="执行结果"></a>执行结果</h2><p><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1f8qv7cnbavj208w028mxc.jpg"><br>注意:这里将城市存在,省份不存在的数据也显示出来了</p>
+<h1 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h1><h2 id="语法-2"><a href="#语法-2" class="headerlink" title="语法"></a>语法</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line">  <span class="keyword">FROM</span> a  <span class="keyword">INNER</span> <span class="keyword">JOIN</span> b </span><br><span class="line"><span class="keyword">ON</span> a.key <span class="operator">=</span> b.key</span><br></pre></td></tr></table></figure>
+<p>左连接以左边的表作为主表,有连接以右边的表作为主表,还差一个以双方作为主表的连接,那就是内连接啦,内连接的想法很简单,你有我有大家都有才是真的有,同样简单修改一下语句</p>
+<h2 id="测试-2"><a href="#测试-2" class="headerlink" title="测试"></a>测试</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_province a <span class="keyword">INNER</span> <span class="keyword">JOIN</span> (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> test_city) b <span class="keyword">on</span> a.id <span class="operator">=</span> b.pid</span><br></pre></td></tr></table></figure>
+
+<h2 id="执行结果-2"><a href="#执行结果-2" class="headerlink" title="执行结果"></a>执行结果</h2><p><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1f8qvcx4pd3j207x02d3yo.jpg"><br>注意: 这里只显示了城市和省份想匹配的数据</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/10/12/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +314,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -316,7 +404,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -414,7 +502,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -490,7 +578,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -594,7 +682,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -687,7 +775,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
@@ -769,7 +857,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-05 21:16:39" itemprop="dateModified" datetime="2022-02-05T21:16:39+08:00">2022-02-05</time>
+      <time title="修改时间：2022-02-05 21:20:02" itemprop="dateModified" datetime="2022-02-05T21:20:02+08:00">2022-02-05</time>
     </span>
 
   
