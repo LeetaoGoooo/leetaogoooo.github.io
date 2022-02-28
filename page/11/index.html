@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">188</span>
+          <span class="site-state-item-count">189</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">70</span>
+        <span class="site-state-item-count">71</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +195,95 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/08/11/Ubuntu%E4%B8%8BFTP%E9%85%8D%E7%BD%AE%E5%8D%95%E7%94%A8%E6%88%B7%E5%A4%9A%E7%9B%AE%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/08/11/Ubuntu%E4%B8%8BFTP%E9%85%8D%E7%BD%AE%E5%8D%95%E7%94%A8%E6%88%B7%E5%A4%9A%E7%9B%AE%E5%BD%95/" class="post-title-link" itemprop="url">Ubuntu下FTP配置单用户多目录</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-08-11 00:00:00" itemprop="dateCreated datePublished" datetime="2018-08-11T00:00:00+08:00">2018-08-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>关于 Ubuntu 下 FTP 的常用配置这里就直接跳过，不了解的可以点击 <a target="_blank" rel="noopener" href="https://www.linuxidc.com/Linux/2017-04/142493.htm">Ubuntu 下安装和配置 FTP 详解</a> 链接了解一下。这里重点说一下单用户多目录。</p>
+<p>正常情况下一个 FTP 用户只能访问一个目录以及该目录下的所有文件，也就是单用户单目录。如何做到单用户多目录呢，先说一下解决办法：</p>
+<h2 id="解决办法-–-mount"><a href="#解决办法-–-mount" class="headerlink" title="解决办法 – mount"></a>解决办法 – <em>mount</em></h2><p>使用 <strong>mount</strong> 命令,具体使用方法，让我们通过一个例子说明。</p>
+<p>我有一个项目目录，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">|———api</span><br><span class="line">├── assets</span><br><span class="line">├── components</span><br><span class="line">├── router</span><br><span class="line">├── store</span><br><span class="line">├── styles</span><br><span class="line">├── utils</span><br><span class="line">└── views</span><br></pre></td></tr></table></figure>
+
+<p>这是项目的目录结构，由于某种需求需要，我希望创建一个 FTP 用户只访问 <code>api</code> 和 <code> views</code>目录。</p>
+<p>如何实现这个效果呢？</p>
+<ol>
+<li>   在其他目录下创建另外的文件夹,这里我们创建一个 <code>example</code> 文件夹</li>
+<li>   在该文件夹下创建 <code>api</code> 和 <code>views</code> 文件夹</li>
+<li><pre><code>将目标文件夹的挂载到对应的文件夹下
+</code></pre>
+</li>
+</ol>
+<p>整个操作下涉及到的所有命令行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir example</span><br><span class="line"><span class="built_in">cd</span> example</span><br><span class="line">mkdir api</span><br><span class="line">mkdir views</span><br><span class="line">mount --<span class="built_in">bind</span> /pathto/<span class="built_in">source</span>/api/ /pathto/example/api/</span><br><span class="line">mount --<span class="built_in">bind</span> /pathto/<span class="built_in">source</span>/views/ /pathto/example/views/</span><br></pre></td></tr></table></figure>
+
+<p>然后指定相应的 FTP 用户的根目录为 <code>example</code>就大功告成了。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/08/06/ES6%20arrow%20function%20and%20function%20declaration%20expressions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +315,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -337,7 +426,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -430,7 +519,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -512,7 +601,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -610,7 +699,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -704,7 +793,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -781,7 +870,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -862,7 +951,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -949,7 +1038,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -972,125 +1061,6 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
 <p><a target="_blank" rel="noopener" href="http://69292621.m.daocloud.io/">http://69292621.m.daocloud.io</a></p>
 </blockquote>
 <p>然后 Apply 之后等待重启,然后大功告成.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/01/21/%E7%BB%99%E4%BD%A0%E7%9A%84Flask%E5%BA%94%E7%94%A8%E5%8A%A0%E4%B8%8AHTTPS%E7%9A%84%E7%89%B9%E6%95%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/01/21/%E7%BB%99%E4%BD%A0%E7%9A%84Flask%E5%BA%94%E7%94%A8%E5%8A%A0%E4%B8%8AHTTPS%E7%9A%84%E7%89%B9%E6%95%88/" class="post-title-link" itemprop="url">给你的Flask应用加上HTTPS的特效</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-01-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-21T00:00:00+08:00">2018-01-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>由于微信小程序请求api接口协议是https的,为了我的小程序,我只好把网站协议由http改成https.在介绍这一过程之前，让我们先看一下什么是https.</p>
-<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><p>先看维基百科的定义</p>
-<blockquote>
-<p>HTTPS (HTTP Secure) is an adaptation of the Hypertext Transfer Protocol (HTTP) for secure communication over a computer network, and is widely used on the Internet.In HTTPS, the communication protocol is encrypted by Transport Layer Security (TLS), or formerly, its predecessor, Secure Sockets Layer (SSL). The protocol is therefore also often referred to as HTTP over TLS,or HTTP over SSL.<br>The principal motivation for HTTPS is authentication of the accessed website and protection of the privacy and integrity of the exchanged data. It protects against man-in-the-middle attacks. The bidirectional encryption of communications between a client and server protects against eavesdropping and tampering of the communication.In practice, this provides a reasonable assurance that one is communicating without interference by attackers with the website that one intended to communicate with, as opposed to an impostor.<br>Historically, HTTPS connections were primarily used for payment transactions on the World Wide Web, e-mail and for sensitive transactions in corporate information systems.[citation needed] In the late 2000s and early 2010s, HTTPS was increasingly used for protecting page authenticity on all types of websites, securing accounts and keeping user communications, identity and web browsing private. ————[1]</p>
-</blockquote>
-<p>其翻译过来的大意如下:</p>
-<p>Https(HTTPSecure)是超文本传输协议(HTTP)在计算机网络上进行安全通信的一种改编，在互联网上得到了广泛的应用。在HTTPS中，通信协议由传输层安全性(TLS)加密，或者以前的前身安全套接字层(SSL)加密。因此，该协议也经常被称为HTTP over TLS，或HTTP over SSL.</p>
-<p>HTTPS的主要动机是对被访问的网站进行身份验证，以及保护所交换数据的隐私和完整性。它能防止中间人的攻击。客户端和服务器之间通信的双向加密保护通信不被窃听和篡改。在实践中，这提供了一个合理的保证，即一个人是在不受攻击者干扰的情况下与他沟通的网站，而不是一个冒名顶替者.</p>
-<p>历史上，HTTPS连接主要用于万维网上的支付交易、电子邮件和公司信息系统中的敏感交易.在2000年代末和2010年代初，HTTPS越来越多地被用于保护所有类型网站的页面真实性，保护帐户安全，并保持用户通信、身份和网页浏览的隐私.</p>
-<h1 id="准备工作-2"><a href="#准备工作-2" class="headerlink" title="准备工作 [2]"></a>准备工作 [2]</h1><p>这里采用的证书是某云的免费的SSL证书</p>
-<h2 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h2><ol>
-<li>登录：阿里云控制台，产品与服务，证书服务，购买证书。</li>
-<li>购买：证书类型选择 免费型DV SSL，然后完成购买。</li>
-<li>补全：在 我的证书 控制台，找到购买的证书，在操作栏里选择 补全。填写证书相关信息。</li>
-<li>域名验证：可以选择 DNS，如果域名用了阿里云的 DNS 服务，再勾选一下 证书绑定的域名在 阿里云的云解析。</li>
-<li>上传：系统生成 CSR，点一下 创建。</li>
-<li>提交审核，审核速度很快</li>
-</ol>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fnob8o5pjij30og0p1wgt.jpg"></p>
-<p>申请证书要注意的是验证域名，就是你要验证你想绑定证书的域名是你自己的，如果选择使用 DNS 验证，你需要在域名的管理里，添加一条特定的 DNS 记录，这样就可以证名这个域名是你自己的。使用了阿里云的云解析服务，这个步骤可以自动完成，会自动为你添加一条 DNS 验证的记录。</p>
-<p>输入证书要绑定的域名：</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fnobcc69juj31h00oyq6o.jpg"></p>
-<p>填写个人信息：</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fnobeyoiitj31ge10odku.jpg"></p>
-<h2 id="下载证书"><a href="#下载证书" class="headerlink" title="下载证书"></a>下载证书</h2><p>在阿里云的证书管理那里，如果申请的证书审核通过，你就可以下载了，点击 下载，可以选择不同的类型，可以选择 NGINX，或 Apache 之类的服务器。根据自己网站的 Web 服务器类型，下载对应的证书。解压以后，你会得到两个文件一个是 *.key，一个是 *.pem.</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fnobgn30rtj31ki0bc404.jpg"></p>
-<p>然后通过办法将解压后的文件上传到服务器目录下,我这里就上传到了 <code>/etc/nginx/ssl/wechat</code> 目录下</p>
-<h1 id="配置-NGINX-的HTTPS"><a href="#配置-NGINX-的HTTPS" class="headerlink" title="配置 NGINX 的HTTPS"></a>配置 NGINX 的HTTPS</h1><p>接下来这一段默认你已经完成 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/31005744">Flask 应用的部署</a>,如果没有的话,建议先食用后再阅读下面的步骤.</p>
-<p>使用命令行打开配置文件 <code>wechat</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/nginx/sites-available/wechat</span><br></pre></td></tr></table></figure>
-
-<p>原本的内容如下:</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> server_domain_or_IP;</span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">include</span> proxy_params;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://unix:/home/py/wechat/wechat.sock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>现修改为如下内容:</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">443</span>;</span><br><span class="line">    <span class="attribute">server_name</span> www.shareu.club;</span><br><span class="line">    <span class="attribute">ssl</span> <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">root</span> /home/py/wechat;</span><br><span class="line">    <span class="attribute">ssl_certificate</span> /etc/nginx/ssl/wechat/<span class="number">214452870720595</span>.pem;  <span class="comment"># 之前证书解压后的得到的文件</span></span><br><span class="line">    <span class="attribute">ssl_certificate_key</span>  /etc/nginx/ssl/wechat/<span class="number">214452870720595</span>.key; <span class="comment"># 之前证书解压后的得到的文件</span></span><br><span class="line">    <span class="attribute">ssl_session_timeout</span> <span class="number">5m</span>;</span><br><span class="line">    <span class="attribute">ssl_protocols</span> TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">    <span class="attribute">ssl_ciphers</span> AESGCM:ALL:!DH:!EXPORT:!RC4:+HIGH:!MEDIUM:!LOW:!aNULL:!eNULL;</span><br><span class="line">    <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">include</span> proxy_params;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://unix:/home/py/wechat/wechat.sock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> www.shareu.club;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">return</span> <span class="number">301</span> https://$server_name$request_uri;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>然后按照惯例测试一下文件语法有没有错误</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -t </span><br></pre></td></tr></table></figure>
-
-<p>如果看见 succssful 等成功单词就说明配置文件没有任何问题,然后重新加载 nginx 服务</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service nginx reload</span><br></pre></td></tr></table></figure>
-
-<p>然后这个时候访问网址就发现协议已经由http变成https了</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fnoc7usclhj30a3014a9v.jpg"></p>
-<h1 id="参考连接"><a href="#参考连接" class="headerlink" title="参考连接"></a>参考连接</h1><p>[1]<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/HTTPS">HTTPS</a></p>
-<p>[2]<a target="_blank" rel="noopener" href="https://ninghao.net/blog/4449">用阿里云的免费 SSL 证书让网站从 HTTP 换成 HTTPS</a></p>
-<p><a target="_blank" rel="noopener" href="https://kyle.net.cn/2017/06/08/Amazon-EC2-nginx-jekyll+https/">记录Amazon EC2环境配置nginx + jekyll + https过程</a></p>
-<p><a target="_blank" rel="noopener" href="https://ubock.com/article/25">永久免费的SSL证书 - Let’s Encrypt 证书部署 HTTPS 并自动续期</a></p>
 
       
     </div>

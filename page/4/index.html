@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">188</span>
+          <span class="site-state-item-count">189</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">70</span>
+        <span class="site-state-item-count">71</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +195,87 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/08/16/showDialog%20%E4%B8%AD%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%20setState()/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/16/showDialog%20%E4%B8%AD%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%20setState()/" class="post-title-link" itemprop="url">showDialog 中无法使用 setState()</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-16 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-16T00:00:00+08:00">2020-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>showDialog 是 flutter 中一个展示 Material 风格对话框函数，正常情况下使用对话框，都是有相应对交互逻辑的，当我们需要改变某个属性的状态时，通常情况下会发现 <strong>setState()</strong> 无法使用。</p>
+<h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>一般情况下我们使用 showDialog 的代码如下:</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">showDialog(</span><br><span class="line">  context: context,</span><br><span class="line">  builder: (BuildContext context)&#123;</span><br><span class="line">    <span class="keyword">return</span> Container(</span><br><span class="line">      child: Scaffold(</span><br><span class="line">        body: Column(</span><br><span class="line">          children: &lt;Widget&gt;[</span><br><span class="line">            ... <span class="comment">// 省略代码</span></span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>在这种情况下如果使用 <strong>setState() <strong>会发现</strong>通过 setState() 更新的属性不会生效</strong>。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>如何解决这个问题呢？有两个解决办法。在 dialog 中声明一个 <a target="_blank" rel="noopener" href="https://api.flutter.dev/flutter/widgets/StatefulBuilder-class.html">StatefulBuilder</a> 或者 <a target="_blank" rel="noopener" href="https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html">StatefulWidget</a>。可以看一下具体的例子：</p>
+<h3 id="StatefulBuilder-样例"><a href="#StatefulBuilder-样例" class="headerlink" title="StatefulBuilder 样例"></a>StatefulBuilder 样例</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> showDialog&lt;<span class="keyword">void</span>&gt;(</span><br><span class="line">  context: context,</span><br><span class="line">  builder: (BuildContext context) &#123;</span><br><span class="line">    <span class="built_in">int</span> selectedRadio = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> AlertDialog(</span><br><span class="line">      content: StatefulBuilder( <span class="comment">// 重点</span></span><br><span class="line">        builder: (BuildContext context, StateSetter setState) &#123; <span class="comment">// 重点</span></span><br><span class="line">          <span class="keyword">return</span> Column(</span><br><span class="line">            mainAxisSize: MainAxisSize.min,</span><br><span class="line">            children: <span class="built_in">List</span>&lt;Widget&gt;.generate(<span class="number">4</span>, (<span class="built_in">int</span> index) &#123;</span><br><span class="line">              <span class="keyword">return</span> Radio&lt;<span class="built_in">int</span>&gt;(</span><br><span class="line">                value: index,</span><br><span class="line">                groupValue: selectedRadio,</span><br><span class="line">                onChanged: (<span class="built_in">int</span> value) &#123;</span><br><span class="line">                  setState(() =&gt; selectedRadio = value);</span><br><span class="line">                &#125;,</span><br><span class="line">              );</span><br><span class="line">            &#125;),</span><br><span class="line">          );</span><br><span class="line">        &#125;,</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;,</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>重点在6，7行代码</p>
+<h3 id="StatefulWidget-样例"><a href="#StatefulWidget-样例" class="headerlink" title="StatefulWidget 样例"></a>StatefulWidget 样例</h3><p>自定义一个 StatuefulWidget 的组件</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bird</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> Bird(&#123;</span><br><span class="line">    Key key,</span><br><span class="line">    <span class="keyword">this</span>.color = <span class="keyword">const</span> Color(<span class="number">0xFFFFE306</span>),</span><br><span class="line">    <span class="keyword">this</span>.child,</span><br><span class="line">  &#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">final</span> Color color;</span><br><span class="line">  <span class="keyword">final</span> Widget child;</span><br><span class="line"></span><br><span class="line">  _BirdState createState() =&gt; _BirdState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_BirdState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">Bird</span>&gt; </span>&#123;</span><br><span class="line">  <span class="built_in">double</span> _size = <span class="number">1.0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> grow() &#123;</span><br><span class="line">    setState(() &#123; _size += <span class="number">0.1</span>; &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Container(</span><br><span class="line">      color: widget.color,</span><br><span class="line">      transform: Matrix4.diagonal3Values(_size, _size, <span class="number">1.0</span>),</span><br><span class="line">      child: widget.child,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/58977815/flutter-setstate-on-showdialog">Flutter: setState on showDialog()</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/08/06/2020%E5%B9%B4%E5%85%A8%E5%B9%B4%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%B1%87%E6%80%BB-(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +307,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -304,7 +385,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -380,7 +461,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -465,7 +546,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -605,7 +686,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -681,7 +762,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -769,7 +850,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -865,7 +946,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -941,7 +1022,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -978,108 +1059,6 @@
 
 <h1 id="开放思路"><a href="#开放思路" class="headerlink" title="开放思路"></a>开放思路</h1><p>如果我们把两个树的所有节点值都保存到两个字符串 s’ 和 t’ 中，然后判断是否 t’ 在 s’ 中就能得出 t 是否是 s 的子树了？</p>
 <p>答案是肯定的，有兴趣的可以按照这个思路去实践一下。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/05/05/%E5%9B%9B%E6%9C%88%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E3%80%8A%E7%88%B1%E6%83%85%E7%AC%94%E8%AE%B0%E3%80%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/05/05/%E5%9B%9B%E6%9C%88%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E3%80%8A%E7%88%B1%E6%83%85%E7%AC%94%E8%AE%B0%E3%80%8B/" class="post-title-link" itemprop="url">四月读书笔记-《爱情笔记》</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-05-05 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-05T00:00:00+08:00">2020-05-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="导言"><a href="#导言" class="headerlink" title="导言"></a>导言</h1><p>这是原本计划在四月读的第一本书，最后拖延到五一假期的第四天才把它读完，这是今年的第5本书。</p>
-<h1 id="个人感想"><a href="#个人感想" class="headerlink" title="个人感想"></a>个人感想</h1><p>老实说，这本书我不怎么喜欢，从读小说的开篇的故事开始就不喜欢。可能故事的男主人公的是外国人，其性格特点和我大相径庭吧，他和故事的女主在一次飞机上邂逅，按照他的意思来说，就立马坠入了爱河。他的爱情就如同杰伦的歌词那样，“爱情来的太快就像龙卷风”。龙卷风来的快，去的也快，他也一样，像所有刚恋爱的人的一样，他和女主度过了几个月的甜蜜时光，然后冲突开始产生、升级接着分道扬镳，然后分手后过渡期的一系列消极行为到末尾的醒悟。冷静之后，将整段情感经历写下来进行<strong>辩证性的思考</strong>。</p>
-<p>可能最让我觉得不喜欢的就是对感情进行理性的思考吧。本来感情就不是理性的产物，不然也不会有情不知所起，一往而深。什么东西都去追根究底，感觉生活中就会少了很多乐趣。</p>
-<h1 id="推荐指数"><a href="#推荐指数" class="headerlink" title="推荐指数"></a>推荐指数</h1><p>三颗星</p>
-<h1 id="内容简介"><a href="#内容简介" class="headerlink" title="内容简介"></a>内容简介</h1><p>这是一部逼使理性与感性、细腻生动的恋爱过程全记录。</p>
-<p>其间，才子德波顿细述一段情缘中的邂逅、迷恋、平凡中的幸福、熟悉后的倦怠、女友移情别恋、挽回无望、自杀、醒悟，以至一段情完全成为过去。他认真思辩自己的感觉，忠实记下与女友交往中的各个细节，特别是心理和哲学层面的思考，文字生动、处处机锋，不仅有极大的阅读乐趣，阅毕更令人回味无穷。</p>
-<p>来吧，想爱、正在爱、曾经爱过的读者诸君，来看看“我”谈的那场恋爱是怎么回事。</p>
-<p>英伦才子阿兰·德波顿，一位不乏米兰·昆德拉的批评深度，深具罗兰·巴特尔的解构气质；但，比昆德拉有更立体的爱情思维，比巴特尔更熨贴恋人的爱情神经，激活人们全新的阅读体验。 本书是一部融合理性与感性，细腻生动的恋爱过程的全记录。忠实记下与女友交往中的各个细节，特别是心理和哲学层面的思考 ，文字生动，处处机锋，不仅有极大的阅读乐趣，阅毕更令人回味无穷。</p>
-<h1 id="摘录"><a href="#摘录" class="headerlink" title="摘录"></a>摘录</h1><ol>
-<li><p>在我看来，她对情人的看法可比作是紧身的套装，而我认为真实的自我却很肥胖，所以，那整个晚上似乎都是一个胖男人在努力想让一套太小的衣服显得合身。我得拼命把多余的赘肉塞进不合身的衣服里，紧缩腰身，屏住呼吸，防止衣料撕裂。如果我的动作不如往常反应自如，那么一点都不奇怪，一个被过瘦衣服缠身的胖男人如何能反应自如？他太害怕衣服裂开，不得不一动不动地坐在那儿，屏住呼吸，祷告上天保佑这个夜晚不出大祸，平安度过。爱情已让我瘫痪。</p>
-</li>
-<li><p>但是为了被爱而说谎，则包含了更有违常情的假设：如果我不说谎，我就不会被爱。这是一种态度，认为要富有魅力就得消除所有个性（因此也可能会事与愿违），认为真正的自我不可避免地会与心上人的完美发生冲突（因而配不上心上人的完美）。</p>
-</li>
-<li><p>吸引是一种表演行为，是从自发的行为向符合观众要求的行为的转变。</p>
-</li>
-<li><p>目标的实现，往往是因为偶然性，而非来自事先算计。</p>
-</li>
-<li><p>只有当人们知道自己是另一个人的所爱时，才会既欣喜若狂又惊恐不安。如果完全没有认识到自己值得爱恋，那么接受他人爱情时的感受，与被授予了巨大的荣誉却不知这荣誉的凭借没什么两样。</p>
-</li>
-<li><p>在绝大多数的男女关系中，通常都会有马克斯主义的思维（当爱明显得到回应时），这种思维的解决得借助自我喜爱和自我痛恨之间的平衡。如果自我痛恨占了上风，那么接受爱的一方就会断言心上人（有各种各样的理由）不适合自己（因为和坏东西有了联系）；如果自我喜爱占了上风，那么双方都会接受这样一种看法：爱得到回应不是因为心上人低贱，而是自己原本值得爱恋。</p>
-</li>
-<li><p>爱情是一个孤独的追求，爱情至多只能为另一个人——被爱的人——所理解。</p>
-</li>
-<li><p>两个人越是熟悉，他们在一起使用的语言就越会脱离常用的、词典里的释义。熟悉会创造出一种全新的语言，一种亲密的室内语，有关他们共同的故事，不易为他人理解。这语言凝结了他们共同的经历，包含了关系进展的过程，使得与心上人谈话有异于跟他人交谈。</p>
-</li>
-<li><p>我们只注意到感情在继续，却没有意识到在我们的关系中并没有什么是不可以破坏的。</p>
-</li>
-<li><p>我们想验证彼此忍受的限度：只有当我们徒劳地尝试过摧毁对方，我们才知道自己是安全的。</p>
-</li>
-<li><p>人生气的时候是一个复杂的动物，发出极度矛盾的信息，哀求着救助与关注，然而当这一切到来时，却又拒绝，希望无须言语就可以得到理解。</p>
-</li>
-</ol>
 
       
     </div>

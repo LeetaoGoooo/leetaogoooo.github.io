@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetaogoooo.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="前言在 Java 中有 [[重载]] 的概念：  重载(overloading) 是在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。每个重载的方法（或者构造函数）都必须有一个独一无二的参数类型列表。  Python 本身不支持 重载 这个特性，但是通过 functools.singledispatch  可以实现函数的重载。接下来通过一个例子，简单地演示一下 Python 的函">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python 中实现类方法重载">
+<meta property="og:url" content="https://leetaogoooo.github.io/2022/02/14/python%20%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%B1%BB%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="前言在 Java 中有 [[重载]] 的概念：  重载(overloading) 是在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。每个重载的方法（或者构造函数）都必须有一个独一无二的参数类型列表。  Python 本身不支持 重载 这个特性，但是通过 functools.singledispatch  可以实现函数的重载。接下来通过一个例子，简单地演示一下 Python 的函">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-28T15:29:38.068Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="singledispatch">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetaogoooo.github.io/2022/02/14/python%20%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%B1%BB%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetaogoooo.github.io/2022/02/14/python%20%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%B1%BB%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/","path":"2022/02/14/python 中实现类方法重载/","title":"python 中实现类方法重载"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>python 中实现类方法重载 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Leetao's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD"><span class="nav-number">2.</span> <span class="nav-text">类方法重载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-gt-3-8"><span class="nav-number">2.1.</span> <span class="nav-text">Python &gt;&#x3D; 3.8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-lt-3-8"><span class="nav-number">2.2.</span> <span class="nav-text">Python &lt; 3.8</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">3.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">189</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/LeetaoGoooo" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;LeetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/02/14/python%20%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%B1%BB%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python 中实现类方法重载<a href="/undefined_posts/python%20%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%B1%BB%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD.md" class="post-edit-link" title="编辑"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-14 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-14T00:00:00+08:00">2022-02-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在 Java 中有 [[重载]] 的概念：</p>
+<blockquote>
+<p>重载(overloading) 是在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。每个重载的方法（或者构造函数）都必须有一个独一无二的参数类型列表。</p>
+</blockquote>
+<p>Python 本身不支持 <code>重载</code> 这个特性，但是通过 <code>functools.singledispatch</code>  可以实现函数的重载。接下来通过一个例子，简单地演示一下 Python 的函数重载。</p>
+<span id="more"></span>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> singledispatch</span><br><span class="line"></span><br><span class="line"><span class="meta">@singledispatch</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span>(<span class="params">arg</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(arg)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@fun.register</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_</span>(<span class="params">arg: <span class="built_in">int</span></span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;arg is int: <span class="subst">&#123;arg&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@fun.register</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_</span>(<span class="params">arg: <span class="built_in">list</span></span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;arg is list: <span class="subst">&#123;arg&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@fun.register</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_</span>(<span class="params">arg: <span class="built_in">str</span></span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;arg is str: <span class="subst">&#123;arg&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    fun([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</span><br><span class="line">    fun(<span class="number">1</span>)</span><br><span class="line">    fun(<span class="string">&#x27;str&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>运行程序查看一下结果</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arg is list: [1, 2, 3]</span><br><span class="line">arg is int: 1</span><br><span class="line">arg is str: str</span><br></pre></td></tr></table></figure>
+<p>根据参数的不同的类型，成功了执行了对应的函数，到这里我们完成了 Python 中对函数的<code>重载</code>。Java 中 <code>重载</code> 不仅仅针对普通函数，其类方法也支持这个特性，那么 Python 如何实现类方法的<code>重载</code>呢？</p>
+<h1 id="类方法重载"><a href="#类方法重载" class="headerlink" title="类方法重载"></a>类方法重载</h1><h2 id="Python-gt-3-8"><a href="#Python-gt-3-8" class="headerlink" title="Python &gt;= 3.8"></a>Python &gt;= 3.8</h2><p>当 Python 版本不低于 3.8 的时候，<code>functools</code> 新增了一个 <code>singledispatchmethod</code> 方法，这个方法可以让 Python 的类方法支持 <code>重载</code>，使用方法和 <code>singledispatch</code> 类似，唯一需要注意的是，重载的类型是由类函数中第一个非 <code>self</code> 和 <code>cls</code> 的参数类型决定的。</p>
+<p>看一下官方实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Negator</span>:</span></span><br><span class="line"><span class="meta">    @singledispatchmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">neg</span>(<span class="params">self, arg</span>):</span></span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError(<span class="string">&quot;Cannot negate a&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @neg.register</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_</span>(<span class="params">self, arg: <span class="built_in">int</span></span>):</span></span><br><span class="line">        <span class="keyword">return</span> -arg</span><br><span class="line"></span><br><span class="line"><span class="meta">    @neg.register</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_</span>(<span class="params">self, arg: <span class="built_in">bool</span></span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">not</span> arg</span><br></pre></td></tr></table></figure>
+
+<p>除此之外，<code>singledispatchmethod</code> 还支持嵌套的装饰器，不过需要注意的是，<code>dispatcher.register</code> 和 <code>singledispatchmethod</code> 需要在绝大多数装饰器的最上层，基于上面的例子修改一下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Negator</span>:</span></span><br><span class="line"><span class="meta">    @singledispatchmethod</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">neg</span>(<span class="params">cls, arg</span>):</span></span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError(<span class="string">&quot;Cannot negate a&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @neg.register</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_</span>(<span class="params">cls, arg: <span class="built_in">int</span></span>):</span></span><br><span class="line">        <span class="keyword">return</span> -arg</span><br><span class="line"></span><br><span class="line"><span class="meta">    @neg.register</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_</span>(<span class="params">cls, arg: <span class="built_in">bool</span></span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">not</span> arg</span><br></pre></td></tr></table></figure>
+
+<h2 id="Python-lt-3-8"><a href="#Python-lt-3-8" class="headerlink" title="Python &lt; 3.8"></a>Python &lt; 3.8</h2><p>当 Python 版本小于 3.8 的时候，由于 Python 本身不支持类方法的<code>重载</code>，则需要我们自行实现。在实现之前，可以先借鉴一下 [<code>singledispatch</code> 的源码](<a target="_blank" rel="noopener" href="https://hg.python.org/cpython/file/f6f691ff27b9/Lib/functools.py#l706">cpython: f6f691ff27b9 Lib/functools.py</a>)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kw</span>):</span></span><br><span class="line">    <span class="keyword">return</span> dispatch(args[<span class="number">0</span>].__class__)(*args, **kw)</span><br></pre></td></tr></table></figure>
+
+<p>从源码中不难看得出 <code>singledispatch</code> 最终返回的就是上述的 <code>wrapper</code> 函数，并且函数是根据函数的第一个参数的类型（<code>args[0].__class__</code>）最终来实现函数的<code>重载</code>的，对于函数这种实现方式没有任何问题，但是如果是类方法的话，第一个参数始终是 <code>self</code>，则无法进行区分了，<code>重载</code>就更无从谈起了。</p>
+<p>所以实现类方法的重载难点在于重写 <code>wrapper</code> 函数，所以在 <code>singledispatch</code> 基础上我们定义一个函数对<code>wrapper</code> 进行重写，把 wrapper 中的参数 <code>args[0]</code> 调整为 <code>args[1]</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> singledispatch, update_wrapper</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">methdispatch</span>(<span class="params">func</span>):</span></span><br><span class="line">    dispatcher = singledispatch(func)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span>(<span class="params">*args, **kw</span>):</span></span><br><span class="line">        <span class="keyword">return</span> dispatcher.dispatch(args[<span class="number">1</span>].__class__)(*args, **kw)</span><br><span class="line">    wrapper.register = dispatcher.register</span><br><span class="line">    update_wrapper(wrapper, func)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br></pre></td></tr></table></figure>
+
+<p>接下来测试一下这个方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Negator</span>:</span></span><br><span class="line"><span class="meta">    @methdispatch</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">neg</span>(<span class="params">self, arg</span>):</span></span><br><span class="line">        <span class="keyword">raise</span> NotImplementedError(<span class="string">&quot;Cannot negate a&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @neg.register</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_</span>(<span class="params">self, arg: <span class="built_in">int</span></span>):</span></span><br><span class="line">        <span class="keyword">return</span> -arg</span><br><span class="line"></span><br><span class="line"><span class="meta">    @neg.register</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_</span>(<span class="params">self, arg: <span class="built_in">bool</span></span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">not</span> arg</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    neg = Negator()</span><br><span class="line">    neg.neg(<span class="number">1</span>)</span><br><span class="line">    neg.neg(<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<p>运行程序：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-1</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+<p>到此手动实现类方法的重载成功。</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>在 pypi 上也有对应的 <a target="_blank" rel="noopener" href="https://pypi.org/project/singledispatchmethod/">singledispatchmethod · PyPI</a> 库，可以通过 pip 安装后直接使用，用法和 3.8 之后版本用法一致。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24601722/how-can-i-use-functools-singledispatch-with-instance-methods?utm_source=pocket_mylist">python - How can I use functools.singledispatch with instance methods? - Stack Overflow</a></li>
+<li><a target="_blank" rel="noopener" href="https://hg.python.org/cpython/file/f6f691ff27b9/Lib/functools.py#l706">cpython: f6f691ff27b9 Lib/functools.py</a></li>
+<li><a target="_blank" rel="noopener" href="https://legacy.python.org/dev/peps/pep-3124/">PEP 3124 – Overloading, Generic Functions, Interfaces, and Adaptation (python.org)</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/singledispatch/" rel="tag"># singledispatch</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/05/django-bulk-create-support-post-save-signal/" rel="prev" title="django bulk_create support post_save signal">
+                  <i class="fa fa-chevron-left"></i> django bulk_create support post_save signal
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":"leetaogoooo","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"3c72ea2d5503735fad97addad8225671"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

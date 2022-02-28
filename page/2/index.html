@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">188</span>
+          <span class="site-state-item-count">189</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">70</span>
+        <span class="site-state-item-count">71</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +195,77 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/09/25/8p6b-bIBf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/25/8p6b-bIBf/" class="post-title-link" itemprop="url">滴滴行程分享 Api</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-25 16:38:40" itemprop="dateCreated datePublished" datetime="2021-09-25T16:38:40+08:00">2021-09-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>分享一个很久之前写的一个关于滴滴行程的脚本，脚本的主要功能是根据滴滴行程分享的 url 获取订单情况，通过定时轮询还可以获取乘客到目的地的距离和时间</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">@File    :   didi.py    </span></span><br><span class="line"><span class="string">@Description：滴滴行程分享 Api</span></span><br><span class="line"><span class="string">@Modify Time      @Author    @Version    @Description</span></span><br><span class="line"><span class="string">------------      -------    --------    -----------</span></span><br><span class="line"><span class="string">2021/5/29 8:47 上午   leetao      1.0         None</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> urllib.parse <span class="keyword">as</span> urlparse</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> parse_qs</span><br><span class="line"><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass, asdict</span><br><span class="line"></span><br><span class="line">_header = &#123;</span><br><span class="line">    <span class="string">&#x27;Accept&#x27;</span>: <span class="string">&#x27;application/json, text/plain, */*&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Accept-Language&#x27;</span>: <span class="string">&#x27;zh-CN,zh;q=0.9&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DidiOrderParams</span>:</span></span><br><span class="line">    uid: <span class="built_in">str</span></span><br><span class="line">    oid: <span class="built_in">str</span></span><br><span class="line">    sign: <span class="built_in">str</span></span><br><span class="line">    productType: <span class="built_in">str</span></span><br><span class="line">    carProductid: <span class="built_in">str</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_didi</span>(<span class="params">url: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span></span><br><span class="line">    <span class="keyword">return</span> url.startswith(<span class="string">&quot;https://z.didi.cn&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_order_params</span>(<span class="params">url: <span class="built_in">str</span></span>) -&gt; DidiOrderParams:</span></span><br><span class="line">    resp = requests.get(url, allow_redirects=<span class="literal">False</span>, headers=_header)</span><br><span class="line">    <span class="keyword">if</span> resp.status_code == <span class="number">302</span>:</span><br><span class="line">        redirect_url = resp.headers[<span class="string">&#x27;location&#x27;</span>]</span><br><span class="line">        parsed = urlparse.urlparse(redirect_url)</span><br><span class="line">        params = parse_qs(parsed.query)</span><br><span class="line">        <span class="keyword">return</span> DidiOrderParams(uid=params[<span class="string">&#x27;uid&#x27;</span>], oid=params[<span class="string">&#x27;oid&#x27;</span>], sign=params[<span class="string">&#x27;sign&#x27;</span>],</span><br><span class="line">                               productType=params[<span class="string">&#x27;productType&#x27;</span>], carProductid=params[<span class="string">&#x27;carProductid&#x27;</span>])</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_order_info</span>(<span class="params">order_param: DidiOrderParams</span>) -&gt; <span class="built_in">str</span>:</span></span><br><span class="line">    resp = requests.get(<span class="string">&#x27;https://common.diditaxi.com.cn/webapp/sharetrips/page/getOrderStatus&#x27;</span>,</span><br><span class="line">                        params=asdict(order_param), headers=_header)</span><br><span class="line">    <span class="keyword">assert</span> resp.status_code == <span class="number">200</span></span><br><span class="line">    resp_json = resp.json()</span><br><span class="line">    <span class="keyword">assert</span> resp_json[<span class="string">&#x27;errno&#x27;</span>] == <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&#x27;本次行程 \n 起点：<span class="subst">&#123;resp_json[<span class="string">&quot;fromAddress&quot;</span>]&#125;</span> \n 终点: <span class="subst">&#123;resp_json[<span class="string">&quot;toAddress&quot;</span>]&#125;</span> \n 您的行程管家将定时为您播报行程情况&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_driver_loc</span>(<span class="params">order_param: DidiOrderParams</span>):</span></span><br><span class="line">    resp = requests.get(<span class="string">&#x27;https://common.diditaxi.com.cn/webapp/sharetrips/page/getDriverLoc&#x27;</span>,params=asdict(order_param),</span><br><span class="line">                        headers=_header)</span><br><span class="line">    <span class="keyword">assert</span> resp.status_code == <span class="number">200</span></span><br><span class="line">    resp_json = resp.json()</span><br><span class="line">    <span class="keyword">assert</span> resp_json[<span class="string">&#x27;errno&#x27;</span>] == <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;etaDistance&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> resp_json:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&#x27;本次行程已经结束&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&#x27;距离目的地还有：<span class="subst">&#123;resp_json[<span class="string">&quot;etaDistance&quot;</span>]&#125;</span> 公里，预计还有：<span class="subst">&#123;resp_json[<span class="string">&quot;etaTime&quot;</span>]&#125;</span> 分钟&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/09/23/jVldsA6pc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +297,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -309,7 +380,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -436,7 +507,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -565,7 +636,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -675,7 +746,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -766,7 +837,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -866,7 +937,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -956,7 +1027,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -1086,7 +1157,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
+      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
     </span>
 
   
@@ -1113,86 +1184,6 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">isinstance</span>(item, XXItem):</span><br><span class="line">    <span class="comment"># 代码逻辑</span></span><br></pre></td></tr></table></figure>
 <p>一旦当我们的 spider 多了，将所有的处理逻辑放到一个 pipeline 显然是不合理的，所以会希望每个 spider 都有一个专门的 pipeline，这个时候我们可以通过<strong>复写 spider 的默认配置</strong>就可以实现这样的目的</p>
 <h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">XXSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;xx&#x27;</span></span><br><span class="line">    custom_settings = &#123;</span><br><span class="line">        <span class="string">&#x27;ITEM_PIPELINES&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;knowledge_graph.pipelines.xxxx&#x27;</span>: <span class="number">200</span> <span class="comment"># 这个值需要大于默认的 pipeline</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/03/06/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/06/%E7%A2%8E%E7%A2%8E%E5%BF%B5/" class="post-title-link" itemprop="url">碎碎念</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-03-06 00:00:00" itemprop="dateCreated datePublished" datetime="2021-03-06T00:00:00+08:00">2021-03-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 22:59:03" itemprop="dateModified" datetime="2022-02-28T22:59:03+08:00">2022-02-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="换博客"><a href="#换博客" class="headerlink" title="换博客"></a>换博客</h1><p>我竟然又想折腾博客了，我发现每过一段时间我都会想重新折腾一下博客，尽管我知道博客最重要的是内容，但是还是控制不住自己折腾的心。</p>
-<p>现在的博客系统是自己基于 Flask 开发的，功能是基本满足日常使用的，原来是从 hexo 迁移过来的，可能料到自己会再次折腾，这个系统可以把自己所有的文章都导出成符合 hexo 格式的 markdown 文件，可能切回 hexo 是最方便的方案？</p>
-<h2 id="hexo"><a href="#hexo" class="headerlink" title="hexo ?"></a>hexo ?</h2><p>周六的上午起来就一直在浏览 hexo 的相关主题，比较中意的是 Next 主题，发现随着自己的年龄的增长，对简洁的东西更加中意了，但是出了简洁还希望能有点个性。</p>
-<h2 id="wp？"><a href="#wp？" class="headerlink" title="wp？"></a>wp？</h2><p>自己现在的博客是部署在服务器上的，如果用上了 hexo，就没有用服务器了，完全可以托管到 github 上，至于为放到服务器上，总觉得把静态博客放到服务器上的行为是对服务器的浪费。</p>
-<p>想换 wp，不过不知道自己的小水管能不能撑住 wp，除此之外，网上有不少 hexo 迁移到 wp 的方案但是似乎都有点问题，不是特别想折腾。</p>
-<h2 id="end"><a href="#end" class="headerlink" title="end"></a>end</h2><p>思前想后，最后还是决定不换了，抽个时间再对自己的博客改造一番。服务器续费了 5 年，至少也让这个博客再运行五年。</p>
-<h1 id="读书"><a href="#读书" class="headerlink" title="读书"></a>读书</h1><p>最近在看《秋园》，似乎是豆瓣 20 年排名比较靠前的一本书，才读了一点点，提到那个时期，女人还有裹脚布的习惯，“三寸金莲”，从书里对那个场景的描述，就能想象到被裹脚的痛楚，更是难以想象这种恶俗竟然持续了几千年。</p>
-<p>《秋园》是自己开始看的第四本书，第三本书是《夜晚的潜水艇》，这篇读书笔记还没有写。。。</p>
-<h1 id="综艺"><a href="#综艺" class="headerlink" title="综艺"></a>综艺</h1><p>最近几年没事的时候偶尔会看一点综艺，这段时间再看 【奇葩说】，感觉奇葩说里的有的时候讨论的议题还是蛮有意思的，比如昨天再看的 20 期讨论 “父母该不该教孩子让着弟弟妹妹”,正反方都有各自的理由和观点，但是有一句我觉得蛮有道理的，“你是大的，应该让着小的”，说出这句话的时候多半是父母一种偷懒的表现。</p>
-<p>BTW，辩论赛真是有意思，当初大学应该去参加的，真是可惜，哈哈</p>
 
       
     </div>
