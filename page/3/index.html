@@ -134,13 +134,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">189</span>
+          <span class="site-state-item-count">190</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +200,90 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/04/22/Scrapy%20%E4%B8%AD%20spider%20%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E7%9A%84%20pipelines/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/22/Scrapy%20%E4%B8%AD%20spider%20%E8%A6%86%E7%9B%96%E9%BB%98%E8%AE%A4%E7%9A%84%20pipelines/" class="post-title-link" itemprop="url">Scrapy 中 spider 覆盖默认的 pipelines</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-22 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-22T00:00:00+08:00">2021-04-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>scrapy 是 python 中一个优秀的爬虫框架，基于这个框架，用户可以快速构建自己的爬虫程序。框架涉及很多模块，其中有两个核心概念 items 和 item pipelines。</p>
+<blockquote>
+<p><strong>Items</strong>: 爬取的主要目标就是从非结构性的数据源提取结构性数据，例如网页。 Scrapy提供 <code>Item</code> 类来满足这样的需求。<br><code>Item</code> 对象是种简单的容器，保存了爬取到得数据。 其提供了 类似于词典(dictionary-like) 的API以及用于声明可用字段的简单语法。</p>
+</blockquote>
+<blockquote>
+<p><strong>Item Pipeline</strong>:当Item在Spider中被收集之后，它将会被传递到Item Pipeline，一些组件会按照一定的顺序执行对Item的处理。<br>每个item pipeline组件(有时称之为“Item Pipeline”)是实现了简单方法的Python类。他们接收到Item并通过它执行一些行为，同时也决定此Item是否继续通过pipeline，或是被丢弃而不再进行处理。</p>
+</blockquote>
+<p>``</p>
+<h1 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h1><p>通常情况下 scrapy 会有一个默认的 Pipeline：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KnowledgeGraphPipeline</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self, item, spider</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<p>正常对于传过来的数据，我们通过 item 对应的类型，可以进行判断然后执行逻辑</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">isinstance</span>(item, XXItem):</span><br><span class="line">    <span class="comment"># 代码逻辑</span></span><br></pre></td></tr></table></figure>
+<p>一旦当我们的 spider 多了，将所有的处理逻辑放到一个 pipeline 显然是不合理的，所以会希望每个 spider 都有一个专门的 pipeline，这个时候我们可以通过<strong>复写 spider 的默认配置</strong>就可以实现这样的目的</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">XXSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;xx&#x27;</span></span><br><span class="line">    custom_settings = &#123;</span><br><span class="line">        <span class="string">&#x27;ITEM_PIPELINES&#x27;</span>: &#123;</span><br><span class="line">            <span class="string">&#x27;knowledge_graph.pipelines.xxxx&#x27;</span>: <span class="number">200</span> <span class="comment"># 这个值需要大于默认的 pipeline</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/03/06/%E7%A2%8E%E7%A2%8E%E5%BF%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +315,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -306,7 +395,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -390,7 +479,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -488,7 +577,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -567,7 +656,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -653,7 +742,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -737,7 +826,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -840,7 +929,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -923,7 +1012,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -950,83 +1039,6 @@
 <h2 id="服务器上的-hosts-文件"><a href="#服务器上的-hosts-文件" class="headerlink" title="服务器上的 hosts 文件"></a>服务器上的 hosts 文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br></pre></td></tr></table></figure>
 <h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>将服务器上的 hostname 添加到 hosts 文件中，再次重启程序，问题解决。很少有看到关于 RabbitMQ 安装的时候提及 hostname 的问题，可能默认情况下 hostname 是在 hosts 中的。</p>
 <h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>很少有看到关于 RabbitMQ 安装的时候提及 hostname 的问题，可能默认情况下 hostname 是在 hosts 中的。用 docker 安装省了不少事情，某些不能使用 docker 的场景下，难免会踩坑。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/08/18/flutter%20%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%90%8E%EF%BC%8C%E5%8E%9F%E7%94%9F%E8%BF%94%E5%9B%9E%E6%8C%89%E9%92%AE%E6%9C%AA%E5%87%BA%E7%8E%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/08/18/flutter%20%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%90%8E%EF%BC%8C%E5%8E%9F%E7%94%9F%E8%BF%94%E5%9B%9E%E6%8C%89%E9%92%AE%E6%9C%AA%E5%87%BA%E7%8E%B0/" class="post-title-link" itemprop="url">flutter 页面跳转后，原生返回按钮未出现</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-08-18 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-18T00:00:00+08:00">2020-08-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Flutter 开发 App 的时候有一些比较方便特性，比如这次的主题：<strong>跳转页面后 AppBar 会自带返回按钮</strong>。当然想要出现返回按钮是需要前提的。</p>
-<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><p>主页面通常会使用如下代码：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="comment">// This widget is the root of your application.</span></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">            home: MyHomePage());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果想跳转到其他页面，其他页面出现返回按钮的话，在其他页面就不需要使用 <strong>MaterialApp</strong> 了，直接使用 <strong>Scaffold</strong></p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OtherPage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span>  Scaffold(</span><br><span class="line">      body: ConfigPageStatefulWidget(),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
 
       
     </div>

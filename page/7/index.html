@@ -134,13 +134,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">189</span>
+          <span class="site-state-item-count">190</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +200,103 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/05/06/%E8%AE%A1%E7%AE%971-866278171%E4%B8%AD%E5%A5%87%E6%95%B0%E5%88%97%E4%B8%AD3%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%AA%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/05/06/%E8%AE%A1%E7%AE%971-866278171%E4%B8%AD%E5%A5%87%E6%95%B0%E5%88%97%E4%B8%AD3%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%AA%E6%95%B0/" class="post-title-link" itemprop="url">计算1-866278171中奇数列中3出现的个数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-06T00:00:00+08:00">2019-05-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>关于 计算1至N中X出现的个数</p>
+<blockquote>
+<p>编程之美上给出的规律：<br>1.如果第i位（自右至左，从1开始标号）上的数字为0，则第i位可能出现1的次数由更高位决定（若没有高位，视高位为0），等于更高位数字X当前位数的权重10^(i-1)。<br>2.如果第i位上的数字为1，则第i位上可能出现1的次数不仅受更高位影响，还受低位影响（若没有低位，视低位为0），等于更高位数字X当前位数的权重10^(i-1)+（低位数字+1）。<br>3.如果第i位上的数字大于1，则第i位上可能出现1的次数仅由更高位决定（若没有高位，视高位为0），等于（更高位数字+1）X当前位数的权重10^(i-1)。</p>
+</blockquote>
+<p>通用结论:</p>
+<ol>
+<li>从 1 至 10，在它们的个位数中，任意的 X 都出现了 1 次</li>
+<li>从 1 至 100，在它们的十位数中，任意的 X 都出现了 10 次</li>
+<li>从 1 至 1000，在它们的千位数中，任意的 X 都出现了 100 次</li>
+<li>依此类推，从 1 至 10^i，在它们的左数第二位（右数第 i 位）中，任意的 X 都出现了10^(i−1) 次</li>
+</ol>
+<p>得出的算法如下:</p>
+<p>当计算右数第 i 位包含的 X 的个数时：</p>
+<ol>
+<li><p> 取第 i 位左边（高位）的数字，乘以 10^(i−1)，得到基础值 a</p>
+</li>
+<li><p>取第 i 位数字，计算修正值：</p>
+<ol>
+<li>如果大于 X，则结果为 a+10^(i−1)</li>
+<li>如果小于 X，则结果为 a</li>
+<li>如果等 X，则取第 i 位右边（低位）数字，设为 b，最后结果为 a+b+1</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_x_between_one_and_n</span>(<span class="params">n,x</span>):</span></span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">0</span> <span class="keyword">or</span> x &lt; <span class="number">1</span> <span class="keyword">or</span> x &gt; <span class="number">9</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    high,low,current,tmp,i = <span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span></span><br><span class="line">    high = n</span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> high !=<span class="number">0</span>:</span><br><span class="line">        high = <span class="built_in">int</span>(n/<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>,i)))</span><br><span class="line">        tmp = <span class="built_in">int</span>(n%<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>,i)))</span><br><span class="line">        current = <span class="built_in">int</span>(tmp/<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>,i-<span class="number">1</span>)))</span><br><span class="line">        low = <span class="built_in">int</span>(tmp%<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>,i-<span class="number">1</span>)))</span><br><span class="line">        <span class="keyword">if</span> current == x:</span><br><span class="line">            total += high*<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>,i-<span class="number">1</span>))+low+<span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> current &lt; x:</span><br><span class="line">            total += high*<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>,i-<span class="number">1</span>))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            total += (high+<span class="number">1</span>)*<span class="built_in">int</span>(math.<span class="built_in">pow</span>(<span class="number">10</span>, i-<span class="number">1</span>))</span><br><span class="line">        i+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line"></span><br><span class="line">res =count_x_between_one_and_n(<span class="number">866278171</span>,<span class="number">3</span>)) <span class="comment"># 796741437</span></span><br><span class="line"><span class="comment"># 求为奇数的时候，当个位为3的时候，均为奇数，除去这一部分，这剩下的</span></span><br><span class="line"><span class="comment"># 奇偶数各占一半</span></span><br><span class="line">a = <span class="number">796741437</span> <span class="comment"># 总个数</span></span><br><span class="line">b = <span class="number">866278170</span>/<span class="number">10</span> <span class="comment"># 个位为 3 的个数</span></span><br><span class="line">c = (a - b)/<span class="number">2</span> + b <span class="comment"># 再加上个位为3的个数，得出奇数列中3出现的个数 441684627</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>Leetcode 也有类似的题目是求 1 出现的个数,相对比较简单一些,有兴趣可以尝试一下 <a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/number-of-digit-one/">数字1的个数</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/04/19/Mybatis%20%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E8%BF%94%E5%9B%9E%E6%8F%92%E5%85%A5id%E5%80%BC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +328,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -304,7 +406,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -421,7 +523,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -503,7 +605,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -588,7 +690,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -670,7 +772,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -754,7 +856,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -834,7 +936,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -909,7 +1011,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -935,85 +1037,6 @@
 <p><strong>解法</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        str_len = <span class="built_in">len</span>(s)</span><br><span class="line">        slow_cur = <span class="number">0</span></span><br><span class="line">        hash_dict = &#123;&#125;</span><br><span class="line">        max_len = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> fast_cur <span class="keyword">in</span> <span class="built_in">range</span>(str_len):</span><br><span class="line">            <span class="keyword">if</span> s[fast_cur] <span class="keyword">in</span> hash_dict:</span><br><span class="line">                max_len = <span class="built_in">max</span>(max_len, fast_cur-slow_cur)</span><br><span class="line">                slow_cur = <span class="built_in">max</span>(hash_dict[s[fast_cur]] + <span class="number">1</span>,slow_cur)</span><br><span class="line">            hash_dict[s[fast_cur]] = fast_cur</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(max_len, str_len-slow_cur)</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/03/07/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/03/07/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/" class="post-title-link" itemprop="url">最长回文子串</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-03-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-07T00:00:00+08:00">2019-03-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。</p>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;babad&quot;</span><br><span class="line">输出: &quot;bab&quot;</span><br><span class="line">注意: &quot;aba&quot; 也是一个有效答案。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;cbbd&quot;</span><br><span class="line">输出: &quot;bb&quot;</span><br></pre></td></tr></table></figure>
-
-
-<p><strong>解法</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestPalindrome</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span></span><br><span class="line">        str_len = <span class="built_in">len</span>(s)</span><br><span class="line">        max_len = <span class="number">1</span></span><br><span class="line">        start_index = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        dp = [[<span class="number">0</span>]*str_len <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(str_len)]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(str_len):</span><br><span class="line">            dp[i][i] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(str_len):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(j - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> j == i+ <span class="number">1</span> <span class="keyword">and</span> s[j] == s[i]:</span><br><span class="line">                    dp[i][j] = <span class="number">2</span></span><br><span class="line">                <span class="keyword">if</span> j &gt; i+<span class="number">1</span> <span class="keyword">and</span> dp[i+<span class="number">1</span>][j-<span class="number">1</span>] &gt; <span class="number">0</span> <span class="keyword">and</span> s[i] == s[j]:</span><br><span class="line">                    dp[i][j] = dp[i + <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">2</span></span><br><span class="line">                <span class="keyword">if</span> dp[i][j] &gt; max_len:</span><br><span class="line">                    max_len = dp[i][j]</span><br><span class="line">                    start_index = i</span><br><span class="line">        <span class="keyword">return</span> s[start_index:start_index + max_len]</span><br></pre></td></tr></table></figure>
       
     </div>
 

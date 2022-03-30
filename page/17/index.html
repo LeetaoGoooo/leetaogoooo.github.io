@@ -134,13 +134,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">189</span>
+          <span class="site-state-item-count">190</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +200,86 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/06/02/Openlayers3%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E6%95%88%E6%9E%9C(%E4%BA%8C)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/06/02/Openlayers3%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E6%95%88%E6%9E%9C(%E4%BA%8C)/" class="post-title-link" itemprop="url">Openlayers3仿链家网效果(二)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-06-02 00:00:00" itemprop="dateCreated datePublished" datetime="2017-06-02T00:00:00+08:00">2017-06-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1feucc4km7cg20bv0djhdt.gif"></p>
+<p>接着上一篇的demo,经过几天的折腾，基本上完成了类似链家网的效果.上一篇文章的地址<a target="_blank" rel="noopener" href="http://www.leetao94.cn/2017/03/28/Openlayers%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E5%8A%A0%E8%BD%BD%E6%95%88%E6%9E%9C/">Openlayers3仿链家网效果</a></p>
+<h1 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h1><h2 id="不同-Zoom-加载不同的图层"><a href="#不同-Zoom-加载不同的图层" class="headerlink" title="不同 Zoom 加载不同的图层"></a>不同 Zoom 加载不同的图层</h2><p>通过 view 的 chaneg:resolution 事件，在不同 zoom 下加载不同的图层</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> changeViewToZoom = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> view = map.getView();</span><br><span class="line">    view.on(<span class="string">&#x27;change:resolution&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> zoom = view.getZoom();</span><br><span class="line">        <span class="keyword">if</span> (zoom &gt;= xxxZoom) &#123;</span><br><span class="line">            <span class="comment">// 加载图层</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 加载其他图层</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="圆圈的绘制"><a href="#圆圈的绘制" class="headerlink" title="圆圈的绘制"></a>圆圈的绘制</h2><p>根据圆圈的中心点坐标和半径绘制圆</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  添加圆圈图层</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">genarateCircleLayer</span>(<span class="params">CircleObjArrs, title</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">arguments</span>[<span class="number">2</span>] != <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> createCircleLayer(createCircleSource(CircleObjArrs, <span class="built_in">arguments</span>[<span class="number">2</span>]), title);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> createCircleLayer(createCircleSource(CircleObjArrs), title)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createCircleLayer</span>(<span class="params">source, title</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> circleLayer = <span class="keyword">new</span> ol.layer.Vector(&#123;</span><br><span class="line">        <span class="attr">title</span>: title,</span><br><span class="line">        <span class="attr">source</span>: source,</span><br><span class="line">        <span class="attr">style</span>: circleStyleFunction</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> circleLayer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createCircleSource</span>(<span class="params">CircleObjArrs</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> view = map.getView();</span><br><span class="line">    <span class="keyword">var</span> zoom = view.getZoom();</span><br><span class="line">    <span class="keyword">var</span> CircleSource = <span class="keyword">new</span> ol.source.Vector();</span><br><span class="line">    <span class="keyword">var</span> radius = <span class="number">1</span> / <span class="built_in">Math</span>.pow(<span class="number">2</span>, zoom - <span class="number">6</span>);</span><br><span class="line">    <span class="comment">// 判断是否定义 radius,否则才用默认值</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> (<span class="built_in">arguments</span>[<span class="number">1</span>]) != <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">        radius = <span class="built_in">arguments</span>[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; CircleObjArrs.length; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> feature = <span class="keyword">new</span> ol.Feature(&#123;</span><br><span class="line">            <span class="attr">geometry</span>: <span class="keyword">new</span> ol.geom.Circle(CircleObjArrs[i].center, radius),</span><br><span class="line">            <span class="attr">text</span>: CircleObjArrs[i].text</span><br><span class="line">        &#125;);</span><br><span class="line">        CircleSource.addFeature(feature);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> CircleSource;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="展示效果"><a href="#展示效果" class="headerlink" title="展示效果"></a>展示效果</h2><p>展示效果包括:圆圈样式的切换,和圆圈下的图层显示.圆圈下的图层是在绘制圆圈的时候就一同加载了,只是样式设置透明，让它隐藏起来了,当鼠标移动到圆圈上，改变圆圈的样式的同时也改变了图层的样式，从而使得图层展示出来.主要调用<strong>forEachFeatureAtPixel</strong>方法，遍历当前坐标系下的所有feature,然后根据type切换不同样式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> displayFeature = <span class="function"><span class="keyword">function</span> (<span class="params">pixel</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> features = [];</span><br><span class="line">    map.forEachFeatureAtPixel(pixel, <span class="function"><span class="keyword">function</span> (<span class="params">feature, layer</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (layer.getVisible()) &#123; <span class="comment">// 当图层被隐藏之后,光标下该图层忽略</span></span><br><span class="line">            features.push(feature);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> len = features.length;</span><br><span class="line">    <span class="keyword">if</span> (len &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">var</span> text = features[i].getProperties().text;</span><br><span class="line">            <span class="keyword">var</span> type = features[i].getGeometry().getType();</span><br><span class="line">            features[i].setStyle(getSelectedPropertyStyle(type, text));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> featureArr = map.getLayers().getArray();</span><br><span class="line">        <span class="keyword">var</span> featureArr_len = featureArr.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; featureArr_len; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> featureArr[j].setStyle !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">                <span class="keyword">var</span> source = featureArr[j].getSource();</span><br><span class="line">                features_by_source = source.getFeatures();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">var</span> feature_len = features_by_source.length;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> m = <span class="number">0</span>; m &lt; feature_len; m++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="keyword">typeof</span> features_by_source[m].getProperties().text === <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">                        text = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">var</span> text = features_by_source[m].getProperties().text</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">var</span> type = features_by_source[m].getGeometry().getType();</span><br><span class="line">                    features_by_source[m].setStyle(getUnselectedPropertyStyle(type, text));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> getUnselectedPropertyStyle = <span class="function"><span class="keyword">function</span> (<span class="params">type, text</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> style = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (type == <span class="string">&#x27;Circle&#x27;</span>) &#123;</span><br><span class="line">        style = <span class="keyword">new</span> ol.style.Style(&#123;</span><br><span class="line">            <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span><br><span class="line">                <span class="attr">color</span>: <span class="string">&#x27;rgba(57,172,106,0.9)&#x27;</span>,</span><br><span class="line">                <span class="attr">opacity</span>: <span class="string">&#x27;0.05&#x27;</span></span><br><span class="line">            &#125;),</span><br><span class="line">            <span class="attr">text</span>: <span class="keyword">new</span> ol.style.Text(&#123;</span><br><span class="line">                <span class="attr">font</span>: <span class="string">&#x27;14px sans-serif&#x27;</span>,</span><br><span class="line">                <span class="attr">text</span>: text,</span><br><span class="line">                <span class="attr">textAlign</span>: <span class="string">&#x27;center&#x27;</span>,</span><br><span class="line">                <span class="attr">rotateWithView</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span><br><span class="line">                    <span class="attr">color</span>: <span class="string">&#x27;#FFFFFF&#x27;</span></span><br><span class="line">                &#125;),</span><br><span class="line">                <span class="attr">stroke</span>: <span class="keyword">new</span> ol.style.Stroke(&#123;</span><br><span class="line">                    <span class="attr">color</span>: <span class="string">&#x27;#FFFFFF&#x27;</span>,</span><br><span class="line">                    <span class="attr">width</span>: <span class="number">1</span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="comment">// radius:100</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (type == <span class="string">&#x27;MultiPolygon&#x27;</span> || type == <span class="string">&#x27;Polygon&#x27;</span>) &#123;</span><br><span class="line">        style = <span class="keyword">new</span> ol.style.Style(&#123;</span><br><span class="line">            <span class="attr">stroke</span>: <span class="keyword">new</span> ol.style.Stroke(&#123;</span><br><span class="line">                <span class="attr">color</span>: <span class="string">&#x27;rgba(255, 255, 0, 0)&#x27;</span>,</span><br><span class="line">                <span class="attr">width</span>: <span class="number">2</span></span><br><span class="line">            &#125;),</span><br><span class="line">            <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span><br><span class="line">                <span class="attr">color</span>: <span class="string">&#x27;rgba(255, 255, 0, 0)&#x27;</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> style;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> getSelectedPropertyStyle = <span class="function"><span class="keyword">function</span> (<span class="params">type, text</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> style = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (type == <span class="string">&#x27;Circle&#x27;</span>) &#123;</span><br><span class="line">        style = <span class="keyword">new</span> ol.style.Style(&#123;</span><br><span class="line">            <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span><br><span class="line">                <span class="attr">color</span>: <span class="string">&#x27;rgba(228,57,60,0.9)&#x27;</span>,</span><br><span class="line">                <span class="attr">opacity</span>: <span class="string">&#x27;0.05&#x27;</span></span><br><span class="line">            &#125;),</span><br><span class="line">            <span class="attr">text</span>: <span class="keyword">new</span> ol.style.Text(&#123;</span><br><span class="line">                <span class="attr">font</span>: <span class="string">&#x27;14px sans-serif&#x27;</span>,</span><br><span class="line">                <span class="attr">text</span>: text,</span><br><span class="line">                <span class="attr">textAlign</span>: <span class="string">&#x27;center&#x27;</span>,</span><br><span class="line">                <span class="comment">// rotateWithView:true,</span></span><br><span class="line">                <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span><br><span class="line">                    <span class="attr">color</span>: <span class="string">&#x27;#FFFFFF&#x27;</span></span><br><span class="line">                &#125;),</span><br><span class="line">                <span class="attr">stroke</span>: <span class="keyword">new</span> ol.style.Stroke(&#123;</span><br><span class="line">                    <span class="attr">color</span>: <span class="string">&#x27;#FFFFFF&#x27;</span>,</span><br><span class="line">                    <span class="attr">width</span>: <span class="number">1</span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (type == <span class="string">&#x27;MultiPolygon&#x27;</span> || type == <span class="string">&#x27;Polygon&#x27;</span>) &#123;</span><br><span class="line">        style = <span class="keyword">new</span> ol.style.Style(&#123;</span><br><span class="line">            <span class="attr">stroke</span>: <span class="keyword">new</span> ol.style.Stroke(&#123;</span><br><span class="line">                <span class="attr">color</span>: <span class="string">&#x27;green&#x27;</span>,</span><br><span class="line">                <span class="attr">width</span>: <span class="number">2</span></span><br><span class="line">            &#125;),</span><br><span class="line">            <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span><br><span class="line">                <span class="attr">color</span>: <span class="string">&#x27;rgba(57,172,106,0.1)&#x27;</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> style;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/06/02/Openlayers3%E5%85%B3%E4%BA%8EMouseWheelZoom%E7%9A%84%E7%A6%81%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +311,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -297,7 +382,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -398,7 +483,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -485,7 +570,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -706,7 +791,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -846,7 +931,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -922,7 +1007,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -1000,7 +1085,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -1078,7 +1163,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -1121,135 +1206,6 @@
 
 <p>然后你会发现 firefox 被打开,跳转到 “<a target="_blank" rel="noopener" href="http://www.python.org&quot;,然后搜索框填入/">http://www.python.org&quot;,然后搜索框填入</a> “python”,然后跳转到搜索页面,最后的截图如下:</p>
 <p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1fczhmsyn01j20tg0ii757"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/12/22/Oracle%20Database%2012c%20Installation%20on%20CentOS%207/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/12/22/Oracle%20Database%2012c%20Installation%20on%20CentOS%207/" class="post-title-link" itemprop="url">Oracle Database 12c Installation on CentOS 7</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-12-22 00:00:00" itemprop="dateCreated datePublished" datetime="2016-12-22T00:00:00+08:00">2016-12-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>:|<br>| Oracle base  | /u01/app/oracle |<br>|  Software location    |   /u01/app/oracle/product/12.1.0/dbhome_1 |<br>| Database file location     |    /u02 |<br>| Global database name | orcl |</p>
-<p>另外请设置合适的 Database edition（数据库版本）及 Character set（字符集）。请为数据库的管理订立一个安全的口令，最后请取消勾选 Create as Container database 项目</p>
-<p><strong>口令</strong>:密码由数字和字母组成,必须包含一个大写字母和一个小写字母<br><strong>字符集</strong>:Unicode(AL32UTF8)</p>
-<p><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1fayixxs23xj20mb0hrade.jpg"></p>
-<blockquote>
-<p>第五步 —— 创建库存</p>
-</blockquote>
-<p>安装缺省的设置 /u01/app/oraInventory 并按 Next。</p>
-<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1fazb19p2b9j20ma0hrwhm.jpg"></p>
-<blockquote>
-<p>第六步 —— 检查先决条件</p>
-</blockquote>
-<p>安装程序会自动检查所有必须的操作系统组件及内核设置。</p>
-<blockquote>
-<p>第七步 —— 摘要</p>
-</blockquote>
-<p>这是配置安装的最后机会,请按 Install。</p>
-<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1fazb8q5fr0j20mb0hrdk3.jpg"></p>
-<blockquote>
-<p>第八步 —— 安装</p>
-</blockquote>
-<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1fazbxepb3jj20m50hrtbx.jpg"></p>
-<p>当询问窗口出现时，请登录成为 root 并执行两个脚本：</p>
-<p><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1fazc7e2v94j20f30bpwfv.jpg"></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# /u01/app/oraInventory/orainstRoot.sh</span><br><span class="line">Changing permissions of /u01/app/oraInventory.</span><br><span class="line">Adding read,write permissions for group.</span><br><span class="line">Removing read,write,execute permissions for world.</span><br><span class="line">Changing groupname of /u01/app/oraInventory to oinstall.</span><br><span class="line">The execution of the script is complete.</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# /u01/app/oracle/product/12.1.0/dbhome_2/root.sh</span><br><span class="line">Performing root user operation.</span><br><span class="line">The following environment variables are set as:</span><br><span class="line">    ORACLE_OWNER= oracle</span><br><span class="line">    ORACLE_HOME=  /u01/app/oracle/product/12.1.0/dbhome_2</span><br><span class="line">Enter the full pathname of the local bin directory: [/usr/local/bin]: &lt;PRESS ENTER&gt;</span><br><span class="line">   Copying dbhome to /usr/local/bin ...</span><br><span class="line">   Copying oraenv to /usr/local/bin ...</span><br><span class="line">   Copying coraenv to /usr/local/bin ...</span><br><span class="line">Creating /etc/oratab file...</span><br><span class="line">Entries will be added to the /etc/oratab file as needed by</span><br><span class="line">Database Configuration Assistant when a database is created</span><br><span class="line">Finished running generic part of root script.</span><br><span class="line">Now product-specific root actions will be performed.</span><br><span class="line">You can follow the installation in a separated window.</span><br></pre></td></tr></table></figure>
-
-<p>这两个脚本都必须以 root 的身份来执行,然后出现一个进度条,等待安装完成</p>
-<p><img src="http://ww2.sinaimg.cn/large/d9e82fa4jw1fazcaw8touj20h10c7ab7.jpg"></p>
-<blockquote>
-<p>第九步 —— 顺利完成安装</p>
-</blockquote>
-<p>最后一个画面将会通知你安装已经完成并显示 Oracle 企业级管理员的 URL。</p>
-<p><img src="http://ww2.sinaimg.cn/large/d9e82fa4jw1fazcr0uoa9j20fr0auac2.jpg"></p>
-<p><a target="_blank" rel="noopener" href="https://localhost:5500/em">https://localhost:5500/em</a></p>
-<p>请按 OK 来关闭安装程序。</p>
-<h1 id="安装完成后的任务"><a href="#安装完成后的任务" class="headerlink" title="安装完成后的任务"></a>安装完成后的任务</h1><h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><p>请登录成为 root 并检查已引导的本地</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# firewall-cmd --get-active-zones</span><br><span class="line">public</span><br><span class="line">  interfaces: eno16777736</span><br></pre></td></tr></table></figure>
-
-<p>打开相关的端口</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# firewall-cmd --zone=public --add-port=1521/tcp --add-port=5500/tcp --add-port=5520/tcp --add-port=3938/tcp --permanent</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# firewall-cmd --reload</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# firewall-cmd --list-ports</span><br><span class="line">1521/tcp 3938/tcp 5500/tcp 5520/tcp</span><br></pre></td></tr></table></figure>
-
-<h2 id="Oracle-工作环境"><a href="#Oracle-工作环境" class="headerlink" title="Oracle 工作环境"></a>Oracle 工作环境</h2><p>请登录为 oracle 用户并在 <em>/home/oracle/.bash_profile</em> 内加入下列数值</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# su oracle</span><br><span class="line">[oracle@bogon lt94]$ vim /home/oracle/.bash_profile</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TMPDIR=$TMP; export TMPDIR</span><br><span class="line">ORACLE_BASE=/u01/app/oracle; export ORACLE_BASE</span><br><span class="line">ORACLE_HOME=$ORACLE_BASE/product/12.1.0/dbhome_2; export ORACLE_HOME</span><br><span class="line">ORACLE_SID=orcl; export ORACLE_SID</span><br><span class="line">PATH=$ORACLE_HOME/bin:$PATH; export PATH</span><br><span class="line">LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib:/usr/lib64; export LD_LIBRARY_PATH</span><br><span class="line">CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib; export CLASSPATH</span><br></pre></td></tr></table></figure>
-
-<p>重新加载 bash_profile 使其生效</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[oracle@bogon lt94]$ . /home/oracle/.bash_profile </span><br></pre></td></tr></table></figure>
-
-<h2 id="登录数据库"><a href="#登录数据库" class="headerlink" title="登录数据库"></a>登录数据库</h2><p>最后请登录数据库：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[oracle@bogon lt94]$ sqlplus system@orcl</span><br><span class="line"></span><br><span class="line">SQL*Plus: Release 12.1.0.2.0 Production on Wed Dec 21 18:28:20 2016</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2014, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Enter password: </span><br><span class="line">Last Successful login time: Wed Dec 21 2016 18:25:24 -08:00</span><br><span class="line"></span><br><span class="line">Connected to:</span><br><span class="line">Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">SQL&gt;</span><span class="bash"> </span></span><br></pre></td></tr></table></figure>
-
-<p>请利用 Oracle 企业级管理员来管理数据库：<br>https://&lt;主机名称&gt;:5500/em</p>
 
       
     </div>

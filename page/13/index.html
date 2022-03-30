@@ -134,13 +134,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">189</span>
+          <span class="site-state-item-count">190</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +200,111 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/10/28/Flask-Login%E7%94%A8%E6%88%B7%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/10/28/Flask-Login%E7%94%A8%E6%88%B7%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86/" class="post-title-link" itemprop="url">Flask-Login用户会话管理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-10-28 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-28T00:00:00+08:00">2017-10-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>想必大家对 Flask-Login 这个 Flask 扩展肯定不会陌生,毕竟作为一个应用,用户登录之后,他们的认证状态是需要被记录下来的,浏览其他的页面也是需要使用这个状态的,但是这一过程是怎么发挥作用的呢?让我们从源码的层次上简单认识一下.</p>
+<h1 id="Flask-Login-使用的准备"><a href="#Flask-Login-使用的准备" class="headerlink" title="Flask-Login 使用的准备"></a>Flask-Login 使用的准备</h1><p>使用 flask-login 的之前,我们必须要实现下述四个方法:<br><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fkur7vprn0j30n804kmxd.jpg"><br>但是为什么要实现这个方法呢?别着急我们在下面会释疑.<br>除此之外我们还需要写下述的这样的代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@login_manager.user_loader</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_user</span>(<span class="params">username</span>):</span></span><br><span class="line">    <span class="keyword">if</span> query_user(username) <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        curr_user = User()</span><br><span class="line">        curr_user.<span class="built_in">id</span> = username</span><br><span class="line">        <span class="keyword">return</span> curr_user</span><br></pre></td></tr></table></figure>
+<p>上面的为用户的回调函数接收字符串表示的唯一用户标识符,如果能找到该用户,则返回该用户对象否则返回None.但是<code>user_loader</code>究竟是什么?<br>源码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoginManager</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">user_loader</span>(<span class="params">self, callback</span>):</span></span><br><span class="line">        self.user_callback = callback</span><br><span class="line">        <span class="keyword">return</span> callback</span><br></pre></td></tr></table></figure>
+<p>似乎没什么作用呢?别着急,接着往下看,我们通过具体使用去理解源码</p>
+<h1 id="login-user"><a href="#login-user" class="headerlink" title="login_user()"></a>login_user()</h1><p>但凡时候 Flask-Login 应该都用过 <code>login_user()</code>,所以让我们看看使用这个函数发生了什么.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login_user</span>(<span class="params">user, remember=<span class="literal">False</span>, force=<span class="literal">False</span>, fresh=<span class="literal">True</span></span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> force <span class="keyword">and</span> <span class="keyword">not</span> user.is_active: <span class="comment"># 最初必须实现的四个方法之一,在这里发挥作用,如果该用户不允许登录则直接返回False(黑名单etc)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    user_id = user.get_id() <span class="comment"># 修改</span></span><br><span class="line">    session[<span class="string">&#x27;user_id&#x27;</span>] = user_id</span><br><span class="line">    session[<span class="string">&#x27;_fresh&#x27;</span>] = fresh</span><br><span class="line">    session[<span class="string">&#x27;_id&#x27;</span>] = current_app.login_manager._session_identifier_generator() <span class="comment"># 根据客户端的User Agent和IP生成标识,strong模式下一旦用户标识检测失败,便会清空所有的session内容</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> remember:</span><br><span class="line">        session[<span class="string">&#x27;remember&#x27;</span>] = <span class="string">&#x27;set&#x27;</span></span><br><span class="line"></span><br><span class="line">    _request_ctx_stack.top.user = user</span><br><span class="line">    user_logged_in.send(current_app._get_current_object(), user=_get_user())</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>主要内容是将用户信息放入session中,并为改session生成标识符.</p>
+<h1 id="login-required"><a href="#login-required" class="headerlink" title="@login_required"></a>@login_required</h1><p>我们通过 @login_required 去限制用户页面访问,这一过程是怎么实现的?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login_required</span>(<span class="params">func</span>):</span></span><br><span class="line"><span class="meta">    @wraps(<span class="params">func</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorated_view</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">        <span class="keyword">if</span> request.method <span class="keyword">in</span> EXEMPT_METHODS: // EXEMPT_METHODS = <span class="built_in">set</span>([<span class="string">&#x27;OPTIONS&#x27;</span>]) config.py 第 <span class="number">49</span> 行,通常该请求是获取服务器支持的HTTP请求方法</span><br><span class="line">            <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">        <span class="keyword">elif</span> current_app.login_manager._login_disabled: <span class="comment"># 如果 _login_disabled 被设置为 True,则装饰器将会被忽略,通常用在单元测试可以很方便的关闭认证</span></span><br><span class="line">            <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">        <span class="keyword">elif</span> <span class="keyword">not</span> current_user.is_authenticated: <span class="comment"># 判断用户是否登录</span></span><br><span class="line">            <span class="keyword">return</span> current_app.login_manager.unauthorized() <span class="comment"># 没有登录的情况下:1.如果注册了 LoginManager.unauthorized_handler 则这个时候调用这个函数 2. 向用户提示 LoginManager.login_message信息 3.有 login_view的情况下,跳转到login_view,没有则返回abort(401)</span></span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> decorated_view</span><br></pre></td></tr></table></figure>
+<h1 id="unauthorized"><a href="#unauthorized" class="headerlink" title="unauthorized()"></a>unauthorized()</h1><p>在上述<code>@login.required</code>中我们说明了,<code>unauthorized()</code>在需要登录的情况下采取的行动,现在简单的看一下代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">unauthorized</span>(<span class="params">self</span>):</span></span><br><span class="line">    user_unauthorized.send(current_app._get_current_object())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> self.unauthorized_callback:</span><br><span class="line">        <span class="keyword">return</span> self.unauthorized_callback()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> request.blueprint <span class="keyword">in</span> self.blueprint_login_views:</span><br><span class="line">        login_view = self.blueprint_login_views[request.blueprint]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        login_view = self.login_view</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> login_view:</span><br><span class="line">        abort(<span class="number">401</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> self.login_message:</span><br><span class="line">        <span class="keyword">if</span> self.localize_callback <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            flash(self.localize_callback(self.login_message),</span><br><span class="line">                  category=self.login_message_category)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            flash(self.login_message, category=self.login_message_category)</span><br><span class="line"></span><br><span class="line">    config = current_app.config</span><br><span class="line">    <span class="keyword">if</span> config.get(<span class="string">&#x27;USE_SESSION_FOR_NEXT&#x27;</span>, USE_SESSION_FOR_NEXT):</span><br><span class="line">        login_url = expand_login_view(login_view)</span><br><span class="line">        session[<span class="string">&#x27;next&#x27;</span>] = make_next_param(login_url, request.url)</span><br><span class="line">        redirect_url = make_login_url(login_view)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        redirect_url = make_login_url(login_view, next_url=request.url)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> redirect(redirect_url)</span><br></pre></td></tr></table></figure>
+<h1 id="current-user"><a href="#current-user" class="headerlink" title="current_user"></a>current_user</h1><p>在登录之后,我们在需要使用当前登录对象的时候,都会使用 <code>current_user</code>,那么它是怎么发挥作用的?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">current_user = LocalProxy(<span class="keyword">lambda</span>: _get_user()) // 当前用户的代理,这里重点关注 _get_user()</span><br><span class="line"></span><br><span class="line"><span class="comment"># _get_user()</span></span><br><span class="line"><span class="comment"># 调用 login_user() 之后显然 _request_ctx_stack.top 中存在 user,则直接返回 </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_get_user</span>():</span></span><br><span class="line">    <span class="keyword">if</span> has_request_context() <span class="keyword">and</span> <span class="keyword">not</span> <span class="built_in">hasattr</span>(_request_ctx_stack.top, <span class="string">&#x27;user&#x27;</span>):</span><br><span class="line">        current_app.login_manager._load_user()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">getattr</span>(_request_ctx_stack.top, <span class="string">&#x27;user&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 那么如果不存在,会发生什么? 调用 _loder_user()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># _loader_user()</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_load_user</span>(<span class="params">self</span>):</span></span><br><span class="line">        user_accessed.send(current_app._get_current_object())</span><br><span class="line"></span><br><span class="line">        config = current_app.config</span><br><span class="line">        <span class="keyword">if</span> config.get(<span class="string">&#x27;SESSION_PROTECTION&#x27;</span>, self.session_protection): // session 保护,可以取值为 <span class="literal">None</span>(禁用),basic(在 basic 模式下或会话是永久的，如果该标识未匹配，会话会简单地被标记为非活 跃的，且任何需要活跃登入的东西会强制用户重新验证，前提你已经使用了活跃登入机制),strong(在 strong 模式下的非永久会话，如果该标识未匹配，整个会话或者记住的令牌如果存在将会被删除)</span><br><span class="line">            deleted = self._session_protection()</span><br><span class="line">            <span class="keyword">if</span> deleted:</span><br><span class="line">                <span class="keyword">return</span> self.reload_user()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果 记住你的 cookie 存在,而 session 不存在,则会将 cookie 中的 user_id 赋值给 session</span></span><br><span class="line">        <span class="comment"># 但是如果这个时候处于登出的状态的话,会发生什么呢?</span></span><br><span class="line">        is_missing_user_id = <span class="string">&#x27;user_id&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> session</span><br><span class="line">        <span class="keyword">if</span> is_missing_user_id:</span><br><span class="line">            cookie_name = config.get(<span class="string">&#x27;REMEMBER_COOKIE_NAME&#x27;</span>, COOKIE_NAME)</span><br><span class="line">            header_name = config.get(<span class="string">&#x27;AUTH_HEADER_NAME&#x27;</span>, AUTH_HEADER_NAME)</span><br><span class="line">            has_cookie = (cookie_name <span class="keyword">in</span> request.cookies <span class="keyword">and</span></span><br><span class="line">                          session.get(<span class="string">&#x27;remember&#x27;</span>) != <span class="string">&#x27;clear&#x27;</span>) // 登出的时候 has_cookie = <span class="literal">False</span></span><br><span class="line">            <span class="keyword">if</span> has_cookie:</span><br><span class="line">                <span class="keyword">return</span> self._load_from_cookie(request.cookies[cookie_name])</span><br><span class="line">            <span class="keyword">elif</span> self.request_callback: //定义在 request_loader() 中, 正常情况下我们并不使用,仅当我们不想使用 cookie 的情况下登录用户才会考虑 request_loader 回调.</span><br><span class="line">                <span class="keyword">return</span> self._load_from_request(request)</span><br><span class="line">            <span class="keyword">elif</span> header_name <span class="keyword">in</span> request.headers: </span><br><span class="line">                <span class="keyword">return</span> self._load_from_header(request.headers[header_name]) <span class="comment"># 该函数调用链中的 header_loader() 已经被弃用</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> self.reload_user()</span><br></pre></td></tr></table></figure>
+
+<h1 id="logout-user"><a href="#logout-user" class="headerlink" title="logout_user()"></a>logout_user()</h1><p>登录要验证账户密码什么的,显的比较复杂,但是登出就很简答了,你不需要传递任何参数,只需调用这个函数,那让我们看看这个函数发生了什么:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">logout_user</span>():</span></span><br><span class="line">    user = _get_user() <span class="comment"># 从_request_ctx_stack.top.user,session 或者 remember_me cookie 中获取</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;user_id&#x27;</span> <span class="keyword">in</span> session:</span><br><span class="line">        session.pop(<span class="string">&#x27;user_id&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;_fresh&#x27;</span> <span class="keyword">in</span> session:</span><br><span class="line">        session.pop(<span class="string">&#x27;_fresh&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    cookie_name = current_app.config.get(<span class="string">&#x27;REMEMBER_COOKIE_NAME&#x27;</span>, COOKIE_NAME)</span><br><span class="line">    <span class="keyword">if</span> cookie_name <span class="keyword">in</span> request.cookies:</span><br><span class="line">        session[<span class="string">&#x27;remember&#x27;</span>] = <span class="string">&#x27;clear&#x27;</span></span><br><span class="line"></span><br><span class="line">    user_logged_out.send(current_app._get_current_object(), user=user)</span><br><span class="line"></span><br><span class="line">    current_app.login_manager.reload_user() </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>该函数将session中的user相关信息全部清空,然后重新加载用户,正常逻辑下由于重新加载用户后如果当前页面需要登录才能访问的话,则会跳转到登录视图.</p>
+<h1 id="fresh-login-required"><a href="#fresh-login-required" class="headerlink" title="fresh_login_required"></a>fresh_login_required</h1><p>当用户登入，他们的会话被标记成“新鲜的”，就是说在这个会话只中用户实际上登录过。当会话销毁用户使用“记住我”的 cookie 重新登入，会话被标记成“非新鲜的”。fresh_login_required 除了验证用户登录，也将确保他们的登录是“新鲜的”。如果不是“新鲜的”，它会把用户送到可以重输入验证条件的页面,主要用户修改个人信息的敏感操作. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fresh_login_required</span>(<span class="params">func</span>):</span></span><br><span class="line"><span class="meta">    @wraps(<span class="params">func</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorated_view</span>(<span class="params">*args, **kwargs</span>):</span></span><br><span class="line">        <span class="keyword">if</span> request.method <span class="keyword">in</span> EXEMPT_METHODS:</span><br><span class="line">            <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">        <span class="keyword">elif</span> current_app.login_manager._login_disabled:</span><br><span class="line">            <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">        <span class="keyword">elif</span> <span class="keyword">not</span> current_user.is_authenticated:</span><br><span class="line">            <span class="keyword">return</span> current_app.login_manager.unauthorized()</span><br><span class="line">        <span class="keyword">elif</span> <span class="keyword">not</span> login_fresh(): // 获取session 中的 refresh 值</span><br><span class="line">            <span class="keyword">return</span> current_app.login_manager.needs_refresh() // <span class="number">1.</span>出现 LoginMange.needs_refress_message <span class="number">2.</span>跳转到 LoginManger.refresh_view,如果没有设置则会提示 <span class="number">401</span> 错误</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> decorated_view</span><br></pre></td></tr></table></figure>
+
+<h1 id="confirm-login"><a href="#confirm-login" class="headerlink" title="confirm_login"></a>confirm_login</h1><p>将会话重新标记为”新鲜”</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">confirm_login</span>():</span></span><br><span class="line">    session[<span class="string">&#x27;_fresh&#x27;</span>] = <span class="literal">True</span></span><br><span class="line">    session[<span class="string">&#x27;_id&#x27;</span>] = current_app.login_manager._session_identifier_generator() // 重新生成会话<span class="built_in">id</span></span><br><span class="line">    user_login_confirmed.send(current_app._get_current_object())</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="reload-user"><a href="#reload-user" class="headerlink" title="reload_user()"></a>reload_user()</h1><p>接着 <code>logout_user()</code> 中调用 <code>reload_user()</code>.很显然这个函数的功能就是重新加载用户,具体实现让我们看下源码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># logout_user() 中调用, user 使用默认参数为 None</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reload_user</span>(<span class="params">self, user=<span class="literal">None</span></span>):</span></span><br><span class="line">        ctx = _request_ctx_stack.top // _request_ctx_stack 一个保存对象的栈,可以返回看 login_user() 源码的倒数第三行,登录的时候将 user 保存在 _request_ctx_stack.top.user 中</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> user <span class="keyword">is</span> <span class="literal">None</span>: </span><br><span class="line">            user_id = session.get(<span class="string">&#x27;user_id&#x27;</span>) // logout_user() 中 session 已经将 user_id 移除</span><br><span class="line">            <span class="keyword">if</span> user_id <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                ctx.user = self.anonymous_user() //见下文</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> self.user_callback <span class="keyword">is</span> <span class="literal">None</span>: //这里解释了为什么我们需要定义 @login_manager.user_loader</span><br><span class="line">                    <span class="keyword">raise</span> Exception(</span><br><span class="line">                        <span class="string">&quot;No user_loader has been installed for this &quot;</span></span><br><span class="line">                        <span class="string">&quot;LoginManager. Add one with the &quot;</span></span><br><span class="line">                        <span class="string">&quot;&#x27;LoginManager.user_loader&#x27; decorator.&quot;</span>)</span><br><span class="line">                user = self.user_callback(user_id) // 这里我们最初定义的user_loader发挥作用,通过调用self.user_callback()获取用户</span><br><span class="line">                <span class="keyword">if</span> user <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                    ctx.user = self.anonymous_user()</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    ctx.user = user</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            ctx.user = user</span><br></pre></td></tr></table></figure>
+
+<h1 id="anoymous-user"><a href="#anoymous-user" class="headerlink" title="anoymous_user"></a>anoymous_user</h1><p>源码如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">self.anonymous_user = AnonymousUserMixin // 匿名类</span><br><span class="line"></span><br><span class="line"><span class="comment"># AnonymousUserMixin</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnonymousUserMixin</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_authenticated</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_active</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">is_anonymous</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_id</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/10/19/Migrating%20from%20Flask-Script%20to%20the%20New%20Flask%20CLI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +336,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -357,7 +467,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -432,7 +542,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -514,7 +624,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -600,7 +710,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -688,7 +798,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -784,7 +894,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -867,7 +977,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -947,7 +1057,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -965,93 +1075,6 @@
 <p>找出列表中是否存在值相同的那个元素,并且他们的索引值的差值不大于 <em>k</em>,思路:用哈希表记录第一次元素A出现的位置,如果遍历出现第二个值相同的元素B,如果差值符合则返回 <em>True</em>, 否则将B的索引覆盖A(后面再出现相同的元素C索引值 <em>C-A</em> 肯定大于 <em>B-A</em>),一直没有返回 <em>False</em></p>
 <p>Python</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">containsNearbyDuplicate</span>(<span class="params">self, nums, k</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type k: int</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        dic_nums = &#123;&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> index,value <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            <span class="keyword">if</span> value <span class="keyword">in</span> dic_nums <span class="keyword">and</span> (index - dic_nums[value] &lt;= k) :</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dic_nums[value] = index</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span> </span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/09/10/Count%20Primes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/09/10/Count%20Primes/" class="post-title-link" itemprop="url">Count Primes</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-09-10 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-10T00:00:00+08:00">2017-09-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><strong>Description:</strong></p>
-<p>Count the number of prime numbers less than a non-negative number, n.</p>
-<p><strong>Solution</strong></p>
-<p>统计在[0, n) 区间内中质数的个数,按照常规方法去计算是否为素数可能会超时(没有尝试),可以用 <strong>素数筛法</strong></p>
-<blockquote>
-<p>用筛法求素数的基本思想是：把从1开始的、某一范围内的正整数从小到大顺序排列， 1不是素数，首先把它筛掉。剩下的数中选择最小的数是素数，然后去掉它的倍数。依次类推，直到筛子为空时结束。 –<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%AD%9B%E6%B3%95%E6%B1%82%E7%B4%A0%E6%95%B0/8670409?fr=aladdin&fromid=15458451&fromtitle=%E7%B4%A0%E6%95%B0%E7%AD%9B%E6%B3%95#5">筛法求素数</a></p>
-</blockquote>
-<p>如下图:<br><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fjehvrh7b6g30cd0a9q6x.gif"></p>
-<p>Python</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">countPrimes</span>(<span class="params">self, n</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> n &lt; <span class="number">3</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        primes = [<span class="literal">True</span>] * n</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">int</span>(n**<span class="number">0.5</span>)+<span class="number">1</span>):</span><br><span class="line">            j = i</span><br><span class="line">            k = j</span><br><span class="line">            <span class="keyword">while</span> j*k &lt; n:</span><br><span class="line">                primes[j * k ] = <span class="literal">False</span></span><br><span class="line">                k += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        count_primes = <span class="number">0</span> // [<span class="number">1</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, n):</span><br><span class="line">            <span class="keyword">if</span> primes[i]:</span><br><span class="line">                count_primes += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> count_primes</span><br><span class="line">        </span><br></pre></td></tr></table></figure>
-
-
-<p>从 [1] 到最后的代码可以改为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="built_in">sum</span>(primes) - <span class="number">2</span> // <span class="number">0</span>,<span class="number">1</span>需要去掉</span><br></pre></td></tr></table></figure>
-
-<p>有个感觉很不错的写法:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line"><span class="comment"># @param &#123;integer&#125; n</span></span><br><span class="line"><span class="comment"># @return &#123;integer&#125;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">countPrimes</span>(<span class="params">self, n</span>):</span></span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    primes = [<span class="literal">True</span>] * n</span><br><span class="line">    primes[<span class="number">0</span>] = primes[<span class="number">1</span>] = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">int</span>(n ** <span class="number">0.5</span>) + <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> primes[i]:</span><br><span class="line">            primes[i * i: n: i] = [<span class="literal">False</span>] * <span class="built_in">len</span>(primes[i * i: n: i])</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>(primes)</span><br></pre></td></tr></table></figure>
 
       
     </div>

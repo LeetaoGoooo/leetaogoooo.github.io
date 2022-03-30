@@ -134,13 +134,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">189</span>
+          <span class="site-state-item-count">190</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">71</span>
+        <span class="site-state-item-count">72</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -195,6 +200,95 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/11/21/context_processor%20%E4%B8%8A%E4%B8%8B%E6%96%87%E5%A4%84%E7%90%86%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/11/21/context_processor%20%E4%B8%8A%E4%B8%8B%E6%96%87%E5%A4%84%E7%90%86%E5%99%A8/" class="post-title-link" itemprop="url">context_processor 上下文处理器</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-21T00:00:00+08:00">2018-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>写专栏写了一段时间了，但是一直都没有带大家做一个完整的小项目，俗话说的好，“光说不练假把式,光练不说真把式,连说带练全把式”，自然我要当仁不让做“全把式”了，然后自己就偷偷摸摸的花了几天时间撸了一个博客，功能暂时没有全部完成，完成后会写一个教程教大家从零开始撸一个自己的博客，博客地址:<a target="_blank" rel="noopener" href="http://132.232.71.126:8080/">http://132.232.71.126:8080/</a>, 测试账号(没有修改、创建、删除权限): test/test,大家可以先睹为快， 好了这都不是重点，重点是我在写的过程中遇到了一个问题，我的好几个页面都有一个标签云，这个标签云中的标签自然会随着博客内容的增多而变化，因此肯定需要根据博客内容，自动生成，那么问题来了，我改怎么写呢？</p>
+<h1 id="二话不说，先写为敬"><a href="#二话不说，先写为敬" class="headerlink" title="二话不说，先写为敬"></a>二话不说，先写为敬</h1><p>博客里面有三个地方用到了标签云：主页面，分类页面，博客详情页面，于是有了下面一段代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 主页面</span></span><br><span class="line"><span class="meta">@main.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    tags = Tag.query.<span class="built_in">all</span>()</span><br><span class="line">    <span class="comment"># ...省略部分代码</span></span><br><span class="line">    <span class="keyword">return</span> render_html(<span class="string">&quot;index.html&quot;</span>, tags=tags,)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分类页面</span></span><br><span class="line"><span class="meta">@main.route(<span class="params"><span class="string">&quot;tag/&lt;int:id&gt;&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tags</span>(<span class="params"><span class="built_in">id</span></span>):</span></span><br><span class="line">    tags = Tag.query.<span class="built_in">all</span>()</span><br><span class="line">    <span class="comment"># ...省略部分代码</span></span><br><span class="line">    <span class="keyword">return</span> render_html(<span class="string">&quot;tags.html&quot;</span>, tags=tags,)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 博客详情页面</span></span><br><span class="line"><span class="meta">@main.route(<span class="params"><span class="string">&quot;post/&lt;int:id&gt;&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post</span>(<span class="params"><span class="built_in">id</span></span>):</span></span><br><span class="line">    tags = Tag.query.<span class="built_in">all</span>()</span><br><span class="line">    <span class="comment"># ...省略部分代码</span></span><br><span class="line">    <span class="keyword">return</span> render_html(<span class="string">&quot;post.html&quot;</span>, tags=tags,post=post)</span><br></pre></td></tr></table></figure>
+
+<p>好像问题解决了？所有页面都能显示出来标签云了？ 但是这三个页面都回传 <strong>tags</strong> 会不会太难看了一些，完全不优雅了嘛，有没有好的办法呢？ 答案自然是有的，接下来就到我们的重点了。</p>
+<h1 id="context-processor-闪亮登场"><a href="#context-processor-闪亮登场" class="headerlink" title="context_processor 闪亮登场"></a>context_processor 闪亮登场</h1><p>跟我们之前的说到的钩子函数一样，它也有一个兄弟–<strong>app_context_processor</strong>，区别很简单，后者是针对蓝图的。让我们看一下它的官方定义:</p>
+<blockquote>
+<p>Registers a template context processor function.</p>
+</blockquote>
+<p>翻译过来很简单: 注册模板上下文处理器功能。 这个真能解决我们的问题吗？别着急让我们试一下，把之前的代码改造一下。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@main.app_context_processor</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">peach_blog_menu</span>():</span></span><br><span class="line">    tags = Tag.query.<span class="built_in">all</span>()</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">dict</span>(tags=tags)</span><br><span class="line"></span><br><span class="line"><span class="meta">@main.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    <span class="comment"># ...省略部分代码</span></span><br><span class="line">    <span class="keyword">return</span> render_html(<span class="string">&quot;index.html&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分类页面</span></span><br><span class="line"><span class="meta">@main.route(<span class="params"><span class="string">&quot;tag/&lt;int:id&gt;&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tags</span>(<span class="params"><span class="built_in">id</span></span>):</span></span><br><span class="line">    <span class="comment"># ...省略部分代码</span></span><br><span class="line">    <span class="keyword">return</span> render_html(<span class="string">&quot;tags.html&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 博客详情页面</span></span><br><span class="line"><span class="meta">@main.route(<span class="params"><span class="string">&quot;post/&lt;int:id&gt;&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post</span>(<span class="params"><span class="built_in">id</span></span>):</span></span><br><span class="line">    tags = Tag.query.<span class="built_in">all</span>()</span><br><span class="line">    <span class="comment"># ...省略部分代码</span></span><br><span class="line">    <span class="keyword">return</span> render_html(<span class="string">&quot;post.html&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>是不是发现什么消失了？ <strong>tags</strong> 好像从之前的几个函数中消失了，没有回传到前台，能访问到吗？自然是可以的。原因自然是 context_processor 了，它可以<strong>将我们的定义变量在所有模板中可见</strong>。</p>
+<p><strong>如何使用呢？</strong></p>
+<ol>
+<li> 如上述代码那样， context_processor 作为一个装饰器修饰一个函数</li>
+<li> 函数的返回结果必须是 <em>dict</em>, 然后其 <em>key</em> 将会作为变量在所有模板中可见</li>
+</ol>
+<p>当你的很多视图函数中需要回传一个相同的变量的时候，这个时候就可以考虑使用 context_processor 了</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/11/06/%E7%94%A8%20python%20%E6%8A%93%E5%8F%96%E7%9F%A5%E4%B9%8E%E6%8C%87%E5%AE%9A%E5%9B%9E%E7%AD%94%E4%B8%8B%E7%9A%84%E8%A7%86%E9%A2%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -226,7 +320,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -315,7 +409,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -450,7 +544,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -534,7 +628,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -615,7 +709,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -700,7 +794,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -778,7 +872,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -873,7 +967,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
@@ -961,92 +1055,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近用 pyqt5 开发了一款图形化界面工具,完成之后用 pyinstaller 将其打包成 exe 后出现了问题:</p>
-<blockquote>
-<p>ModuleNotFoundError: No module named ‘PyQt5.sip’</p>
-</blockquote>
-<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>通过在网上查找一些资料,找到三种办法,网上都有人说成功了.</p>
-<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>安装旧版本 pyqt5,原因是: pyinstaller 内置的 sip 版本与最新的 pyqt5 不兼容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyqt5=5.10.1</span><br></pre></td></tr></table></figure>
-
-<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>安装新的 sip</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -U sip </span><br></pre></td></tr></table></figure>
-
-<h2 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h2><p>在程序中引入 sip</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># your code</span><br><span class="line">from PyQt5 import sip</span><br></pre></td></tr></table></figure>
-
-<p>第一种方法,成功的解决了我的问题,剩下的两种我尝试了都没有成功</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/10/08/ModuleNotFoundError%20No%20module%20named%20PyQt5.sip/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/08/ModuleNotFoundError%20No%20module%20named%20PyQt5.sip/" class="post-title-link" itemprop="url">ModuleNotFoundError No module named PyQt5.sip</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-10-08 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-08T00:00:00+08:00">2018-10-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-28 23:29:38" itemprop="dateModified" datetime="2022-02-28T23:29:38+08:00">2022-02-28</time>
+      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
     </span>
 
   
