@@ -1,3 +1,11 @@
+---
+title: Python 列表内存预分配问题
+tags: [Python]
+date: 2022-04-12
+categories: ['优化']
+comments: true
+---
+
 > 以下例子均的运行环境为 Python 3.9.5，不同版本的实际运行结果可能有所不同
 
 # 前言
