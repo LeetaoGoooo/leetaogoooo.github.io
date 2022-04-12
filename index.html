@@ -224,7 +224,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-04-12 15:01:39" itemprop="dateCreated datePublished" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+      <time title="创建时间：2022-04-12 15:04:10" itemprop="dateCreated datePublished" datetime="2022-04-12T15:04:10+08:00">2022-04-12</time>
     </span>
 
   
@@ -241,30 +241,14 @@
 <p>以下例子均的运行环境为 Python 3.9.5，不同版本的实际运行结果可能有所不同</p>
 </blockquote>
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前端时间看了 Golang 的 学习了一下 数组 和 Slice，其中 Slice 相当于动态数组，其中数组的长度是固定的，而 Slice 则是不定长的。在 Python 中是没有数组和 Slice 的概念，它们可以通通归类为 List（列表），那么问题来了，定长的 List 和 不定长的 List 在表现上会有区别吗？（这里的定长的 List 是指对 List 进行初始化,也就是所谓的预分配）<br>接下来通过几个例子去验证这个问题。</p>
-<h1 id="实验过程"><a href="#实验过程" class="headerlink" title="实验过程"></a>实验过程</h1><p>首先验证一下 空列表 以及在不断新增元素的情况下 List 的 size 的变化</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sys <span class="keyword">import</span> getsizeof</span><br><span class="line"></span><br><span class="line">l = []</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;空列表:<span class="subst">&#123;getsizeof(l)&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    l.append(l)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;存在<span class="subst">&#123;i+<span class="number">1</span>&#125;</span>元素的列表:<span class="subst">&#123;getsizeof(l)&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>看一下输出结果</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">空列表:56</span><br><span class="line">存在1元素的列表:88</span><br><span class="line">存在2元素的列表:88</span><br><span class="line">存在3元素的列表:88</span><br><span class="line">存在4元素的列表:88</span><br><span class="line">存在5元素的列表:120</span><br><span class="line">存在6元素的列表:120</span><br><span class="line">存在7元素的列表:120</span><br><span class="line">存在8元素的列表:120</span><br><span class="line">存在9元素的列表:184</span><br><span class="line">存在10元素的列表:184</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/image_1649729308457_0.png"></p>
-<p>从上面的运行结果可以发现，其实 List 也存在一定的扩容机制的，列表初始化过程中将会申请一个存储四个元素的存储区，当存储区填满时，列表会再次申请四个存储空间存储元素。当元素量达到原存储空间的两倍时，列表会再次申请原来旧的存储空间的两倍的容量存储元素。</p>
-<p>不管任何语言在一旦进行扩容操作必然会存在：<br>      1. 重新申请内存<br>        2. 复制老数组到新的内存<br>        3. 回收老数组的内存</p>
-<p>上面的过程如果出现的次数比较频繁必然会导致运行速度的降低，那么究竟会降低多少呢？</p>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>以下例子运行环境为 ipython</p>
-<h3 id="没有任何处理的例子"><a href="#没有任何处理的例子" class="headerlink" title="没有任何处理的例子"></a>没有任何处理的例子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%%timeit</span><br><span class="line">l=[]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">    l.append(i)</span><br></pre></td></tr></table></figure>
-
-<p>运行结果如下：</p>
-<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/%E6%88%AA%E5%B1%8F2022-04-12_%E4%B8%8B%E5%8D%882.42.23_1649745745624_0.png"></p>
-<h3 id="预分配后的列表"><a href="#预分配后的列表" class="headerlink" title="预分配后的列表"></a>预分配后的列表</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">%%timeit</span><br><span class="line">size = <span class="number">1000</span></span><br><span class="line">l = [<span class="literal">None</span>] * size</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(size):</span><br><span class="line">    l[i] = i</span><br></pre></td></tr></table></figure>
-
-<p>和上面唯一不同的是，我们在遍历之前，给列表 l 预先分配了一个长度为 1000 的 None 的空数组，运行结果如下：</p>
-<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/%E6%88%AA%E5%B1%8F2022-04-12_%E4%B8%8B%E5%8D%882.45.50_1649745952420_0.png"></p>
-<p>从这两个例子不难看出，如果预先知道要使用数组的大小，并且对列表进行初始化的话，是可以在一定程度上提高运行效率的。</p>
-<h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>上面的例子，如果使用列表推导式速度会更快。</p>
-<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/%E6%88%AA%E5%B1%8F2022-04-12_%E4%B8%8B%E5%8D%882.50.30_1649746232891_0.png"></p>
-<p>列表预先配可能并不适合复杂场景，但是一旦有符合这个特殊场景的情况下效果应该是蛮不错的。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/12/Python%20%E5%88%97%E8%A1%A8%E5%86%85%E5%AD%98%E9%A2%84%E5%88%86%E9%85%8D%E9%97%AE%E9%A2%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -321,7 +305,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-12 15:04:10" itemprop="dateModified" datetime="2022-04-12T15:04:10+08:00">2022-04-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -408,7 +392,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-12 15:04:10" itemprop="dateModified" datetime="2022-04-12T15:04:10+08:00">2022-04-12</time>
     </span>
 
   
@@ -490,7 +474,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-12 15:04:10" itemprop="dateModified" datetime="2022-04-12T15:04:10+08:00">2022-04-12</time>
     </span>
 
   
@@ -565,7 +549,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-12 15:04:10" itemprop="dateModified" datetime="2022-04-12T15:04:10+08:00">2022-04-12</time>
     </span>
 
   
@@ -643,7 +627,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-12 15:04:10" itemprop="dateModified" datetime="2022-04-12T15:04:10+08:00">2022-04-12</time>
     </span>
 
   
@@ -721,7 +705,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-12 15:04:10" itemprop="dateModified" datetime="2022-04-12T15:04:10+08:00">2022-04-12</time>
     </span>
 
   
@@ -802,7 +786,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-12 15:04:10" itemprop="dateModified" datetime="2022-04-12T15:04:10+08:00">2022-04-12</time>
     </span>
 
   
@@ -908,7 +892,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-12 15:04:10" itemprop="dateModified" datetime="2022-04-12T15:04:10+08:00">2022-04-12</time>
     </span>
 
   
@@ -1004,7 +988,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-12 15:04:10" itemprop="dateModified" datetime="2022-04-12T15:04:10+08:00">2022-04-12</time>
     </span>
 
   
