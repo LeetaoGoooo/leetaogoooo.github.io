@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">190</span>
+          <span class="site-state-item-count">191</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -200,6 +200,92 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/11/03/MVP%20for%20Android/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/11/03/MVP%20for%20Android/" class="post-title-link" itemprop="url">MVP for Android</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-11-03 00:00:00" itemprop="dateCreated datePublished" datetime="2016-11-03T00:00:00+08:00">2016-11-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>翻译自 MVP for Android: how to organize the presentation layer<br><a target="_blank" rel="noopener" href="http://antonioleiva.com/mvp-android">原文地址</a></p>
+</blockquote>
+<p>MVP(Model View Presenter) 模式是从著名的 MVC(Model View Controller)中衍生出来的.MVC 有段时间哪怕是现在在 Android 应用开发中也是有着举足轻重的作用.现在有越来越多的人们讨论它(MVP),但是却少有可靠的和结构清晰的信息.这就是为什么我想通过这篇博客来以带动讨论从而使得我们开动脑筋以期可以将它以最好的方式应用到我们项目当中去.</p>
+<h1 id="什么是-MVP"><a href="#什么是-MVP" class="headerlink" title="什么是 MVP"></a>什么是 MVP</h1><p>MVP 模式允许从逻辑上将展示层分离开,那就意味着接口是如何工作将会从如何展示中分离出来.理想状态下如果 MVP 模式实现这些逻辑,它将拥有完全不同的和可交互的视图.</p>
+<p>首先需要澄清的是 MVP 不是一个结构化的模式,它只对展示层有效.无论如何在你的架构中使用它总归会更好一点.</p>
+<h1 id="为什么使用-MVP"><a href="#为什么使用-MVP" class="headerlink" title="为什么使用 MVP"></a>为什么使用 MVP</h1><p>在 Android 中我们有一个问题,问题来源于 Android 的活动与接口和数据访问机制紧密耦合.我们可以找一些极端的例子,比如说 <em>CursorAdapter</em>,其在使用光标的情况下混用了多个适配器,按道理说光标应该归入到深层的数据访问层.</p>
+<p>对于一个应用来说如果想要易拓展和易维护的话,我们需要很好的定义各个分离的层.将来的趋势是什么,从一个 Web 服务器的数据库检索相同数据?我们需要重新装饰我们所有的视图.</p>
+<p>MVP 模式可以让视图和我们的数据源独立开来.我们将应用分成不少于三个不同的图层(layers)来测试他们的独立性.<br>使用 MVP 我们可以将绝多数的逻辑从活动分离出来,那样的话,我们可以在没有使用任何仪器下测试.</p>
+<h1 id="如何在-Android-中实现-MVP"><a href="#如何在-Android-中实现-MVP" class="headerlink" title="如何在 Android 中实现 MVP"></a>如何在 Android 中实现 MVP</h1><p>这是就是低耦合的开始.这里有许多不同种类的 MVP 并且每个人都可以调整模式去适应他们自己的需求,以便更舒服的使用它.模式种类基本上取决于我们给 presenter 的责任多少.</p>
+<p>视图有责任去启用和禁用进度条,或者它由 presenter 去完成吗?又由谁决定在 Action Bar 展示什么行为?这就是最艰难的决定开始的地方.我将会介绍通常我是如何工作的.但是我更希望这篇文章成为更严格的应用 MVP 模式的指导方针的讨论的地方,因为我们都知道这里没有一个标准的方法去实现它.</p>
+<h1 id="The-Presenter"><a href="#The-Presenter" class="headerlink" title="The Presenter"></a>The Presenter</h1><p>presenter负责充当视图和模型之间的中间人.它从模型中检索数据,然后将它格式化的返回到视图中去.但是与典型的 MVC 模式不同的是,它同样决定当你与视图交互的时候发生什么.</p>
+<h1 id="The-View"><a href="#The-View" class="headerlink" title="The View"></a>The View</h1><p>视图通常由一个活动(它可能是一个 Fragment,一个 View…取决于这个 app 是如何架构的)继承实现(implemented),其中包含一个 presenter 的引用.Presenter 将会提供一个独立的注入就像<a target="_blank" rel="noopener" href="http://square.github.io/dagger/">Dagger</a>.但是如果你不使用这样的东西,它将负责创建一个 presenter 对象.视图需要做的唯一一件事情就是当一个接口执行的时候,调用 presenter 其中的方法.</p>
+<h1 id="The-model"><a href="#The-model" class="headerlink" title="The model"></a>The model</h1><p>在拥有一个良好的分层架构的应用程序中,这种模式只会通往域层或业务逻辑.如果我们正在使用<a target="_blank" rel="noopener" href="https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html">Uncle Bob clean architecture </a>,模型可能是一个实现了一个用例的交互器.但这是另一个话题,我想在以后的文章中讨论.现在,我们可以意识到它可以作为我们希望显示在视图中的那些数据的提供者.</p>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>由于它解释起来有点冗长的，因此我在 Github 上创建了一个 <a target="_blank" rel="noopener" href="https://github.com/antoniolg/androidmvp">MVP 样例</a>,样例包含一个登陆页面验证数据,验证成功后访问包含从模型中检索的一系列表数据的主页.本文并没有对代码进行任何解释,因为代码相当简单.当然如果你觉得理解起来比较困难 的话,我将再写一篇文章详细的解释它.</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>将界面与逻辑分离开在 Android 并不容易,但是 Model-View-Presenter 模式使得我们的活动,包含上百行甚至上千行的耦合的类得以解耦.在大型应用程序中组织好我们的代码至关重要.如果没有做好这点,维护和拓展就无从谈起.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/10/24/PHP%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83(%E4%B8%80)%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -231,7 +317,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -307,7 +393,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -400,7 +486,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -488,7 +574,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -578,7 +664,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -676,7 +762,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -752,7 +838,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -856,7 +942,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -949,7 +1035,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -992,152 +1078,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/09/25/android-ActionBarCompat-ShareActionProvider/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/09/25/android-ActionBarCompat-ShareActionProvider/" class="post-title-link" itemprop="url">android-ActionBarCompat-ShareActionProvider</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-09-25 00:00:00" itemprop="dateCreated datePublished" datetime="2016-09-25T00:00:00+08:00">2016-09-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>一个上下文相关的分享提供者</p>
-<h2 id="layout"><a href="#layout" class="headerlink" title="layout"></a>layout</h2><h3 id="ViewPager"><a href="#ViewPager" class="headerlink" title="ViewPager"></a>ViewPager</h3><p>ViewPage是Android拓展包v4包中的类,可以让用户左右切换当前的View,官方api的描述如下:</p>
-<blockquote>
-<p>Layout manager that allows the user to flip left and right through pages of data.  You supply an implementation of a  PagerAdapter to generate the pages that the view shows.<br>ViewPager is most often used in conjunction with Fragment, which is a convenient way to supply and manage the lifecycle of each page. There are standard adapters implemented for using fragments with the ViewPager, which cover the most common use cases. These are FragmentPagerAdapter and FragmentStatePagerAdapter; each of these classes have simple code showing how to build a full user interface with them.</p>
-</blockquote>
-<p>从这个描述中我们可以知道以下几点:</p>
-<ol>
-<li>ViewPager绝大多数情况下和Frament结合使用,并且提供了FragmentPagerAdapter 和 FragmentStatePagerAdapter</li>
-<li>ViewPager需要配合PagerAdaper使用,PagerAdapter的作用是产生展示view的页面</li>
-</ol>
-<h3 id="TextView"><a href="#TextView" class="headerlink" title="TextView"></a>TextView</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:textAppearance=&quot;?android:textAppearanceMedium&quot;</span><br></pre></td></tr></table></figure>
-<p>这是设置文字的外观,引用系统自带的一个外观, <strong>?</strong> 表示系统是否有这种外观,否则使用默认的外观<p></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:lineSpacingMultiplier=&quot;1.1&quot;</span><br></pre></td></tr></table></figure>
-<p>设置行间距的倍数</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:lineSpacingExtra = &quot;7dp&quot;</span><br></pre></td></tr></table></figure>
-<p>设置行间距</p>
-<h3 id="ImageView"><a href="#ImageView" class="headerlink" title="ImageView"></a>ImageView</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">android:scaleType=&quot;fitCenter&quot; //使用 CENTER 方式缩放图像</span><br><span class="line">android:scaleType=&quot;center&quot; //在视图中使图像居中，不执行缩放</span><br><span class="line">android:scaleType=&quot;centerCrop&quot; //均衡的缩放图像（保持图像原始比例），使图片的两个坐标（宽、高）都大于等于 相应的视图坐标（负的内边距）.图像则位于视图的中央</span><br><span class="line">android:scaleType=&quot;centerInside&quot; //均衡的缩放图像（保持图像原始比例），使图片的两个坐标（宽、高）都小于等于 相应的视图坐标（负的内边距）</span><br><span class="line">android:scaleType=&quot;fitEnd&quot; //使用 END 方式缩放图像</span><br><span class="line">android:scaleType=&quot;fitStart&quot; //使用 START 方式缩放图像</span><br><span class="line">android:scaleType=&quot;fitXY&quot; //使用 FILL 方式缩放图像</span><br><span class="line">android:scaleType=&quot;matrix&quot; //绘制时，使用图像矩阵方式缩放</span><br></pre></td></tr></table></figure>
-<p>这是将图片边界缩放,以适应视图边界时的可选项.可参阅<br><a target="_blank" rel="noopener" href="http://blog.sina.com.cn/s/blog_407abb0d0100mao1.html">ImageView.ScaleType代码演示</a></p>
-<h2 id="MainActivity"><a href="#MainActivity" class="headerlink" title="MainActivity"></a>MainActivity</h2><h3 id="setOnPageChangeListener"><a href="#setOnPageChangeListener" class="headerlink" title="setOnPageChangeListener"></a>setOnPageChangeListener</h3><p>第68行:ViewPager的<strong>setOnPageChangeListener</strong>弃用<br>将 <strong>setOnPageChangeListener</strong> 改为 <strong>addOnpageChangeListener</strong><br>具体源码如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Set a listener that will be invoked whenever the page changes or is incrementally</span></span><br><span class="line"><span class="comment"> * scrolled. See  OnPageChangeListener.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> listener Listener to set</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@deprecated</span> Use addOnPageChangeListener(OnPageChangeListener)</span></span><br><span class="line"><span class="comment"> * and removeOnPageChangeListener(OnPageChangeListener) instead.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Deprecated</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnPageChangeListener</span><span class="params">(OnPageChangeListener listener)</span> </span>&#123;</span><br><span class="line">    mOnPageChangeListener = listener;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其含义就是设置一个监听器用来监控页面改变或者递增的滚动.</p>
-<h3 id="OnPageChangeListener"><a href="#OnPageChangeListener" class="headerlink" title="OnPageChangeListener"></a>OnPageChangeListener</h3><p>OnPageChangeListener是一个接口,需要去自行实现<br>具体源码如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Callback interface for responding to changing state of the selected page.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnPageChangeListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * This method will be invoked when the current page is scrolled, either as part</span></span><br><span class="line"><span class="comment">     * of a programmatically initiated smooth scroll or a user initiated touch scroll.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> position Position index of the first page currently being displayed.</span></span><br><span class="line"><span class="comment">     *                 Page position+1 will be visible if positionOffset is nonzero.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> positionOffset Value from [0, 1) indicating the offset from the page at position.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> positionOffsetPixels Value in pixels indicating the offset from position.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageScrolled</span><span class="params">(<span class="keyword">int</span> position, <span class="keyword">float</span> positionOffset, <span class="keyword">int</span> positionOffsetPixels)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * This method will be invoked when a new page becomes selected. Animation is not</span></span><br><span class="line"><span class="comment">     * necessarily complete.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> position Position index of the new selected page.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageSelected</span><span class="params">(<span class="keyword">int</span> position)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Called when the scroll state changes. Useful for discovering when the user</span></span><br><span class="line"><span class="comment">     * begins dragging, when the pager is automatically settling to the current page,</span></span><br><span class="line"><span class="comment">     * or when it is fully stopped/idle.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> state The new scroll state.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span> ViewPager#SCROLL_STATE_IDLE</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span> ViewPager#SCROLL_STATE_DRAGGING</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@see</span> ViewPager#SCROLL_STATE_SETTLING</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageScrollStateChanged</span><span class="params">(<span class="keyword">int</span> state)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从源码可以看出该接口是当选中页面状态改变时做出响应的,需要实现依次三个方法,三个方法分别对应着<em>onPageScrolled(int position, float positionOffset, int positionOffsetPixels)</em>(当页面滚动的时候),<em>onPageSelected(int position)</em>(当页面被选的时候),<em>onPageScrollStateChanged(int state)</em>(当页面滚动状态改变的时候)</p>
-<h3 id="PagerAdapter"><a href="#PagerAdapter" class="headerlink" title="PagerAdapter"></a>PagerAdapter</h3><p>官方api的说明:</p>
-<blockquote>
-<p>Base class providing the adapter to populate pages inside of a ViewPager.You will most likely want to use a more<br>specific implementation of this, such as  android.support.v4.app.FragmentPagerAdapter or<br>android.support.v4.app.FragmentStatePagerAdapter.</p>
-</blockquote>
-<p>大致意思就是提供一个填充ViewPager中的页面内容的适配器.然后可能使用FragmentPagerAdapter和FragmentStatePagerAdapter可能性更高.</p>
-<p>当继承PageAdapter的是否,需要重写以下的方法:</p>
-<ol>
-<li>instantiateItem(ViewGroup, int)</li>
-<li>destroyItem(ViewGroup, int, Object) </li>
-<li>getCount() </li>
-<li>isViewFromObject(View, Object)</li>
-</ol>
-<p>具体源码如下:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create the page for the given position.  The adapter is responsible</span></span><br><span class="line"><span class="comment"> * for adding the view to the container given here, although it only</span></span><br><span class="line"><span class="comment"> * must ensure this is done by the time it returns from finishUpdate(ViewGroup).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> container The containing View in which the page will be shown.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> position The page position to be instantiated.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> Returns an Object representing the new page.  This does not</span></span><br><span class="line"><span class="comment"> * need to be a View, but can be some other container of the page.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@deprecated</span> Use instantiateItem(ViewGroup, int)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Deprecated</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">instantiateItem</span><span class="params">(View container, <span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(</span><br><span class="line">            <span class="string">&quot;Required method instantiateItem was not overridden&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Remove a page for the given position.  The adapter is responsible</span></span><br><span class="line"><span class="comment"> * for removing the view from its container, although it only must ensure</span></span><br><span class="line"><span class="comment"> * this is done by the time it returns from finishUpdate(View).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> container The containing View from which the page will be removed.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> position The page position to be removed.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> object The same object that was returned by</span></span><br><span class="line"><span class="comment"> * instantiateItem(View, int).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@deprecated</span> Use destroyItem(ViewGroup, int, Object)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Deprecated</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroyItem</span><span class="params">(View container, <span class="keyword">int</span> position, Object object)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">&quot;Required method destroyItem was not overridden&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Return the number of views available.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Determines whether a page View is associated with a specific key object</span></span><br><span class="line"><span class="comment"> * as returned by instantiateItem(ViewGroup, int). This method is</span></span><br><span class="line"><span class="comment"> * required for a PagerAdapter to function properly.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> view Page View to check for association with object</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> object Object to check for association with view</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> true if view is associated with the key object object</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">isViewFromObject</span><span class="params">(View view, Object object)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>根据源码说的注释说明,可以得知:</p>
-<ol>
-<li>**instantiateItem(View container, int position)*<em>该方法是在指定位置创建相应的页面,其中</em>参数container*是展示页面中的view,<em>参数position</em>页面被实例化的位置,不过该方法现在已经被弃用,改用为instantiateItem(ViewGroup container, int position)</li>
-<li>**destroyItem(View container, int position, Object object)*<em>该方法是移除指定位置的页面,其中</em>参数container*是将要被移走页面的view,<em>参数position</em>是将要被移除页面的位置,<em>参数object</em>是由instantiateItem(View, int)返回的对象,该方法也被弃用,改用为destroyItem(ViewGroup, int, Object)</li>
-<li>**getCount()**该方法这是返回可以获取到的view数量</li>
-<li><strong>isViewFromObject(View view, Object object)</strong> 判断当前view跟由instantiateItem(ViewGroup, int)返回的对象是否有关联,如果有则返回true,<em>参数view</em>需要校验的view,<em>参数object</em>需要校验的对象</li>
-</ol>
-<h3 id="LayoutInflater"><a href="#LayoutInflater" class="headerlink" title="LayoutInflater"></a>LayoutInflater</h3><p>layoutInflater其作用类似findViewById(),不同点则是LayoutInflater是用来找res/layout/下的xml布局文件，并且实例化；而findViewById()是找xml布局文件下的具体widget控件(如Button、TextView等).<br>具体作用:</p>
-<ol>
-<li>对于一个没有被载入或者想要动态载入的界面，都需要使用LayoutInflater.inflate()来载入</li>
-<li>对于一个已经载入的界面，就可以使用Activiyt.findViewById()方法来获得其中的界面元素</li>
-</ol>
-<p>LayoutInflater 是一个抽象类，在文档中如下声明:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">LayoutInflater</span> <span class="keyword">extends</span> <span class="title">Object</span></span></span><br></pre></td></tr></table></figure>
-<p>获得 LayoutInflater 实例的三种方式:</p>
-<ol>
-<li>LayoutInflater inflater = getLayoutInflater(); //调用Activity的getLayoutInflater() </li>
-<li>LayoutInflater inflater = LayoutInflater.from(context);  </li>
-<li>LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);<p></li>
-</ol>
-<p><strong>LayoutInflater的inflate方法</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">inflate</span><span class="params">(<span class="keyword">int</span> resource, ViewGroup root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;Stub!&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">inflate</span><span class="params">(XmlPullParser parser, ViewGroup root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;Stub!&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">inflate</span><span class="params">(<span class="keyword">int</span> resource, ViewGroup root, <span class="keyword">boolean</span> attachToRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;Stub!&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">inflate</span><span class="params">(XmlPullParser parser, ViewGroup root, <span class="keyword">boolean</span> attachToRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;Stub!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其返回值均为view,但是值得注意的是:<strong>inflater 是用来找 res/layout 下的 xml 布局文件,并且实例化;findViewById() 是找具体 xml 布局文件中的具体 widget 控件(如:Button、TextView 等</strong></p>
-<h3 id="ShareActionProvider"><a href="#ShareActionProvider" class="headerlink" title="ShareActionProvider"></a>ShareActionProvider</h3><p>官网api说明:</p>
-<blockquote>
-<p>Provides a share action, which is suitable for an activity’s app bar. Creates views that enable data sharing. If the provider appears in the overflow menu, it creates a submenu with the appropriate sharing actions.</p>
-</blockquote>
-<p>从上述描述我们可以ShareActionProvider其实会提供一个分享的按钮.如果分享按钮出现在溢出菜单,它会创建一个合适的子菜单</p>
-<h3 id="onCreateOptionsMenu"><a href="#onCreateOptionsMenu" class="headerlink" title="onCreateOptionsMenu"></a>onCreateOptionsMenu</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;Stub!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此方法用于初始化菜单，其中menu参数就是即将要显示的Menu实例.返回true则显示该menu,false 则不显示,只会在第一次初始化菜单时调用.<p><br><strong>Activity菜单机制</strong><br>Activity有一套机制来实现对菜单的管理，方法如下:</p>
-<ol>
-<li>public boolean onCreateOptionsMenu(Menu menu)</li>
-<li>public boolean onPrepareOptionsMenu(Menu menu) 在onCreateOptionsMenu执行后,菜单被显示前调用;如果菜单已经被创建,则在菜单显示前被调用.同样的,返回true则显示该menu,false 则不显示;(可以通过此方法动态的改变菜单的状态,比如加载不同的菜单等)</li>
-<li>public void onOptionsMenuClosed(Menu menu) 每次菜单被关闭时调用.(菜单被关闭有三种情形,menu按钮被再次点击,back按钮被点击或者用户选择了某一个菜单项)</li>
-<li>public boolean onOptionsItemSelected(MenuItem item) 菜单项被点击时调用，也就是菜单项的监听方法</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span>
+    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

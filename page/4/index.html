@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">190</span>
+          <span class="site-state-item-count">191</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -200,6 +200,90 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/08/28/RabbitMQ%20connection_closed_abruptly/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/08/28/RabbitMQ%20connection_closed_abruptly/" class="post-title-link" itemprop="url">RabbitMQ connection_closed_abruptly</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-28 00:00:00" itemprop="dateCreated datePublished" datetime="2020-08-28T00:00:00+08:00">2020-08-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前段时间在服务器上安装 RabbitMQ，安装完成之后启动程序发现一个很奇怪的问题，会出现下面错误导致启动失败：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name <span class="string">&#x27;bssInteractiveController&#x27;</span>: Unsatisfied dependency expressed through field <span class="string">&#x27;bssInteractiveRabbitMQProducer&#x27;</span>; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name <span class="string">&#x27;bssInteractiveRabbitMQProducer&#x27;</span>: Invocation of init method failed; nested exception is org.springframework.amqp.AmqpTimeoutException: java.util.concurrent.TimeoutException</span><br><span class="line">	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:<span class="number">588</span>)</span><br><span class="line">	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:<span class="number">88</span>)</span><br><span class="line">	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:<span class="number">366</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:<span class="number">1264</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:<span class="number">553</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:<span class="number">483</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory$<span class="number">1.</span>getObject(AbstractBeanFactory.java:<span class="number">306</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:<span class="number">230</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:<span class="number">302</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:<span class="number">197</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:<span class="number">761</span>)</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:<span class="number">867</span>)</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:<span class="number">543</span>)</span><br><span class="line">	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:<span class="number">122</span>)</span><br><span class="line">	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:<span class="number">693</span>)</span><br><span class="line">	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:<span class="number">360</span>)</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:<span class="number">303</span>)</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:<span class="number">1118</span>)</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:<span class="number">1107</span>)</span><br><span class="line">	at com.dimpt.netres.RestUiApplication.main(RestUiApplication.java:<span class="number">30</span>)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:<span class="number">48</span>)</span><br><span class="line">	at org.springframework.boot.loader.Launcher.launch(Launcher.java:<span class="number">87</span>)</span><br><span class="line">	at org.springframework.boot.loader.Launcher.launch(Launcher.java:<span class="number">50</span>)</span><br><span class="line">	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:<span class="number">51</span>)</span><br><span class="line">Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name <span class="string">&#x27;bssInteractiveRabbitMQProducer&#x27;</span>: Invocation of init method failed; nested exception is org.springframework.amqp.AmqpTimeoutException: java.util.concurrent.TimeoutException</span><br><span class="line">	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:<span class="number">137</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:<span class="number">409</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:<span class="number">1620</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:<span class="number">555</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:<span class="number">483</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory$<span class="number">1.</span>getObject(AbstractBeanFactory.java:<span class="number">306</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:<span class="number">230</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:<span class="number">302</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:<span class="number">202</span>)</span><br><span class="line">	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:<span class="number">208</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:<span class="number">1138</span>)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:<span class="number">1066</span>)</span><br><span class="line">	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:<span class="number">585</span>)</span><br><span class="line">	... <span class="number">27</span> common frames omitted</span><br><span class="line">Caused by: org.springframework.amqp.AmqpTimeoutException: java.util.concurrent.TimeoutException</span><br><span class="line">	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:<span class="number">74</span>)</span><br><span class="line">	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:<span class="number">371</span>)</span><br><span class="line">	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:<span class="number">573</span>)</span><br><span class="line">	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:<span class="number">1430</span>)</span><br><span class="line">	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:<span class="number">1411</span>)</span><br><span class="line">	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:<span class="number">1387</span>)</span><br><span class="line">	at org.springframework.amqp.rabbit.core.RabbitAdmin.declareQueue(RabbitAdmin.java:<span class="number">207</span>)</span><br><span class="line">	at com.dimpt.message.service.AbstractRabbitMQBase.init(AbstractRabbitMQBase.java:<span class="number">33</span>)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleElement.invoke(InitDestroyAnnotationBeanPostProcessor.java:<span class="number">366</span>)</span><br><span class="line">	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeInitMethods(InitDestroyAnnotationBeanPostProcessor.java:<span class="number">311</span>)</span><br><span class="line">	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:<span class="number">134</span>)</span><br><span class="line">	... <span class="number">39</span> common frames omitted</span><br><span class="line">Caused by: java.util.concurrent.TimeoutException: <span class="keyword">null</span></span><br><span class="line">	at com.rabbitmq.utility.BlockingCell.get(BlockingCell.java:<span class="number">77</span>)</span><br><span class="line">	at com.rabbitmq.utility.BlockingCell.uninterruptibleGet(BlockingCell.java:<span class="number">120</span>)</span><br><span class="line">	at com.rabbitmq.utility.BlockingValueOrException.uninterruptibleGetValue(BlockingValueOrException.java:<span class="number">36</span>)</span><br><span class="line">	at com.rabbitmq.client.impl.AMQChannel$BlockingRpcContinuation.getReply(AMQChannel.java:<span class="number">372</span>)</span><br><span class="line">	at com.rabbitmq.client.impl.AMQConnection.start(AMQConnection.java:<span class="number">297</span>)</span><br><span class="line">	at com.rabbitmq.client.impl.recovery.RecoveryAwareAMQConnectionFactory.newConnection(RecoveryAwareAMQConnectionFactory.java:<span class="number">63</span>)</span><br><span class="line">	at com.rabbitmq.client.impl.recovery.AutorecoveringConnection.init(AutorecoveringConnection.java:<span class="number">99</span>)</span><br><span class="line">	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:<span class="number">900</span>)</span><br><span class="line">	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:<span class="number">859</span>)</span><br><span class="line">	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:<span class="number">1013</span>)</span><br><span class="line">	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:<span class="number">356</span>)</span><br><span class="line">	... <span class="number">52</span> common frames omitted</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><br />从错误信息上很容易看出是连接超时的问题。<br><a name="uIONd"></a></p>
+<h1 id="问题定位"><a href="#问题定位" class="headerlink" title="问题定位"></a>问题定位</h1><p>上网检索答案，大部分出现超时的原因只有一个，他们错把 RabbitMQ 的管理端口 **15672 **当作连接端口，导致超时。但是不幸的是，我并不是这个原因。开始排查日志，日志的信息很少</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">=INFO REPORT==== 27-Aug-2020::16:23:52 ===</span><br><span class="line">accepting AMQP connection &lt;0.31279.2&gt; (127.0.0.1:45728 -&gt; 127.0.0.1:5672)</span><br><span class="line"></span><br><span class="line">=WARNING REPORT==== 27-Aug-2020::16:24:07 ===</span><br><span class="line">closing AMQP connection &lt;0.30726.2&gt; (127.0.0.1:45562 -&gt; 127.0.0.1:5672):</span><br><span class="line">connection_closed_abruptly</span><br></pre></td></tr></table></figure>
+<p>一时间陷入瓶颈当中，然后我通过命令行看了一眼 rabbitmq 的状态，有一行信息让我灵光一闪，我觉得问题可能就在这</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@host-xx-xx-xxx workspace]# rabbitmqctl status</span><br><span class="line">Status of node &#x27;rabbit@host-xx-xx-xxx&#x27; ...</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>这个hostname似乎有点问题，然后我立马搜了一下 rabbitmq hostname 的相关信息，发现网上有提到修改 hostname 导致信息丢失等等，还提到要把修改后的 hostname 写到 hosts 文件中。我立马对比了一下我在本地 docker 启动的 rabbitmq 服务的 hosts 文件和服务器上的 hosts 文件，发现通过 docker 启动的，hosts 文件中已经有对应的 hostname 和 127.0.0.1 的映射了，而服务器上的并没有。<br><a name="nNr4A"></a></p>
+<h2 id="docker-中的-hosts-文件"><a href="#docker-中的-hosts-文件" class="headerlink" title="docker 中的 hosts 文件"></a>docker 中的 hosts 文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@myRabbit:/# cat /etc/hosts </span><br><span class="line">127.0.0.1       localhost</span><br><span class="line">::1     localhost ip6-localhost ip6-loopback</span><br><span class="line">fe00::0 ip6-localnet</span><br><span class="line">ff00::0 ip6-mcastprefix</span><br><span class="line">ff02::1 ip6-allnodes</span><br><span class="line">ff02::2 ip6-allrouters</span><br><span class="line">172.17.0.2      myRabbit # myRabit 就是 docker 中启动服务的 hostname </span><br></pre></td></tr></table></figure>
+
+<h2 id="服务器上的-hosts-文件"><a href="#服务器上的-hosts-文件" class="headerlink" title="服务器上的 hosts 文件"></a>服务器上的 hosts 文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br></pre></td></tr></table></figure>
+<h1 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h1><p>将服务器上的 hostname 添加到 hosts 文件中，再次重启程序，问题解决。很少有看到关于 RabbitMQ 安装的时候提及 hostname 的问题，可能默认情况下 hostname 是在 hosts 中的。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>很少有看到关于 RabbitMQ 安装的时候提及 hostname 的问题，可能默认情况下 hostname 是在 hosts 中的。用 docker 安装省了不少事情，某些不能使用 docker 的场景下，难免会踩坑。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/08/18/flutter%20%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%90%8E%EF%BC%8C%E5%8E%9F%E7%94%9F%E8%BF%94%E5%9B%9E%E6%8C%89%E9%92%AE%E6%9C%AA%E5%87%BA%E7%8E%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -231,7 +315,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -308,7 +392,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -389,7 +473,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -467,7 +551,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -543,7 +627,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -628,7 +712,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -768,7 +852,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -844,7 +928,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -932,7 +1016,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -989,84 +1073,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/05/20/Windows%E4%B8%8B%E4%BD%BF%E7%94%A8Anaconda%E5%AF%BC%E5%85%A5sqlite3%E5%BC%82%E5%B8%B8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/05/20/Windows%E4%B8%8B%E4%BD%BF%E7%94%A8Anaconda%E5%AF%BC%E5%85%A5sqlite3%E5%BC%82%E5%B8%B8/" class="post-title-link" itemprop="url">Windows下使用Anaconda导入sqlite3异常</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-05-20 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-20T00:00:00+08:00">2020-05-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在使用 Anaconda 自带的 Python 环境，在交互模式下 <code>import sqlite3</code> 出现异常，异常信息如下:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;&lt;console&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line">  File &quot;c:\programdata\anaconda3\lib\sqlite3\__init__.py&quot;, line 23, in &lt;module&gt;</span><br><span class="line">    from sqlite3.dbapi2 import *</span><br><span class="line">  File &quot;c:\programdata\anaconda3\lib\sqlite3\dbapi2.py&quot;, line 27, in &lt;module&gt;</span><br><span class="line">    from _sqlite3 import *</span><br><span class="line">ImportError: DLL load failed: The specified module could not be found.</span><br></pre></td></tr></table></figure>
-<h1 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h1><p>从报错信息来看，错误原因很明显找不到对应的 <code>dll</code>，我也查阅了相关资料，得出了下面的俩种解决方案</p>
-<h2 id="解决方案一"><a href="#解决方案一" class="headerlink" title="解决方案一"></a>解决方案一</h2><p>下载对应的 <code>dll</code>，其实只需要下载一个 <code>sqlite3.dll</code>,下载地址 <a target="_blank" rel="noopener" href="https://sqlite.org/download.html">sqlite3.dll</a>,根据系统位数下载对应的<code>dll</code>，然后将下载好的文件放在 Anaconda 默认的 Python.exe 所在的目录。</p>
-<h2 id="解决方案二"><a href="#解决方案二" class="headerlink" title="解决方案二"></a>解决方案二</h2><p>后来我检索了一下 Anaconda 的安装目录发现所需要的 <code>dll</code> 已经存在了，但是因为没有添加到 <code>PATH</code> 中所以没有检索出来，因此第二个解决办法就是将 <code>path\to\Anaconda3\Library\bin</code> 添加到 <code>PATH</code> 中，然后重新打开终端就可以解决问题了。</p>
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/54876404/unable-to-import-sqlite3-using-anaconda-python">Unable to import sqlite3 using Anaconda Python</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

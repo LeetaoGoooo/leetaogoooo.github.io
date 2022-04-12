@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">190</span>
+          <span class="site-state-item-count">191</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -200,6 +200,95 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/08/Rust%E7%AC%94%E8%AE%B0-%E6%A0%87%E8%AF%86%E7%AC%A6(Identifiers)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/01/08/Rust%E7%AC%94%E8%AE%B0-%E6%A0%87%E8%AF%86%E7%AC%A6(Identifiers)/" class="post-title-link" itemprop="url">Rust笔记-标识符(Identifiers)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-08 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-08T00:00:00+08:00">2019-01-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>和其他语言一样 Rust 同样有 <strong>变量,函数,结构体</strong>等其他概念,因此也需要 <strong>标识符</strong>, 那么关于 Rust 的标识符命名规则和其他语言一样吗?</p>
+<h1 id="命名规则"><a href="#命名规则" class="headerlink" title="命名规则"></a>命名规则</h1><ol>
+<li>和所有语言一样, Rust 同样不能使用关键字 (keyword) 不能作为标识符</li>
+<li>当首字符是字母的时候:<ol>
+<li>余下的字符可以是字母或者下划线( _ )</li>
+</ol>
+</li>
+<li>当首字符是下划线 ( _ ) 时候:<ol>
+<li>标识符长度必须不能小于两字符</li>
+<li>余下的字符可以是字母或者下划线( _ )</li>
+</ol>
+</li>
+</ol>
+<p>相较于其他语言, Rust 中并<strong>不允许数字</strong>作为标识符的一部分.除此之外, Rust 还有一个 <strong>Raw identifiers</strong> 的概念.</p>
+<h1 id="Raw-identifier"><a href="#Raw-identifier" class="headerlink" title="Raw identifier"></a>Raw identifier</h1><p>有的时候你不得不使用 <strong>关键词(keyword)</strong>,比如,当你需要调用一个 c 语言库,碰巧它有个函数名称叫做 <em><strong>match</strong></em>, 为了正常调用这个时候,我们就需要用到 <strong>raw identifier</strong> 了. 使用方法很简单,在函数的开头加上 <strong>r#</strong> 符号即可.</p>
+<p>可以看一下官网给的例子:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> r#<span class="function"><span class="keyword">fn</span> = &quot;<span class="title">this</span> <span class="title">variable</span> <span class="title">is</span> <span class="title">named</span> &#x27;<span class="title">fn</span>&#x27; <span class="title">even</span> <span class="title">though</span> <span class="title">that</span>&#x27;<span class="title">s</span> <span class="title">a</span> <span class="title">keyword</span>&quot;; </span></span><br><span class="line"><span class="function">// <span class="title">call</span> <span class="title">a</span> <span class="title">function</span> <span class="title">named</span> &#x27;<span class="title">match</span>&#x27; </span></span><br><span class="line"><span class="function"><span class="title">r</span>#<span class="title">match</span></span>();</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/book/ch03-00-common-programming-concepts.html#identifiers">Identifiers</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/07/%E4%BB%80%E4%B9%88%E6%98%AF%20__future__%20%E6%A8%A1%E5%9D%97%20%EF%BC%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -231,7 +320,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -326,7 +415,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -422,7 +511,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -518,7 +607,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -596,7 +685,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -685,7 +774,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -819,7 +908,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -920,7 +1009,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -1026,7 +1115,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -1070,152 +1159,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/11/30/%E8%AE%A9Flask-admin%E6%94%AF%E6%8C%81markdown%E7%BC%96%E8%BE%91%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/11/30/%E8%AE%A9Flask-admin%E6%94%AF%E6%8C%81markdown%E7%BC%96%E8%BE%91%E5%99%A8/" class="post-title-link" itemprop="url">让Flask-admin支持markdown编辑器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-11-30 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-30T00:00:00+08:00">2018-11-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>flask-admin 算是一个很不错的 flask 后台管理了,用它来做博客系统的管理后端再合适不过了,节约时间成本,避免重复造轮子,但是作为一个程序员,写文章怎么可以没有 markdown 呢? 现在让我们尝试一下让 flask-admin 支持 markdown 吧.</p>
-<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="Flask-PageDown"><a href="#Flask-PageDown" class="headerlink" title="Flask-PageDown"></a>Flask-PageDown</h2><p>这个库是对 Pagedown 的封装,将其集成到了Flask-WTF表单中了。具体内容可以去它的 github 仓库看一下: <a target="_blank" rel="noopener" href="https://github.com/miguelgrinberg/Flask-PageDown">Flask-PageDown</a></p>
-<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p><strong>优点</strong>:</p>
-<ol>
-<li>配置简单</li>
-<li>对 flask-admin 的改动较小</li>
-</ol>
-<p><strong>缺点</strong>:</p>
-<ol>
-<li> 无法实现对代码的高亮</li>
-<li> 生成的编辑器是上下布局的,不太美观</li>
-</ol>
-<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><h4 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h4><p>通过 pip 进行安装:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install flask-pagedown</span><br></pre></td></tr></table></figure>
-
-<p>然后在项目中初始化:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask_pagedown <span class="keyword">import</span> PageDown</span><br><span class="line">app = Flask(__name__)</span><br><span class="line">pagedown = PageDown(app)</span><br></pre></td></tr></table></figure>
-
-<p>当然也可以通过 init_app(app) 的方式进行初始化</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask_pagedown <span class="keyword">import</span> PageDown</span><br><span class="line"></span><br><span class="line">pagedown = PageDown()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_app</span>(<span class="params">config_name</span>):</span></span><br><span class="line">    app = Flask(__name__, static_folder=<span class="string">&#x27;static&#x27;</span>, static_url_path=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    app.config.from_object(config[config_name])</span><br><span class="line">    <span class="comment"># 省略部分代码</span></span><br><span class="line">    pagedown.init_app(app)</span><br><span class="line">    <span class="keyword">return</span> app</span><br></pre></td></tr></table></figure>
-
-<p>这个编辑器还依赖两个 js 文件,所以还需要在我们的对应的模板中添加进去相应的方法:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    &#123;&#123; pagedown.html_head() &#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>默认情况下这两个 js 是通过 CDN 加载的,也就意味着你的服务器需要可以访问网络,如果只想通过本地就可以访问的话,很简单把这两个 js 文件下载下来,然后将 pagedown.html_head() 替换成两个文件的本地路径就可以了. 两个文件的下载地址: <a target="_blank" rel="noopener" href="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.min.js">Markdown.Converter</a>,<br><a target="_blank" rel="noopener" href="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Sanitizer.min.js">Markdown.Sanitizer</a></p>
-<h4 id="新增自定义的-ModelView"><a href="#新增自定义的-ModelView" class="headerlink" title="新增自定义的 ModelView"></a>新增自定义的 ModelView</h4><p>flask-admin 支持自定义的 ModelView, 这是我们可以实现这个功能的基础.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PeachPostView</span>(<span class="params">ModelView</span>):</span></span><br><span class="line"></span><br><span class="line">    form_overrides = &#123;</span><br><span class="line">        <span class="string">&#x27;content&#x27;</span>: PageDownField</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, model, session, **kwargs</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(PeachPostView, self).__init__(model, session, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 省略部分代码</span></span><br></pre></td></tr></table></figure>
-
-<p>最后在我们的 flask-admin 给我们需要 markdown 编辑器的 model 添加上自定义的 ModelView 就可以了.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 省略部分代码</span></span><br><span class="line">admin.add_view(PeachPostView(Post, db.session, endpoint=<span class="string">&#x27;AdminPost&#x27;</span>))</span><br></pre></td></tr></table></figure>
-
-<p>完整代码可以查看 <a target="_blank" rel="noopener" href="https://github.com/lt94/peach-blog/tree/cbf375ee764aa5bf4797f526ab8ef7357ba44aa0">use:使用 flask-pagedown 作为 markdown 编辑器</a></p>
-<p>最终的效果图:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fxq60xchfvj31cm0nhgmy.jpg"></p>
-<h2 id="使用开源的-markdown-编辑器"><a href="#使用开源的-markdown-编辑器" class="headerlink" title="使用开源的 markdown 编辑器"></a>使用开源的 markdown 编辑器</h2><p>没错,这个方法就比较自由了,找自己喜欢的 markdown 编辑器然后集成进去. 这里我最终选择了 [editor.md]<br>(<a target="_blank" rel="noopener" href="https://github.com/pandao/editor.md.git">https://github.com/pandao/editor.md.git</a>) 这个开源编辑器,这个好像很久没维护了,但是颜值挺高的了,就决定是它了.</p>
-<h3 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h3><p><strong>优点</strong>:</p>
-<ol>
-<li> 优点很明星,颜值高,满足我对 markdown 的所有需求了,支持代码高亮.</li>
-</ol>
-<p><strong>缺点</strong>:</p>
-<ol>
-<li> 对 flask-admin 的改动较多,需要自己写的部分比较多.</li>
-</ol>
-<h3 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h3><h4 id="下载-editor-md-插件"><a href="#下载-editor-md-插件" class="headerlink" title="下载 editor.md 插件"></a>下载 editor.md 插件</h4><p>插件下载很简单,从官网上或者 github 上下载, 下载完成后,我这里将 editor.md 下载的文件保存到 static 的 plugin 的目录下了.</p>
-<h4 id="覆盖-flask-admin-原有文件"><a href="#覆盖-flask-admin-原有文件" class="headerlink" title="覆盖 flask-admin 原有文件"></a>覆盖 flask-admin 原有文件</h4><p>这里由于我们需要使用插件,所以我们需要对 flask-admin 原有的 create.html 和 edit.html 文件进行重写.</p>
-<ol>
-<li>在 templates 目录下新建 admin 目录</li>
-<li>在 admin 目录下创建 model 目录, 并新增 peach-post-create.html, peach-post-edit.html 文件,将 flask-admin 对应的 create.html 和 edit.html 内容复制进去.</li>
-<li>在 admin 目录下新增 peach-base.html 和 peach-lib.html 文件,将 flask-admin 对应的 base.html 和 lib.html 文件复制进去</li>
-</ol>
-<p>tip: 上述说所的 flask-admin 的内容,均在你的开发环境中找到 flask-admin 的库所在目录,然后需要复制的文件在: flask_admin\templates\bootstrap3\admin 下</p>
-<p>然后配置,使其访问我们指定的文件</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 自定义的 modelview</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PeachPostView</span>(<span class="params">ModelView</span>):</span></span><br><span class="line">    <span class="comment"># 指定访问文件</span></span><br><span class="line">    create_template = <span class="string">&#x27;admin/model/peach-post-create.html&#x27;</span></span><br><span class="line">    edit_template = <span class="string">&#x27;admin/model/peach-post-edit.html&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, model, session, **kwargs</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(PeachPostView, self).__init__(model, session, **kwargs)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定 base_template 文件</span></span><br><span class="line">admin = Admin(name=name, template_mode=template_mode,index_view=PeachAdminIndexView(), base_template=<span class="string">&#x27;admin/peach-base.html&#x27;</span>)</span><br><span class="line"><span class="comment"># 省略部分代码</span></span><br><span class="line">admin.add_view(PeachPostView(Post, db.session, endpoint=<span class="string">&#x27;AdminPost&#x27;</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="修改文件-支持-markdown"><a href="#修改文件-支持-markdown" class="headerlink" title="修改文件, 支持 markdown"></a>修改文件, 支持 markdown</h4><p>动手修改文件的之前,我们需要先了解一下 flask-amdmin 原有的文件是什么样子的,然后才能正确的修改,这里以 create.html 为例子,截取关键代码.</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"># create.html</span><br><span class="line">&#123;% import &#x27;admin/lib.html&#x27; as lib with context %&#125;</span><br><span class="line"># ...</span><br><span class="line">&#123;% block edit_form %&#125;</span><br><span class="line">    &#123;&#123; lib.render_form(form, return_url, extra(), form_opts) &#125;&#125; # 使用了 lib 中的函数,看一下这个函数</span><br><span class="line">&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"># lib.html</span><br><span class="line"></span><br><span class="line">&#123;% macro render_form(form, cancel_url, extra=None, form_opts=None, action=None, is_modal=False) -%&#125;</span><br><span class="line">    &#123;% call form_tag(action=action) %&#125;</span><br><span class="line">        &#123;&#123; render_form_fields(form, form_opts=form_opts) &#125;&#125;  # 重点是表单渲染,再看一下 render_form_fields 函数</span><br><span class="line">        &#123;&#123; render_form_buttons(cancel_url, extra, is_modal) &#125;&#125;</span><br><span class="line">    &#123;% endcall %&#125;</span><br><span class="line">&#123;% endmacro %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% macro render_form_fields(form, form_opts=None) %&#125;</span><br><span class="line">    # 省略部分代码</span><br><span class="line">          &#123;&#123; render_field(form, f, kwargs) &#125;&#125;  # 看一下 render_field 这个函数</span><br><span class="line">&#123;% endmacro %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% macro render_field(form, field, kwargs=&#123;&#125;, caller=None) %&#125;</span><br><span class="line">  &#123;% set direct_error = h.is_field_error(field.errors) %&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;form-group&#123;&#123; &#x27; has-error&#x27; if direct_error else &#x27;&#x27; &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;&#123;&#123; field.id &#125;&#125;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;col-md-2 control-label&quot;</span>&gt;</span>&#123;&#123; field.label.text &#125;&#125;</span><br><span class="line">        &#123;% if h.is_required_form_field(field) %&#125;</span><br><span class="line">          <span class="tag">&lt;<span class="name">strong</span> <span class="attr">style</span>=<span class="string">&quot;color: red&quot;</span>&gt;</span><span class="symbol">&amp;#42;</span><span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br><span class="line">        &#123;%- else -%&#125;</span><br><span class="line">          <span class="symbol">&amp;nbsp;</span></span><br><span class="line">        &#123;%- endif %&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;&#123;&#123; kwargs.get(&#x27;column_class&#x27;, &#x27;col-md-10&#x27;) &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">      &#123;% set _dummy = kwargs.setdefault(&#x27;class&#x27;, &#x27;form-control&#x27;) %&#125;</span><br><span class="line">      &#123;&#123; field(**kwargs)|safe &#125;&#125;</span><br><span class="line">      &#123;% if field.description %&#125;</span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;help-block&quot;</span>&gt;</span>&#123;&#123; field.description|safe &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      &#123;% endif %&#125;</span><br><span class="line">      &#123;% if direct_error %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;help-block input-errors&quot;</span>&gt;</span></span><br><span class="line">        &#123;% for e in field.errors if e is string %&#125;</span><br><span class="line">          <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123; e &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        &#123;% endfor %&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">      &#123;% endif %&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;% if caller %&#125;</span><br><span class="line">      &#123;&#123; caller(form, field, direct_error, kwargs) &#125;&#125;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% endmacro %&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过上述 flask-admin 源码的浏览,我们不难发现,最终的渲染最核心的函数就是 lib.html 中的 render_field 函数, 要达到我们的目的,我们就需要对这个函数进行一点的修改了.由于我们只需要对数据库模型的某个字段支持 markdown 就可以了,所以需要我们可以通过 field.id == ‘字段名’ 的方法去判断,从而让他支持 markdown.</p>
-<p>为了更好的理解接下来的代码,我们对 editor.md 的使用做一个简单的说明:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;editormd.min.css&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;editormd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">style</span>=<span class="string">&quot;display:none;&quot;</span>&gt;</span>### Hello Editor.md !<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;jquery.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;editormd.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        <span class="keyword">var</span> editor = editormd(<span class="string">&quot;editormd&quot;</span>, &#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            <span class="attr">path</span> : <span class="string">&quot;../lib/&quot;</span> <span class="comment">// Autoload modules mode, codemirror, marked... dependents libs path</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">        &#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">        <span class="comment">/*</span></span></span></span><br><span class="line"><span class="comment"><span class="javascript"><span class="xml">        // or</span></span></span></span><br><span class="line"><span class="comment"><span class="javascript"><span class="xml">        var editor = editormd(&#123;</span></span></span></span><br><span class="line"><span class="comment"><span class="javascript"><span class="xml">            id   : &quot;editormd&quot;,</span></span></span></span><br><span class="line"><span class="comment"><span class="javascript"><span class="xml">            path : &quot;../lib/&quot;</span></span></span></span><br><span class="line"><span class="comment"><span class="javascript"><span class="xml">        &#125;);</span></span></span></span><br><span class="line"><span class="comment"><span class="javascript"><span class="xml">        */</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">    &#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-<p>说明完了怎么使用 editor.md,我们来说一下我们最终的思路, 通过字段名去判断,然后符合添加的情况下,新建一个 div, id 为 editor,然后在 peach-post-create.html 按照 editor.md 的使用方法渲染.说完了思路,接下来就看代码.</p>
-<p><strong>修改 peach-lib.html 和 peach-post-create.html 文件</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"># peach-lib.html</span><br><span class="line">&#123;% macro render_field(form, field, kwargs=&#123;&#125;, caller=None) %&#125;</span><br><span class="line">  &#123;% set direct_error = h.is_field_error(field.errors) %&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;form-group&#123;&#123; &#x27; has-error&#x27; if direct_error else &#x27;&#x27; &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;&#123;&#123; field.id &#125;&#125;&quot;</span> <span class="attr">class</span>=<span class="string">&quot;col-md-2 control-label&quot;</span>&gt;</span>&#123;&#123; field.label.text &#125;&#125;</span><br><span class="line">        &#123;% if h.is_required_form_field(field) %&#125;</span><br><span class="line">          <span class="tag">&lt;<span class="name">strong</span> <span class="attr">style</span>=<span class="string">&quot;color: red&quot;</span>&gt;</span><span class="symbol">&amp;#42;</span><span class="tag">&lt;/<span class="name">strong</span>&gt;</span></span><br><span class="line">        &#123;%- else -%&#125;</span><br><span class="line">          <span class="symbol">&amp;nbsp;</span></span><br><span class="line">        &#123;%- endif %&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;&#123;&#123; kwargs.get(&#x27;column_class&#x27;, &#x27;col-md-10&#x27;) &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line">      &#123;% set _dummy = kwargs.setdefault(&#x27;class&#x27;, &#x27;form-control&#x27;) %&#125;</span><br><span class="line">      &#123;% if field.id == &#x27;content&#x27; %&#125; # 符合条件新建一个 div</span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&#x27;editormd&#x27;</span>&gt;</span></span><br><span class="line">            &#123;&#123; field(**kwargs)|safe &#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      &#123;% else %&#125;</span><br><span class="line">        &#123;&#123; field(**kwargs)|safe &#125;&#125;</span><br><span class="line">      &#123;% endif %&#125;</span><br><span class="line">      &#123;% if field.description %&#125;</span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;help-block&quot;</span>&gt;</span>&#123;&#123; field.description|safe &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      &#123;% endif %&#125;</span><br><span class="line">      &#123;% if direct_error %&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;help-block input-errors&quot;</span>&gt;</span></span><br><span class="line">        &#123;% for e in field.errors if e is string %&#125;</span><br><span class="line">          <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123; e &#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        &#123;% endfor %&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">      &#123;% endif %&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;% if caller %&#125;</span><br><span class="line">      &#123;&#123; caller(form, field, direct_error, kwargs) &#125;&#125;</span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">&#123;% endmacro %&#125;</span><br><span class="line"></span><br><span class="line"># peach-post-create.html</span><br><span class="line">&#123;% extends &#x27;admin/master.html&#x27; %&#125;</span><br><span class="line">&#123;% import &#x27;admin/peach-lib.html&#x27; as lib with context %&#125;</span><br><span class="line">&#123;% from &#x27;admin/peach-lib.html&#x27; import extra with context %&#125; &#123;# backward compatible #&#125;</span><br><span class="line"></span><br><span class="line"># 省略部分代码</span><br><span class="line"></span><br><span class="line">  &#123;&#123; super() &#125;&#125;</span><br><span class="line">  &#123;&#123; lib.form_css() &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;&#123;&#123; url_for(&#x27;static&#x27;, filename=&#x27;plugins/editor.md/css/editormd.min.css&#x27;)&#125;&#125;&quot;</span> <span class="attr">rel</span>=<span class="string">&#x27;stylesheet&#x27;</span>&gt;</span></span><br><span class="line">&#123;% endblock %&#125;</span><br><span class="line"></span><br><span class="line"># 省略部分代码</span><br><span class="line"></span><br><span class="line">&#123;% block tail %&#125;</span><br><span class="line">  &#123;&#123; super() &#125;&#125;</span><br><span class="line">  &#123;&#123; lib.form_js() &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;&#123;&#123; url_for(&#x27;static&#x27;, filename=&#x27;plugins/editor.md/editormd.js&#x27;)&#125;&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> editor = editormd(<span class="string">&quot;editormd&quot;</span>, &#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">path</span> : <span class="string">&quot;/plugins/editor.md/lib/&quot;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">height</span>  : <span class="number">640</span></span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    &#125;);</span></span><br><span class="line"><span class="javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>修改 modelview</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PeachPostView</span>(<span class="params">ModelView</span>):</span></span><br><span class="line">    <span class="comment"># 省略部分代码</span></span><br><span class="line">    create_template = <span class="string">&#x27;admin/model/peach-post-create.html&#x27;</span></span><br><span class="line"></span><br><span class="line">admin = Admin(name=name, template_mode=template_mode,index_view=PeachAdminIndexView(), base_template=<span class="string">&#x27;admin/peach-base.html&#x27;</span>)</span><br><span class="line"><span class="comment"># 省略部分代码</span></span><br><span class="line">admin.add_view(PeachPostView(Post, db.session, endpoint=<span class="string">&#x27;AdminPost&#x27;</span>))</span><br></pre></td></tr></table></figure>
-
-<p>完整代码可以查看 <a target="_blank" rel="noopener" href="https://github.com/lt94/peach-blog/tree/12a2d6e5fd1f6b5fefb235c496e7816a123c88ee">add:使用 editor.md 编辑器</a></p>
-<p>最后看一下效果图:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fxpv6inei2j31lu17pn4w.jpg"></p>
-<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>到此大功告成,欢迎大家关注我的公共号-Leetao, 偶尔分享 flask 之外的知识.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

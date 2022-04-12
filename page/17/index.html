@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">190</span>
+          <span class="site-state-item-count">191</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -200,6 +200,101 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/06/06/%E7%94%9F%E6%88%90%E5%99%A8(generator)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/06/06/%E7%94%9F%E6%88%90%E5%99%A8(generator)/" class="post-title-link" itemprop="url">生成器(generator)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-06-06 00:00:00" itemprop="dateCreated datePublished" datetime="2017-06-06T00:00:00+08:00">2017-06-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="What-is-yield"><a href="#What-is-yield" class="headerlink" title="What is yield"></a>What is <em>yield</em></h1><p><em>yield</em> 关键字返回生成器( generator )的数据。</p>
+<blockquote>
+<p>The heart of a generator function is the yield keyword. In its simplest form, a yield statement looks much like a return statement, except that instead of stopping execution of the function and returning, yield instead provides a value to the code looping over the generator and pauses execution of the generator function.</p>
+</blockquote>
+<h1 id="What-is-a-generator-function"><a href="#What-is-a-generator-function" class="headerlink" title="What is a generator function"></a>What is a generator function</h1><p>生成器函数是一种更为紧凑和有效编写迭代器的方法。它允许你定义一个函数,在循环时计算和返回结果。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span> (xrange(<span class="number">1</span>, <span class="number">10</span>) <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;<span class="subst">$key</span> =&gt; <span class="subst">$value</span>&quot;</span>, PHP_EOL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将会有如下的输出:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span> =&gt; <span class="number">1</span></span><br><span class="line"><span class="number">1</span> =&gt; <span class="number">2</span></span><br><span class="line">…</span><br><span class="line"><span class="number">9</span> =&gt; <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<p>你同样可以控制在 <em>foreach</em> 中的 $key,通过如下的方式:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">yield</span> <span class="variable">$someKey</span> =&gt; <span class="variable">$someValue</span>;</span><br></pre></td></tr></table></figure>
+<p>在生成器函数中,someKey 是你想要出现的 key,someVaue 则是 val 中的值。在例子中,它则是 i</p>
+<h1 id="What’s-the-difference-to-normal-functions"><a href="#What’s-the-difference-to-normal-functions" class="headerlink" title="What’s the difference to normal functions?"></a>What’s the difference to normal functions?</h1><p>你可能会觉得我们用 PHP 原生的 range 函数同样也可以实现一样的输出，这点没错，但是最大的区别是这两种方式的输出是如何得到的。</p>
+<p>当我们使用 range 的时候,它在内存中将整个数组创建出来,并将整个数组交给 foreach 去遍历。换句话说，foreach 将自己来操作整个数组。range 函数和 foreach 函数只交互了一次。想想我们接收邮件包裹，派送人员把包裹给你了，然后就离开了，剩下的就需要你自己去打开包裹并发现包裹里装的是什么了。</p>
+<p>当我们使用生成函数时，PHP将进入函数并执行它，直到它满足结束或遇到 yield 关键字。 当它遇到 yield 时，它将返回当时值的任何值到外部循环。 然后它回到生成器，并继续从它产生的地方开始。 由于你的 xrange 拥有一个 for 循环，它将执行并产生，直到达到$max。想象一下 foreach 和生成器打乒乓球的场景。</p>
+<h1 id="Why-do-I-need-that"><a href="#Why-do-I-need-that" class="headerlink" title="Why do I need that?"></a>Why do I need that?</h1><p>很显然，生成器可以被应用于内存有限的场景中。取决于你的环境而言，如果做一个 range(0,100000)循环可能导致你的脚本严重错误的话，使用生成器仍旧可以很好的运行。或者就如维基百科所言:</p>
+<blockquote>
+<p>Because generators compute their yielded values only on demand, they are useful for representing sequences that would be expensive or impossible to compute at once. These include e.g. infinite sequences and live data streams.</p>
+</blockquote>
+<p>生成器应该很快。 但请记住，当我们谈论很快时，我们通常是在非常少的场景中讨论。 所以在你现在跑掉并更改所有代码以使用生成器之前，请做一个基准测试，看看它在哪里有意义。</p>
+<p>生成器的另一个用例是异步协同程序。 yield关键字不仅返回值，而且还接受它们</p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>PHP 的生成器不能满足所有迭代操作的需求，因为如果不查询，生成器永远不知道下一个要迭代的值是什么，在生成器中无法后退或者快进。生成器还是一次性的，无法多次迭代同一个生成器。不过，如果需要的，可以重建或者克隆生成器。</p>
+<h1 id="待测试"><a href="#待测试" class="headerlink" title="待测试"></a>待测试</h1><p>未完待续，通过生成器是否能够解决大文件加载问题，已经是否能够提高读取速度问题。</p>
+<p>整理翻译自:<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/17483806/what-does-yield-mean-in-php">What does yield mean in PHP?</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/06/02/Openlayers3%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E6%95%88%E6%9E%9C(%E4%BA%8C)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -231,7 +326,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -311,7 +406,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -382,7 +477,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -483,7 +578,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -570,7 +665,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -791,7 +886,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -931,7 +1026,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -1007,7 +1102,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -1085,7 +1180,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -1124,108 +1219,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/02/22/selenium%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/02/22/selenium%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">selenium的安装与使用</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-02-22 00:00:00" itemprop="dateCreated datePublished" datetime="2017-02-22T00:00:00+08:00">2017-02-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>本文所有均在 Ubuntu 下完成</p>
-<h1 id="selenium-安装"><a href="#selenium-安装" class="headerlink" title="selenium 安装"></a>selenium 安装</h1><p>使用 <em>pip3</em> 安装 selenium</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install selenium</span><br></pre></td></tr></table></figure>
-
-<p>关于 <em>pip3</em> 的安装,使用下列命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python3-pip</span><br></pre></td></tr></table></figure>
-
-<p>selenuim 安装成功之后就是使用</p>
-<h1 id="selenuim-使用"><a href="#selenuim-使用" class="headerlink" title="selenuim 使用"></a>selenuim 使用</h1><p>使用下面的简单例子测试一下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.keys <span class="keyword">import</span> Keys</span><br><span class="line"></span><br><span class="line">driver = webdriver.Firefox()</span><br><span class="line">driver.get(<span class="string">&quot;http://www.python.org&quot;</span>)</span><br><span class="line"><span class="keyword">assert</span> <span class="string">&quot;Python&quot;</span> <span class="keyword">in</span> driver.title</span><br><span class="line">elem = driver.find_element_by_name(<span class="string">&quot;q&quot;</span>)</span><br><span class="line">elem.clear()</span><br><span class="line">elem.send_keys(<span class="string">&quot;python&quot;</span>)</span><br><span class="line">elem.send_keys(Keys.RETURN)</span><br><span class="line"><span class="keyword">assert</span> <span class="string">&quot;No results found&quot;</span> <span class="keyword">not</span> <span class="keyword">in</span> driver.page_source</span><br><span class="line">driver.close()</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用中错误"><a href="#使用中错误" class="headerlink" title="使用中错误"></a>使用中错误</h2><blockquote>
-<p>selenium.common.exceptions.WebDriverException: Message: ‘geckodriver’ executable needs to be in PATH. </p>
-</blockquote>
-<p><strong>解决方法</strong>:</p>
-<ol>
-<li>下载 <a target="_blank" rel="noopener" href="https://github.com/mozilla/geckodriver/releases">geckdriver</a></li>
-<li>将其解压并使用 <em>chomod +x</em> 使其可执行,然后拷贝到 /usr/local/bin 目录下</li>
-</ol>
-<blockquote>
-<p>selenium.common.exceptions.WebDriverException: Message: Unsupported Marionette protocol version 2, required 3</p>
-</blockquote>
-<p><strong>解决方法</strong></p>
-<p>将你的 Firfox 浏览器更新,确保你的版本要 &gt;= v47,使用下列命令进行更新</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install firefox</span><br></pre></td></tr></table></figure>
-<p>然后重启 firefox</p>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 xxx.py</span><br></pre></td></tr></table></figure>
-
-<p>然后你会发现 firefox 被打开,跳转到 “<a target="_blank" rel="noopener" href="http://www.python.org&quot;,然后搜索框填入/">http://www.python.org&quot;,然后搜索框填入</a> “python”,然后跳转到搜索页面,最后的截图如下:</p>
-<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1fczhmsyn01j20tg0ii757"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">190</span>
+          <span class="site-state-item-count">191</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -200,6 +200,87 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/11/06/%E5%81%8F%E5%87%BD%E6%95%B0-functools%E4%B9%8Bpartial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/11/06/%E5%81%8F%E5%87%BD%E6%95%B0-functools%E4%B9%8Bpartial/" class="post-title-link" itemprop="url">偏函数-functools之partial</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-11-06 00:00:00" itemprop="dateCreated datePublished" datetime="2017-11-06T00:00:00+08:00">2017-11-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>前段时间在讲述 Flask-Login 的源码中遇见了一个函数 ——<code>partial</code>,这个函数来自于<code>functools</code>模块,这个模块定义为”The functools module is for higher-order functions: functions that act on or return other functions. In general, any callable object can be treated as a function for the purposes of this module”,翻译成中文的大概意思就是”functools 用于高阶函数：指那些作用于函数或者返回其他函数的函数。总的来说，这个模块的目标就是将任何可调用的对象都可以被视为函数。”</p>
+<h1 id="functools-partial"><a href="#functools-partial" class="headerlink" title="functools.partial"></a>functools.partial</h1><p>返回一个新的部分对象,当被调用的时候,相当于原有的对象携带了默认的参数.如果在调用过程中传递了更多的参数,将会被追加到args.如果提供了其他的关键字参数,则会覆盖或者扩展关键字:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partial</span>(<span class="params">func, *args, **keywords</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">newfunc</span>(<span class="params">*fargs, **fkeywords</span>):</span></span><br><span class="line">        newkeywords = keywords.copy()</span><br><span class="line">        newkeywords.update(fkeywords)</span><br><span class="line">        <span class="keyword">return</span> func(*(args + fargs), **newkeywords)</span><br><span class="line">    newfunc.func = func</span><br><span class="line">    newfunc.args = args</span><br><span class="line">    newfunc.keywords = keywords</span><br><span class="line">    <span class="keyword">return</span> newfunc</span><br></pre></td></tr></table></figure>
+
+<p>当函数的参数个数太多，需要简化时，使用functools.partial可以创建一个新的函数，这个新函数可以固定住原函数的部分参数，从而在调用时更简单.</p>
+<p> eg:</p>
+<p> <code>int()</code>函数,可以将字符串转为整数,简单看一下它的函数使用说明:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">int</span>(<span class="params"><span class="built_in">object</span></span>)</span></span><br><span class="line"><span class="class">|  <span class="title">int</span>(<span class="params">x=<span class="number">0</span></span>) -&gt; integer</span></span><br><span class="line"><span class="class">|  <span class="built_in">int</span>(x, base=10) -&gt; integer</span></span><br><span class="line"><span class="class">|</span></span><br><span class="line"><span class="class">|  Convert a number <span class="keyword">or</span> string to an integer, <span class="keyword">or</span> <span class="keyword">return</span> 0 <span class="keyword">if</span> no arguments</span></span><br><span class="line"><span class="class">|  are given.  If x <span class="keyword">is</span> a number, <span class="keyword">return</span> x.__int__().  For floating point</span></span><br><span class="line"><span class="class">|  numbers, this truncates towards zero.</span></span><br><span class="line"><span class="class">|</span></span><br><span class="line"><span class="class">|  If x <span class="keyword">is</span> <span class="keyword">not</span> a number <span class="keyword">or</span> <span class="keyword">if</span> base <span class="keyword">is</span> given, then x must be a string,</span></span><br><span class="line"><span class="class">|  <span class="built_in">bytes</span>, <span class="keyword">or</span> <span class="built_in">bytearray</span> instance representing an integer literal <span class="keyword">in</span> the</span></span><br><span class="line"><span class="class">|  given base.  The literal can be preceded by &#x27;+&#x27; <span class="keyword">or</span> &#x27;-&#x27; <span class="keyword">and</span> be surrounded</span></span><br><span class="line"><span class="class">|  by whitespace.  The base defaults to 10.  Valid bases are 0 <span class="keyword">and</span> 2-36.</span></span><br><span class="line"><span class="class">|  Base 0 means to interpret the base <span class="keyword">from</span> the string <span class="keyword">as</span> an integer literal.</span></span><br><span class="line"><span class="class">|  &gt;&gt;&gt; <span class="built_in">int</span>(&#x27;0b100&#x27;, base=0)</span></span><br><span class="line"><span class="class">|  4</span></span><br></pre></td></tr></table></figure>
+<p>从上述说明中我们可以看见,int还有一个额外的参数<code>base</code>,base 默认值为10,也就意味着默认情况下将字符串转化为十进制的数.如果我们需要转化成二进制怎么办?在不使用其他模块的情况下,只需要<code>int(x,base=2)</code>,那么如果是借助<code>partial</code>,该如何使用呢?</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line">&gt;&gt;&gt;int2 = partial(<span class="built_in">int</span>,base=<span class="number">2</span>) <span class="comment"># 这里是传递了关键字参数,即keywords</span></span><br><span class="line">&gt;&gt;&gt;int2(<span class="string">&#x27;1000&#x27;</span>)</span><br><span class="line">&gt;&gt;&gt;<span class="number">8</span></span><br><span class="line">&gt;&gt;&gt;str_3_int = partial(<span class="built_in">int</span>,<span class="string">&#x27;3&#x27;</span>) <span class="comment"># 传递了参数args</span></span><br><span class="line">&gt;&gt;&gt;str_3_int()</span><br><span class="line">&gt;&gt;&gt;<span class="number">3</span> <span class="comment"># 不够清楚的话可以接着看下面的例子</span></span><br><span class="line">&gt;&gt;&gt;max_with_10 = partial(<span class="built_in">max</span>,<span class="number">10</span>)</span><br><span class="line">&gt;&gt;&gt;max_with_10(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">&gt;&gt;&gt;<span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/10/28/Flask-Login%E7%94%A8%E6%88%B7%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -231,7 +312,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -336,7 +417,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -467,7 +548,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -542,7 +623,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -624,7 +705,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -710,7 +791,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -798,7 +879,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -894,7 +975,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -977,7 +1058,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
+      <time title="修改时间：2022-04-12 15:01:39" itemprop="dateModified" datetime="2022-04-12T15:01:39+08:00">2022-04-12</time>
     </span>
 
   
@@ -1018,83 +1099,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/09/11/Contains%20Duplicate%20II/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/09/11/Contains%20Duplicate%20II/" class="post-title-link" itemprop="url">Contains Duplicate II</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-09-11 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-11T00:00:00+08:00">2017-09-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-30 20:37:31" itemprop="dateModified" datetime="2022-03-30T20:37:31+08:00">2022-03-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the array such that <strong>nums[i] = nums[j]</strong> and the <strong>absolute</strong> difference between i and j is at most k.</p>
-<p><strong>Solution</strong></p>
-<p>找出列表中是否存在值相同的那个元素,并且他们的索引值的差值不大于 <em>k</em>,思路:用哈希表记录第一次元素A出现的位置,如果遍历出现第二个值相同的元素B,如果差值符合则返回 <em>True</em>, 否则将B的索引覆盖A(后面再出现相同的元素C索引值 <em>C-A</em> 肯定大于 <em>B-A</em>),一直没有返回 <em>False</em></p>
-<p>Python</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">containsNearbyDuplicate</span>(<span class="params">self, nums, k</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type k: int</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        dic_nums = &#123;&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> index,value <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            <span class="keyword">if</span> value <span class="keyword">in</span> dic_nums <span class="keyword">and</span> (index - dic_nums[value] &lt;= k) :</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dic_nums[value] = index</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span> </span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/12/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/14/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
