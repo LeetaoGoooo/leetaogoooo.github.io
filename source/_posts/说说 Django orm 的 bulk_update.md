@@ -1,5 +1,5 @@
 ---
-title: Python 列表内存预分配问题
+title: 说说 Django orm 的 bulk_update
 tags: [Python,Django,ORM]
 date: 2022-04-12
 categories: ['优化']
