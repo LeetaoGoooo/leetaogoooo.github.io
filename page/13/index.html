@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">191</span>
+          <span class="site-state-item-count">192</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-count">74</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -200,6 +200,121 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/11/13/%E5%9C%A8Ubuntu14.04%E4%B8%8A%E4%BD%BF%E7%94%A8Gunicorn%E5%92%8CNginx%E9%83%A8%E7%BD%B2Flask%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/11/13/%E5%9C%A8Ubuntu14.04%E4%B8%8A%E4%BD%BF%E7%94%A8Gunicorn%E5%92%8CNginx%E9%83%A8%E7%BD%B2Flask%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">在Ubuntu14.04上使用Gunicorn和Nginx部署Flask应用</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-11-13 00:00:00" itemprop="dateCreated datePublished" datetime="2017-11-13T00:00:00+08:00">2017-11-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>最近闲来无事折腾了一下自己的个人公共号,通过 Flask 构建了几个简单的小功能然后部署到服务器上.网上关于部署的教程有很多,这里我就简单介绍一下我的部署步骤.</p>
+<h1 id="部署的准备工作"><a href="#部署的准备工作" class="headerlink" title="部署的准备工作"></a>部署的准备工作</h1><p>更新并安装下述的包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install python-pip python-dev nginx</span><br></pre></td></tr></table></figure>
+
+<h1 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h1><p>切到项目所以目录下,由于我使用的是 python 版本是 3.5.2 的,所以通过下述命令去创建虚拟环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m venv Env # Env 为创建的虚拟环境的名称</span><br></pre></td></tr></table></figure>
+
+<p>然后激活环境安装相应的库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source Env/bin/activate</span><br><span class="line">pip install gunicorn # 这里省略了其他需要安装的包 </span><br></pre></td></tr></table></figure>
+
+<h1 id="创建-WSGI-文件"><a href="#创建-WSGI-文件" class="headerlink" title="创建 WSGI 文件"></a>创建 WSGI 文件</h1><p>通过命令行在项目目录下创建 <code>wsgi.py</code> 文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano wsgi.py # 原来用 vim,后来发现用 nano 也很爽</span><br></pre></td></tr></table></figure>
+
+<p>这个文件内容其实很简单就是让程序运行起来:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># wsgi.py</span></span><br><span class="line"><span class="keyword">from</span> httpbin <span class="keyword">import</span> create_app <span class="comment"># httpbin 项目目录</span></span><br><span class="line"></span><br><span class="line">application = create_app(<span class="string">&#x27;default&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    application.run()</span><br></pre></td></tr></table></figure>
+<p>然后保存</p>
+<h1 id="使用-Gunicorn-运行应用"><a href="#使用-Gunicorn-运行应用" class="headerlink" title="使用 Gunicorn 运行应用"></a>使用 Gunicorn 运行应用</h1><p>由于服务默认开发端口仅有80和443端口,对此我也懒得修改,直接将服务挂载到80端口进行测试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gunicorn --bind 0.0.0.0:80 wsgi</span><br></pre></td></tr></table></figure>
+<p>通过访问我应用的指定的api然后成功获得了数据,然后开始进行下一步</p>
+<h1 id="创建一个启动脚本"><a href="#创建一个启动脚本" class="headerlink" title="创建一个启动脚本"></a>创建一个启动脚本</h1><p>这个脚本顾名思义允许 Ubuntu 自动启动 Gunicorn 从而挂载我的 Flask 应用.在 <code>/etc/init</code> 目录下创建以 <code>.conf</code> 结尾的文件:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/init/wechat.conf</span><br></pre></td></tr></table></figure>
+<p>文件内容如下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> wechat.conf</span></span><br><span class="line"></span><br><span class="line">description &quot;Gunicorn application server running wechat&quot;</span><br><span class="line"></span><br><span class="line">start on runlevel [2345]</span><br><span class="line">stop on runlevel [!2345]</span><br><span class="line"></span><br><span class="line">respawn</span><br><span class="line">setuid root # 我的是root用户,如果你是在其他用户下运行则将其他改为其他用户名称</span><br><span class="line">setgid www-data</span><br><span class="line"></span><br><span class="line">env PATH=/home/py/wechat/Env/bin # python 环境目录</span><br><span class="line">chdir /home/py/wechat</span><br><span class="line">exec gunicorn --workers 3 --bind unix:wechat.sock -m 007 wsgi</span><br></pre></td></tr></table></figure>
+
+<p>保存退出,然后尝试运行你的脚本文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start wechat</span><br></pre></td></tr></table></figure>
+
+<p>想要查看是否运行成功的话，可以使用下述命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -aux | grep wechat</span><br></pre></td></tr></table></figure>
+<p>如果你在输出的结果中看到相应的进程了就说明你的脚本运行成功了.然后就可以进行下一步</p>
+<h1 id="配置-Nginx"><a href="#配置-Nginx" class="headerlink" title="配置 Nginx"></a>配置 Nginx</h1><p>在这里介绍了如何简单配置 Nginx,但是在实际应用中需要思考一下是否真的需要用到 Nginx,Nginx有很多功能,但是对于像这样简单的小应用,直接 Gunicorn 裸跑也是没毛病的,但是你说你一台服务器挂多个域名,避免 Gunicorn 独占 80 端口，用 Nginx 这个更没毛病.</p>
+<p>在 <code>/etc/nginx/sites-available</code> 目录下创建项目配置文件 <code>wechat</code>,没必要将缺省文件删除</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/nginx/sites-available/wechat</span><br></pre></td></tr></table></figure>
+
+<p>配置文件内容如下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name server_domain_or_IP;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        include proxy_params;</span><br><span class="line">        proxy_pass http://unix:/home/py/wechat/wechat.sock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>保存退出,然后为了确保配置文件生效,将其链接到 <code>sites-enabled</code> 目录下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /etc/nginx/sites-available/wechat /etc/nginx/sites-enabled</span><br></pre></td></tr></table></figure>
+
+<p>测试一下配置文件是否有语法错误:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -t</span><br></pre></td></tr></table></figure>
+<p>如果看见 succssful 的成功单词就说明配置文件没有任何问题,然后重启 nginx</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service nginx restart </span><br></pre></td></tr></table></figure>
+<p>大功告成~</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/11/06/%E5%81%8F%E5%87%BD%E6%95%B0-functools%E4%B9%8Bpartial/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -231,7 +346,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -312,7 +427,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -417,7 +532,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -548,7 +663,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -623,7 +738,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -705,7 +820,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -791,7 +906,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -879,7 +994,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -975,7 +1090,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -1002,86 +1117,6 @@
 <p>初始化一个长度为 len(nums) + 1的列表 A,然后遍历列表 nums,统计该列表各个元素出现的个数并记录在 A 中,然后统计列表 A 元素值为 2 的索引和 0 索引即为我们所求的值</p>
 <p>Python</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findErrorNums</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        len_num = <span class="built_in">len</span>(nums)</span><br><span class="line">        count = [<span class="number">0</span>] * (<span class="built_in">len</span>(nums)+<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            count[num] += <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(nums)+<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> count[i] == <span class="number">2</span>:</span><br><span class="line">                a = i</span><br><span class="line">            <span class="keyword">if</span> count[i] == <span class="number">0</span>:</span><br><span class="line">                b = i</span><br><span class="line">        <span class="keyword">return</span> [a,b]</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/09/13/Isomorphic%20Strings/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/09/13/Isomorphic%20Strings/" class="post-title-link" itemprop="url">Isomorphic Strings</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-09-13 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-13T00:00:00+08:00">2017-09-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Given two strings s and t, determine if they are isomorphic.</p>
-<p>Two strings are isomorphic if the characters in s can be replaced to get t.</p>
-<p>All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character but a character may map to itself.</p>
-<p>For example,<br>Given <code>"egg"</code>, <code>"add"</code>, return true.</p>
-<p>Given <code>"foo"</code>, <code>"bar"</code>, return false.</p>
-<p>Given <code>"paper"</code>, <code>"title"</code>, return true.</p>
-<p>Note:<br>You may assume both <strong>s</strong> and <strong>t</strong> have the same length.</p>
-<p><strong>Solution</strong></p>
-<p>判断两个字符的结构是否一样:依次遍历两个字符中的元素获取其中索引,判断两个字符最后的索引值是否一致,如果一致则认为结构相同</p>
-<p>Python</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isIsomorphic</span>(<span class="params">self, s, t</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type t: str</span></span><br><span class="line"><span class="string">        :rtype: bool</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> [s.find(i) <span class="keyword">for</span> i <span class="keyword">in</span> s] == [t.find(j) <span class="keyword">for</span> j <span class="keyword">in</span> t]</span><br></pre></td></tr></table></figure>
       
     </div>
 

@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">191</span>
+          <span class="site-state-item-count">192</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-count">74</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -200,6 +200,105 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/05/22/f-strings/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/05/22/f-strings/" class="post-title-link" itemprop="url">f-strings</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-22 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-22T00:00:00+08:00">2019-05-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在 Python 3.6 之后,除了原有的 % 和 str.format() 字符串格式化的方法, 又新增了一种 f-strings. 官方也更加推荐使用 f-strings. 那么 f-strings 有哪些喜人的特性呢?</p>
+<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><h2 id="支持-Python-表达式"><a href="#支持-Python-表达式" class="headerlink" title="支持 Python 表达式"></a>支持 Python 表达式</h2><h3 id="运算表达式"><a href="#运算表达式" class="headerlink" title="运算表达式"></a>运算表达式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; num=1</span><br><span class="line">&gt;&gt;&gt; f&#x27;add=&#123;num+1&#125;&#x27;</span><br><span class="line">&#x27;add=2&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a=[1,2,3]</span><br><span class="line">&gt;&gt;&gt; f&#x27;len:&#123;len(a)&#125;&#x27;</span><br><span class="line">&#x27;len:3&#x27;</span><br></pre></td></tr></table></figure>
+<p>除了调用内置函数,自然也是支持自定义函数</p>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; class Test:</span><br><span class="line">...     def __str__(self):</span><br><span class="line">...             return &quot;Hello I&#x27;m __str__&quot;</span><br><span class="line">...     def __repr__(self):</span><br><span class="line">...             return &quot;Hello I&#x27;m __repr__&quot;</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; test = Test()</span><br><span class="line">&gt;&gt;&gt; f&#x27;&#123;test&#125;&#x27;</span><br><span class="line">&quot;Hello I&#x27;m __str__&quot;</span><br><span class="line">&gt;&gt;&gt; f&#x27;&#123;repr(test)&#125;&#x27;</span><br><span class="line">&quot;Hello I&#x27;m __repr__&quot;</span><br><span class="line">&gt;&gt;&gt; test</span><br><span class="line">Hello I&#x27;m __repr__</span><br></pre></td></tr></table></figure>
+
+<h2 id="支持-lambdas-表达式"><a href="#支持-lambdas-表达式" class="headerlink" title="支持 lambdas 表达式"></a>支持 lambdas 表达式</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f&#x27;&#123;(lambda x: x*2)(3)&#125;&#x27;</span><br><span class="line">&#x27;6&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="支持-Triple-quotes"><a href="#支持-Triple-quotes" class="headerlink" title="支持 Triple quotes"></a>支持 Triple quotes</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> f&#x27;&#x27;&#x27;&#123;test&#125;&#x27;&#x27;&#x27;</span><br><span class="line">&quot;Hello I&#x27;m __str__&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="支持-Raw-字符串"><a href="#支持-Raw-字符串" class="headerlink" title="支持 Raw 字符串"></a>支持 Raw 字符串</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt;&gt;&gt; header = &#x27;Subject&#x27;</span><br><span class="line">&gt;&gt;&gt; fr&#x27;&#123;header&#125;:\s+&#x27;</span><br><span class="line">&#x27;Subject:\\s+&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>: 虽然支持 fr’’ 但是并不支持 fb’’ 和 fu’’</p>
+<p>说完了特性,那么接下来就需要说一说 f-strings 和 str.format() 的区别了</p>
+<h1 id="f-strings-和-str-format-的区别"><a href="#f-strings-和-str-format-的区别" class="headerlink" title="f-strings 和 str.format() 的区别"></a>f-strings 和 str.format() 的区别</h1><h2 id="全表达式和有限制表达式"><a href="#全表达式和有限制表达式" class="headerlink" title="全表达式和有限制表达式"></a>全表达式和有限制表达式</h2><p>str.format() 和 f-strings 在一定程度上都支持表达式，但是前者有一定的局限性</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; points = 19</span><br><span class="line">&gt;&gt;&gt; total = 22</span><br><span class="line">&gt;&gt;&gt; &#x27;Correct answers: &#123;:.2%&#125;&#x27;.format(points/total)</span><br><span class="line">&#x27;Correct answers: 86.36%&#x27;</span><br><span class="line">&gt;&gt;&gt; &quot;repr() shows quotes: &#123;!r&#125;; str() doesn&#x27;t: &#123;!s&#125;&quot;.format(&#x27;test1&#x27;, &#x27;test2&#x27;)</span><br><span class="line">&quot;repr() shows quotes: &#x27;test1&#x27;; str() doesn&#x27;t: test2&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="索引的查找"><a href="#索引的查找" class="headerlink" title="索引的查找"></a>索引的查找</h2><p>在 str.format() 中，对于索引值看起来不像数字的都会被转换为字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; d = &#123;&#x27;a&#x27;: 10, &#x27;b&#x27;: 20&#125;</span><br><span class="line">&gt;&gt;&gt; &#x27;a=&#123;d[a]&#125;&#x27;.format(d=d)</span><br><span class="line">&#x27;a=10&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>:索引值直接被转换成字符串 ‘a’ 了，但是在 f-strings, 你需要使用 “a”</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f&#x27;a=&#123;d[&quot;a&quot;]&#125;&#x27;</span><br><span class="line">&#x27;a=10&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>是不是觉得很多余？实际上并不是，如果不这样子要求的话，你是没有办法使用变量作为索引的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = &#x27;b&#x27;</span><br><span class="line">&gt;&gt;&gt; f&#x27;a=&#123;d[a]&#125;&#x27;</span><br><span class="line">&#x27;a=20&#x27;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>自 3.6 之后，官方推荐使用 f-strings,相较于上面的说提到的特性，f-strings 的可读性也比 str.format() 更高，尤其当你的字符串比较长的时候更加明显，所以如果你在使用 3.6 之后的版本，可以尝试这从 str.format() 投入 f-strings 的怀抱了</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/05/10/%E5%AF%BC%E5%87%BA%20VuePress%20%E6%9E%84%E5%BB%BA%E7%9A%84%E7%BD%91%E7%AB%99%E4%B8%BA%20PDF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -231,7 +330,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -349,7 +448,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -446,7 +545,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -524,7 +623,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -641,7 +740,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -723,7 +822,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -808,7 +907,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -890,7 +989,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -974,7 +1073,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -998,81 +1097,6 @@
 <p><strong>解法</strong></p>
 <p>Sliding Window Algorithm(滑动窗口算法）</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">checkInclusion</span>(<span class="params">self, s1, s2</span>):</span></span><br><span class="line">        l1 = <span class="built_in">len</span>(s1)</span><br><span class="line">        l2 = <span class="built_in">len</span>(s2)</span><br><span class="line">        <span class="keyword">if</span> s1 == s2:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> l2 &lt; l1:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        s = <span class="string">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span></span><br><span class="line">        dict1 = &#123;&#125;</span><br><span class="line">        dict2 = &#123;&#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            dict1[s[i]] = <span class="number">0</span></span><br><span class="line">            dict2[s[i]] = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(l1):</span><br><span class="line">            dict1[s1[i]] += <span class="number">1</span></span><br><span class="line">            dict2[s2[i]] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> dict1 == dict2:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(l2 - l1):</span><br><span class="line">            dict2[s2[i]] -= <span class="number">1</span></span><br><span class="line">            dict2[s2[i + l1]] += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> dict1 == dict2:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/03/07/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/03/07/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" class="post-title-link" itemprop="url">两数相加</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-03-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-07T00:00:00+08:00">2019-03-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给出两个 <strong>非空</strong> 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 <strong>逆序</strong> 的方式存储的，并且它们的每个节点只能存储 一位 数字。如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。您可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
-<p><strong>示例：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</span><br><span class="line">输出：7 -&gt; 0 -&gt; 8</span><br><span class="line">原因：342 + 465 = 807</span><br></pre></td></tr></table></figure>
-
-<p><strong>解法</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"># Definition for singly-linked list.</span><br><span class="line"># class ListNode:</span><br><span class="line">#     def __init__(self, x):</span><br><span class="line">#         self.val = x</span><br><span class="line">#         self.next = None</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def addTwoNumbers(self, l1, l2):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        :type l1: ListNode</span><br><span class="line">        :type l2: ListNode</span><br><span class="line">        :rtype: ListNode</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        sum_node = ListNode(-1)</span><br><span class="line">        head = sum_node</span><br><span class="line">        carry = 0</span><br><span class="line">        while l1 and l2:</span><br><span class="line">            sum_val = l1.val + l2.val + carry</span><br><span class="line">            val = sum_val % 10</span><br><span class="line">            carry = sum_val // 10</span><br><span class="line">            sum_node.next = ListNode(val)</span><br><span class="line">            sum_node = sum_node.next</span><br><span class="line">            l1 = l1.next</span><br><span class="line">            l2 = l2.next</span><br><span class="line">        </span><br><span class="line">        while l1:</span><br><span class="line">            sum_val = l1.val + carry</span><br><span class="line">            val = sum_val % 10</span><br><span class="line">            carry = sum_val // 10</span><br><span class="line">            sum_node.next = ListNode(val)</span><br><span class="line">            l1 = l1.next</span><br><span class="line">            sum_node = sum_node.next</span><br><span class="line">        </span><br><span class="line">        while l2:</span><br><span class="line">            sum_val = l2.val + carry</span><br><span class="line">            val = sum_val % 10</span><br><span class="line">            carry = sum_val // 10</span><br><span class="line">            sum_node.next = ListNode(val)</span><br><span class="line">            l2 = l2.next</span><br><span class="line">            sum_node = sum_node.next</span><br><span class="line">        </span><br><span class="line">        if l1 is None and l2 is None and carry &gt; 0:</span><br><span class="line">            sum_node.next = ListNode(carry)</span><br><span class="line">            </span><br><span class="line">        return head.next</span><br></pre></td></tr></table></figure>
       
     </div>
 

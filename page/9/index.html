@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">191</span>
+          <span class="site-state-item-count">192</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-count">74</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -200,6 +200,100 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/09/Rust%E7%AC%94%E8%AE%B0-%E5%8F%98%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/01/09/Rust%E7%AC%94%E8%AE%B0-%E5%8F%98%E9%87%8F/" class="post-title-link" itemprop="url">Rust笔记-变量</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-09 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-09T00:00:00+08:00">2019-01-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><p>变量是所有语言中都不可或缺的重要部分,这一点同样适用 Rust. 但是与其他语言有所不同的是,在 Rust 中变量默认是<strong>不可改变的(immutable)</strong>.</p>
+<p>不可改变的就意味着，一旦一个变量赋值之后，我们就不能再次改变它的值了,如果尝试进行修改，则会产生错误.让我们通过一个列子直观的感受一下.</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// example.rs</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> x = <span class="number">5</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;the value of x is &#123;&#125;&quot;</span>,x);</span><br><span class="line">    x = <span class="number">6</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of x is: &#123;&#125;&quot;</span>, x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后用 <strong>rustc example.rs</strong> 编译一下，编译结果如下：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyzdp19s9bj30ew05l3yy.jpg"></p>
+<p>问题来了，实际开发过程中，我们难免会需要对变量重新赋值，那么 Rust 有没有**可变的(mutable)**变量呢？自然是有的，用法很简单，在变量前添加一个关键字 <strong>mut</strong> 就可以了，让我们改造一下上面的例子感受一下</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> x = <span class="number">5</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;the value of x is &#123;&#125;&quot;</span>,x);</span><br><span class="line">    x = <span class="number">6</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of x is: &#123;&#125;&quot;</span>, x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先用 <strong>rustc example.rs</strong> 会在当前目录下生成一个可执行文件，然后通过 <strong>./example</strong> 的方式运行编译后的文件,在 windows 下则会生成一个 exe 文件，通过类似的方式运行，结果如下图：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyzdztabt0j30ex01vweg.jpg"></p>
+<p>说道这里，可能大家就会有一个困惑，<strong>默认不可变的变量和常量有什么区别呢？</strong></p>
+<h1 id="默认不可变的变量和常量的区别"><a href="#默认不可变的变量和常量的区别" class="headerlink" title="默认不可变的变量和常量的区别"></a>默认不可变的变量和常量的区别</h1><ol>
+<li>常量前面不能使用 <strong>mut</strong> 关键字</li>
+<li>常量定义使用的关键字是 <strong>const</strong>,并且常量在定义的时候必须声明其类型，eg: <strong>const MAX_POINTS: u32 = 100_000</strong></li>
+<li>常量可以在任意地方声明，包括全局变量</li>
+<li>常量只能是一个常数表达式,也就意味着函数调用的结果或者在运行时计算得出的值都不能设置为常量</li>
+</ol>
+<h1 id="隐藏-Shadowing"><a href="#隐藏-Shadowing" class="headerlink" title="隐藏(Shadowing)"></a>隐藏(Shadowing)</h1><p>在官方教程中 Rust 在变量中还提及到了一个概念-阴影(Shadowing),所说的内容很简单，就是你通过 <strong>let</strong> 重新声明一个和之前变量名一样的变量，你可以使用之前的变量的值，说起来很抽象，让我们看一下例子:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> x = <span class="number">5</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;the value of x is &#123;&#125;&quot;</span>,x);</span><br><span class="line">    <span class="keyword">let</span> x = x + <span class="number">6</span>; <span class="comment">// x 保留着上一个变量x的值 5</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of x is: &#123;&#125;&quot;</span>, x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后编译运行一下结果：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyzesrefotj30dw01zt8n.jpg"></p>
+<p>最后再看一个关于 <strong><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Variable_shadowing">变量阴影(Variable shadowing)</a></strong>,个人觉得其实就是变量的作用范围的例子</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> x = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">let</span> x = <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;Inner x: &#123;&#125;&quot;</span>, x); <span class="comment">// prints 1</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Outer x: &#123;&#125;&quot;</span>, x); <span class="comment">// prints 0</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Shadow</span></span><br><span class="line">    <span class="keyword">let</span> x = <span class="string">&quot;Rust&quot;</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Outer x: &#123;&#125;&quot;</span>, x);  <span class="comment">// prints &#x27;Rust&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inner x: 1</span><br><span class="line">Outer x: 0</span><br><span class="line">Outer x: Rust</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/08/Rust%E7%AC%94%E8%AE%B0-%E6%A0%87%E8%AF%86%E7%AC%A6(Identifiers)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -231,7 +325,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -320,7 +414,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -415,7 +509,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -511,7 +605,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -607,7 +701,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -685,7 +779,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -774,7 +868,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -908,7 +1002,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -1009,7 +1103,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -1058,89 +1152,6 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(env) $ pip install flask flask-sqlalchemy flask-migrate flask-bootstrap flask-wtf</span><br></pre></td></tr></table></figure>
 
 <p>如果没有报错的话,基本上说明已经正确的安装这些包了.在下次的教程中就可以尝试搭建其项目的最初的框架了.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/12/14/list1%20+=%20list2%20%E5%92%8C%20list1=%20list1%20+%20list2%20%E7%9A%84%E6%95%85%E4%BA%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/12/14/list1%20+=%20list2%20%E5%92%8C%20list1=%20list1%20+%20list2%20%E7%9A%84%E6%95%85%E4%BA%8B/" class="post-title-link" itemprop="url">list1 += list2 和 list1= list1 + list2 的故事</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-12-14 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-14T00:00:00+08:00">2018-12-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前几天在某乎上有人问问题,问道 list.append(ele) 和 list = list + [ele] 一样吗? 这个问题的答案自然是不一样的,这里就不过多描述了.重要的是,借由这个问题,我产生了一个新的问题: <strong>list1 += list2 和 list1= list1 + list2  这两者有区别吗</strong> 先说结论,自然是有区别的.</p>
-<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>花一分钟看个两个例子,如果你能正确的知道输出结果,那么这篇文章最重要的部分你已经掌握了,可以没有必要通读全文了.</p>
-<h2 id="Example00"><a href="#Example00" class="headerlink" title="Example00"></a>Example00</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">list1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">list2 = list1</span><br><span class="line">list1 += [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(list1)</span><br><span class="line"><span class="built_in">print</span>(list2)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Example01"><a href="#Example01" class="headerlink" title="Example01"></a>Example01</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">list1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] </span><br><span class="line">list2 = list1 </span><br><span class="line">list1 = list1 + [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>] </span><br><span class="line"> </span><br><span class="line"><span class="built_in">print</span>(list1) </span><br><span class="line"><span class="built_in">print</span>(list2) </span><br></pre></td></tr></table></figure>
-
-<h1 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h1><p>让我们看一下这两个例子的输出</p>
-<h2 id="Example00-1"><a href="#Example00-1" class="headerlink" title="Example00"></a>Example00</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3, 4, 5, 6]</span><br><span class="line">[1, 2, 3, 4, 5, 6]</span><br></pre></td></tr></table></figure>
-
-<h2 id="Example01-1"><a href="#Example01-1" class="headerlink" title="Example01"></a>Example01</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3, 4, 5, 6]</span><br><span class="line">[1, 2, 3]</span><br></pre></td></tr></table></figure>
-
-<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>你可以将 “+=” 看作 extend, 它在原有的 list 基础上进行元素的拓充, 而 list = list + [ele] 则是,重新创建了一个 list 然后将原来的 list 和新添加的元素添加进去.为了帮助理解,我画了两张动图:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fy42h5v76ng30hs0dcwh9.gif"><br><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fy42hm5oj5g30hs0dcq6t.gif"></p>
 
       
     </div>

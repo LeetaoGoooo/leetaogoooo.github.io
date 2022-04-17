@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">191</span>
+          <span class="site-state-item-count">192</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-count">74</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -200,6 +200,89 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/09/25/Mybatis%E4%B8%AD%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7#{}%E5%92%8C${}/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/09/25/Mybatis%E4%B8%AD%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7#%7B%7D%E5%92%8C$%7B%7D/" class="post-title-link" itemprop="url">Mybatis中特殊符号#{}和${}</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-09-25 00:00:00" itemprop="dateCreated datePublished" datetime="2020-09-25T00:00:00+08:00">2020-09-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>一直在 Springboot 中使用 Mybatis，基本上使用到的都是 <strong>#{}</strong>, 由于需求，需要有一个根据视图名可以直接调用视图的函数，一开始 SQL 是这样子:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> #&#123;viewName&#125;</span><br></pre></td></tr></table></figure>
+<p>实际运行过程中传入一个视图名称 viewName 发现实际运行的 SQL 语句是这样子的:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> &quot;viewName&quot;;</span><br></pre></td></tr></table></figure>
+<p> 很明显， SQL 语句存在语法问题，无法执行。最后将 SQL 语句改成:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> $&#123;viewName&#125;</span><br></pre></td></tr></table></figure>
+<p>成功运行，那么 #{} 和 ${} 区别是什么？</p>
+<h1 id="和"><a href="#和" class="headerlink" title="#{} 和 ${}"></a>#{} 和 ${}</h1><p>从上面的例子不难发现俩者最终的在 SQL 语句的表现形式不一样</p>
+<ul>
+<li>#{} 会使得传入的参数在 SQL 中通常被 “” 包裹；</li>
+<li>${} 则是参数保持原样。</li>
+</ul>
+<p>其实使用 #{} 时, Mybatis 会对其传入的参数进行转义，以达到防止 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/SQL%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB">SQL 注入攻击</a> 的目的，而 ${} 则会保持原样，这就意味着我们需要尽可能的使用 #{} 而不是 ${}。${} 通常会用在传递表名或者字段名的情况下，不过在这种情况下需要自定义校验规则，以防止 SQL 注入攻击.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/08/28/RabbitMQ%20connection_closed_abruptly/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -231,7 +314,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -315,7 +398,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -392,7 +475,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -473,7 +556,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -551,7 +634,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -627,7 +710,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -712,7 +795,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -852,7 +935,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -928,7 +1011,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -959,102 +1042,6 @@
 
 
 <h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>本来准备给 Flask-Restful 提个 PR，把 DateTime 新增 strftime 方法的，后来发现老早之前就有人提了<a target="_blank" rel="noopener" href="https://github.com/flask-restful/flask-restful/pull/624">add a way for Fields.DateTime to custom datetime like strftime</a>，不过一直没有合并，这个项目也不是很活跃了，并且不支持 swagger，小伙伴在想使用 flask 创建 api 的话可以考虑使用<a target="_blank" rel="noopener" href="https://github.com/python-restx/flask-restx">Flask-RESTX</a>支持swagger功能。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/05/23/Flask-SQLAlchemy%20%E5%A4%9A%E8%A1%A8%E5%AF%B9%E5%8D%95%E6%A8%A1%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/05/23/Flask-SQLAlchemy%20%E5%A4%9A%E8%A1%A8%E5%AF%B9%E5%8D%95%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">Flask-SQLAlchemy 多表对单模型</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-05-23 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-23T00:00:00+08:00">2020-05-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在 Flask 中 Flask-SQLAlchemy 应该是最常用的 ORM 了，通过它来构建 Model  来映射数据库中的表。通常情况下都是一个表对应一个模型，这种方案很简单。那么如果是多个表对应一个模型的情况下，该如何处理呢？接下来结合一个具体的案例来讲解这一内容。</p>
-<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><p>现在我有一个数据库 <strong>test.db</strong>,它的表如下：</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1gf74p3v35jj30cc0eg0uy.jpg" alt="1590195419952-4200c916-62c2-4f6e-9c1b-d79859502926.png"></p>
-<p>有很多表并且表名类似，而且表名类似的表的结构相同，以 <strong>UPS1_20190716</strong> 为例，看一下它的表结构：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Id</span><br><span class="line">workTime</span><br><span class="line">device</span><br><span class="line">status</span><br><span class="line">temp</span><br></pre></td></tr></table></figure>
-
-<p>那么如何定义Model呢？像下面这样？</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UPS120190719</span>:</span></span><br><span class="line">	__tablename__ = <span class="string">&#x27;UPS1_20190716&#x27;</span></span><br><span class="line">	Id = db.Column(db.Integer,primary_key=<span class="literal">True</span>)</span><br><span class="line">	workTime = db.Column(db.Time)</span><br><span class="line">	...</span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UPS220190716</span>:</span></span><br><span class="line">	__tablename__ = <span class="string">&#x27;UPS2_20190716&#x27;</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
-
-<p>显然这样子代码不够优雅，有重复的代码，需要优化。那么该怎么解决呢？</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>有俩种方案都可以解决上述问题，不过俩种方案应用场景略有不同，可以根据实际情况来决定。</p>
-<h2 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h2><p>第一种方法就是利用类可以继承的特性去实现了，我们定义一个表的基类,然后其它 UPS 表继承 UpsBase即可：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UpsBase</span>:</span></span><br><span class="line">	Id = db.Column(db.Integer,primary_key=<span class="literal">True</span>)</span><br><span class="line">   	workTime = db.Column(db.Time)</span><br><span class="line">   	...</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UPS120190716</span>(<span class="params">UpsBase</span>):</span></span><br><span class="line">	__tablename__ = <span class="string">&#x27;UPS1_20190716&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UPS220190716</span>(<span class="params">UpsBase</span>):</span></span><br><span class="line">	__tablename__ = <span class="string">&#x27;UPS2_20190716&#x27;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>当表的数量固定这是一个很好的解决方案，但是一旦当数据库的表会发生变动，比如隔天增长几张表，显然我们不太可能天天定义新的<code>Model</code>，然后重新部署服务的。这个情况就需要用到第二种解决方案了。</p>
-<h2 id="动态定义表类"><a href="#动态定义表类" class="headerlink" title="动态定义表类"></a>动态定义表类</h2><p>同样的这种方法也需要首先定义表的基类：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UpsBase</span>:</span></span><br><span class="line">   Id = db.Column(db.Integer,primary_key=<span class="literal">True</span>)</span><br><span class="line">   workTime = db.Column(db.Time)</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
-
-<p>但是这里就不需要定义其它 UPS 表的类了，这里是动态定义，那就意味着，我们只在需要的时候创建，那么如何创建呢？在 Python 中可以使用 type 函数动态创建类，需要注意的时，在创建时需要设置 **<strong>tablename</strong> **的值。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ups1_20190716 = <span class="built_in">type</span>(<span class="string">&#x27;UPS120190716&#x27;</span>, (UpsBase, db.Model), &#123;<span class="string">&#x27;__tablename__&#x27;</span>:<span class="string">&#x27;UPS1_20190716&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>之后就可以创建实例了：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ups = Ups1_20190716()</span><br></pre></td></tr></table></figure>
-
 
       
     </div>

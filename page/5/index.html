@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">191</span>
+          <span class="site-state-item-count">192</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">72</span>
+        <span class="site-state-item-count">74</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -200,6 +200,102 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/05/23/Flask-SQLAlchemy%20%E5%A4%9A%E8%A1%A8%E5%AF%B9%E5%8D%95%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/05/23/Flask-SQLAlchemy%20%E5%A4%9A%E8%A1%A8%E5%AF%B9%E5%8D%95%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">Flask-SQLAlchemy 多表对单模型</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-05-23 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-23T00:00:00+08:00">2020-05-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在 Flask 中 Flask-SQLAlchemy 应该是最常用的 ORM 了，通过它来构建 Model  来映射数据库中的表。通常情况下都是一个表对应一个模型，这种方案很简单。那么如果是多个表对应一个模型的情况下，该如何处理呢？接下来结合一个具体的案例来讲解这一内容。</p>
+<h1 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h1><p>现在我有一个数据库 <strong>test.db</strong>,它的表如下：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1gf74p3v35jj30cc0eg0uy.jpg" alt="1590195419952-4200c916-62c2-4f6e-9c1b-d79859502926.png"></p>
+<p>有很多表并且表名类似，而且表名类似的表的结构相同，以 <strong>UPS1_20190716</strong> 为例，看一下它的表结构：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Id</span><br><span class="line">workTime</span><br><span class="line">device</span><br><span class="line">status</span><br><span class="line">temp</span><br></pre></td></tr></table></figure>
+
+<p>那么如何定义Model呢？像下面这样？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UPS120190719</span>:</span></span><br><span class="line">	__tablename__ = <span class="string">&#x27;UPS1_20190716&#x27;</span></span><br><span class="line">	Id = db.Column(db.Integer,primary_key=<span class="literal">True</span>)</span><br><span class="line">	workTime = db.Column(db.Time)</span><br><span class="line">	...</span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UPS220190716</span>:</span></span><br><span class="line">	__tablename__ = <span class="string">&#x27;UPS2_20190716&#x27;</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+
+<p>显然这样子代码不够优雅，有重复的代码，需要优化。那么该怎么解决呢？</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>有俩种方案都可以解决上述问题，不过俩种方案应用场景略有不同，可以根据实际情况来决定。</p>
+<h2 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h2><p>第一种方法就是利用类可以继承的特性去实现了，我们定义一个表的基类,然后其它 UPS 表继承 UpsBase即可：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UpsBase</span>:</span></span><br><span class="line">	Id = db.Column(db.Integer,primary_key=<span class="literal">True</span>)</span><br><span class="line">   	workTime = db.Column(db.Time)</span><br><span class="line">   	...</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UPS120190716</span>(<span class="params">UpsBase</span>):</span></span><br><span class="line">	__tablename__ = <span class="string">&#x27;UPS1_20190716&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UPS220190716</span>(<span class="params">UpsBase</span>):</span></span><br><span class="line">	__tablename__ = <span class="string">&#x27;UPS2_20190716&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>当表的数量固定这是一个很好的解决方案，但是一旦当数据库的表会发生变动，比如隔天增长几张表，显然我们不太可能天天定义新的<code>Model</code>，然后重新部署服务的。这个情况就需要用到第二种解决方案了。</p>
+<h2 id="动态定义表类"><a href="#动态定义表类" class="headerlink" title="动态定义表类"></a>动态定义表类</h2><p>同样的这种方法也需要首先定义表的基类：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UpsBase</span>:</span></span><br><span class="line">   Id = db.Column(db.Integer,primary_key=<span class="literal">True</span>)</span><br><span class="line">   workTime = db.Column(db.Time)</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+
+<p>但是这里就不需要定义其它 UPS 表的类了，这里是动态定义，那就意味着，我们只在需要的时候创建，那么如何创建呢？在 Python 中可以使用 type 函数动态创建类，需要注意的时，在创建时需要设置 **<strong>tablename</strong> **的值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ups1_20190716 = <span class="built_in">type</span>(<span class="string">&#x27;UPS120190716&#x27;</span>, (UpsBase, db.Model), &#123;<span class="string">&#x27;__tablename__&#x27;</span>:<span class="string">&#x27;UPS1_20190716&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>之后就可以创建实例了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ups = Ups1_20190716()</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/05/20/Windows%E4%B8%8B%E4%BD%BF%E7%94%A8Anaconda%E5%AF%BC%E5%85%A5sqlite3%E5%BC%82%E5%B8%B8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -231,7 +327,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -307,7 +403,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -401,7 +497,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -503,7 +599,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -582,7 +678,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -665,7 +761,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -751,7 +847,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -824,7 +920,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -905,7 +1001,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
+      <time title="修改时间：2022-04-17 20:06:27" itemprop="dateModified" datetime="2022-04-17T20:06:27+08:00">2022-04-17</time>
     </span>
 
   
@@ -926,95 +1022,6 @@
 <p>出现这个问题的可能性有很多种，我一开始怀疑是 PyQt5 和 py2app 的问题，后来我尝试写了一个 PyQt5 最小应用，然后成功打包完美运行，自然这个猜测就被排除再外了。最后通过引用的库进行排查，成功的定位到错误了，原因出在我用的 <strong>aiohttp 库</strong>，去github上找了一下发现 <a target="_blank" rel="noopener" href="https://github.com/aio-libs/aiohttp/issues/2301">pyinstaller cannot import aiohttp</a> 这个 issue，最后无奈之下只好把用到 aiohttp 的部分用 requests 重写了，然后打包成功.</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/58496363/py2app-attributeerror-module-string-has-no-attribute-maketrans">py2app : AttributeError: module ‘string’ has no attribute ‘maketrans’</a></p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/11/08/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/11/08/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" class="post-title-link" itemprop="url">移除元素</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-11-08 00:00:00" itemprop="dateCreated datePublished" datetime="2019-11-08T00:00:00+08:00">2019-11-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-12 15:10:22" itemprop="dateModified" datetime="2022-04-12T15:10:22+08:00">2022-04-12</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。</p>
-<p>不要使用额外的数组空间，你必须在<strong>原地修改输入数组</strong>并在使用 O(1) 额外空间的条件下完成。</p>
-<p>元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
-<p><strong>示例 1:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [3,2,2,3], val = 3,</span><br><span class="line"></span><br><span class="line">函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [0,1,2,2,3,0,4,2], val = 2,</span><br><span class="line"></span><br><span class="line">函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。</span><br><span class="line"></span><br><span class="line">注意这五个元素可为任意顺序。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
-
-<p><strong>说明:</strong></p>
-<p>为什么返回数值是整数，但输出的答案是数组呢?</p>
-<p>请注意，输入数组是以“<strong>引用</strong>”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。</p>
-<p>你可以想象内部操作如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// nums 是以“引用”方式传递的。也就是说，不对实参作任何拷贝</span><br><span class="line">int len = removeElement(nums, val);</span><br><span class="line"></span><br><span class="line">// 在函数里修改输入数组对于调用者是可见的。</span><br><span class="line">// 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。</span><br><span class="line">for (int i = 0; i &lt; len; i++) &#123;</span><br><span class="line">    print(nums[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>思路</strong></p>
-<p>通过一个变量统计符合添加的值的个数，并替换</p>
-<p><strong>解法</strong></p>
-<p>Rust</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">impl</span> Solution &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">remove_element</span></span>(nums: &amp;<span class="keyword">mut</span> <span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;, val: <span class="built_in">i32</span>) -&gt; <span class="built_in">i32</span> &#123;</span><br><span class="line">       <span class="keyword">let</span> <span class="keyword">mut</span> k : <span class="built_in">usize</span> = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..nums.len() &#123;</span><br><span class="line">           <span class="keyword">if</span> nums[i] != val &#123;</span><br><span class="line">               nums[k] = nums[i];</span><br><span class="line">               k += <span class="number">1</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> k <span class="keyword">as</span> <span class="built_in">i32</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
