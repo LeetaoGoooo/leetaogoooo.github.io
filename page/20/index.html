@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">192</span>
+          <span class="site-state-item-count">193</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -203,6 +203,99 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/09/28/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/09/28/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">装饰模式</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-09-28 00:00:00" itemprop="dateCreated datePublished" datetime="2016-09-28T00:00:00+08:00">2016-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>之前写Python的时候，用到了装饰器，然后不由自主想到了设计模式中的装饰模式，正好最近一直在看设计模式，就记录下自己的一些理解。如有错误，欢迎指正。</p>
+<h4 id="装饰模式"><a href="#装饰模式" class="headerlink" title="装饰模式"></a>装饰模式</h4><p> 比较官方的定义是这样的</p>
+<blockquote>
+<p>装饰模式是在不必改变原类文件和使用继承的情况下，动态地扩展一个对象的功能。它是通过创建一个包装对象，也就是装饰来包裹真实的对象</p>
+</blockquote>
+<p>装饰，装饰嘛，很显然你只想让别人看见最终装饰的东西，并不像让别人看见你的装饰过程。打个比方说，你去餐馆吃饭，很明显主要是吃饭，当然光吃米饭，肯定难以下咽了，你想了想准备吃青椒肉丝盖浇饭，然后餐馆厨房开始做了，这个时候你想去厨房去瞧一瞧，你发现厨房门上贴着“非工作人员入内”，意思很明显嘛，餐馆并不希望我去参观他做盖浇饭的过程，谁知道中间有什么猫腻，最后呈现在我面前的就是我自己点的那份青椒肉丝盖浇饭，当然盖浇饭不止这一种还有番茄鸡蛋盖浇饭啊，鱼香肉丝盖浇饭啊。。。不过厨房加工的地方不让看。</p>
+<p>类图是这样的：<br><img src="http://images2015.cnblogs.com/blog/627405/201604/627405-20160402113854098-55879706.png"></p>
+<p>可以把Component看作一个食物，ConcreteComponent看作米饭，Decorator则可以看作加工过程，ConcreteDecoratorA(B)就是各种食物素材啦。<br>对于Componet是无需知道Decorator存在的。<br>如果只有一个ConcreteComponent类而没有抽象的Component类，那么Decorator类可以是ConcreteComponent的一个子类。同样如果只有一个ConcreteDecorator<br>，那么也没有必要建立一个单独的Decorator，而可以把Decorator和ConcreteDecorator的责任合并成一个类。</p>
+<p>这个时候的类图，如下:<br><img src="http://images2015.cnblogs.com/blog/627405/201604/627405-20160402113907441-1384864220.png"></p>
+<p>和这样<br><img src="http://images2015.cnblogs.com/blog/627405/201604/627405-20160402113915941-776244202.png"></p>
+<p>顺便说下starUML类图中部分符号的含义:</p>
+<ol>
+<li><strong>类 ( Class )</strong> :三层矩形框表示，第一层类名，<strong>如果是抽象类，是用斜体表示的</strong>；第二层是字段和属性；第三层则是类方法，其中”+”表示该方法是public的，“-”表示private，“#”表示protected </li>
+<li><strong>继承类（）</strong>:用空心三角形+实现来表示</li>
+</ol>
+<p>Talk is cheap，show me the code：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">food</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$_name</span>;</span><br><span class="line">	<span class="keyword">abstract</span> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cook</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//被装饰的类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">rice</span> <span class="keyword">extends</span> <span class="title">food</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;_name = <span class="string">&#x27;rice&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cook</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;cooked_rice&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//盖浇饭decorator</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">fooddecorator</span> <span class="keyword">extends</span> <span class="title">food</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;_name = <span class="string">&#x27;fooddecorator&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cook</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;cooking&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">//青椒</span></span><br><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">capsicum</span> <span class="keyword">extends</span> <span class="title">fooddecorator</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$_food</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$food</span></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;_name = <span class="string">&#x27;capsicum&#x27;</span>;</span><br><span class="line">		<span class="keyword">if</span>(<span class="variable">$food</span> <span class="keyword">instanceof</span> food)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">$this</span>-&gt;_food = <span class="variable">$food</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cook</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_food-&gt;cook().<span class="string">&quot; cooked_capsicum&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//肉丝</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">meat</span> <span class="keyword">extends</span> <span class="title">fooddecorator</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$_food</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$food</span></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;_name = <span class="string">&#x27;meat&#x27;</span>;</span><br><span class="line">		<span class="keyword">if</span>(<span class="variable">$food</span> <span class="keyword">instanceof</span> food)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">$this</span>-&gt;_food = <span class="variable">$food</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cook</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_food-&gt;cook().<span class="string">&quot; cooked_meat&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//qr 青椒加饭 qjrs means 青椒肉丝</span></span><br><span class="line"><span class="variable">$rice</span> = <span class="keyword">new</span> rice();</span><br><span class="line"><span class="comment">//加青椒</span></span><br><span class="line"><span class="variable">$qr</span> = <span class="keyword">new</span> capsicum(<span class="variable">$rice</span>);</span><br><span class="line"><span class="comment">//加肉</span></span><br><span class="line"><span class="variable">$qjrs</span> = <span class="keyword">new</span> meat(<span class="variable">$qr</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;fried green peppers:&quot;</span>.<span class="variable">$qjrs</span>-&gt;cook();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>结果:<br><img src="http://images2015.cnblogs.com/blog/627405/201604/627405-20160402114203301-1802542429.png"></p>
+<p>好像忘记加盐了<del>0.0<br><strong>装饰模式是围绕一个核心，然后动态装饰这个核心，很明显盖浇饭的核心是饭，在饭上加不同的菜，产生了不同的盖浇饭</strong><br>这个时候估计有人说了，我不用装饰模式也可以实现着个过程啊</del><br>然后写了这样的代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">food</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="variable">$_name</span>;</span><br><span class="line">	<span class="keyword">abstract</span> <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cook</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">rice</span> <span class="keyword">extends</span> <span class="title">food</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;_name = <span class="string">&#x27;rice&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cook</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot; cooked_rice&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">capsicum</span> <span class="keyword">extends</span> <span class="title">food</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;_name = <span class="string">&#x27;capsicum&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cook</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot; cooked_capsicum&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">meat</span> <span class="keyword">extends</span> <span class="title">food</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">$this</span>-&gt;_name = <span class="string">&#x27;meat&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cook</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot; cooked_meat&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$rice</span> = <span class="keyword">new</span> rice();</span><br><span class="line"><span class="variable">$capsicum</span> = <span class="keyword">new</span> capsicum();</span><br><span class="line"><span class="variable">$meat</span> = <span class="keyword">new</span> meat();</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;fried green peppers:&quot;</span>.<span class="variable">$rice</span>-&gt;cook().<span class="variable">$capsicum</span>-&gt;cook().<span class="variable">$meat</span>-&gt;cook();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>结果很明显跟上面一样<del>但是没有区别吗</del>很明显第二种方法，第二种方法暴露了你做盖浇饭的顺序，就相当于顾客悄悄溜进厨房，看着厨师把盖浇饭做好了，见证了这一从无到有的过程，因此我们需要用装饰模式，将这加工处理的工程隐藏起来，只有这一个区别吗？很明显并不是，第二种方法三个子类处于同级，不分主次，但是不要忘了，顾客是去吃米饭的，之所以要了盖浇饭是为了让米饭更好吃，如果真的没有菜，做不成盖浇饭，只吃米顾客还是可以接受的，但是要是没有米，光有菜可不行，米饭是前提条件。要是觉得难以接受这个设定，就把盖浇饭换成各种类型的粥吧，绿豆粥，红薯粥。。。，要是少了米，还能叫粥吗。</p>
+<p>最后做下简单的总结</p>
+<h4 id="装饰模式总结"><a href="#装饰模式总结" class="headerlink" title="装饰模式总结"></a>装饰模式总结</h4><p>1.装饰模式是向原有的类，动态的添加新的功能。<br>2.把类中的装饰功能从类中移去，是简化了原有类。<br>3.跟继承的区别，装饰模式是围绕着一个核心，在该核心存在的情况下去进行的，存在主次的关系，而继承所有子类处于同级<br>4.装饰模式的装饰顺序也是很重要，继承则不存在这种问题。比如说，穿衣服，你应该先穿内衣，再穿外套，而不是任意顺序。<br>5.多用组合，少用继承</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/09/27/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -234,7 +327,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -316,7 +409,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   

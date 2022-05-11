@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetaogoooo.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="前言Field 是 MySQL 中的一个函数，其基本使用方法如下：作用：用于返回指定值在给定值列表中的索引位置语法： 1FIELD(value, val1, val2, val3, ...) 例子： 1SELECT FIELD(&quot;q&quot;, &quot;s&quot;, &quot;q&quot;, &quot;l&quot;); 上面的 sql 就是返回字母 q 在 s,q,l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL 的 Field 杂谈">
+<meta property="og:url" content="https://leetaogoooo.github.io/2022/05/11/MySQL%20%E7%9A%84%20Field%20%E6%9D%82%E8%B0%88/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="前言Field 是 MySQL 中的一个函数，其基本使用方法如下：作用：用于返回指定值在给定值列表中的索引位置语法： 1FIELD(value, val1, val2, val3, ...) 例子： 1SELECT FIELD(&quot;q&quot;, &quot;s&quot;, &quot;q&quot;, &quot;l&quot;); 上面的 sql 就是返回字母 q 在 s,q,l">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141356.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141448.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141521.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141543.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141633.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141654.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141739.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141829.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141848.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141907.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141928.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141944.png">
+<meta property="article:published_time" content="2022-05-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-11T06:22:50.945Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141356.png">
+
+
+<link rel="canonical" href="https://leetaogoooo.github.io/2022/05/11/MySQL%20%E7%9A%84%20Field%20%E6%9D%82%E8%B0%88/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetaogoooo.github.io/2022/05/11/MySQL%20%E7%9A%84%20Field%20%E6%9D%82%E8%B0%88/","path":"2022/05/11/MySQL 的 Field 杂谈/","title":"MySQL 的 Field 杂谈"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MySQL 的 Field 杂谈 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Leetao's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.</span> <span class="nav-text">应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">2.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8"><span class="nav-number">3.</span> <span class="nav-text">延伸</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-%E2%80%98a%E2%80%99-%E2%80%99c%E2%80%99-%E2%80%99b%E2%80%99-%E2%80%99d%E2%80%99"><span class="nav-number">3.1.</span> <span class="nav-text">为什么 ‘a’,’c’,’b’,’d’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95-x-y-z-%E7%84%B6%E5%90%8E-a-b-c-d"><span class="nav-number">3.2.</span> <span class="nav-text">如何 x,y,z 然后 a,b,c,d</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/LeetaoGoooo" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;LeetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/leetaothinks" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;leetaothinks" rel="noopener" target="_blank"><i class="fa fa-telegram fa-fw"></i>Telegram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/05/11/MySQL%20%E7%9A%84%20Field%20%E6%9D%82%E8%B0%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL 的 Field 杂谈<a href="/undefined_posts/MySQL%20%E7%9A%84%20Field%20%E6%9D%82%E8%B0%88.md" class="post-edit-link" title="编辑"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-05-11 00:00:00 / 修改时间：14:22:50" itemprop="dateCreated datePublished" datetime="2022-05-11T00:00:00+08:00">2022-05-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>Field</code> 是 MySQL 中的一个函数，其基本使用方法如下：<br><strong>作用</strong>：<br>用于返回指定值在给定值列表中的索引位置<br><strong>语法</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FIELD(value, val1, val2, val3, ...)</span><br></pre></td></tr></table></figure>
+<p><strong>例子</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT FIELD(&quot;q&quot;, &quot;s&quot;, &quot;q&quot;, &quot;l&quot;);</span><br></pre></td></tr></table></figure>
+<p>上面的 sql 就是返回字母 <code>q</code> 在 <code>s,q,l</code> 中的位置，这里和编程语言中不一样，返回的下标是从 1 开始的，所以上述的返回结果是 <code>2</code></p>
+<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141356.png"></p>
+<p>如果查找的字符不在列表里呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT field(&quot;a&quot;,&quot;s&quot;, &quot;q&quot;, &quot;l&quot;);</span><br></pre></td></tr></table></figure>
+<p>返回为 0 ，结果如下：</p>
+<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141448.png"></p>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><p>说完了，基本用法，说一下 Field 的应用场景，单纯从函数推测出它的应用场景，但是它的实际应用场景，在某种程度上还是很实用的，它可以<strong>自定义排序</strong>。<br>所谓的自定义排序就是按照我们给定的顺序对数据结果进行排序，通常情况下，我们通过 <code>order by field</code> 无外乎就是降序或者升序排列，但是在某些特殊的业务场景下，你可能预期按照自己的规则去定义排序。</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>如下表所示</p>
+<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141521.png"></p>
+<p>默认的情况下，显然是按照 id 进行升序排列的，但是如果需要按照人名 <code>a,c,b,d</code>来排序。也就是 <code>name=a,c,b,d</code> 来排序。<br>这个时候就可以借由 <code>field</code> 函数去实现了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user ORDER BY FIELD(name, &#x27;a&#x27;,&#x27;c&#x27;,&#x27;b&#x27;,&#x27;d&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>执行结果如下:</p>
+<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141543.png"></p>
+<h1 id="延伸"><a href="#延伸" class="headerlink" title="延伸"></a>延伸</h1><p>现在 user 表里新增了三条记录:</p>
+<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141633.png"></p>
+<p>现在有这样子的需求，需要将记录先按照 <code>x,y,z</code> 排序，后面按照正常排序即结果如下：</p>
+<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141654.png"></p>
+<p>如何可以做到？<br>原理其实很简单，归根结底就是 <code>order by</code> 和 <code>field</code> 的联合应用。首先需要明白，<code>order by</code> 的排序原理，<code>order by</code> 原理其实很简单，就是<strong>按照我们给定的排序字段（升序或者降序排列）</strong></p>
+<h2 id="为什么-‘a’-’c’-’b’-’d’"><a href="#为什么-‘a’-’c’-’b’-’d’" class="headerlink" title="为什么 ‘a’,’c’,’b’,’d’"></a>为什么 ‘a’,’c’,’b’,’d’</h2><p>这个时候，再回到最初 user 表只有四条记录时，按照 a,c,b,d 排序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user ORDER BY FIELD(name, &#x27;a&#x27;,&#x27;c&#x27;,&#x27;b&#x27;,&#x27;d&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>这个 sql 发生了什么？</p>
+<p>我们用 <code>Field</code> 函数构建了一个临时的排序字段，不同的 name 返回在 field 下返回不同的值，相当于构成了一个新的 <code>sort_field</code> 字段</p>
+<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141739.png"></p>
+<p>所以这个时候结果就会按照 <code>a,c,b,d</code> 的顺序排列了。</p>
+<h2 id="如何-x-y-z-然后-a-b-c-d"><a href="#如何-x-y-z-然后-a-b-c-d" class="headerlink" title="如何 x,y,z 然后 a,b,c,d"></a>如何 x,y,z 然后 a,b,c,d</h2><p>首先如果如果按照 <code>x,y,z</code> 在最前面的要求，sql 应当是:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user ORDER BY FIELD(name, &#x27;x&#x27;,&#x27;y&#x27;,&#x27;z&#x27;)</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141829.png"></p>
+<p>这个时候的 <code>sort_field</code> 表现是这样子的：</p>
+<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141848.png"></p>
+<p>我们预期的应当是</p>
+<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141907.png"></p>
+<p>如果只是将排序由升序改为降序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user ORDER BY FIELD(name, &#x27;x&#x27;,&#x27;y&#x27;,&#x27;z&#x27;) DESC</span><br></pre></td></tr></table></figure>
+
+<p>这个时候结果如下:</p>
+<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141928.png"></p>
+<p>这个结果已经接近 预期了，我们只需要将 <code>field</code> 后面的 <code>x,y,z</code> 变成 <code>z,y,x</code> 就可以了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM user ORDER BY FIELD(name, &#x27;z&#x27;,&#x27;y&#x27;,&#x27;x&#x27;) DESC</span><br></pre></td></tr></table></figure>
+
+<p>结果如下:</p>
+<p><img src="https://raw.githubusercontent.com/LeetaoGoooo/leetaogoooo.github.io/images/20220511141944.png"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/04/12/Python%20%E5%88%97%E8%A1%A8%E5%86%85%E5%AD%98%E9%A2%84%E5%88%86%E9%85%8D%E9%97%AE%E9%A2%98/" rel="prev" title="Python 列表内存预分配问题">
+                  <i class="fa fa-chevron-left"></i> Python 列表内存预分配问题
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":"leetaogoooo","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"38702cbd162ac39bf0a50d079b667e40"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

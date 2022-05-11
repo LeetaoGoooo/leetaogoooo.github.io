@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">192</span>
+          <span class="site-state-item-count">193</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -203,6 +203,136 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/05/29/Python%20%E4%B8%AD%20%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E5%92%8C%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/05/29/Python%20%E4%B8%AD%20%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E5%92%8C%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/" class="post-title-link" itemprop="url">Python 中 可变对象和不可变对象</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-29 00:00:00" itemprop="dateCreated datePublished" datetime="2019-05-29T00:00:00+08:00">2019-05-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在 Python 中一切都可以看作为对象。每个对象都有各自的 id, type 和 value。</p>
+<ol>
+<li> id: 当一个对象被创建后，它的 id 就不会在改变，这里的 id 其实就是对象在内存中的地址，可以使用 <code>id()</code> 去查看对象在内存中地址。</li>
+<li> type: 和 id 一样当对象呗创建之后，它的 type 也不能再被改变，type 决定了该对象所能够支持的操作</li>
+<li> value: 对象的值</li>
+</ol>
+<p>一个对象可变与否就在于 value 值是否支持改变。</p>
+<h1 id="不可变对象"><a href="#不可变对象" class="headerlink" title="不可变对象"></a>不可变对象</h1><p>常见的不可变对象(immutable objects):</p>
+<ol>
+<li>   Number: int, float, complex</li>
+<li>   string</li>
+<li>   tuple</li>
+<li>   frozenset:set 的另外一种类型</li>
+</ol>
+<p>让我们通过例子感受一下</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x=1</span><br><span class="line">&gt;&gt;&gt; y=x</span><br><span class="line">&gt;&gt;&gt; id(x)==id(y)</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; id(1)==id(y)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>这里创建了两个 <code>int</code> 对象，并且让 <code>x</code>,<code>y</code> 指向同一个对象，然后我们试着修改一下 <code>x</code>,让 <code>x+1</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;x=x+1</span><br></pre></td></tr></table></figure>
+
+<p>这个时候 <code>x</code> 的 <code>id</code> 值和 <code>y</code> 的 <code>id</code> 以及 1 的 <code>id</code> 还一样吗？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x=x+1</span><br><span class="line">&gt;&gt;&gt; id(x)==id(y)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; id(x)==id(1)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; id(1)==id(y)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>从结果不难看出来，<code>x</code> 所指向的对象已经改变了，但是 <code>1</code> 并没有改变。这就是不可变对象，对于不可变对象来说，一旦创建之后就不允许被改变。</p>
+<p><strong>注意</strong>: 不可变并不严格等同绝对的不可变</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a=([1],2,3)</span><br><span class="line">&gt;&gt;&gt; id(a)</span><br><span class="line">4338862696</span><br><span class="line">&gt;&gt;&gt; id(a[0])</span><br><span class="line">4338949128</span><br><span class="line">&gt;&gt;&gt; a[0][0]=0</span><br><span class="line">&gt;&gt;&gt; id(a)</span><br><span class="line">4338862696</span><br><span class="line">&gt;&gt;&gt; id(a[0])</span><br><span class="line">4338949128</span><br></pre></td></tr></table></figure>
+
+<p>从上面的例子不难看出，我们改变了 <code>a[0]</code> 的值，但是并没有影响它的 <code>id</code> 值。一个不可变容器对象如果包含对可变对象的引用，当后者的值改变时，前者的值也会改变；但是该容器仍属于不可变对象，因为它的 <code>id</code> 值不会改变的。</p>
+<h1 id="可变对象"><a href="#可变对象" class="headerlink" title="可变对象"></a>可变对象</h1><p>常见的可变对象(mutable objects):</p>
+<ol>
+<li> list</li>
+<li> dict</li>
+<li> set</li>
+</ol>
+<p>同样的通过例子感受一下</p>
+<h2 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; c = [1,2,3]</span><br><span class="line">&gt;&gt;&gt; b = c</span><br><span class="line">&gt;&gt;&gt; id(b)==id(c)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>创建两个 <code>list</code> 对象，并且让 <code>c</code>,<code>d</code> 指向同一个对象，然后我们试着修改一下 <code>c</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c[0]=4</span><br></pre></td></tr></table></figure>
+
+<p>这个时候在看一下两个对象的 <code>id</code> 值是否一致</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; id(c)==id(b)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>修改之后，<code>c</code>,<code>d</code> 仍然指向同一个对象，所以不难得出结论,对于一个可变对象来说，修改 <code>value</code> 值并不会对它的 <code>id</code> 造成任何影响</p>
+<h1 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h1><p>对于可变对象和不可变对象，他们两者在函数当作参数传递的时候表现也有所不同</p>
+<h2 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h2><h3 id="eg0"><a href="#eg0" class="headerlink" title="eg0"></a>eg0</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_list</span>(<span class="params">nums_list</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;2 id:<span class="subst">&#123;<span class="built_in">id</span>(nums_list)&#125;</span>&#x27;</span>)</span><br><span class="line">    nums_list += [<span class="number">10</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;3 id:<span class="subst">&#123;<span class="built_in">id</span>(nums_list)&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">number_list = [<span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;1:<span class="subst">&#123;number_list&#125;</span>, id:<span class="subst">&#123;<span class="built_in">id</span>(number_list)&#125;</span>&#x27;</span>)      </span><br><span class="line">update_list(number_list)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;4:<span class="subst">&#123;number_list&#125;</span>, id:<span class="subst">&#123;<span class="built_in">id</span>(number_list)&#125;</span>&#x27;</span>) </span><br></pre></td></tr></table></figure>
+
+<p>看一下结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1:[5, 6], id:4457707912</span><br><span class="line">2 id:4457707912</span><br><span class="line">3 id:4457707912</span><br><span class="line">4:[5, 6, 10], id:4457707912</span><br></pre></td></tr></table></figure>
+
+<p>在看另外一个例子</p>
+<h3 id="eg1"><a href="#eg1" class="headerlink" title="eg1"></a>eg1</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_num</span>(<span class="params">number</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;2:<span class="subst">&#123;<span class="built_in">id</span>(number)&#125;</span>&#x27;</span>)</span><br><span class="line">    number += <span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;3:<span class="subst">&#123;<span class="built_in">id</span>(number)&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">num = <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;1:<span class="subst">&#123;num&#125;</span>, id:<span class="subst">&#123;<span class="built_in">id</span>(num)&#125;</span>&#x27;</span>)      </span><br><span class="line">add_num(num)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;4:<span class="subst">&#123;num&#125;</span>, id:<span class="subst">&#123;<span class="built_in">id</span>(num)&#125;</span>&#x27;</span>)      </span><br></pre></td></tr></table></figure>
+
+<p>看一下结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1:1, id:4343768416</span><br><span class="line">2 id:4343768416</span><br><span class="line">3 id:4343768448</span><br><span class="line">4:1, id:4343768416</span><br></pre></td></tr></table></figure>
+
+<p>有其他有些文章中，上面 eg0 被称为引用传递，eg1 被称为值传递。然而在官方文档中，并没有找到有关的这两个名词的任何内容，或者这种方式并不是上述的两者任意一种。</p>
+<p>这里的重点是：<strong>对于可变对象，在函数中的值的改变，会导致对象改变；对于不可变对象，在函数中值的改变，对其不会造成任何影响</strong></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="http://stupidpythonideas.blogspot.com/2013/11/does-python-pass-by-value-or-by.html">Does Python pass by value, or pass by reference?</a></p>
+<p><a target="_blank" rel="noopener" href="https://jeffknupp.com/blog/2012/11/13/is-python-callbyvalue-or-callbyreference-neither/">Is Python call-by-value or call-by-reference? Neither.</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/05/22/f-strings/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -234,7 +364,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -333,7 +463,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -451,7 +581,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -548,7 +678,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -626,7 +756,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -743,7 +873,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -825,7 +955,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -910,7 +1040,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -992,7 +1122,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -1020,86 +1150,6 @@
 <h1 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h1><p>对于上述例子，在执行第二步之前，大家可以打开 Google 浏览器调试模式，找到 Application tab 页下的 Cookies，会发现里面有个 session-id 的 cookies，大家可以试着把它修改或者清空后再执行步骤 2，会有意想不到的彩蛋哟</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="http://flask.pocoo.org/docs/1.0/api/#flask.session">Flask.session</a></p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/03/09/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/03/09/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/" class="post-title-link" itemprop="url">字符串的排列</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-03-09 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-09T00:00:00+08:00">2019-03-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给定两个字符串 s1 和 s2，写一个函数来判断 s2 是否包含 s1 的排列。换句话说，第一个字符串的排列之一是第二个字符串的子串。</p>
-<p><strong>示例1:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: s1 = &quot;ab&quot; s2 = &quot;eidbaooo&quot;</span><br><span class="line">输出: True</span><br><span class="line">解释: s2 包含 s1 的排列之一 (&quot;ba&quot;).</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例2:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: s1= &quot;ab&quot; s2 = &quot;eidboaoo&quot;</span><br><span class="line">输出: False</span><br><span class="line">注意：输入的字符串只包含小写字母两个字符串的长度都在 [1, 10,000] 之间</span><br></pre></td></tr></table></figure>
-
-
-<p><strong>解法</strong></p>
-<p>Sliding Window Algorithm(滑动窗口算法）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">checkInclusion</span>(<span class="params">self, s1, s2</span>):</span></span><br><span class="line">        l1 = <span class="built_in">len</span>(s1)</span><br><span class="line">        l2 = <span class="built_in">len</span>(s2)</span><br><span class="line">        <span class="keyword">if</span> s1 == s2:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> l2 &lt; l1:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        s = <span class="string">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span></span><br><span class="line">        dict1 = &#123;&#125;</span><br><span class="line">        dict2 = &#123;&#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            dict1[s[i]] = <span class="number">0</span></span><br><span class="line">            dict2[s[i]] = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(l1):</span><br><span class="line">            dict1[s1[i]] += <span class="number">1</span></span><br><span class="line">            dict2[s2[i]] += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> dict1 == dict2:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(l2 - l1):</span><br><span class="line">            dict2[s2[i]] -= <span class="number">1</span></span><br><span class="line">            dict2[s2[i + l1]] += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> dict1 == dict2:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
       
     </div>
 

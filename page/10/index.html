@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">192</span>
+          <span class="site-state-item-count">193</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -203,6 +203,112 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/12/16/Flask%20Web%20%E5%BC%80%E5%8F%91%20--%20%E5%BC%80%E5%8F%91%E5%8D%9A%E5%AE%A2%E5%BA%94%E7%94%A8%20--%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%20%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/12/16/Flask%20Web%20%E5%BC%80%E5%8F%91%20--%20%E5%BC%80%E5%8F%91%E5%8D%9A%E5%AE%A2%E5%BA%94%E7%94%A8%20--%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%20%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">Flask Web 开发 -- 开发博客应用 -- 第一部分 安装</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-16 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-16T00:00:00+08:00">2018-12-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>该项目在 Ubuntu16.04 平台下开发,基于 Flask 版本 1.0.2, 项目基本完成,现已开源,源码地址 : <a target="_blank" rel="noopener" href="https://github.com/lt94/peach-blog.git">peach-blog</a>, 网站实际运行效果: <a target="_blank" rel="noopener" href="http://www.leetao94.cn/">Leetao’s Blog</a></p>
+<h1 id="环境的搭建"><a href="#环境的搭建" class="headerlink" title="环境的搭建"></a>环境的搭建</h1><blockquote>
+<p>本项目中的项目代码基于 Python 3.6 | 3.5 开发完成,建议使用以上两个版本</p>
+</blockquote>
+<h2 id="1-1-使用虚拟环境"><a href="#1-1-使用虚拟环境" class="headerlink" title="1.1 使用虚拟环境"></a>1.1 使用虚拟环境</h2><p>关于为什么使用虚拟环境,可以参考很久之前我写的一篇文章 <a target="_blank" rel="noopener" href="http://www.leetao94.cn/post/16">为什么使用virtualenv</a>, 尽管我们接下来使用 virtualenv ,但是终究也是虚拟环境,其核心思想还是不变的: 可以避免各个项目环境的包的混乱和版本冲突,保持项目 python 环境干净,便于后期别人维护以及项目迁移.</p>
+<p>由于我们使用的是 python3.+,其自带了 venv, 可以创建虚拟环境, 对于 Ubuntu 则需要通过下述命令手动安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python3-venv</span><br></pre></td></tr></table></figure>
+
+<p>准备工作做好之后,我们需要创建一个文件夹 peach-blog</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir peach-blog</span><br></pre></td></tr></table></figure>
+
+<p>windows 下的文件夹的创建这里就不多说了. </p>
+<p>下一步是使用 venv 在 peach-blog 文件中创建虚拟环境,这个命令和 virtualenv 类似,同样需要一个必须的参数,就是虚拟环境的名字,创建虚拟环境成功中,当前文件夹会出现一个子文件夹,名字就是上述命令中指定的参数, 与虚拟环境相关的文件都保存在这个文件夹中,个人习惯喜欢把虚拟环境命名为 env</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m venv env</span><br></pre></td></tr></table></figure>
+
+<p>如果是 windows 下,默认安装的是 python3.5+ 的话,创建命令是:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m venv env # 确保 python 路径被添加到环境变量中</span><br></pre></td></tr></table></figure>
+
+<p>现在在 peach-blog 文件夹下有一个名为 env 的子文件夹, 它里面保存了一个全新的 python 环境 (与 windows 下不同的是, windows 下 env 中还有 Python 的二进制文件), 需要使用这个虚拟环境的话,再次之前我们首先需要激活它,可以通过下述命令激活:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source env/bin/activate</span><br></pre></td></tr></table></figure>
+
+<p>在 windows 下激活命令如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env\Script\activate</span><br></pre></td></tr></table></figure>
+
+<p>虚拟环境激活后,其命令行会出现虚拟环境的名称,提示你已经激活环境成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(env) $</span><br></pre></td></tr></table></figure>
+
+<p>当我们不想使用虚拟环境的时候,我们可以通过 deactivate 这个命令退出当前的虚拟环境.</p>
+<h2 id="1-2-使用-pip-安装项目开发必须的包"><a href="#1-2-使用-pip-安装项目开发必须的包" class="headerlink" title="1.2 使用 pip 安装项目开发必须的包"></a>1.2 使用 pip 安装项目开发必须的包</h2><p>大多数 Python 包都使用 pip 工具安装，在我们创建虚拟环境后, 其环境中已经包含 pip. 激活虚拟环境后，pip 就可以正常的使用了.</p>
+<p>由于项目最终使用的依赖包比较多,但是在项目初期,我们并不需将其全部安装,我们可以先安装下述 Python 包:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Flask</span><br><span class="line">Flask-sqlalchemy</span><br><span class="line">Flask-migrate</span><br><span class="line">Flask-bootstrap</span><br><span class="line">Flask-wtf</span><br></pre></td></tr></table></figure>
+
+<p>执行下述命令在虚拟环境中安装上述包:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(env) $ pip install flask flask-sqlalchemy flask-migrate flask-bootstrap flask-wtf</span><br></pre></td></tr></table></figure>
+
+<p>如果没有报错的话,基本上说明已经正确的安装这些包了.在下次的教程中就可以尝试搭建其项目的最初的框架了.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/12/14/list1%20+=%20list2%20%E5%92%8C%20list1=%20list1%20+%20list2%20%E7%9A%84%E6%95%85%E4%BA%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -234,7 +340,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -317,7 +423,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -461,7 +567,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -550,7 +656,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -639,7 +745,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -774,7 +880,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -858,7 +964,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -939,7 +1045,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -1024,7 +1130,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -1046,101 +1152,6 @@
 <p><strong>Solution</strong></p>
 <p>思路很简单先计算两数之和，然后再找第三个数是否存在</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: List[List[int]]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        nums_hash = &#123;&#125;</span><br><span class="line">        result = <span class="built_in">list</span>()</span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            nums_hash[num] = nums_hash.get(num, <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> <span class="number">0</span> <span class="keyword">in</span> nums_hash <span class="keyword">and</span> nums_hash[<span class="number">0</span>] &gt;= <span class="number">3</span>:</span><br><span class="line">            result.append([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">        neg = <span class="built_in">list</span>(<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: x &lt; <span class="number">0</span>, nums_hash))</span><br><span class="line">        pos = <span class="built_in">list</span>(<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: x&gt;= <span class="number">0</span>, nums_hash))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> neg:</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> pos:</span><br><span class="line">                dif = <span class="number">0</span> - i - j</span><br><span class="line">                <span class="keyword">if</span> dif <span class="keyword">in</span> nums_hash:</span><br><span class="line">                    <span class="keyword">if</span> dif <span class="keyword">in</span> (i, j) <span class="keyword">and</span> nums_hash[dif] &gt;= <span class="number">2</span>:</span><br><span class="line">                        result.append([i, j, dif])</span><br><span class="line">                    <span class="keyword">if</span> dif &lt; i <span class="keyword">or</span> dif &gt; j:</span><br><span class="line">                        result.append([i, j, dif])</span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/10/16/Jinjia2%20%E8%87%AA%E5%AE%9A%E4%B9%89%20filter/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/16/Jinjia2%20%E8%87%AA%E5%AE%9A%E4%B9%89%20filter/" class="post-title-link" itemprop="url">Jinjia2 自定义 filter</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-10-16 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-16T00:00:00+08:00">2018-10-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>用过 <code>flask</code> 的人肯定对 <code>jinjia2</code> 不会陌生,自然对 <code>Jinjia2</code> 自带的 <code>filter</code> 也有印象，但是其自带的 filter 实在有限，有些时候就不得不需要我们自己定义 <code>filter</code> 了,接下来的例子将介绍如何自定义 <code>filter</code></p>
-<h1 id="自定义-filter"><a href="#自定义-filter" class="headerlink" title="自定义 filter"></a>自定义 filter</h1><h2 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h2><p>自定义 filter 其实很简单，写一个函数实现你需要的功能，然后添加到 jinjia_env 中，这里以一个返回列表长度到自定义函数为例子</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test.py</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_len</span>(<span class="params">arg</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(arg)</span><br><span class="line"></span><br><span class="line">env = app.jinja_env</span><br><span class="line">env.filters[<span class="string">&#x27;my_len&#x27;</span>] = my_len </span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    test_str = <span class="string">&quot;hello&quot;</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&quot;index.html&quot;</span>, test_str=test_str)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
-
-<p>ok 函数定义完了，接下来就是在模版中去使用了.</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>jinjia2模板测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>len: &#123;&#123;test_str|my_len&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>简单吧？到这里似乎就可以结束了？没问题，但是实际开发中大家很多人的目录结构都不是这样吧，在文件里有着为了优雅，有着一些<br><code>xxx.init_app(app)</code> 的代码吧？所以接下来让我们试着把这些 <code>filter</code> 集成一下。</p>
-<h2 id="让-filter-优雅起来"><a href="#让-filter-优雅起来" class="headerlink" title="让 filter 优雅起来"></a>让 filter 优雅起来</h2><p>尝试将这些 <code>filter</code> 封装到一个类中并且也实现 <code>init_app</code> 方法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># examples.py</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span>:</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">init_app</span>(<span class="params">app</span>):</span></span><br><span class="line"><span class="meta">        @app.template_filter(<span class="params"><span class="string">&#x27;my_len&#x27;</span></span>)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">my_len</span>(<span class="params">arg</span>):</span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">len</span>(arg)</span><br></pre></td></tr></table></figure>
-
-<p>然后就可以在其他文件中像这样子使用了</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> examples <span class="keyword">import</span> Example</span><br><span class="line">example = Example()</span><br><span class="line"></span><br><span class="line"><span class="comment"># ... 省略部分代码</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_app</span>(<span class="params">app</span>):</span></span><br><span class="line">    example.init_app(app)</span><br></pre></td></tr></table></figure>
-
-<h1 id="题外话-——-自定义-function"><a href="#题外话-——-自定义-function" class="headerlink" title="题外话 —— 自定义 function"></a>题外话 —— 自定义 function</h1><p>有时候我们需要一个函数处理数据返回结果使得我们可以进行下一步操作，这个时候就需要用到 <code>jinjia2</code> 的自定义函数。</p>
-<h2 id="自定义-function"><a href="#自定义-function" class="headerlink" title="自定义 function"></a>自定义 function</h2><p>自定义函数的方法很简单，通过 <code>add_template_global</code> 即可</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一种写法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_len</span>(<span class="params">arg</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(arg)</span><br><span class="line"></span><br><span class="line">app.add_template_global(my_len,<span class="string">&#x27;my_len&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二种写法</span></span><br><span class="line"><span class="meta">@app.template_global(<span class="params"><span class="string">&#x27;my_len&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_len</span>(<span class="params">arg</span>):</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(arg)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 同样可以参照 filter 中封装到类中去</span></span><br></pre></td></tr></table></figure>
-
-<p>在模板中调用方法也与 <code>filter</code> 类似。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>jinjia2模板测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>len: &#123;&#123;my_len(test_str)&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>用法很简单，那么问题来了，这两者有什么区别吗？</p>
-<h1 id="Jinjia2-的-function-和-filter-的区别"><a href="#Jinjia2-的-function-和-filter-的区别" class="headerlink" title="Jinjia2 的 function 和 filter 的区别"></a>Jinjia2 的 function 和 filter 的区别</h1><p>区别很简单，相较于 <code>function</code> 来说, <code>filter</code> 拥有访问上下文以及环境的能力，当然为了解决这个问题，jinjia2 有 <a target="_blank" rel="noopener" href="http://jinja.pocoo.org/docs/2.10/api/#utilities">contextfilter </a> 等相关函数。</p>
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="http://jinja.pocoo.org/docs/2.10/api/">Jinjia2</a></p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22491510/difference-between-jinja2-functions-and-filters">Difference between jinja2 functions and filters?</a></p>
-
       
     </div>
 

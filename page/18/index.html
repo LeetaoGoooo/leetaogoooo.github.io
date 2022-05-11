@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">192</span>
+          <span class="site-state-item-count">193</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -203,6 +203,84 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/03/20/CentOS7%E5%AE%89%E8%A3%85python-pip/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/03/20/CentOS7%E5%AE%89%E8%A3%85python-pip/" class="post-title-link" itemprop="url">CentOS7安装python-pip</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-03-20 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-20T00:00:00+08:00">2017-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>Package epel-release.noarch 0:7-9 will be installed<br>–&gt; Finished Dependency Resolution</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 安装 python-pip</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">[root@localhost Desktop]# yum install python-pip</span><br></pre></td></tr></table></figure>
+
+<p>安装完成之后,测试是否安装成功</p>
+<h3 id="测试是否安装成功"><a href="#测试是否安装成功" class="headerlink" title="测试是否安装成功"></a>测试是否安装成功</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost Desktop]# pip --version</span><br><span class="line">pip 8.1.2 from /usr/lib/python2.7/site-packages (python 2.7)</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装完成后-清理-cache"><a href="#安装完成后-清理-cache" class="headerlink" title="安装完成后,清理 cache"></a>安装完成后,清理 cache</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost Desktop]# yum clean all</span><br><span class="line">Loaded plugins: fastestmirror, langpacks</span><br><span class="line">Cleaning repos: base epel extras updates</span><br><span class="line">Cleaning up everything</span><br><span class="line">Cleaning up list of fastest mirrors</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/03/13/Openlayers3%E6%A0%B9%E6%8D%AEZoom%E5%88%87%E6%8D%A2%E5%9B%BE%E5%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -234,7 +312,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -312,7 +390,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -412,7 +490,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -541,7 +619,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -632,7 +710,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -714,7 +792,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -810,7 +888,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -897,7 +975,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -1005,7 +1083,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -1065,89 +1143,6 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//好的写法</span></span><br><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">    <span class="string">&quot;title&quot;</span>: <span class="string">&quot;title&quot;</span>,</span><br><span class="line">    <span class="string">&quot;author&quot;</span>: <span class="string">&quot;author&quot;</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <h1 id="数组直接量"><a href="#数组直接量" class="headerlink" title="数组直接量"></a>数组直接量</h1><p>不赞成显式地使用 Array  构造函数来创建数组</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不好的写法</span></span><br><span class="line"><span class="keyword">var</span> colors = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="string">&quot;red&quot;</span>, <span class="string">&quot;green&quot;</span>, <span class="string">&quot;blue&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> numbers = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 好的写法</span></span><br><span class="line"><span class="keyword">var</span> colors = [ <span class="string">&quot;red&quot;</span>, <span class="string">&quot;green&quot;</span>, <span class="string">&quot;blue&quot;</span> ];</span><br><span class="line"><span class="keyword">var</span> numbers = [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ];</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/11/11/Python%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E4%B9%8B%E5%86%99%E6%96%87%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/11/11/Python%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E4%B9%8B%E5%86%99%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">Python读写文件之写文件</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-11-11 00:00:00" itemprop="dateCreated datePublished" datetime="2016-11-11T00:00:00+08:00">2016-11-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>文件读完了,我们就得开始尝试写文件了.关于读文件这里不再重复,可以参考<a target="_blank" rel="noopener" href="http://www.leetao94.cn/2016/11/11/Python%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E4%B9%8B%E8%AF%BB%E6%96%87%E4%BB%B6/">Python读写文件之读文件</a></p>
-<h1 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h1><p>与 <em>read()</em> 相对应的就是 <strong>write(string)</strong> 了,将内容写进文件当中,返回值为 <em>None</em>.这里我们的测试文件同样是 <em>test.txt</em>, 只不过我们将其内容清空了.<br><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1f9ohez44sbj209e083dg0.jpg"><br>不管读文件还是写文件,第一步都是需要打开文件的,同样关于访问模式这里也不再多说.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = <span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r+&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">&quot;1\n&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p>是不是这样子就将内容写入到文件中了呢?不急,让我们打开文件看一看:<br><img src="http://ww2.sinaimg.cn/large/d9e82fa4jw1f9ohoddgkij208n04k3yi.jpg"><br>为了和最初文件区分,特意将顶部部分截图没有截上.通过文件我们发现,我们似乎并没有将内容写到文本中,这是为什么呢?当我们操作做文件的时候,需要使用 <em>f.close()</em> 去关闭文件对象,然后释放由打开文件占用的系统资源,然后在关闭之前会将内容写到文本中去.<br><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1f9ohvhi90nj20ep02jq36.jpg"><br>一旦关闭后,在尝试使用文件对象,则会失败.<br><img src="http://ww2.sinaimg.cn/large/d9e82fa4jw1f9ohwmbmnij20a004awf5.jpg"><br>如果留心看上面的 <em>write</em>()* 函数,会发现括号里面的内容是 String,所以如果你要想向文件写入非字符串的内容的话,第一步你需要做的是就是将它转换为 String 类型.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f=<span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r+&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>value = (<span class="string">&#x27;the answer&#x27;</span>,<span class="number">42</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="built_in">str</span>(value)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(s)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.close()</span><br></pre></td></tr></table></figure>
-<p><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1f9oi9k40zvj209o04jdg0.jpg"><br>关于文件写的操作大概就是这样了,最后再介绍函数.</p>
-<h2 id="tell"><a href="#tell" class="headerlink" title="tell()"></a>tell()</h2><p>返回一个数字,文件指针当前在文件中的位置(当前位置到文件开头位置的字节数)<br>实例如下(在操作前我们已经清空文本):</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f=<span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r+&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">&quot;0123456789abcdef&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.seek(<span class="number">5</span>)  <span class="comment"># 将指针移动到文件中的第6字节处</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">1</span>)</span><br><span class="line"><span class="string">&#x27;5&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.tell()</span><br><span class="line"><span class="number">6L</span></span><br></pre></td></tr></table></figure>
-<p>上述中我们还是用了一个函数 <strong>seek()</strong>,这是我们要提到的第二个额外的函数</p>
-<h2 id="seek-offset-from-what"><a href="#seek-offset-from-what" class="headerlink" title="seek(offset,from_what)"></a>seek(offset,from_what)</h2><p>第一个参数 offset,顾名思义是偏移量,第二个参数这是指针从什么位置开始,0代表从头开始，1代表当前位置，2代表文件最末尾位置,默认值为0<br>实例如下(在操作前我们已经清空文本):</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f=<span class="built_in">open</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;r+&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.write(<span class="string">&quot;0123456789abcdef&quot;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.seek(<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">1</span>)</span><br><span class="line"><span class="string">&#x27;5&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.seek(-<span class="number">3</span>,<span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.read(<span class="number">1</span>)</span><br><span class="line"><span class="string">&#x27;d&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>推荐关于文件操作的时候使用 <strong>with</strong> 关键词.使用这个关键词的好处是,哪怕在处理过程中发生异常,文件也可以正常关闭.除此之外,它也比 <strong>try-finally</strong> 写起来要短.</p>
 
       
     </div>

@@ -134,13 +134,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">192</span>
+          <span class="site-state-item-count">193</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -203,6 +203,83 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/03/26/Parsing%20error%20x-invalid-end-tag/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/03/26/Parsing%20error%20x-invalid-end-tag/" class="post-title-link" itemprop="url">Parsing error x-invalid-end-tag</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-03-26 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-26T00:00:00+08:00">2018-03-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>前端时间使用iview进行开发,在运行过程中出现类似下图的错误:<br><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fpq8cymukrj30gi04xmxq.jpg"></p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>.eslintrc.js 的 rules 加上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;vue/no-parsing-error&quot;</span>: [<span class="number">2</span>, &#123; <span class="string">&quot;x-invalid-end-tag&quot;</span>: <span class="literal">false</span> &#125;]</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://github.com/vuejs/vetur/issues/588">Parsing error: x-invalid-end-tag</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/iview/iview/issues/2828">Col components are wrong in eslint-plugin-vue</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000013227727">iview的input标签报错 x-invalid-end-tag</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/03/06/Runtime.getRuntime().exec%20--%20Cannot%20run%20program%20CreateProcess%20error=2,%20The%20system%20cannot%20find%20the%20file%20specified/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -234,7 +311,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -315,7 +392,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -402,7 +479,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -482,7 +559,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -601,7 +678,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -700,7 +777,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -787,7 +864,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -860,7 +937,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -949,7 +1026,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
+      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
     </span>
 
   
@@ -972,111 +1049,6 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BiosConfigUtility64 /set:&quot;config64.xml&quot;</span><br></pre></td></tr></table></figure>
 
 <p>如果控制台输出内容大意为没有错误发生,则说明你设置成功了！然后重启,docker 终于可以正常运行了！！！</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/11/16/python%E5%86%85%E7%BD%AE%E5%B8%B8%E9%87%8F(built-in%20constants)-NotImplemented/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/11/16/python%E5%86%85%E7%BD%AE%E5%B8%B8%E9%87%8F(built-in%20constants)-NotImplemented/" class="post-title-link" itemprop="url">python内置常量(built-in constants)-NotImplemented</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-11-16 00:00:00" itemprop="dateCreated datePublished" datetime="2017-11-16T00:00:00+08:00">2017-11-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-24 11:56:22" itemprop="dateModified" datetime="2022-04-24T11:56:22+08:00">2022-04-24</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>NotImplemented 的在标准库的定义如下:</p>
-<blockquote>
-<p>Special value which should be returned by the binary special methods (e.g. <em><strong>eq</strong>()</em> , <em><strong>lt</strong>()</em>, <em><strong>add</strong>()</em>, <em><strong>rsub</strong>()</em>, etc.) to indicate that the operation is not implemented with respect to the other type; may be returned by the in-place binary special methods (e.g. <em><strong>imul</strong>()</em>, <em><strong>iand</strong>()</em>, etc.) for the same purpose. Its truth value is true.</p>
-</blockquote>
-<p>翻译成中文的大概意思:NotImplemented 是一个可由内置函数(<em><strong>eq</strong>()</em> , <em><strong>lt</strong>()</em>, <em><strong>add</strong>()</em>, <em><strong>rsub</strong>()</em> 等等)返回的特殊值,用以表明该操作没有对另一种类型的实现.可能会被其他的特殊方法( <em><strong>imul</strong>()</em>, <em><strong>iand</strong>()</em> 等等)就近处理用以同样的目的,从而返回.它的实际值为True.最后一句话的真是含义如下图:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1flj0q0b91oj30nf06z74z.jpg"></p>
-<p>与 False,True,None 这几个内置常量不同的是 NotImplemented 对它赋值,并且不会产生 SyntaxError. 如下图:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1flj12xyzkvj30nf0b20to.jpg"></p>
-<h2 id="Notimplemented-和-Notimplementederror"><a href="#Notimplemented-和-Notimplementederror" class="headerlink" title="Notimplemented 和 Notimplementederror"></a>Notimplemented 和 Notimplementederror</h2><p>在关于 NotImplemented 的定义下面,官方还特意加了一条提示:</p>
-<blockquote>
-<p>NotImplementedError and NotImplemented are not interchangeable, even though they have similar names and purposes.</p>
-</blockquote>
-<h2 id="NotImplementedError"><a href="#NotImplementedError" class="headerlink" title="NotImplementedError"></a>NotImplementedError</h2><p>官方定义如下:</p>
-<blockquote>
-<p>This exception is derived from RuntimeError. In user defined base classes, abstract methods should raise this exception when they require derived classes to override the method, or while the class is being developed to indicate that the real implementation still needs to be added.</p>
-</blockquote>
-<p>翻译过来的意思是说:此异常从 RuntimeError 派生出来的.在用户定义的基类中，当抽象方法需要派生类覆盖方法时，或者在开发该类以指示仍然需要添加实际实现时，抽象方法应该引发此异常.</p>
-<p>同样有一条提示:</p>
-<blockquote>
-<p>It should not be used to indicate that an operator or method is not meant to be supported at all – in that case either leave the operator / method undefined or, if a subclass, set it to None.</p>
-</blockquote>
-<p>大概意思是指 NotImplementedError 根本不应该被用来表示一个操作符或者方法不被支持的情况(对于一下 NotImplemented,but why?just see next).在这种情况下，要么保留操作符/方法未定义，要么将子类设置为无.</p>
-<h2 id="Why-return-NotImplemented-instead-of-raising-NotImplementedError"><a href="#Why-return-NotImplemented-instead-of-raising-NotImplementedError" class="headerlink" title="Why return NotImplemented instead of raising NotImplementedError"></a>Why return NotImplemented instead of raising NotImplementedError</h2><p>前者是常量后者是异常,但是为什么在操作没有实现的时候,返回前者而不是后者呢?</p>
-<p>在 Python 中对列表进行排序时，会经常间接使用类似 <em><strong>lt</strong>()</em> 这类比较运算的方法.有时 Python 的内部算法会选择别的方法来确定比较结果，或者直接选择一个默认的结果。如果抛出一个异常，则会打破排序运算，因此如果使用 NotImplemented 则不会抛出异常，这样 Python 可以尝试别的方法。</p>
-<p>NotImplemented 在运行时发出信号，要求其他人满足操作. 在表达式 <code>a==b</code> 中，如果 <code><em>a.<strong><strong>eq</strong></strong>(B)</em></code>返回 <code>NotImplented</code>，那么 Python 将尝试 <code><em>b.<strong><strong>eq</strong></strong>(A)</em></code>.如果b知道的足够多，可以返回 <code>true</code> 或 <code>false</code>,那么表达式就可以成功. 如果没有，那么运行时将返回到内置行为(基于 <code>==</code> 和 <code>!=</code>的标识.</p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>我们通过实现上面提到的 <em><strong>eq</strong>()</em> 来实现上面提到的例子,来加深印象.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># example.py</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, value</span>):</span></span><br><span class="line">        self.value = value</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__eq__</span>(<span class="params">self, other</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(other, A):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;Comparing an A with an A&#x27;</span>)</span><br><span class="line">            <span class="keyword">return</span> other.value == self.value</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(other, B):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;Comparing an A with a B&#x27;</span>)</span><br><span class="line">            <span class="keyword">return</span> other.value == self.value</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Could not compare A with the other class&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NotImplemented</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, value</span>):</span></span><br><span class="line">        self.value = value</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__eq__</span>(<span class="params">self, other</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(other, B):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;Comparing a B with another B&#x27;</span>)</span><br><span class="line">            <span class="keyword">return</span> other.value == self.value</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Could not compare B with the other class&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NotImplemented</span></span><br></pre></td></tr></table></figure>
-
-<p>然后运行结果如下图:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1flj22ol8a7j30nf0cst9j.jpg"></p>
-<p>对于 <code>a == a</code> 和 <code>b == b </code>,显然结果如我们预期那样,因为我们实现已经定义好了自己比较自己的方法.重点在 <code> b == a</code>,我们并没有在 B 中定义 B 和 其他类比较的方法,因此打印出了 “Could not compare B with the other class”,然后程序接下来去调用了 <code><em>a.<strong><strong>eq</strong></strong>(B)</em></code>,一切如我们之前所说的那样.</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://docs.python.org/3.6/library/constants.html#NotImplemented">NotImplemented</a></p>
-<p><a target="_blank" rel="noopener" href="https://docs.python.org/3.6/library/exceptions.html#NotImplementedError">exception NotImplementedError</a></p>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/878943/why-return-notimplemented-instead-of-raising-notimplementederror">Why return NotImplemented instead of raising NotImplementedError</a></p>
-<p><a target="_blank" rel="noopener" href="http://python.jobbole.com/80913/">Python中内置的NotImplemented类型</a></p>
 
       
     </div>
