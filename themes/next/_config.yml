@@ -299,7 +299,7 @@ related_posts:
 # Easily browse and edit blog source code online.
 post_edit:
   enable: true
-  url: https://github.com/LeetaoGoooo/leetaogoooo.github.io/tree/gh-pages/source/_posts/ # Link for view source
+  url: https://github.com/LeetaoGoooo/leetaogoooo.github.io/tree/gh-pages/source/ # Link for view source
   #url: https://github.com/user-name/repo-name/edit/branch-name/subdirectory-name/ # Link for fork & edit
 
 # Show previous post and next post in post footer if exists
