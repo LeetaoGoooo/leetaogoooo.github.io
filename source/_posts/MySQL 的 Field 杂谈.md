@@ -14,6 +14,8 @@ comments: true
 ``` mysql
 FIELD(value, val1, val2, val3, ...)
 ```
+<!-- more -->
+
 **例子**：
 ``` mysl
 SELECT FIELD("q", "s", "q", "l");

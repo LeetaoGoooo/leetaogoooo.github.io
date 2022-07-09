@@ -38,8 +38,8 @@ custom_file_path:
 # Schemes
 # scheme: Muse
 #scheme: Mist
-# scheme: Pisces
-scheme: Gemini
+scheme: Pisces
+# scheme: Gemini
 
 # Dark Mode
 darkmode: true
@@ -299,7 +299,7 @@ related_posts:
 # Easily browse and edit blog source code online.
 post_edit:
   enable: true
-  # url: https://github.com/LeetaoGoooo/leetaogoooo.github.io/tree/branch-name/subdirectory-name/ # Link for view source
+  url: https://github.com/LeetaoGoooo/leetaogoooo.github.io/tree/gh-pages/source/_posts/ # Link for view source
   #url: https://github.com/user-name/repo-name/edit/branch-name/subdirectory-name/ # Link for fork & edit
 
 # Show previous post and next post in post footer if exists
@@ -388,7 +388,7 @@ back2top:
 
 # Reading progress bar
 reading_progress:
-  enable: false
+  enable: true
   # Available values: left | right
   start_at: left
   # Available values: top | bottom
@@ -399,7 +399,7 @@ reading_progress:
 
 # Bookmark Support
 bookmark:
-  enable: false
+  enable: true
   # Customize the color of the bookmark.
   color: "#222"
   # If auto, save the reading progress when closing the page or clicking the bookmark-icon.
