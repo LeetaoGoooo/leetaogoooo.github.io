@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"leetaogoooo.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetaogoooo.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 <meta name="description" content="前言一直都有订阅 Rss 的习惯，前段时间配合钉钉的自定义机器人，建了一个在钉钉定时推送消息的群，当时是服务是跑在自己的小水管上的，并且是在自己博客的基础上的，依赖了 Flask。后续想着开源，考虑到单独一个 Rss 推送机器人依赖一个 Web 框架就显得比较笨重了，就着手将这部分服务独立出来。 钉钉 RSS 推送机器人钉钉 RSS 推送机器人，主要内容分为两部分，第一部分是钉钉机器人；第二部分是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="配合Github Actions 做一个自动推送的 Rss 订阅机器人">
@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://leetaogoooo.github.io/posts/1603445024.png">
 <meta property="og:image" content="https://leetaogoooo.github.io/posts/1603445048.png">
 <meta property="article:published_time" content="2020-10-10T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-11T06:22:50.931Z">
+<meta property="article:modified_time" content="2022-07-09T08:55:07.019Z">
 <meta property="article:author" content="Leetao">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="Github Action">
@@ -200,6 +200,8 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -230,7 +232,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          配合Github Actions 做一个自动推送的 Rss 订阅机器人<a href="/undefined_posts/%20%E9%85%8D%E5%90%88Github%20Actions%E5%81%9A%E4%B8%80%E4%B8%AA%E8%87%AA%E5%8A%A8%E6%8E%A8%E9%80%81%E7%9A%84Rss%E8%AE%A2%E9%98%85%E6%9C%BA%E5%99%A8%E4%BA%BA.md" class="post-edit-link" title="编辑"><i class="fa fa-pen-nib"></i></a>
+          配合Github Actions 做一个自动推送的 Rss 订阅机器人<a href="https://github.com/LeetaoGoooo/leetaogoooo.github.io/tree/gh-pages/source/_posts/_posts/%20%E9%85%8D%E5%90%88Github%20Actions%E5%81%9A%E4%B8%80%E4%B8%AA%E8%87%AA%E5%8A%A8%E6%8E%A8%E9%80%81%E7%9A%84Rss%E8%AE%A2%E9%98%85%E6%9C%BA%E5%99%A8%E4%BA%BA.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
         </h1>
 
         <div class="post-meta-container">
@@ -248,7 +250,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-11 14:22:50" itemprop="dateModified" datetime="2022-05-11T14:22:50+08:00">2022-05-11</time>
+      <time title="修改时间：2022-07-09 16:55:07" itemprop="dateModified" datetime="2022-07-09T16:55:07+08:00">2022-07-09</time>
     </span>
 
   
@@ -346,7 +348,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Leetao</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
 
     </div>
@@ -354,7 +356,7 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
 
   
 
