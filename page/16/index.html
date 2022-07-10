@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-count">194</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,85 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/08/17/Largest%20Number/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/08/17/Largest%20Number/" class="post-title-link" itemprop="url">Largest Number</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-08-17 00:00:00" itemprop="dateCreated datePublished" datetime="2017-08-17T00:00:00+08:00">2017-08-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Given a list of non negative integers, arrange them such that they form the largest number.</p>
+<p>For example, given <code>[3, 30, 34, 5, 9]</code>, the largest formed number is <code>9534330</code>.</p>
+<p>Note: The result may be very large, so you need to return a string instead of an integer.</p>
+<p><strong>Solution</strong></p>
+<p>主要思路排序,这里需要意识到:<code>int(str(A) + str(B)) > int(str(B) + str(A))</code>,那么 A 应该在 B 之前,否则<br>B 应该在 A之前,注意对前导零的处理,<em>[0,0]</em> 结果应该是 “0”</p>
+<p>Python</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 归并排序</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># @param &#123;integer[]&#125; nums</span></span><br><span class="line">    <span class="comment"># @return &#123;string&#125;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">largestNumber</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        num = [<span class="built_in">str</span>(x) <span class="keyword">for</span> x <span class="keyword">in</span> num]</span><br><span class="line">        num = self.mergeSort(num)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">str</span>(<span class="built_in">int</span>(<span class="string">&quot;&quot;</span>.join(num)))</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeArray</span>(<span class="params">self,left, right</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">            merge the left and right array</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        res = []</span><br><span class="line">        i = j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(left) <span class="keyword">and</span> j &lt; <span class="built_in">len</span>(right):</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">int</span>(left[i] + right[j]) &lt; <span class="built_in">int</span>(right[j] + left[i]):</span><br><span class="line">                res.append(right[j])</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                res.append(left[i])</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(left):</span><br><span class="line">            res.append(left[i])</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> j &lt; <span class="built_in">len</span>(right):</span><br><span class="line">            res.append(right[j])</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">                </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeSort</span>(<span class="params">self,lists</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(lists) &lt;= <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> lists</span><br><span class="line">        mid = <span class="built_in">int</span>(<span class="built_in">len</span>(lists)/<span class="number">2</span>)</span><br><span class="line">        left = self.mergeSort(lists[:mid])</span><br><span class="line">        right = self.mergeSort(lists[mid:])</span><br><span class="line">        <span class="keyword">return</span> self.mergeArray(left,right)</span><br></pre></td></tr></table></figure>
+
+<p>另外一种简洁的代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># @param &#123;integer[]&#125; nums</span></span><br><span class="line">    <span class="comment"># @return &#123;string&#125;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">largestNumber</span>(<span class="params">self, num</span>):</span></span><br><span class="line">        num = [<span class="built_in">str</span>(x) <span class="keyword">for</span> x <span class="keyword">in</span> num]</span><br><span class="line">        num.sort(cmp=<span class="keyword">lambda</span> x, y: cmp(y+x, x+y))</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(num).lstrip(<span class="string">&#x27;0&#x27;</span>) <span class="keyword">or</span> <span class="string">&#x27;0&#x27;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/08/16/Counting%20Sort/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +315,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -326,7 +405,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -406,7 +485,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -489,7 +568,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -569,7 +648,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -650,7 +729,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -746,7 +825,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -860,7 +939,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -942,7 +1021,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -962,87 +1041,6 @@
 <h2 id="all"><a href="#all" class="headerlink" title="all(..)"></a><strong>all(..)</strong></h2><p>从python doc中得到下图所示解释:<br><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fho26v2fy8j30ft0390sj.jpg"></p>
 <p>意思是对于可迭代对象中所有值都为True的情况下返回True,如果当可迭代对象为空的时候,也返回True</p>
 <h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fho2ablm65j30fv03c3ya.jpg"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/06/07/The%20only%20supported%20ciphers%20are%20AES-128-CBC%20and%20AES-256-CBC%20with%20the%20correct%20key%20lengths/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/06/07/The%20only%20supported%20ciphers%20are%20AES-128-CBC%20and%20AES-256-CBC%20with%20the%20correct%20key%20lengths/" class="post-title-link" itemprop="url">The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-06-07 00:00:00" itemprop="dateCreated datePublished" datetime="2017-06-07T00:00:00+08:00">2017-06-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1fgcuwaft5lj20ul05274j.jpg"></p>
-<h1 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h1><p>未设置 Application Key 导致。</p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>在项目根目录下执行下述命令:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan key:generate</span><br></pre></td></tr></table></figure>
-<p><strong>注意</strong>:在执行该命令执行,需要先将 <em>.env.example</em> 复制并重新命名为 <em>.env</em>,否则会产生类似的错误信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file &quot;/var/www/html/ASRM/storage/logs/laravel.log&quot; could not be opened: failed to open stream: Permission denied in /v</span><br><span class="line">ar/www/html/ASRM/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:107</span><br></pre></td></tr></table></figure>
-
-<p>执行成功后会返回如下信息:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lt94@ubuntu:/var/www/html/ASRM$ php artisan key:generate</span><br><span class="line">Application key [base64:yUNJlAGBxWrxRutexftuJzVmzvllHXANxerkojqLscg=] set successfully.</span><br></pre></td></tr></table></figure>
-<p>然后重新刷新页面,出现下图就说明没有问题了。</p>
-<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1fgcuwg7hrij20w50edaa7.jpg"></p>
 
       
     </div>

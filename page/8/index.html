@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-count">194</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,90 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/03/12/Flask%20%E4%B8%AD%E7%9A%84%20session%20%E7%9A%84%E6%95%85%E4%BA%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/03/12/Flask%20%E4%B8%AD%E7%9A%84%20session%20%E7%9A%84%E6%95%85%E4%BA%8B/" class="post-title-link" itemprop="url">Flask 中的 session 的故事</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-12 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-12T00:00:00+08:00">2019-03-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>凡是使用过 Flask,可能对 Flask 中  session 不陌生, 我们通常用 session 保存特定的用户信息,从而达到在 request 请求之间共享数据的目的,需要注意的一点 flask 中的 session 是基于 cookies 实现的,也就意味着着受制于 cookies,一旦出于某种原因 cookies 失效了,也就意味着 session 也会随之失效. </p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>关于 session 的使用方法也很简单, <strong>session[key] = value</strong>, 但是也存在需要注意的地方,接下来看一个例子</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, session</span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.secret_key = <span class="string">&quot;123&quot;</span>  <span class="comment"># 使用 session 之前,必须要设置 secret_key</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span>():</span> <span class="comment">#1</span></span><br><span class="line">    session[<span class="string">&#x27;xxx&#x27;</span>] = [<span class="string">&#x27;1&#x27;</span>,<span class="string">&#x27;2&#x27;</span>,<span class="string">&#x27;3&#x27;</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>]))</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/rm/&lt;id&gt;&#x27;</span></span>)</span></span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">rm</span>(<span class="params"><span class="built_in">id</span></span>):</span> <span class="comment">#2</span></span><br><span class="line">    session[<span class="string">&#x27;xxx&#x27;</span>].remove(<span class="built_in">id</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>]))</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/add/&lt;id&gt;&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span>(<span class="params"><span class="built_in">id</span></span>):</span> <span class="comment">#3</span></span><br><span class="line">    session[<span class="string">&#x27;xxx&#x27;</span>].append(<span class="built_in">id</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>]))</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/test&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">out_print</span>():</span> <span class="comment">#4</span></span><br><span class="line">     <span class="built_in">print</span>(session[<span class="string">&#x27;xxx&#x27;</span>])</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>]))</span><br><span class="line">     <span class="keyword">return</span> <span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>])</span><br><span class="line">     </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<p>有趣的事情来了,我们按照 #1, #2(请求参数为2),#4, #3(请求参数为4), #4 的方式来请求 url,那么返回结果依次应该是什么呢?</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1,2,3</span><br><span class="line">1,3</span><br><span class="line">1,2,3</span><br><span class="line">1,2,3,4</span><br><span class="line">1,2,3</span><br></pre></td></tr></table></figure>
+
+<p>看一下截图:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g104yjiipoj30p2085gly.jpg"></p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>是不是觉得很奇怪,为什么我对 session 的修改没有生效? 这是因为 session 中有一个属性叫做 <strong>modified</strong>, 如果 session 发现其值有修改，如果修改的对象是可变的对象，则改修不会自动生效，除非<strong>手动设置 modified = True</strong>，也就是说我们需要上述的例子中 session 及时的被修改，需要在修改值后加入如下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session.modified = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h1><p>对于上述例子，在执行第二步之前，大家可以打开 Google 浏览器调试模式，找到 Application tab 页下的 Cookies，会发现里面有个 session-id 的 cookies，大家可以试着把它修改或者清空后再执行步骤 2，会有意想不到的彩蛋哟</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="http://flask.pocoo.org/docs/1.0/api/#flask.session">Flask.session</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/03/09/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +320,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -316,7 +400,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -391,7 +475,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -473,7 +557,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -552,7 +636,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -640,7 +724,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -715,7 +799,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -801,7 +885,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -875,7 +959,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -936,94 +1020,6 @@
         </a>
     </li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/23/nginx%20root%20%E5%92%8C%20alias%20%E9%85%8D%E7%BD%AE%E5%8C%BA%E5%88%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/01/23/nginx%20root%20%E5%92%8C%20alias%20%E9%85%8D%E7%BD%AE%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">nginx root 和 alias 配置区别</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-01-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-23T00:00:00+08:00">2019-01-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前端时间部署自己的博客,使用到了 Nginx ,涉及到一些静态文件, 简单对比一下 nginx 中 alias 和 root 的区别.</p>
-<h1 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h1><p>先看一下 alias 的语法:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	alias path;</span><br><span class="line">Default:	—</span><br><span class="line">Context:	location</span><br></pre></td></tr></table></figure>
-
-<p>alias 的功能很简单,替换指定位置,举个简单的例子:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /i/ &#123;</span><br><span class="line">    alias /data/w3/images/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当请求 <strong>/i/test.jpg</strong> 的时候,实际请求地址是 <strong>/data/w3/images/test.jpg</strong>, 注意: alias 最后面的 “/“ 不能省略.</p>
-<h1 id="root"><a href="#root" class="headerlink" title="root"></a>root</h1><p>看一下 root 的语法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	root path;</span><br><span class="line">Default:	</span><br><span class="line">root html;</span><br><span class="line">Context:	http, server, location, if in location</span><br></pre></td></tr></table></figure>
-
-<p>root 则是用来设置根目录的,同样看一个简单的例子:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /i/ &#123;</span><br><span class="line">    root /data/w3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>当请求 <strong>/i/test.jpg</strong> 的时候,实际请求地址是 <strong>/data/w3/i/test.jpg</strong>,文字可能看起来比较抽象,我们看一张图片,直观的感受一下:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fzga4exaujj30pg0kvjrp.jpg"></p>
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_core_module.html#alias">Nignx-alias</a></p>
-<p><a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_core_module.html#root">Nignx-root</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kevingrace/p/6187482.html">Nginx虚拟目录alias和root目录</a></p>
 
       
     </div>

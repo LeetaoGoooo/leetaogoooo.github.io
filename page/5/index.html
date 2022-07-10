@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-count">194</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,82 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/06/26/KindleGen%20bad%20CPU%20type%20in%20executable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/06/26/KindleGen%20bad%20CPU%20type%20in%20executable/" class="post-title-link" itemprop="url">KindleGen bad CPU type in executable</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-06-26 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-26T00:00:00+08:00">2020-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近准备用 kindleGen 将一些 RSS 生产 mobi 然后推送到 kindle 上去，发现 kindleGen 没有办法在 macOS 下使用了，使用的时候会出现错误：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bad CPU <span class="built_in">type</span> <span class="keyword">in</span> executable</span><br></pre></td></tr></table></figure>
+
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>找了一些资料，最后发现原因是<code>macOS Catalina 10.15 不再支持 32 位应用，而亚马逊并没有升级 kindlegen</code></p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>亚马逊更新了 kindle-previewer，支持 macOS Catalina 10.15，而 kindle-previewer 的包里带有 kindlegen。</p>
+<p>下载安装 kindle-previewer，安装完成之后查看应用程序的包内容，在 <code>/Contents/MacOS/lib/fc/bin </code> 中找到 <code>kindlegen</code></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/06/06/Flask-Restful%20%E4%B8%AD%20fileds.DateTime%20%E4%B8%8D%E6%94%AF%E6%8C%81%20strftime%20%E6%A0%BC%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +312,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -324,7 +400,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -420,7 +496,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -496,7 +572,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -590,7 +666,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -692,7 +768,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -771,7 +847,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -854,7 +930,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -940,7 +1016,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -956,87 +1032,6 @@
           <p>在书稿没有完成之前，是不可能更新的。天天写稿子，感觉自己头发都快秃了。</p>
 <p>写一本书难，写一本好书更难，写一本读者喜欢的书更是难上加难。同类的书已经有好几本了，写的也挺详实的，不过还是喜欢能写出一点新的东西来，还是希望到时候读者能够从我这里获取一点不一样的东西。</p>
 <p>吐槽完了，接着去干活了。白天干活，晚上赶稿子～～～</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/12/25/SpringBoot%20%E4%BD%BF%E7%94%A8%20@Valid%20%E9%85%8D%E5%90%88%20BindingResult%20%E6%A0%A1%E9%AA%8C%E6%95%B0%E6%8D%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/12/25/SpringBoot%20%E4%BD%BF%E7%94%A8%20@Valid%20%E9%85%8D%E5%90%88%20BindingResult%20%E6%A0%A1%E9%AA%8C%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">SpringBoot 使用 @Valid 配合 BindingResult 校验数据</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-12-25 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-25T00:00:00+08:00">2019-12-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在实际开发过程中，经常需要对前端传来的数据模型进行校验，一般情况下都是写一个专门的校验函数去校验，这种方式很显然不适合复杂的项目，因为随着项目复杂度的增加需要校验的数据模型越来越多，并且在开发过程中可能也需要时常修改数据模型，这就导致原来的校验方法可能需要时常的变动，也不利于维护。因为我们需要一种更简单的方式去完成这个工作。</p>
-<h1 id="Valid-和-BindingResult"><a href="#Valid-和-BindingResult" class="headerlink" title="@Valid 和 BindingResult"></a>@Valid 和 BindingResult</h1><p>SpringBoot 在内部通过集成 hibernate-validation 已经实现了JSR-349验证规范接口，在SpringBoot项目中只要直接使用就行了。接下来通过一个简单的例子完整的介绍使用方法</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>以注册用户为例</p>
-<h3 id="定义-Bean"><a href="#定义-Bean" class="headerlink" title="定义 Bean"></a>定义 Bean</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="meta">@NotBlank(message=&quot;手机号不能为空&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line">    <span class="meta">@NotBlank(message=&quot;手机号不能为空&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPhone</span><span class="params">(String phone)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.phone = phone;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPassword</span><span class="params">(String password)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.password = password;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPhone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> phone;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPassword</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> password;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="定义-Controller"><a href="#定义-Controller" class="headerlink" title="定义 Controller"></a>定义 Controller</h3><p>在 controller 类里面对相应的接口添加 @Valid,BindingResult 验证，如果检验失败，则获取错误信息返回前台</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/user&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@PostMapping(value = &quot;/register&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">login</span><span class="params">(<span class="meta">@RequstBody</span> <span class="meta">@Valid</span> User userInfo, BindingResult bindingResult)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (bindingResult.hasErrors()) &#123;</span><br><span class="line">            System.out.print(bindingResult.getFieldError().getDefaultMessage());</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> userInfo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>上面给出了常用的处理方法，在实际开发过程中，通常为了返回数据格式的统一，可能会全局捕获异常，然后统一返回，这个时候上述 Controller 中的 BindResult 和 if 判断语句就可以省略了，然后在全局中捕获</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://juejin.im/post/5b2f4514f265da597a6108f8">Java SpringBoot上的参数校验JSR 303 Validation</a></p>
 
       
     </div>

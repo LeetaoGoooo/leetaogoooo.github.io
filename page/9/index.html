@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-count">194</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,94 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/23/nginx%20root%20%E5%92%8C%20alias%20%E9%85%8D%E7%BD%AE%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/01/23/nginx%20root%20%E5%92%8C%20alias%20%E9%85%8D%E7%BD%AE%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">nginx root 和 alias 配置区别</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-23 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-23T00:00:00+08:00">2019-01-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前端时间部署自己的博客,使用到了 Nginx ,涉及到一些静态文件, 简单对比一下 nginx 中 alias 和 root 的区别.</p>
+<h1 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h1><p>先看一下 alias 的语法:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	alias path;</span><br><span class="line">Default:	—</span><br><span class="line">Context:	location</span><br></pre></td></tr></table></figure>
+
+<p>alias 的功能很简单,替换指定位置,举个简单的例子:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /i/ &#123;</span><br><span class="line">    alias /data/w3/images/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当请求 <strong>/i/test.jpg</strong> 的时候,实际请求地址是 <strong>/data/w3/images/test.jpg</strong>, 注意: alias 最后面的 “/“ 不能省略.</p>
+<h1 id="root"><a href="#root" class="headerlink" title="root"></a>root</h1><p>看一下 root 的语法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Syntax:	root path;</span><br><span class="line">Default:	</span><br><span class="line">root html;</span><br><span class="line">Context:	http, server, location, if in location</span><br></pre></td></tr></table></figure>
+
+<p>root 则是用来设置根目录的,同样看一个简单的例子:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /i/ &#123;</span><br><span class="line">    root /data/w3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当请求 <strong>/i/test.jpg</strong> 的时候,实际请求地址是 <strong>/data/w3/i/test.jpg</strong>,文字可能看起来比较抽象,我们看一张图片,直观的感受一下:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fzga4exaujj30pg0kvjrp.jpg"></p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_core_module.html#alias">Nignx-alias</a></p>
+<p><a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_core_module.html#root">Nignx-root</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kevingrace/p/6187482.html">Nginx虚拟目录alias和root目录</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/21/Rust%E7%AC%94%E8%AE%B0-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%88%E4%B8%80%EF%BC%89--%20%E6%A0%87%E9%87%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +324,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -339,7 +427,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -433,7 +521,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -522,7 +610,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -617,7 +705,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -713,7 +801,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -809,7 +897,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -887,7 +975,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -976,7 +1064,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -1053,107 +1141,6 @@
 <li><p><a target="_blank" rel="noopener" href="http://www.laurentluce.com/posts/python-string-objects-implementation/">Python String objects implementation</a></p>
 </li>
 </ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/12/21/%E8%A7%A3%E5%86%B3%20openpyxl%20%E5%9E%82%E7%9B%B4%E5%88%86%E9%A1%B5%E7%AC%A6%E5%92%8C%E6%B0%B4%E5%B9%B3%E5%88%86%E9%A1%B5%E7%AC%A6%E5%90%8C%E6%97%B6%E6%B7%BB%E5%8A%A0%E7%9A%84%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/12/21/%E8%A7%A3%E5%86%B3%20openpyxl%20%E5%9E%82%E7%9B%B4%E5%88%86%E9%A1%B5%E7%AC%A6%E5%92%8C%E6%B0%B4%E5%B9%B3%E5%88%86%E9%A1%B5%E7%AC%A6%E5%90%8C%E6%97%B6%E6%B7%BB%E5%8A%A0%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">解决 openpyxl 垂直分页符和水平分页符同时添加的问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-12-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-21T00:00:00+08:00">2018-12-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>十天前知乎上有人提问 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/305289263/answer/549313223">python:openpyxl模块怎么给表格添加分页符？实现分页打印功能？</a>,看到问题之后,我很快的给他了一个如何添加垂直分页符或水平分页符的示例,你以为问题就结束了?我是这么以为的,但是事实证明,我太天真了,就在我给出示例的几分钟后,他在我的回答下评论了,说是<strong>同时添加垂直分页符和水平分页符失败了</strong>.<br>我当时的第一反应:<br><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyegeyuiomj30j60j63z8.jpg"><br>心里想着,肯定是他的写法有问题,毫不犹豫的回复到,” 没有试过同时添加两种分页符的操作,默认是水平分页符,如果你先添加了垂直分页符的话,应该后面需要重新声明:openpyxl.worksheet.pagebreak.PageBreak.tagname = “rowBreaks”,听着自己飞快击打键盘的声音,自己不经有点飘飘然.就在沉浸在自己的YY当中,又过去了几分钟,他用正确的代码错误的结果狠狠的摔在了我的脸上:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">col_break = openpyxl.worksheet.pagebreak.Break(<span class="number">5</span>) <span class="comment">#创建分页符，参数5：在第5/6中间分页</span></span><br><span class="line">sheet1.page_breaks.tagname = <span class="string">&#x27;rowBreaks&#x27;</span> <span class="comment">#分页符属性设置为行分页符</span></span><br><span class="line">sheet1.page_breaks.append(col_break) <span class="comment">#把分页符对象添加到sheet对象里</span></span><br><span class="line"></span><br><span class="line">row_break = openpyxl.worksheet.pagebreak.Break(<span class="number">3</span>) <span class="comment">#创建分页符</span></span><br><span class="line">sheet1.page_breaks.tagname = <span class="string">&#x27;colBreaks&#x27;</span> <span class="comment">#分页符属性设置为列分页符</span></span><br><span class="line">sheet1.page_breaks.append(row_break) <span class="comment">#把分页符对象添加到sheet对象里</span></span><br></pre></td></tr></table></figure>
-
-<p>“结果是在第3和5列添加了两个垂直分页符，是哪里有问题？大师”,他问道.  我看了一眼代码好像没有错,我的心有点慌了,双手开始微微颤抖起来,一遍又一遍地仔细地巡视着代码,视图找出错误反驳他,但是并没有,抱着最后的希望,我把他的代码复制到自己的文件中,然后敲下回车符, excel 文件静静的生成在目录下,这可能是我最后的希望了.拿鼠标的手不自觉的颤抖起来,那么小的屏幕,那么大的文件,鼠标怎么半天都没办法移动上去,我深吸一口气,控制住自己手,终于把鼠标一上去了,双击excel,闭上眼睛,再睁开,我知道,我错了.但是就这么放弃了吗?绝不!我要把这个问题打到!</p>
-<h1 id="亮剑"><a href="#亮剑" class="headerlink" title="亮剑"></a>亮剑</h1><blockquote>
-<p>“是时候展示真正的技术了”</p>
-</blockquote>
-<p>俗话说”解铃还须系铃人”,我们还得自己看一下问题代码:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># example.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> Workbook</span><br><span class="line"><span class="keyword">from</span> openpyxl.compat <span class="keyword">import</span> <span class="built_in">range</span></span><br><span class="line"><span class="keyword">from</span> openpyxl.utils <span class="keyword">import</span> get_column_letter</span><br><span class="line"><span class="keyword">from</span> openpyxl.worksheet.pagebreak <span class="keyword">import</span> Break, PageBreak</span><br><span class="line"></span><br><span class="line">wb = Workbook()</span><br><span class="line">ws = wb.active</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">20</span>):</span><br><span class="line">    <span class="keyword">for</span> col <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">30</span>):</span><br><span class="line">        _ = ws.cell(column=col, row=row, value=<span class="string">&quot;&#123;0&#125;&quot;</span>.<span class="built_in">format</span>(get_column_letter(col)))</span><br><span class="line"></span><br><span class="line">col_break = Break(<span class="number">5</span>) <span class="comment">#创建分页符，参数5：在第5/6中间分页</span></span><br><span class="line">ws.page_breaks.tagname = <span class="string">&#x27;rowBreaks&#x27;</span> <span class="comment">#分页符属性设置为行分页符</span></span><br><span class="line">ws.page_breaks.append(col_break) <span class="comment">#把分页符对象添加到sheet对象里</span></span><br><span class="line"></span><br><span class="line">row_break = Break(<span class="number">3</span>) <span class="comment">#创建分页符</span></span><br><span class="line">ws.page_breaks.tagname = <span class="string">&#x27;colBreaks&#x27;</span> <span class="comment">#分页符属性设置为列分页符</span></span><br><span class="line">ws.page_breaks.append(row_break) <span class="comment">#把分页符对象添加到sheet对象里</span></span><br><span class="line"></span><br><span class="line">wb.save(filename = dest_filename) </span><br></pre></td></tr></table></figure>
-
-
-<p>从代码上应该是后面的 page_breaks 把前面的覆盖了, 那让我们看看 page_breaks 究竟是什么东西.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Worksheet</span>(<span class="params">_WorkbookChild</span>):</span></span><br><span class="line">   <span class="comment"># 省略部分代码</span></span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">_setup</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.page_breaks = PageBreak() <span class="comment"># 再看 PageBreak</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PageBreak</span>(<span class="params">Serialisable</span>):</span></span><br><span class="line">    tagname = <span class="string">&quot;rowBreaks&quot;</span></span><br><span class="line">    <span class="comment"># 省略部分代码</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">append</span>(<span class="params">self, brk=<span class="literal">None</span></span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Add a page break</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        vals = <span class="built_in">list</span>(self.brk)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(brk, Break):</span><br><span class="line">            brk = Break(<span class="built_in">id</span>=self.count+<span class="number">1</span>)</span><br><span class="line">        vals.append(brk)</span><br><span class="line">        self.brk = vals</span><br></pre></td></tr></table></figure>
-
-<p>从 example 中我们不难发现,我们是通过修改 page_breaks 的 tag_name 去决定插入的分页符是垂直分页符还是水平分页符的.但是 page_breaks 现在只有一个 PageBreak 这就难怪后声明的会把前面的覆盖了,那么如果我们把 page_breaks 变成 PageBreak 的列表呢?</p>
-<h1 id="First-Blood-–-page-breaks"><a href="#First-Blood-–-page-breaks" class="headerlink" title="First Blood – page_breaks"></a>First Blood – page_breaks</h1><p>说改咱就改啊,首先尝试修改 WorkSheet 类</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Worksheet</span>(<span class="params">_WorkbookChild</span>):</span></span><br><span class="line">   <span class="comment"># 省略部分代码</span></span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">_setup</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.page_breaks = [PageBreak()]</span><br></pre></td></tr></table></figure>
-
-<p>然后再修改一下 example.py</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> Workbook</span><br><span class="line"><span class="keyword">from</span> openpyxl.compat <span class="keyword">import</span> <span class="built_in">range</span></span><br><span class="line"><span class="keyword">from</span> openpyxl.utils <span class="keyword">import</span> get_column_letter</span><br><span class="line"><span class="keyword">from</span> openpyxl.worksheet.pagebreak <span class="keyword">import</span> Break, PageBreak</span><br><span class="line"></span><br><span class="line">wb = Workbook()</span><br><span class="line">dest_filename = <span class="string">&#x27;empty_book.xlsx&#x27;</span></span><br><span class="line"></span><br><span class="line">ws = wb.active</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">20</span>):</span><br><span class="line">    <span class="keyword">for</span> col <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">30</span>):</span><br><span class="line">        _ = ws.cell(column=col, row=row, value=<span class="string">&quot;&#123;0&#125;&quot;</span>.<span class="built_in">format</span>(get_column_letter(col)))</span><br><span class="line"></span><br><span class="line">rowPageBreak = PageBreak()</span><br><span class="line">rowPageBreak.tagname = <span class="string">&#x27;rowBreaks&#x27;</span></span><br><span class="line"></span><br><span class="line">colPageBreak = PageBreak()</span><br><span class="line">colPageBreak.tagname = <span class="string">&#x27;colBreaks&#x27;</span></span><br><span class="line"></span><br><span class="line">ws.page_breaks = [rowPageBreak, colPageBreak] </span><br><span class="line"></span><br><span class="line">ws.page_breaks[<span class="number">0</span>].append(Break(<span class="built_in">id</span>=<span class="number">5</span>))  </span><br><span class="line">ws.page_breaks[<span class="number">1</span>].append(Break(<span class="built_in">id</span>=<span class="number">3</span>))</span><br><span class="line">wb.save(filename = dest_filename)</span><br></pre></td></tr></table></figure>
-
-<p>敲下回车,心里那个美滋滋,还没高兴几秒钟,就出问题了,果然做人还是得低调一点</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;test.py&quot;, line 24, in &lt;module&gt;</span><br><span class="line">    wb.save(filename = dest_filename)</span><br><span class="line">  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\workbook\workbook.py&quot;, line 391, in save</span><br><span class="line">    save_workbook(self, filename)</span><br><span class="line">  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\writer\excel.py&quot;, line 284, in save_workbook</span><br><span class="line">    writer.save(filename)</span><br><span class="line">  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\writer\excel.py&quot;, line 266, in save</span><br><span class="line">    self.write_data()</span><br><span class="line">  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\writer\excel.py&quot;, line 83, in write_data</span><br><span class="line">    self._write_worksheets()</span><br><span class="line">  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\writer\excel.py&quot;, line 203, in _write_worksheets</span><br><span class="line">    xml = ws._write()</span><br><span class="line">  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\worksheet\worksheet.py&quot;, line 893, in _write</span><br><span class="line">    return write_worksheet(self)</span><br><span class="line">  File &quot;F:\workspace\python\test_openpyxl\test_openpyxl\lib\site-packages\openpyxl\writer\worksheet.py&quot;, line 151, in write_worksheet</span><br><span class="line">    xf.write(ws.page_breaks.to_tree())</span><br><span class="line">AttributeError: &#x27;list&#x27; object has no attribute &#x27;to_tree&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>看了一眼错误信息,发现了从中作祟的家伙再 worksheet.py 的 151 行, 让我们悄悄地看一眼,打枪的不要.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># worksheet.py</span></span><br><span class="line"><span class="comment"># 省略部分代码</span></span><br><span class="line">            <span class="keyword">if</span> ws.page_breaks:</span><br><span class="line">                    xf.write(ws.page_breaks.to_tree())</span><br></pre></td></tr></table></figure>
-
-<p>原来是我们修改了 page_breaks 之后, page_breaks 有时候不再是孤家寡人了,我们需要考虑它有另外的 PageBreak 的情况了.</p>
-<h1 id="Double-Kill-–-Worksheet"><a href="#Double-Kill-–-Worksheet" class="headerlink" title="Double Kill – Worksheet"></a>Double Kill – Worksheet</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># worksheet.py</span></span><br><span class="line"><span class="comment"># 省略部分代码</span></span><br><span class="line">            <span class="keyword">if</span> ws.page_breaks:</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">isinstance</span>(ws.page_breaks,<span class="built_in">list</span>):</span><br><span class="line">                    <span class="keyword">for</span> page_break_item <span class="keyword">in</span> ws.page_breaks:</span><br><span class="line">                        xf.write(page_break_item.to_tree())</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    xf.write(ws.page_breaks.to_tree())</span><br></pre></td></tr></table></figure>
-<p>回车,毫无问题,人生啊就是这么寂寞如雪~~~</p>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>已经在 openpyxl 提了相应的issue,目前再写测试用例,过段时间就提交 PR 了</p>
 
       
     </div>

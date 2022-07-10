@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-count">194</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,82 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/03/28/Openlayers%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E5%8A%A0%E8%BD%BD%E6%95%88%E6%9E%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/03/28/Openlayers%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E5%8A%A0%E8%BD%BD%E6%95%88%E6%9E%9C/" class="post-title-link" itemprop="url">Openlayers仿链家网加载效果</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-03-28 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-28T00:00:00+08:00">2017-03-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="效果预览"><a href="#效果预览" class="headerlink" title="效果预览"></a>效果预览</h1><p>在上代码之前首先让我们看一下链家网的加载效果，也就是这次我们的模仿对象，效果如下图:</p>
+<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1fe2dmqh07hg20qk0gaqv6.gif"></p>
+<p>下面是我们实现的效果:</p>
+<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1fe2dq2tou6g20qk0gaqv7.gif"></p>
+<h1 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h1><p>当 <em>Zoom</em> 改变的时候，根据圆的<strong>Radiu</strong> 和 <strong>Zoom</strong>，计算出适合当前地图的圆的半径，然后重新绘圆</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Gis展示<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;jslib/openlayer3/css/ol.css&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;jslib/jeasyui/themes/default/easyui.css&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jslib/openlayer3/build/ol-debug.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jslib/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jslib/jeasyui/jquery.easyui.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;mapContainer&quot;</span> <span class="attr">class</span>=<span class="string">&quot;subcontent&quot;</span>&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;map&quot;</span> <span class="attr">class</span>=<span class="string">&quot;map&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: auto;height: auto&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> styles = &#123;</span></span><br><span class="line"><span class="javascript">        <span class="string">&#x27;Circle&#x27;</span>: <span class="keyword">new</span> ol.style.Style(&#123;</span></span><br><span class="line"><span class="javascript">          <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">color</span>: <span class="string">&#x27;rgba(57,172,106,0.9)&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">opacity</span>: <span class="string">&#x27;0.05&#x27;</span></span></span><br><span class="line"><span class="javascript">          &#125;),</span></span><br><span class="line"><span class="javascript">          <span class="attr">text</span>: <span class="keyword">new</span> ol.style.Text(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">font</span>: <span class="string">&#x27;14px sans-serif&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">text</span>:<span class="string">&#x27;Test\n\n Value \n\n Message&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">textAlign</span>:<span class="string">&#x27;center&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">rotateWithView</span>:<span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">color</span>: <span class="string">&#x27;#FFFFFF&#x27;</span></span></span><br><span class="line"><span class="javascript">            &#125;),</span></span><br><span class="line"><span class="javascript">            <span class="attr">stroke</span>:<span class="keyword">new</span> ol.style.Stroke(&#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">color</span>:<span class="string">&#x27;#FFFFFF&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">width</span>: <span class="number">1</span></span></span><br><span class="line"><span class="javascript">            &#125;)</span></span><br><span class="line"><span class="javascript">          &#125;)</span></span><br><span class="line"><span class="javascript">          <span class="comment">// radius:100</span></span></span><br><span class="line"><span class="javascript">        &#125;)</span></span><br><span class="line"><span class="javascript">      &#125;;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> Selectstyles = &#123;</span></span><br><span class="line"><span class="javascript">        <span class="string">&#x27;Circle&#x27;</span>: <span class="keyword">new</span> ol.style.Style(&#123;</span></span><br><span class="line"><span class="javascript">          <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">color</span>: <span class="string">&#x27;rgba(228,57,60,0.9)&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">opacity</span>: <span class="string">&#x27;0.05&#x27;</span></span></span><br><span class="line"><span class="javascript">          &#125;),</span></span><br><span class="line"><span class="javascript">          <span class="attr">text</span>: <span class="keyword">new</span> ol.style.Text(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">font</span>: <span class="string">&#x27;14px sans-serif&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">text</span>:<span class="string">&#x27;Test\n\n Value \n\n Message&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">textAlign</span>:<span class="string">&#x27;center&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="comment">// rotateWithView:true,</span></span></span><br><span class="line"><span class="javascript">            <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">color</span>: <span class="string">&#x27;#FFFFFF&#x27;</span></span></span><br><span class="line"><span class="javascript">            &#125;),</span></span><br><span class="line"><span class="javascript">            <span class="attr">stroke</span>:<span class="keyword">new</span> ol.style.Stroke(&#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">color</span>:<span class="string">&#x27;#FFFFFF&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">width</span>: <span class="number">1</span></span></span><br><span class="line"><span class="javascript">            &#125;)</span></span><br><span class="line"><span class="javascript">          &#125;)</span></span><br><span class="line"><span class="javascript">        &#125;)</span></span><br><span class="line"><span class="javascript">      &#125;;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> styleFunction = <span class="function"><span class="keyword">function</span>(<span class="params">feature</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> styles[feature.getGeometry().getType()];</span></span><br><span class="line"><span class="javascript">      &#125;;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> selectStyleFunction = <span class="function"><span class="keyword">function</span>(<span class="params">feature</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> Selectstyles[feature.getGeometry().getType()];</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> vectorSource = <span class="keyword">new</span> ol.source.Vector(&#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">features</span>: <span class="keyword">new</span> ol.Feature(<span class="keyword">new</span> ol.geom.Circle([<span class="number">5e6</span>, <span class="number">7e6</span>], <span class="number">1e6</span>))</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">      vectorSource.addFeature(<span class="keyword">new</span> ol.Feature(<span class="keyword">new</span> ol.geom.Circle([<span class="number">5e6</span>, <span class="number">7e6</span>], <span class="number">1e6</span>/<span class="built_in">Math</span>.pow(<span class="number">2</span>,-<span class="number">1</span>))));</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> vectorLayer = <span class="keyword">new</span> ol.layer.Vector(&#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">source</span>: vectorSource,</span></span><br><span class="line"><span class="javascript">        <span class="attr">style</span>: styleFunction</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> map = <span class="keyword">new</span> ol.Map(&#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">layers</span>: [</span></span><br><span class="line"><span class="javascript">          <span class="keyword">new</span> ol.layer.Tile(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">source</span>: <span class="keyword">new</span> ol.source.OSM()</span></span><br><span class="line"><span class="javascript">          &#125;),</span></span><br><span class="line"><span class="javascript">          vectorLayer</span></span><br><span class="line"><span class="javascript">        ],</span></span><br><span class="line"><span class="javascript">        <span class="attr">target</span>: <span class="string">&#x27;map&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        <span class="attr">controls</span>: ol.control.defaults(&#123;</span></span><br><span class="line"><span class="javascript">          <span class="attr">attributionOptions</span>: <span class="comment">/** <span class="doctag">@type <span class="type">&#123;olx.control.AttributionOptions&#125;</span> </span>*/</span> (&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">collapsible</span>: <span class="literal">false</span></span></span><br><span class="line"><span class="javascript">          &#125;)</span></span><br><span class="line"><span class="javascript">        &#125;),</span></span><br><span class="line"><span class="javascript">        <span class="attr">view</span>: <span class="keyword">new</span> ol.View(&#123;</span></span><br><span class="line"><span class="javascript">          <span class="attr">center</span>: [<span class="number">0</span>, <span class="number">0</span>],</span></span><br><span class="line"><span class="javascript">          <span class="attr">zoom</span>: <span class="number">2</span></span></span><br><span class="line"><span class="javascript">        &#125;)</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> view = map.getView();</span></span><br><span class="line"><span class="javascript">      view.on(<span class="string">&#x27;change:resolution&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> zoom = view.getZoom();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> Collection = map.getLayers();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> layers = Collection.getArray();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> vectorSource = layers[<span class="number">1</span>].getSource();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> features = vectorSource.getFeatures();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> len = features.length;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span> ; i&lt; len; i++) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> Circle = features[i].getGeometry();</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(zoom);</span></span><br><span class="line"><span class="javascript">                Circle.setRadius(<span class="number">1e6</span>/<span class="built_in">Math</span>.pow(<span class="number">2</span>,zoom-<span class="number">3</span>));</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> selectPointerMove = <span class="keyword">new</span> ol.interaction.Select(&#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">condition</span>: ol.events.condition.pointerMove</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">      map.addInteraction(selectPointerMove);</span></span><br><span class="line"><span class="javascript">      selectPointerMove.on(<span class="string">&#x27;select&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">         <span class="keyword">var</span> ele = e;</span></span><br><span class="line"><span class="javascript">         <span class="keyword">var</span> select_len = e.selected.length;</span></span><br><span class="line"><span class="javascript">         <span class="keyword">var</span> unselect_len = e.deselected.length;</span></span><br><span class="line"><span class="javascript">         <span class="keyword">if</span> (select_len &gt; <span class="number">0</span>) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> featureArr = e.selected;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; featureArr.length; i++) &#123;</span></span><br><span class="line"><span class="javascript">              featureArr[i].setStyle(selectStyleFunction(featureArr[i]));</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> Circle = featureArr[i].getGeometry();</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">         &#125;</span></span><br><span class="line"><span class="javascript">         <span class="keyword">if</span> (unselect_len &gt; <span class="number">0</span>) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> featureArr = e.deselected;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; featureArr.length; i++) &#123;</span></span><br><span class="line"><span class="javascript">                featureArr[i].setStyle(styleFunction(featureArr[i]));</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> Circle = featureArr[i].getGeometry();</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">         &#125;</span></span><br><span class="line"><span class="javascript">      &#125;)</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/03/20/CentOS7%E5%AE%89%E8%A3%85python-pip/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +312,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -314,7 +390,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -392,7 +468,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -492,7 +568,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -621,7 +697,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -712,7 +788,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -794,7 +870,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -890,7 +966,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -977,7 +1053,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -1028,123 +1104,6 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_length<span class="operator">=</span> <span class="number">4</span>;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
 
 <p>如果将值设置为 &lt; 4 ,valiadate_password_length 将仍为4.将上述两项设置完成之后,就可以设置一个长度为4位的简单 mysql 密码了.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/12/01/%E7%BC%96%E5%86%99%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84JavaScript-%E7%AC%AC%E4%B8%80%E7%AB%A0(%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96)%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/12/01/%E7%BC%96%E5%86%99%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84JavaScript-%E7%AC%AC%E4%B8%80%E7%AB%A0(%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96)%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">编写可维护的JavaScript-第一章(基本的格式化)笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-12-01 00:00:00" itemprop="dateCreated datePublished" datetime="2016-12-01T00:00:00+08:00">2016-12-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="缩进层级"><a href="#缩进层级" class="headerlink" title="缩进层级"></a>缩进层级</h1><p>保持一定的缩进,使用制表符进行缩进或者使用空格进行缩进.</p>
-<h1 id="语句结尾"><a href="#语句结尾" class="headerlink" title="语句结尾"></a>语句结尾</h1><p>每行代码结尾使用分号.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//合法代码</span></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;Nicholas&quot;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//合法代码,不推荐写法</span></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;Nicholas&quot;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述两种代码合法的原因有赖于分析器的自动分号插入(Automatic Semicolon Insertion, ASI) 机制,JavaScript 代码省略分号也是可以的.但是存在由于该机制导致的错误.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原始代码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;leetao&quot;</span>,</span><br><span class="line">        <span class="string">&quot;age&quot;</span>: <span class="string">&quot;unknown&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//分析器会将它理解成</span></span><br><span class="line">funcition <span class="function"><span class="title">getData</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;leetao&quot;</span>,</span><br><span class="line">        <span class="string">&quot;age&quot;</span>: <span class="string">&quot;unknown&quot;</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//通过将左括号移至于return同一行修复该问题</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="string">&quot;name&quot;</span>: <span class="string">&quot;leetao&quot;</span>,</span><br><span class="line">        <span class="string">&quot;age&quot;</span>: <span class="string">&quot;unknown&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="行的长度"><a href="#行的长度" class="headerlink" title="行的长度"></a>行的长度</h1><p>每行的保持一定的长度,推荐80个字符.</p>
-<h1 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h1><p>当每行到达单行最大胆字符数字数限制时,在运算符后换行,下一行需要增加那个层级的缩进.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 好的做法: 在运算符后换行,第二行追加两个缩进</span></span><br><span class="line">callAFunction(<span class="built_in">document</span>, element, windoow, <span class="string">&quot;some string value&quot;</span>, <span class="literal">true</span>, <span class="number">123</span>,</span><br><span class="line">        navigator);</span><br><span class="line">        </span><br><span class="line"><span class="comment">// 不好的做法: 第二行只有一个缩进</span></span><br><span class="line">callAFunction(<span class="built_in">document</span>, element, windoow, <span class="string">&quot;some string value&quot;</span>, <span class="literal">true</span>, <span class="number">123</span>,</span><br><span class="line">    navigator);</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 不好的做法: 在运算符前换行</span></span><br><span class="line">callAFunction(<span class="built_in">document</span>, element, windoow, <span class="string">&quot;some string value&quot;</span>, <span class="literal">true</span>, <span class="number">123</span></span><br><span class="line">        , navigator);</span><br></pre></td></tr></table></figure>
-<p>总是将一个运算符置于行尾, ASI 不会自作主张地插入分号.对于语句同样遵循上述规则.不过对于语句,主体部分换行后未一个缩进.该规则存在一个特例: <strong>当给变量赋值时,第二行位置应当和赋值运算符的位置保持对齐.</strong></p>
-<h1 id="空行"><a href="#空行" class="headerlink" title="空行"></a>空行</h1><p>建议在下述位置添加空行:</p>
-<ol>
-<li>在方法之间.</li>
-<li>在方法中的局部变量和第一条语句之间.</li>
-<li>在多行或单行注释之前.</li>
-<li>在方法内的逻辑片段之间插入空行,提高可读性.</li>
-</ol>
-<h1 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h1><ol>
-<li>变量名遵循驼峰大小写命名法 (Camel Case),并且命名前缀应当是<strong>名词</strong>.</li>
-<li>函数名遵循驼峰大小写命名法 (Camel Case),并且命名前缀应当是<strong>动词</strong>.</li>
-<li>常量使用大小写字母和下划线来命名,下划线用以分割单词.</li>
-<li>构造函数的命名遵循大驼峰命名法 (Pascal Case) ,即以大写字母开始.</li>
-</ol>
-<h1 id="直接量"><a href="#直接量" class="headerlink" title="直接量"></a>直接量</h1><h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><ol>
-<li>多行字符串,使用字符串连接符 (+) 将字符串分成多份.</li>
-<li>字符串用单行引号括起来均可,但是一个项目应当保持一种风格.</li>
-</ol>
-<h2 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h2><p>为了避免歧义,不要省略小数点之前或者之后的数字.</p>
-<h2 id="null"><a href="#null" class="headerlink" title="null"></a>null</h2><p>建议使用 null 的场景:</p>
-<ol>
-<li>用来初始化一个变量,该变量可能赋值为一个对象.</li>
-<li>用来和一个已经初始化的变量比较,该变量是不是对象均可.</li>
-<li>当函数的参数期望是对象时,用作参数传入.</li>
-<li>当函数的返回值期望是对象时,用作返回值传出.</li>
-</ol>
-<p>下述场景不应当使用 null:</p>
-<ol>
-<li>不要使用 null 来检测是否传入某个参数.</li>
-<li>不要用 null 来检测一个未初始化的变量.</li>
-</ol>
-<h2 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h2><p>不管是值是 undefined 的变量还是未声明的变量， typeof 运算结果都是 “undefined”.通过禁止使用特殊值 undefined,可以有效地确保只在一种情况下 typeof 才会返回 “undefined”: 当变量未声明时.如果你使用了一个可能(或者可能不会)赋值为一个对象的变量时,则将其赋值未 null.</p>
-<h1 id="对象直接量"><a href="#对象直接量" class="headerlink" title="对象直接量"></a>对象直接量</h1><p>创建对象使用对象直接量，在直接量中直接写出所有属性,这种方式可以取代先显式创建地创建 Object 的实例然后添加属性的这种做法.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不好的写法</span></span><br><span class="line"><span class="keyword">var</span> book = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">book.title = <span class="string">&quot;title&quot;</span>;</span><br><span class="line">bookl.author = <span class="string">&quot;author&quot;</span>;</span><br></pre></td></tr></table></figure>
-<p>当定义对象直接量时,常常在第一行包含左花括号,每一个属性的名值对都独占一行,并保持一个缩进.最后右花括号也独占一行.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//好的写法</span></span><br><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">    <span class="string">&quot;title&quot;</span>: <span class="string">&quot;title&quot;</span>,</span><br><span class="line">    <span class="string">&quot;author&quot;</span>: <span class="string">&quot;author&quot;</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<h1 id="数组直接量"><a href="#数组直接量" class="headerlink" title="数组直接量"></a>数组直接量</h1><p>不赞成显式地使用 Array  构造函数来创建数组</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不好的写法</span></span><br><span class="line"><span class="keyword">var</span> colors = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="string">&quot;red&quot;</span>, <span class="string">&quot;green&quot;</span>, <span class="string">&quot;blue&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> numbers = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 好的写法</span></span><br><span class="line"><span class="keyword">var</span> colors = [ <span class="string">&quot;red&quot;</span>, <span class="string">&quot;green&quot;</span>, <span class="string">&quot;blue&quot;</span> ];</span><br><span class="line"><span class="keyword">var</span> numbers = [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span> ];</span><br></pre></td></tr></table></figure>
 
       
     </div>

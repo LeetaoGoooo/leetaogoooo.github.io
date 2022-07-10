@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-count">194</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,102 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/09/19/Replace%20Words/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/09/19/Replace%20Words/" class="post-title-link" itemprop="url">Replace Words</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-09-19 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-19T00:00:00+08:00">2017-09-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>In English, we have a concept called <code>root</code>, which can be followed by some other words to form another longer word - let’s call this word <code>successor</code>. For example, the root <code>an</code>, followed by <code>other</code>, which can form another word <code>another</code>.</p>
+<p>Now, given a dictionary consisting of many roots and a sentence. You need to replace all the <code>successor</code> in the sentence with the <code>root</code> forming it. If a <code>successor</code> has many <code>roots</code> can form it, replace it with the root with the shortest length.</p>
+<p>You need to output the sentence after the replacement.</p>
+<p><strong>Example 1:</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: dict = [&quot;cat&quot;, &quot;bat&quot;, &quot;rat&quot;]</span><br><span class="line">sentence = &quot;the cattle was rattled by the battery&quot;</span><br><span class="line">Output: &quot;the cat was rat by the bat&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Note:</strong></p>
+<ol>
+<li>The input will only have lower-case letters.</li>
+<li>1 &lt;= dict words number &lt;= 1000</li>
+<li>1 &lt;= sentence words number &lt;= 1000</li>
+<li>1 &lt;= root length &lt;= 100</li>
+<li>1 &lt;= sentence words length &lt;= 1000</li>
+</ol>
+<p><strong>Solution</strong></p>
+<p>将字符串(sentence)拆分为数组(sentence_arr),然后遍历 dic,判断数组元素前导字符串是否包含dic中的元素,如果包含则替换</p>
+<p>Python</p>
+<p>Prefix-hash</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">replaceWords</span>(<span class="params">self, <span class="built_in">dict</span>, sentence</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type dict: List[str]</span></span><br><span class="line"><span class="string">        :type sentence: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        res = []</span><br><span class="line">        sentence_arr = sentence.split(<span class="string">&quot; &quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(sentence_arr)):</span><br><span class="line">            <span class="keyword">for</span> item <span class="keyword">in</span> <span class="built_in">dict</span>:</span><br><span class="line">                <span class="keyword">if</span> sentence_arr[i].startswith(item):</span><br><span class="line">                    sentence_arr[i] = item</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot; &quot;</span>.join(sentence_arr)</span><br></pre></td></tr></table></figure>
+
+<p>Trie</p>
+<p>利用dict构建字典树,然后遍历 sentence 中的元素, 在 Trie 中搜索</p>
+<p><a target="_blank" rel="noopener" href="https://discuss.leetcode.com/topic/96826/python-straightforward-with-explanation-prefix-hash-trie-solutions">参考代码1</a>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">replaceWords</span>(<span class="params">self, roots, sentence</span>):</span></span><br><span class="line">        _trie = <span class="keyword">lambda</span>: collections.defaultdict(_trie)</span><br><span class="line">        trie = _trie()</span><br><span class="line">        END = <span class="literal">True</span></span><br><span class="line">        <span class="keyword">for</span> root <span class="keyword">in</span> roots:</span><br><span class="line">            cur = trie</span><br><span class="line">            <span class="keyword">for</span> letter <span class="keyword">in</span> root:</span><br><span class="line">                cur = cur[letter]</span><br><span class="line">            cur[END] = root</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">replace</span>(<span class="params">word</span>):</span></span><br><span class="line">            cur = trie</span><br><span class="line">            <span class="keyword">for</span> letter <span class="keyword">in</span> word:</span><br><span class="line">                <span class="keyword">if</span> letter <span class="keyword">not</span> <span class="keyword">in</span> cur: <span class="keyword">break</span></span><br><span class="line">                cur = cur[letter]</span><br><span class="line">                <span class="keyword">if</span> END <span class="keyword">in</span> cur:</span><br><span class="line">                    <span class="keyword">return</span> cur[END]</span><br><span class="line">            <span class="keyword">return</span> word</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot; &quot;</span>.join(<span class="built_in">map</span>(replace, sentence.split()))</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://discuss.leetcode.com/topic/96833/using-trie-python">参考代码2</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">replaceWords</span>(<span class="params">self, roots, sentence</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type dict: List[str]</span></span><br><span class="line"><span class="string">        :type sentence: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">TrieNode</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">            <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">                self.word = <span class="literal">False</span></span><br><span class="line">                self.children = <span class="built_in">dict</span>()</span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">Trie</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">            <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">                self.root = TrieNode()</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">def</span> <span class="title">addWord</span>(<span class="params">self, word</span>):</span></span><br><span class="line">                <span class="keyword">if</span> word:</span><br><span class="line">                    cur = self.root</span><br><span class="line">                    <span class="keyword">for</span> c <span class="keyword">in</span> word:</span><br><span class="line">                        <span class="keyword">if</span> c <span class="keyword">not</span> <span class="keyword">in</span> cur.children:</span><br><span class="line">                            cur.children[c] = TrieNode()</span><br><span class="line">                        cur = cur.children[c]</span><br><span class="line">                    cur.word = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">def</span> <span class="title">getRoot</span>(<span class="params">self, word</span>):</span></span><br><span class="line">                ans = <span class="string">&quot;&quot;</span></span><br><span class="line">                cur = self.root</span><br><span class="line">                <span class="keyword">for</span> c <span class="keyword">in</span> word:</span><br><span class="line">                    <span class="keyword">if</span> c <span class="keyword">in</span> cur.children:</span><br><span class="line">                        ans += c</span><br><span class="line">                        cur = cur.children[c]</span><br><span class="line">                        <span class="keyword">if</span> cur.word == <span class="literal">True</span>:  <span class="comment"># found smallest root!</span></span><br><span class="line">                            <span class="keyword">return</span> ans</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">return</span> word</span><br><span class="line"></span><br><span class="line">        trie = Trie()</span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> roots:</span><br><span class="line">            trie.addWord(word)</span><br><span class="line"></span><br><span class="line">        ans = []</span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> sentence.split():</span><br><span class="line">            ans.append(trie.getRoot(word))</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27; &#x27;</span>.join(ans)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/09/14/Set%20Mismatch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +332,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -319,7 +415,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -399,7 +495,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -474,7 +570,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -561,7 +657,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -650,7 +746,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -736,7 +832,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -816,7 +912,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -906,7 +1002,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -929,89 +1025,6 @@
 <p>最长回文字符串,区分大小写.依次统计每个字符出现的个数,对统计结果进行处理,很明显出现偶数次的字符串符合回文串的构成,对于大于2的奇数字符串,取它最大的2的倍数,然后将长度累加得出N,最后比较 <strong>N</strong> 和 字符串原始长度,如果长度一致则返回 <strong>N</strong>,如果小于原字符串长度则返回 <strong>N + 1</strong></p>
 <p>Python</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestPalindrome</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        dic_s = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> s:</span><br><span class="line">            dic_s[item] = dic_s.get(item,<span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">        max_len = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> dic_s:</span><br><span class="line">            <span class="keyword">if</span> dic_s[key] &gt;= <span class="number">2</span>:</span><br><span class="line">                max_len += (dic_s[key] / <span class="number">2</span>) * <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> max_len &lt; <span class="built_in">len</span>(s):</span><br><span class="line">            <span class="keyword">return</span> max_len + <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> max_len</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/08/31/Number%20of%20Boomerangs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/08/31/Number%20of%20Boomerangs/" class="post-title-link" itemprop="url">Number of Boomerangs</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-08-31 00:00:00" itemprop="dateCreated datePublished" datetime="2017-08-31T00:00:00+08:00">2017-08-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Given n points in the plane that are all pairwise distinct, a “boomerang” is a tuple of points <code>(i, j, k)</code> such that the distance between <code>i</code> and <code>j</code> equals the distance between <code>i</code> and <code>k</code> (the order of the tuple matters).</p>
-<p>Find the number of boomerangs. You may assume that n will be at most <strong>500</strong> and coordinates of points are all in the range <strong>[-10000, 10000]</strong> (inclusive).</p>
-<p><strong>Example:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">[[0,0],[1,0],[2,0]]</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">Explanation:</span><br><span class="line">The two boomerangs are [[1,0],[0,0],[2,0]] and [[1,0],[2,0],[0,0]]</span><br></pre></td></tr></table></figure>
-
-<p><strong>Solution</strong></p>
-<p>这题标签是 <em>hash table</em> 很明显最佳解法是利用 <em>hash table</em>,依次判断一个点与其他点的距离,如果存在相同距离并且个数不小于2的点(N),任意选择两个点则可以组成回旋镖,排列组合:A(n,m) = n(n-1)(n-2)…(n-m+1),从N中选择两点:A(N,2) = N(N-1),然后累加</p>
-<p>Python</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numberOfBoomerangs</span>(<span class="params">self, points</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type points: List[List[int]]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> x1,y1 <span class="keyword">in</span> points:</span><br><span class="line">            dis_map = &#123;&#125;</span><br><span class="line">            <span class="keyword">for</span> x2,y2 <span class="keyword">in</span> points:</span><br><span class="line">                dis_map[(x1-x2)**<span class="number">2</span> + (y1-y2)**<span class="number">2</span>] = <span class="number">1</span> + dis_map.get((x1-x2)**<span class="number">2</span> + (y1-y2)**<span class="number">2</span>,<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">for</span> dis <span class="keyword">in</span> dis_map: <span class="comment">#1</span></span><br><span class="line">                res += dis_map[dis] * (dis_map[dis] - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-
-<p>简单思考一下:如果增加一个距离相等的点,多出来的组合个数,应该为 <em>(N+1)((N+1)-1) - N(N-1) = 2N</em>,则代码可以修改为:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numberOfBoomerangs</span>(<span class="params">self, points</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type points: List[List[int]]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> point1 <span class="keyword">in</span> points:</span><br><span class="line">            m = &#123;&#125;</span><br><span class="line">            <span class="keyword">for</span> point2 <span class="keyword">in</span> points:</span><br><span class="line">                dx = point1[<span class="number">0</span>] - point2[<span class="number">0</span>]</span><br><span class="line">                dy = point1[<span class="number">1</span>] - point2[<span class="number">1</span>]</span><br><span class="line">                d = dx*dx + dy*dy</span><br><span class="line">                <span class="keyword">if</span> d <span class="keyword">in</span> m:</span><br><span class="line">                    count += m[d]*<span class="number">2</span></span><br><span class="line">                    m[d] +=<span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    m[d] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>
-
-
       
     </div>
 

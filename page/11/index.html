@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-count">194</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,84 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/10/24/Three%20Sum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/10/24/Three%20Sum/" class="post-title-link" itemprop="url">Three Sum</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-24 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-24T00:00:00+08:00">2018-10-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。</p>
+<p>注意：答案中不可以包含重复的三元组。</p>
+<p>例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，</p>
+<blockquote>
+<p>满足要求的三元组集合为：<br>[<br>  [-1, 0, 1],<br>  [-1, -1, 2]<br>]</p>
+</blockquote>
+<p><strong>Solution</strong></p>
+<p>思路很简单先计算两数之和，然后再找第三个数是否存在</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: List[List[int]]</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        nums_hash = &#123;&#125;</span><br><span class="line">        result = <span class="built_in">list</span>()</span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            nums_hash[num] = nums_hash.get(num, <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> <span class="number">0</span> <span class="keyword">in</span> nums_hash <span class="keyword">and</span> nums_hash[<span class="number">0</span>] &gt;= <span class="number">3</span>:</span><br><span class="line">            result.append([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">        neg = <span class="built_in">list</span>(<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: x &lt; <span class="number">0</span>, nums_hash))</span><br><span class="line">        pos = <span class="built_in">list</span>(<span class="built_in">filter</span>(<span class="keyword">lambda</span> x: x&gt;= <span class="number">0</span>, nums_hash))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> neg:</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> pos:</span><br><span class="line">                dif = <span class="number">0</span> - i - j</span><br><span class="line">                <span class="keyword">if</span> dif <span class="keyword">in</span> nums_hash:</span><br><span class="line">                    <span class="keyword">if</span> dif <span class="keyword">in</span> (i, j) <span class="keyword">and</span> nums_hash[dif] &gt;= <span class="number">2</span>:</span><br><span class="line">                        result.append([i, j, dif])</span><br><span class="line">                    <span class="keyword">if</span> dif &lt; i <span class="keyword">or</span> dif &gt; j:</span><br><span class="line">                        result.append([i, j, dif])</span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/10/16/Jinjia2%20%E8%87%AA%E5%AE%9A%E4%B9%89%20filter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +314,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -331,7 +409,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -419,7 +497,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -504,7 +582,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -589,7 +667,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -678,7 +756,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -789,7 +867,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -882,7 +960,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -964,7 +1042,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -1005,100 +1083,6 @@
 <p>stackoverflow 上还提到了另外的一些使用情况,有兴趣可以点击链接 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3369640/when-is-using-call-a-good-idea">When is using <strong>call</strong> a good idea?
 </a> 进一步去了解。除此之外 SegmentFault 上也有相关问题可以一看 <a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000006113393?_ea=1020343">Python2.7总的__call__方法在实际环境中有什么实用的地方?</a></p>
 <h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p>[ 1 ] <a target="_blank" rel="noopener" href="https://docs.python.org/3/reference/datamodel.html#object.__call__">object.<strong>call</strong>(self[, args…])</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/04/23/Flask%E7%9A%84%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%89%8D%E8%BA%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/04/23/Flask%E7%9A%84%E6%BA%90%E7%A0%81%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E5%89%8D%E8%BA%AB/" class="post-title-link" itemprop="url">Flask的源码系列——前身</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-04-23 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-23T00:00:00+08:00">2018-04-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="What-is-Flask"><a href="#What-is-Flask" class="headerlink" title="What is Flask?"></a>What is Flask?</h1><p>用了这么久的 Flask 框架,那么 Flask 究竟是什么呢？借用官方文档的一句话来说明这个问题:</p>
-<blockquote>
-<p>Flask is a lightweight WSGI web application framework.</p>
-</blockquote>
-<p>不难理解上面的一句话: Flask 是一个基于 <strong>WSGI</strong> 的轻量级的应用框架.那么 WSGI 又是什么?</p>
-<h1 id="What-is-WSGI"><a href="#What-is-WSGI" class="headerlink" title="What is WSGI ?"></a>What is WSGI ?</h1><blockquote>
-<p>The Web Server Gateway Interface (WSGI) is a simple calling convention for web servers to forward requests to web applications or frameworks written in the Python programming language. ——[ 1 ]<br>WSGI is the Web Server Gateway Interface. It is a specification that describes how a web server communicates with web applications, and how web applications can be chained together to process one request.<br>WSGI is a Python standard described in detail in PEP 3333. ——[ 2 ] </p>
-</blockquote>
-<p>
-上面三段话翻译过来的大致意思是:<p> Web 服务器网关接口（WSGI）是一种简单的调用约定，用于 Web 服务器将请求转发到用 Python 编程语言编写的 Web 应用程序或框架。
-WSGI 是 Web 服务器网关接口。它描述了 web 服务器如何与 web 应用程序通信，以及如何将 web 应用程序链接在一起处理一个请求。
-WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详细描述的 Python 标准。
-
-<h2 id="Why-is-WSGI-necessary"><a href="#Why-is-WSGI-necessary" class="headerlink" title="Why is WSGI necessary?"></a>Why is WSGI necessary?</h2><p>最初的传统的 Web 服务器是没有办法运行 Python 的应用程序的。直到 1990年末,一个  Grisha Trubetskoy 的开发者提出了一个 <a target="_blank" rel="noopener" href="https://grisha.org/blog/2013/10/25/mod-python-the-long-story/">mod_python 的 Apache module</a>。然后再随后的几年和2000年初,apache 装载了 mod_python 模块,然后绝大多数的 python web 应用程序都得以运行。然而 mod_python 并不是一个标准的规格,随着 mod_module 开发的停滞不前和安全隐患被发现, python 社区意识到必须要有一个始终如一运行 python 代码的方法，因此 wsgi 应运而生。直到现在，WSGI仍然是运行 python web 应用程序的公认方法。</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fqmp1h5mwbj30mg09e74l.jpg"></p>
-<p>如上图所示，WSGI 服务器只是调用在 PEP 3333 标准中定义的 WSGI 应用程序上的可调用对象。</p>
-<h2 id="WSGI’s-Purpose"><a href="#WSGI’s-Purpose" class="headerlink" title="WSGI’s Purpose"></a>WSGI’s Purpose</h2><p>所以为什么不直接将 WSGI 服务器直接指向 WSGI 的应用框架呢?<br>    1. <strong>WSGI 能够提供可好的可拓展性.</strong>  基于 WSGI，开发人员可以随时将 Web 组件替换为其他的。比如说由 Green Unicorn 无缝切换到 uWSGI。<br>    2. <strong>WSGI服务器提升了负载规模</strong> 一次为千个请求提供动态内容数是WSGI服务器，而不是框架。 WSGI服务器处理来自Web服务器的处理请求，并决定如何将这些请求传递给应用程序框架的进程。</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fqmsl2kaf4j30xr0b23yw.jpg"></p>
-<h2 id="What-is-PEP-3333"><a href="#What-is-PEP-3333" class="headerlink" title="What is  PEP 3333  ?"></a>What is  PEP 3333  ?</h2><p>PEP 3333 一直出现在上文中,那么 PEP 3333 的究竟说了什么呢,有兴趣的读者可以直接点击<a target="_blank" rel="noopener" href="https://www.python.org/dev/peps/pep-3333">PEP 3333</a>查看原文。嫌麻烦的话，可以直接看下图，一图胜千言,我花了一点时间将 PEP 3333 中的主要内容整理成了一个简单的脑图</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fqmnnn8ekjj324r1f9445.jpg"></p>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p>[ 1 ] <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface">Web Server Gateway Interface</a></p>
-<p>[ 2 ] <a target="_blank" rel="noopener" href="http://wsgi.readthedocs.io/en/latest/what.html">What is WSGI?</a></p>
-<p>[ 3 ] <a target="_blank" rel="noopener" href="https://www.python.org/dev/peps/pep-3333">PEP 3333</a></p>
-<p>[ 4 ] <a target="_blank" rel="noopener" href="https://www.fullstackpython.com/wsgi-servers.html">WSGI Servers</a></p>
 
       
     </div>

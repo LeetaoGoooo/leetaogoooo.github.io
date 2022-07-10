@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-count">194</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,90 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/07/10/string-based-enum-in-python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/10/string-based-enum-in-python/" class="post-title-link" itemprop="url">Python 字符串类型枚举实现</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-10 00:00:00 / 修改时间：20:31:20" itemprop="dateCreated datePublished" datetime="2022-07-10T00:00:00+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Python 的枚举也是一个在时常被被经常使用的一个特性，在 Python3.11 之前，Python 标准库支持枚举类型除了枚举基类 Enum，就只有 IntEnum 了(创建 int 子枚举类型常量的基类)，Python 3.11 开始支持了 StrEnum，如果你的当前使用版本是 Python3.11 则可以略过一下内容。<br>接下来要介绍的内容，则是在 Python3.11 之前的版本，如何实现 StrEnum 以及一些注意事项。</p>
+<h1 id="StrEnum-的实现"><a href="#StrEnum-的实现" class="headerlink" title="StrEnum 的实现"></a>StrEnum 的实现</h1><p>StrEnum 的实现很简单</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrEnum</span>(<span class="params"><span class="built_in">str</span>, Enum</span>):</span></span><br><span class="line">  <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>当子类化 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.10/library/enum.html#enum.Enum">Enum</a> 时，在基类序列中的混合类型必须出现于 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.10/library/enum.html#enum.Enum">Enum</a> 本身之前,否则会报错</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">StrEnum</span>(<span class="params">Enum,<span class="built_in">str</span></span>):</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">  File <span class="string">&quot;/usr/local/Cellar/python@3.9/3.9.5/Frameworks/Python.framework/Versions/3.9/lib/python3.9/enum.py&quot;</span>, line <span class="number">172</span>, <span class="keyword">in</span> __prepare__</span><br><span class="line">    member_type, first_enum = metacls._get_mixins_(cls, bases)</span><br><span class="line">  File <span class="string">&quot;/usr/local/Cellar/python@3.9/3.9.5/Frameworks/Python.framework/Versions/3.9/lib/python3.9/enum.py&quot;</span>, line <span class="number">587</span>, <span class="keyword">in</span> _get_mixins_</span><br><span class="line">    <span class="keyword">raise</span> TypeError(<span class="string">&quot;new enumerations should be created as &quot;</span></span><br><span class="line">TypeError: new enumerations should be created <span class="keyword">as</span> `EnumName([mixin_type, ...] [data_type,] enum_type)`</span><br></pre></td></tr></table></figure>
+
+<p>使用同样很简单</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">WorkDay</span>(<span class="params"><span class="built_in">str</span>, Enum</span>):</span></span><br><span class="line"><span class="meta">... </span>  Mon = <span class="string">&quot;Mon&quot;</span></span><br><span class="line"><span class="meta">... </span>  Tue = <span class="string">&quot;Tue&quot;</span></span><br><span class="line"><span class="meta">... </span>  Wed = <span class="string">&quot;Wed&quot;</span></span><br><span class="line"><span class="meta">... </span>  Thu = <span class="string">&quot;Thu&quot;</span></span><br><span class="line"><span class="meta">... </span>  Fri = <span class="string">&quot;Fri&quot;</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>WorkDay.Mon</span><br><span class="line">&lt;WorkDay.Mon: <span class="string">&#x27;Mon&#x27;</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>WorkDay.Mon == <span class="string">&quot;Mon&quot;</span></span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="StrEnum-和-auto"><a href="#StrEnum-和-auto" class="headerlink" title="StrEnum 和 auto()"></a>StrEnum 和 auto()</h2><p>使用过 Enum 的肯定对 auto 这个不陌生，它会以合适的值代替 Enum 的实例，默认从 1 开始，在 StrEnum 则是以 “1” 的字符串形式开始</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">AutoStr</span>(<span class="params"><span class="built_in">str</span>, Enum</span>):</span></span><br><span class="line"><span class="meta">... </span>    a = auto()</span><br><span class="line"><span class="meta">... </span>    b = auto()</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>AutoStr.a</span><br><span class="line">&lt;AutoStr.a: <span class="string">&#x27;1&#x27;</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>AutoStr.b</span><br><span class="line">&lt;AutoStr.b: <span class="string">&#x27;2&#x27;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="auto"><a href="#auto" class="headerlink" title="auto()"></a>auto()</h1><p>如果希望可以自定义 auto 的起始值的话，你可以这样</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">CustomAuto</span>(<span class="params">Enum</span>):</span></span><br><span class="line"><span class="meta">... </span>    a = <span class="number">3</span></span><br><span class="line"><span class="meta">... </span>    b = auto()</span><br><span class="line"><span class="meta">... </span>    c = auto()</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>CustomAuto.a</span><br><span class="line">&lt;CustomAuto.a: <span class="number">3</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>CustomAuto.b</span><br><span class="line">&lt;CustomAuto.b: <span class="number">4</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>CustomAuto.c</span><br><span class="line">&lt;CustomAuto.c: <span class="number">5</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用 <code>_generate_next_value_</code> 方法去实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">A</span>(<span class="params">Enum</span>):</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">_generate_next_value_</span>(<span class="params">name, start, count, last_values</span>):</span></span><br><span class="line"><span class="meta">... </span>            <span class="keyword">return</span> count+<span class="number">10</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">B</span>(<span class="params">A</span>):</span></span><br><span class="line"><span class="meta">... </span>    a = auto()</span><br><span class="line"><span class="meta">... </span>    b = auto()</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>B.a</span><br><span class="line">&lt;B.a: <span class="number">10</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>B.b</span><br><span class="line">&lt;B.b: <span class="number">11</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.10/library/enum.html">python-enum</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/05/11/MySQL%20%E7%9A%84%20Field%20%E6%9D%82%E8%B0%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +320,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -324,7 +408,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -414,7 +498,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -510,7 +594,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -597,7 +681,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -679,7 +763,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -754,7 +838,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -832,7 +916,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -910,7 +994,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -935,112 +1019,6 @@
             </div>
           <!--/noindex-->
         
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/12/30/lwp55SOlQ/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/12/30/lwp55SOlQ/" class="post-title-link" itemprop="url">使用 pre-commit 配合 black、isort 自动格式化 Python 文件</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-12-30 08:18:00" itemprop="dateCreated datePublished" datetime="2021-12-30T08:18:00+08:00">2021-12-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>为了保证 Python 的代码规范，在使用 <code>git commit</code> 提交代码之前，需要使用 blake、isort 工具对提交的文件进行格式化，如果提交的代码符合规法则 commit 成功，否则自动格式化文件，然后重新 commit</p>
-</blockquote>
-<p>整个工作流大概是这样子：</p>
-<p><img src="https://www.leetao94.cn/post-images/1640823506631.png"></p>
-<p>其中 <code>black</code> 是代码格式化工具，可以通过 <code>pip install black</code> 后直接使用，使用方法如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">black &#123;source_file_or_directory&#125;...</span><br></pre></td></tr></table></figure>
-
-<p>同时也支持配置文件自定义规则，详细内容可以参考官方文档 <a target="_blank" rel="noopener" href="https://black.readthedocs.io/en/stable/">The uncompromising code formatter — Black</a></p>
-<p><code>isort</code>  则是用来规范 python 库的引入的，按字母顺序对 packages 进行排序，并自动分为不同的部分和类型，同样可以通过 <code>pip install isort</code> 后直接使用，使用方法如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">isort mypythonfile.py mypython file2.py</span><br></pre></td></tr></table></figure>
-
-<p>和 <code>black</code> 一样也支持配置文件自定义规则，具体内容参考官网 <a target="_blank" rel="noopener" href="https://pycqa.github.io/isort/">isort (pycqa.github.io)</a></p>
-<p><code>pre-commit</code> 是整个工作流最重要的一环，<code>pre-commit</code> 是 <code>git-hooks</code> 中的一个重要的钩子，它在键入提交信息前运行。<strong>可以用于检查即将提交的快照，例如，检查是否有所遗漏，确保测试运行，以及核查代码。 如果该钩子以非零值退出，Git 将放弃此次提交。</strong> 上面提到的机制是整个工作流可以进行的关键。</p>
-<p>完全可以自定义 <code>pre-commit</code> 钩子的，但是如果只是为了检验的话，可以使用现成的方案 <a target="_blank" rel="noopener" href="https://github.com/pre-commit/pre-commit">pre-commit/pre-commit</a>,用 Python 构建，支持多语言的管理器。通过 <code>pre-commit</code> 这个库，简单地几步就可以实现自动化工作流。</p>
-<ol>
-<li>安装 pre-commit</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pre-commit</span><br></pre></td></tr></table></figure>
-
-<p>然后通过 <code>pre-commit --version</code> 确定是否安装成功</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pre-commit --version</span><br><span class="line">pre-commit 2.16.0</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>添加 <code>.pre-commit-config.yaml</code> 的配置文件</li>
-</ol>
-<p>可以通过 <code>pre-commit sample-config</code> 生成一个默认的配置文件,这里贴一下关于 <code>black</code> 和 <code>isort</code> 的配置文件</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">repos:</span>  </span><br><span class="line"><span class="bullet">-</span>   <span class="attr">repo:</span> <span class="string">https://github.com/psf/black</span>  </span><br><span class="line"> <span class="attr">rev:</span> <span class="number">21.</span><span class="string">12b0</span>  </span><br><span class="line"> <span class="attr">hooks:</span>  </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">black</span>  </span><br><span class="line">  </span><br><span class="line"><span class="bullet">-</span>   <span class="attr">repo:</span> <span class="string">https://github.com/PyCQA/isort</span>  </span><br><span class="line"> <span class="attr">rev:</span> <span class="number">5.10</span><span class="number">.1</span>  </span><br><span class="line"> <span class="attr">hooks:</span>  </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">isort</span></span><br></pre></td></tr></table></figure>
-<p>支持的配置项很多，具体参考 <a target="_blank" rel="noopener" href="https://pre-commit.com/#plugins">plugins</a></p>
-<ol start="3">
-<li> 安装 git hooks 脚本</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pre-commit install</span><br><span class="line">pre-commit installed at .git/hooks/pre-commit</span><br></pre></td></tr></table></figure>
-
-<p>然后就就大功告成了</p>
-<p><img src="https://www.leetao94.cn/post-images/1640823519964.png"></p>
-
       
     </div>
 

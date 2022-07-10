@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetaogoooo.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="前言Python 的枚举也是一个在时常被被经常使用的一个特性，在 Python3.11 之前，Python 标准库支持枚举类型除了枚举基类 Enum，就只有 IntEnum 了(创建 int 子枚举类型常量的基类)，Python 3.11 开始支持了 StrEnum，如果你的当前使用版本是 Python3.11 则可以略过一下内容。接下来要介绍的内容，则是在 Python3.11 之前的版本，如何">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 字符串类型枚举实现">
+<meta property="og:url" content="https://leetaogoooo.github.io/2022/07/10/string-based-enum-in-python/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="前言Python 的枚举也是一个在时常被被经常使用的一个特性，在 Python3.11 之前，Python 标准库支持枚举类型除了枚举基类 Enum，就只有 IntEnum 了(创建 int 子枚举类型常量的基类)，Python 3.11 开始支持了 StrEnum，如果你的当前使用版本是 Python3.11 则可以略过一下内容。接下来要介绍的内容，则是在 Python3.11 之前的版本，如何">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-10T12:31:20.109Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetaogoooo.github.io/2022/07/10/string-based-enum-in-python/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetaogoooo.github.io/2022/07/10/string-based-enum-in-python/","path":"2022/07/10/string-based-enum-in-python/","title":"Python 字符串类型枚举实现"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Python 字符串类型枚举实现 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Leetao's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StrEnum-%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">StrEnum 的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#StrEnum-%E5%92%8C-auto"><span class="nav-number">2.1.</span> <span class="nav-text">StrEnum 和 auto()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#auto"><span class="nav-number">3.</span> <span class="nav-text">auto()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">4.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">194</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/LeetaoGoooo" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;LeetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/leetaothinks" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;leetaothinks" rel="noopener" target="_blank"><i class="fa fa-telegram fa-fw"></i>Telegram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/07/10/string-based-enum-in-python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python 字符串类型枚举实现<a href="https://github.com/LeetaoGoooo/leetaogoooo.github.io/tree/gh-pages/source/_posts/string-based-enum-in-python.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-10 00:00:00 / 修改时间：20:31:20" itemprop="dateCreated datePublished" datetime="2022-07-10T00:00:00+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Python 的枚举也是一个在时常被被经常使用的一个特性，在 Python3.11 之前，Python 标准库支持枚举类型除了枚举基类 Enum，就只有 IntEnum 了(创建 int 子枚举类型常量的基类)，Python 3.11 开始支持了 StrEnum，如果你的当前使用版本是 Python3.11 则可以略过一下内容。<br>接下来要介绍的内容，则是在 Python3.11 之前的版本，如何实现 StrEnum 以及一些注意事项。</p>
+<h1 id="StrEnum-的实现"><a href="#StrEnum-的实现" class="headerlink" title="StrEnum 的实现"></a>StrEnum 的实现</h1><p>StrEnum 的实现很简单</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StrEnum</span>(<span class="params"><span class="built_in">str</span>, Enum</span>):</span></span><br><span class="line">  <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<p>当子类化 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.10/library/enum.html#enum.Enum">Enum</a> 时，在基类序列中的混合类型必须出现于 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.10/library/enum.html#enum.Enum">Enum</a> 本身之前,否则会报错</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">StrEnum</span>(<span class="params">Enum,<span class="built_in">str</span></span>):</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line">...</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">  File <span class="string">&quot;/usr/local/Cellar/python@3.9/3.9.5/Frameworks/Python.framework/Versions/3.9/lib/python3.9/enum.py&quot;</span>, line <span class="number">172</span>, <span class="keyword">in</span> __prepare__</span><br><span class="line">    member_type, first_enum = metacls._get_mixins_(cls, bases)</span><br><span class="line">  File <span class="string">&quot;/usr/local/Cellar/python@3.9/3.9.5/Frameworks/Python.framework/Versions/3.9/lib/python3.9/enum.py&quot;</span>, line <span class="number">587</span>, <span class="keyword">in</span> _get_mixins_</span><br><span class="line">    <span class="keyword">raise</span> TypeError(<span class="string">&quot;new enumerations should be created as &quot;</span></span><br><span class="line">TypeError: new enumerations should be created <span class="keyword">as</span> `EnumName([mixin_type, ...] [data_type,] enum_type)`</span><br></pre></td></tr></table></figure>
+
+<p>使用同样很简单</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">WorkDay</span>(<span class="params"><span class="built_in">str</span>, Enum</span>):</span></span><br><span class="line"><span class="meta">... </span>  Mon = <span class="string">&quot;Mon&quot;</span></span><br><span class="line"><span class="meta">... </span>  Tue = <span class="string">&quot;Tue&quot;</span></span><br><span class="line"><span class="meta">... </span>  Wed = <span class="string">&quot;Wed&quot;</span></span><br><span class="line"><span class="meta">... </span>  Thu = <span class="string">&quot;Thu&quot;</span></span><br><span class="line"><span class="meta">... </span>  Fri = <span class="string">&quot;Fri&quot;</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>WorkDay.Mon</span><br><span class="line">&lt;WorkDay.Mon: <span class="string">&#x27;Mon&#x27;</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>WorkDay.Mon == <span class="string">&quot;Mon&quot;</span></span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="StrEnum-和-auto"><a href="#StrEnum-和-auto" class="headerlink" title="StrEnum 和 auto()"></a>StrEnum 和 auto()</h2><p>使用过 Enum 的肯定对 auto 这个不陌生，它会以合适的值代替 Enum 的实例，默认从 1 开始，在 StrEnum 则是以 “1” 的字符串形式开始</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">AutoStr</span>(<span class="params"><span class="built_in">str</span>, Enum</span>):</span></span><br><span class="line"><span class="meta">... </span>    a = auto()</span><br><span class="line"><span class="meta">... </span>    b = auto()</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>AutoStr.a</span><br><span class="line">&lt;AutoStr.a: <span class="string">&#x27;1&#x27;</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>AutoStr.b</span><br><span class="line">&lt;AutoStr.b: <span class="string">&#x27;2&#x27;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="auto"><a href="#auto" class="headerlink" title="auto()"></a>auto()</h1><p>如果希望可以自定义 auto 的起始值的话，你可以这样</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">CustomAuto</span>(<span class="params">Enum</span>):</span></span><br><span class="line"><span class="meta">... </span>    a = <span class="number">3</span></span><br><span class="line"><span class="meta">... </span>    b = auto()</span><br><span class="line"><span class="meta">... </span>    c = auto()</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>CustomAuto.a</span><br><span class="line">&lt;CustomAuto.a: <span class="number">3</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>CustomAuto.b</span><br><span class="line">&lt;CustomAuto.b: <span class="number">4</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>CustomAuto.c</span><br><span class="line">&lt;CustomAuto.c: <span class="number">5</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用 <code>_generate_next_value_</code> 方法去实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">A</span>(<span class="params">Enum</span>):</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">_generate_next_value_</span>(<span class="params">name, start, count, last_values</span>):</span></span><br><span class="line"><span class="meta">... </span>            <span class="keyword">return</span> count+<span class="number">10</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">B</span>(<span class="params">A</span>):</span></span><br><span class="line"><span class="meta">... </span>    a = auto()</span><br><span class="line"><span class="meta">... </span>    b = auto()</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>B.a</span><br><span class="line">&lt;B.a: <span class="number">10</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>B.b</span><br><span class="line">&lt;B.b: <span class="number">11</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.10/library/enum.html">python-enum</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/11/MySQL%20%E7%9A%84%20Field%20%E6%9D%82%E8%B0%88/" rel="prev" title="MySQL 的 Field 杂谈">
+                  <i class="fa fa-chevron-left"></i> MySQL 的 Field 杂谈
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":"leetaogoooo","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"2fad3b4f861acd27dec801ecb1df7e2f"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

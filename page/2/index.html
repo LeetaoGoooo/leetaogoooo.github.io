@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-count">194</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,112 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/12/30/lwp55SOlQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/12/30/lwp55SOlQ/" class="post-title-link" itemprop="url">使用 pre-commit 配合 black、isort 自动格式化 Python 文件</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-30 08:18:00" itemprop="dateCreated datePublished" datetime="2021-12-30T08:18:00+08:00">2021-12-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>为了保证 Python 的代码规范，在使用 <code>git commit</code> 提交代码之前，需要使用 blake、isort 工具对提交的文件进行格式化，如果提交的代码符合规法则 commit 成功，否则自动格式化文件，然后重新 commit</p>
+</blockquote>
+<p>整个工作流大概是这样子：</p>
+<p><img src="https://www.leetao94.cn/post-images/1640823506631.png"></p>
+<p>其中 <code>black</code> 是代码格式化工具，可以通过 <code>pip install black</code> 后直接使用，使用方法如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">black &#123;source_file_or_directory&#125;...</span><br></pre></td></tr></table></figure>
+
+<p>同时也支持配置文件自定义规则，详细内容可以参考官方文档 <a target="_blank" rel="noopener" href="https://black.readthedocs.io/en/stable/">The uncompromising code formatter — Black</a></p>
+<p><code>isort</code>  则是用来规范 python 库的引入的，按字母顺序对 packages 进行排序，并自动分为不同的部分和类型，同样可以通过 <code>pip install isort</code> 后直接使用，使用方法如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">isort mypythonfile.py mypython file2.py</span><br></pre></td></tr></table></figure>
+
+<p>和 <code>black</code> 一样也支持配置文件自定义规则，具体内容参考官网 <a target="_blank" rel="noopener" href="https://pycqa.github.io/isort/">isort (pycqa.github.io)</a></p>
+<p><code>pre-commit</code> 是整个工作流最重要的一环，<code>pre-commit</code> 是 <code>git-hooks</code> 中的一个重要的钩子，它在键入提交信息前运行。<strong>可以用于检查即将提交的快照，例如，检查是否有所遗漏，确保测试运行，以及核查代码。 如果该钩子以非零值退出，Git 将放弃此次提交。</strong> 上面提到的机制是整个工作流可以进行的关键。</p>
+<p>完全可以自定义 <code>pre-commit</code> 钩子的，但是如果只是为了检验的话，可以使用现成的方案 <a target="_blank" rel="noopener" href="https://github.com/pre-commit/pre-commit">pre-commit/pre-commit</a>,用 Python 构建，支持多语言的管理器。通过 <code>pre-commit</code> 这个库，简单地几步就可以实现自动化工作流。</p>
+<ol>
+<li>安装 pre-commit</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pre-commit</span><br></pre></td></tr></table></figure>
+
+<p>然后通过 <code>pre-commit --version</code> 确定是否安装成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pre-commit --version</span><br><span class="line">pre-commit 2.16.0</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>添加 <code>.pre-commit-config.yaml</code> 的配置文件</li>
+</ol>
+<p>可以通过 <code>pre-commit sample-config</code> 生成一个默认的配置文件,这里贴一下关于 <code>black</code> 和 <code>isort</code> 的配置文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">repos:</span>  </span><br><span class="line"><span class="bullet">-</span>   <span class="attr">repo:</span> <span class="string">https://github.com/psf/black</span>  </span><br><span class="line"> <span class="attr">rev:</span> <span class="number">21.</span><span class="string">12b0</span>  </span><br><span class="line"> <span class="attr">hooks:</span>  </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">black</span>  </span><br><span class="line">  </span><br><span class="line"><span class="bullet">-</span>   <span class="attr">repo:</span> <span class="string">https://github.com/PyCQA/isort</span>  </span><br><span class="line"> <span class="attr">rev:</span> <span class="number">5.10</span><span class="number">.1</span>  </span><br><span class="line"> <span class="attr">hooks:</span>  </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">isort</span></span><br></pre></td></tr></table></figure>
+<p>支持的配置项很多，具体参考 <a target="_blank" rel="noopener" href="https://pre-commit.com/#plugins">plugins</a></p>
+<ol start="3">
+<li> 安装 git hooks 脚本</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pre-commit install</span><br><span class="line">pre-commit installed at .git/hooks/pre-commit</span><br></pre></td></tr></table></figure>
+
+<p>然后就就大功告成了</p>
+<p><img src="https://www.leetao94.cn/post-images/1640823519964.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/12/25/3K1fxgdEp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +342,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -332,7 +438,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -405,7 +511,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -500,7 +606,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -663,7 +769,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -734,7 +840,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -817,7 +923,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -944,7 +1050,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -1073,7 +1179,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -1126,97 +1232,6 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET pdf-test1/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;query&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;match&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;attachment.content&quot;</span>: <span class="string">&quot;5G&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sanduzxcvbnm/p/12624935.html">Elasticsearch：如何对PDF文件进行搜索</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/09/07/Dxqjjq53O/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/09/07/Dxqjjq53O/" class="post-title-link" itemprop="url">Docker 搭建 Elasticsearch + Kibana + IK 中文分词</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-09-07 18:26:33" itemprop="dateCreated datePublished" datetime="2021-09-07T18:26:33+08:00">2021-09-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="安装启动-Elasticsearch"><a href="#安装启动-Elasticsearch" class="headerlink" title="安装启动 Elasticsearch"></a>安装启动 Elasticsearch</h1><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker network create elastic</span><br><span class="line">docker pull docker.elastic.co/elasticsearch/elasticsearch:<span class="number">7.14</span>.<span class="number">0</span></span><br><span class="line">docker <span class="keyword">run</span><span class="bash"> -d --name es01-test --net elastic -p 9200:9200 -p 9300:9300 -e <span class="string">&quot;discovery.type=single-node&quot;</span> docker.elastic.co/elasticsearch/elasticsearch:7.14.0</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="安装启动-Kibana"><a href="#安装启动-Kibana" class="headerlink" title="安装启动 Kibana"></a>安装启动 Kibana</h1><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull docker.elastic.co/kibana/kibana:<span class="number">7.14</span>.<span class="number">0</span></span><br><span class="line">docker <span class="keyword">run</span><span class="bash"> -d --name kib01-test --net elastic -p 5601:5601 -e <span class="string">&quot;ELASTICSEARCH_HOSTS=http://es01-test:9200&quot;</span> docker.elastic.co/kibana/kibana:7.14.0</span></span><br></pre></td></tr></table></figure>
-
-<p>启动完成之后访问 <a target="_blank" rel="noopener" href="http://localhost:5601/"><code>http://localhost:5601</code></a> 即可，默认是英文，配置中文可以参考</p>
-<h2 id="Kibana-汉化"><a href="#Kibana-汉化" class="headerlink" title="Kibana 汉化"></a>Kibana 汉化</h2><p>在 <code>kibana.yml</code> 中加入</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i18n.locale: <span class="string">&quot;zh-CN&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>然后重启 kibana 即可</p>
-<p>配置完成后重启服务，界面如下图：</p>
-<p><img src="https://www.leetao94.cn/post-images/1631010579381.png"></p>
-<h1 id="安装-IK-中文分词"><a href="#安装-IK-中文分词" class="headerlink" title="安装 IK 中文分词"></a>安装 IK 中文分词</h1><p>es 中本身自带英文分词，但是实际业务需要存在中文分词的场景，所以手动安装中文分词插件。</p>
-<h2 id="下载-IK-分词插件"><a href="#下载-IK-分词插件" class="headerlink" title="下载 IK 分词插件"></a>下载 IK 分词插件</h2><p>从 github 上根据不同的 es 版本下载对应的 ik 插件压缩包</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/releases">https://github.com/medcl/elasticsearch-analysis-ik/releases</a></p>
-<h2 id="在-es-的-plugins-解压"><a href="#在-es-的-plugins-解压" class="headerlink" title="在 es 的 plugins 解压"></a>在 es 的 plugins 解压</h2><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd your-es-plugins/plugins/ &amp;&amp; mkdir ik</span><br><span class="line">unzip elasticsearch-analysis-ik-<span class="number">7.14</span>.<span class="number">0</span>.zip</span><br></pre></td></tr></table></figure>
-
-<p>然后重新启动 es，这里我是使用 docker 启动 es 的，所以先通过 <code>docker cp</code> 的命令将插件复制到容器中的</p>
-<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp es.zip container-id:/usr/share/elasticsearch/plugins/es</span><br></pre></td></tr></table></figure>
-
-<h1 id="重启-es"><a href="#重启-es" class="headerlink" title="重启 es"></a>重启 es</h1><p>重启 es 的服务，如果成功加载插件，控制台会有如下的输出:</p>
-<p><img src="https://www.leetao94.cn/post-images/1631010619965.png"></p>
 
       
     </div>

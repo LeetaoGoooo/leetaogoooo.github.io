@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-count">194</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,110 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/10/09/Easyui%E7%9A%84%E5%B8%B8%E7%94%A8%E6%8E%A7%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/10/09/Easyui%E7%9A%84%E5%B8%B8%E7%94%A8%E6%8E%A7%E4%BB%B6%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">Easyui的常用控件使用方法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-10-09 00:00:00" itemprop="dateCreated datePublished" datetime="2016-10-09T00:00:00+08:00">2016-10-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="获取combobox选中的值-文本"><a href="#获取combobox选中的值-文本" class="headerlink" title="获取combobox选中的值,文本"></a>获取combobox选中的值,文本</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#com&#x27;</span>).combobox(<span class="string">&#x27;getValue&#x27;</span>) <span class="comment">//获取当前选中的值</span></span><br><span class="line">$(<span class="string">&#x27;#com&#x27;</span>).combobox(<span class="string">&#x27;getText&#x27;</span>) <span class="comment">//获取当前选中的文字</span></span><br></pre></td></tr></table></figure>
+<h3 id="combotree设置默认值"><a href="#combotree设置默认值" class="headerlink" title="combotree设置默认值"></a>combotree设置默认值</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#combotree&#x27;</span>).combotree(<span class="string">&#x27;setValue&#x27;</span>,value);</span><br></pre></td></tr></table></figure>
+
+<h3 id="禁用与启用combobox"><a href="#禁用与启用combobox" class="headerlink" title="禁用与启用combobox"></a>禁用与启用combobox</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#combobox&#x27;</span>).combobox(<span class="string">&#x27;disable&#x27;</span>,<span class="literal">true</span>)</span><br><span class="line">$(<span class="string">&#x27;#combobox&#x27;</span>).combobox(<span class="string">&#x27;enable&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="combobox的隐藏与显示"><a href="#combobox的隐藏与显示" class="headerlink" title="combobox的隐藏与显示"></a>combobox的隐藏与显示</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#combobox + .combo&#x27;</span>).hide()</span><br><span class="line">$(<span class="string">&#x27;#combobox + .combo&#x27;</span>).show()</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取textarea的值"><a href="#获取textarea的值" class="headerlink" title="获取textarea的值"></a>获取textarea的值</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#textarea&#x27;</span>).val()</span><br></pre></td></tr></table></figure>
+
+<h3 id="禁用与启用textarea"><a href="#禁用与启用textarea" class="headerlink" title="禁用与启用textarea"></a>禁用与启用textarea</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;textarea&#x27;</span>).disabled=<span class="literal">true</span>;</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;textarea&#x27;</span>).disabled=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取textbox的值"><a href="#获取textbox的值" class="headerlink" title="获取textbox的值"></a>获取textbox的值</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#textbox&#x27;</span>).val()</span><br></pre></td></tr></table></figure>
+
+<h3 id="禁用与启用textbox"><a href="#禁用与启用textbox" class="headerlink" title="禁用与启用textbox"></a>禁用与启用textbox</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#textbox&#x27;</span>).textbox(<span class="string">&#x27;disable&#x27;</span>,<span class="literal">true</span>)</span><br><span class="line">$(<span class="string">&#x27;#textbox&#x27;</span>).textbox(<span class="string">&#x27;enable&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="linkbutton的禁用与启用"><a href="#linkbutton的禁用与启用" class="headerlink" title="linkbutton的禁用与启用"></a>linkbutton的禁用与启用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#linkbutton&#x27;</span>).linkbutton(<span class="string">&#x27;disable&#x27;</span>);</span><br><span class="line">$(<span class="string">&#x27;#linkbutton&#x27;</span>).linkbutton(<span class="string">&#x27;enable&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="form的清空"><a href="#form的清空" class="headerlink" title="form的清空"></a>form的清空</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#form&#x27;</span>).form(<span class="string">&#x27;clear&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="禁用整个form里面的输入框"><a href="#禁用整个form里面的输入框" class="headerlink" title="禁用整个form里面的输入框"></a>禁用整个form里面的输入框</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#Form :input&quot;</span>).attr(<span class="string">&quot;readonly&quot;</span>, <span class="string">&quot;readonly&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;input&quot;</span>).attr(<span class="string">&quot;readonly&quot;</span>, <span class="string">&quot;readonly&quot;</span>); </span><br></pre></td></tr></table></figure>
+
+<h3 id="validatebox的禁用与启用"><a href="#validatebox的禁用与启用" class="headerlink" title="validatebox的禁用与启用"></a>validatebox的禁用与启用</h3><p>前两种适用于单个的validatebox;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#id&quot;</span>).attr(<span class="string">&quot;readonly&quot;</span>, <span class="literal">true</span>); </span><br><span class="line">$(<span class="string">&quot;#id&quot;</span>).removeAttr(<span class="string">&quot;readonly&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;#id&quot;</span>).attr(<span class="string">&quot;readonly&quot;</span>, <span class="string">&quot;readonly&quot;</span>); </span><br><span class="line">$(<span class="string">&quot;#id&quot;</span>).removeAttr(<span class="string">&quot;readonly&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="清空validatebox的值"><a href="#清空validatebox的值" class="headerlink" title="清空validatebox的值"></a>清空validatebox的值</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;#id&#x27;</span>).val(<span class="string">&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="datebox禁用启用方法"><a href="#datebox禁用启用方法" class="headerlink" title="datebox禁用启用方法"></a>datebox禁用启用方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#datebox&quot;</span>).datebox(<span class="string">&#x27;disable&#x27;</span>); </span><br><span class="line">$(<span class="string">&quot;#datebox&quot;</span>).datebox(<span class="string">&#x27;enable&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="datetimebox禁用启用方法"><a href="#datetimebox禁用启用方法" class="headerlink" title="datetimebox禁用启用方法"></a>datetimebox禁用启用方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#datetimebox&quot;</span>).datetimebox(<span class="string">&#x27;disable&#x27;</span>);</span><br><span class="line">$(<span class="string">&#x27;#datetimebox&#x27;</span>).datatimebox(<span class="string">&#x27;enable&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="TextArea禁止拉动拖动改变大小"><a href="#TextArea禁止拉动拖动改变大小" class="headerlink" title="TextArea禁止拉动拖动改变大小"></a>TextArea禁止拉动拖动改变大小</h3><ol>
+<li> 彻底禁用拖动:在sytle中添加resize:none</li>
+<li> 固定大小,右下角拖动图标依然存在<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">width</span>: x</span><br><span class="line">maxwidth: y</span><br><span class="line">height: mx</span><br><span class="line">maxheight: my</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/09/28/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +340,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -329,7 +433,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -411,7 +515,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   

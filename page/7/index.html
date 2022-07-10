@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-count">194</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,90 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/06/19/Seleuim%20%E6%96%B0%E5%BB%BA%20table%20%E9%A1%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/06/19/Seleuim%20%E6%96%B0%E5%BB%BA%20table%20%E9%A1%B5/" class="post-title-link" itemprop="url">Seleuim 新建 table 页</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-06-19 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-19T00:00:00+08:00">2019-06-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Seleuim 是一个用于 Web 应用程序测试的工具. Seleuim 可以直接运行在浏览器中,就像真正的用户一样. 因为有这种特性,所有有时候会被用来作为爬虫的一大杀器.</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>通常我们使用 Seleuim 基本上的逻辑都是这样的:</p>
+<ol>
+<li> 打开一个网页</li>
+<li> 关闭当前网页,然后打开另外一个网页</li>
+<li> 然后重复步骤 1,2</li>
+</ol>
+<p>从上面我们不难看出,在上述使用情景下,浏览器始终有一个 tab 页存活,当然这种使用方式已经能够满足我们绝大数的需求. </p>
+<h2 id="新的需求"><a href="#新的需求" class="headerlink" title="新的需求"></a>新的需求</h2><p>那么如果作到打开多个 tab 页呢?</p>
+<p>别着急,让我们看代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line">main_url = <span class="string">&#x27;https://www.leetao94.cn&#x27;</span> <span class="comment"># URL A</span></span><br><span class="line">tab_url = <span class="string">&#x27;https://www.baidu.com&#x27;</span> <span class="comment"># URL B</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开 URL A</span></span><br><span class="line">browser= webdriver.Chrome())</span><br><span class="line">browser.get(main_url)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Current Page Title is : %s&quot;</span> %browser.title)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开新的 Tab 页</span></span><br><span class="line">browser.execute_script(<span class="string">&quot;window.open(&#x27;&#x27;);&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换到新的 Tab 页,然后打开连接</span></span><br><span class="line">browser.switch_to.window(browser.window_handles[<span class="number">1</span>])</span><br><span class="line">browser.get(tab_url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新页面的逻辑</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Current Page Title is : %s&quot;</span> %browser.title)</span><br><span class="line">browser.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新返回 URL A</span></span><br><span class="line">browser.switch_to.window(browser.window_handles[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Current Page Title is : %s&quot;</span> %browser.title)</span><br></pre></td></tr></table></figure>
+
+<p>最后看一下效果:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g46g2l4n38g31l01g8e81.gif"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/05/29/Python%20%E4%B8%AD%20%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%E5%92%8C%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +320,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -366,7 +450,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -465,7 +549,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -583,7 +667,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -680,7 +764,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -758,7 +842,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -875,7 +959,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -957,7 +1041,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -1042,7 +1126,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -1068,90 +1152,6 @@
 
 <p>解法二 </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestConsecutive</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        max_len = <span class="number">0</span></span><br><span class="line">        nums = <span class="built_in">set</span>(nums)</span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> num -<span class="number">1</span>  <span class="keyword">not</span> <span class="keyword">in</span> nums:</span><br><span class="line">                current_num = num</span><br><span class="line">                current_len = <span class="number">1</span></span><br><span class="line">                <span class="keyword">while</span> current_num + <span class="number">1</span> <span class="keyword">in</span> nums:</span><br><span class="line">                    current_len += <span class="number">1</span></span><br><span class="line">                    current_num += <span class="number">1</span></span><br><span class="line">                max_len = <span class="built_in">max</span>(max_len,current_len)     </span><br><span class="line">        <span class="keyword">return</span> max_len</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/03/12/Flask%20%E4%B8%AD%E7%9A%84%20session%20%E7%9A%84%E6%95%85%E4%BA%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/03/12/Flask%20%E4%B8%AD%E7%9A%84%20session%20%E7%9A%84%E6%95%85%E4%BA%8B/" class="post-title-link" itemprop="url">Flask 中的 session 的故事</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-03-12 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-12T00:00:00+08:00">2019-03-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>凡是使用过 Flask,可能对 Flask 中  session 不陌生, 我们通常用 session 保存特定的用户信息,从而达到在 request 请求之间共享数据的目的,需要注意的一点 flask 中的 session 是基于 cookies 实现的,也就意味着着受制于 cookies,一旦出于某种原因 cookies 失效了,也就意味着 session 也会随之失效. </p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>关于 session 的使用方法也很简单, <strong>session[key] = value</strong>, 但是也存在需要注意的地方,接下来看一个例子</p>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, session</span><br><span class="line">app = Flask(__name__)</span><br><span class="line">app.secret_key = <span class="string">&quot;123&quot;</span>  <span class="comment"># 使用 session 之前,必须要设置 secret_key</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create</span>():</span> <span class="comment">#1</span></span><br><span class="line">    session[<span class="string">&#x27;xxx&#x27;</span>] = [<span class="string">&#x27;1&#x27;</span>,<span class="string">&#x27;2&#x27;</span>,<span class="string">&#x27;3&#x27;</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>]))</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/rm/&lt;id&gt;&#x27;</span></span>)</span></span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">rm</span>(<span class="params"><span class="built_in">id</span></span>):</span> <span class="comment">#2</span></span><br><span class="line">    session[<span class="string">&#x27;xxx&#x27;</span>].remove(<span class="built_in">id</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>]))</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/add/&lt;id&gt;&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span>(<span class="params"><span class="built_in">id</span></span>):</span> <span class="comment">#3</span></span><br><span class="line">    session[<span class="string">&#x27;xxx&#x27;</span>].append(<span class="built_in">id</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>]))</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/test&#x27;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">out_print</span>():</span> <span class="comment">#4</span></span><br><span class="line">     <span class="built_in">print</span>(session[<span class="string">&#x27;xxx&#x27;</span>])</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>]))</span><br><span class="line">     <span class="keyword">return</span> <span class="string">&quot;,&quot;</span>.join(session[<span class="string">&#x27;xxx&#x27;</span>])</span><br><span class="line">     </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
-
-<p>有趣的事情来了,我们按照 #1, #2(请求参数为2),#4, #3(请求参数为4), #4 的方式来请求 url,那么返回结果依次应该是什么呢?</p>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1,2,3</span><br><span class="line">1,3</span><br><span class="line">1,2,3</span><br><span class="line">1,2,3,4</span><br><span class="line">1,2,3</span><br></pre></td></tr></table></figure>
-
-<p>看一下截图:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1g104yjiipoj30p2085gly.jpg"></p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>是不是觉得很奇怪,为什么我对 session 的修改没有生效? 这是因为 session 中有一个属性叫做 <strong>modified</strong>, 如果 session 发现其值有修改，如果修改的对象是可变的对象，则改修不会自动生效，除非<strong>手动设置 modified = True</strong>，也就是说我们需要上述的例子中 session 及时的被修改，需要在修改值后加入如下代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session.modified = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h1><p>对于上述例子，在执行第二步之前，大家可以打开 Google 浏览器调试模式，找到 Application tab 页下的 Cookies，会发现里面有个 session-id 的 cookies，大家可以试着把它修改或者清空后再执行步骤 2，会有意想不到的彩蛋哟</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="http://flask.pocoo.org/docs/1.0/api/#flask.session">Flask.session</a></p>
-
       
     </div>
 

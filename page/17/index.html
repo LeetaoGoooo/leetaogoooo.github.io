@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-count">194</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,87 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/06/07/The%20only%20supported%20ciphers%20are%20AES-128-CBC%20and%20AES-256-CBC%20with%20the%20correct%20key%20lengths/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/06/07/The%20only%20supported%20ciphers%20are%20AES-128-CBC%20and%20AES-256-CBC%20with%20the%20correct%20key%20lengths/" class="post-title-link" itemprop="url">The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-06-07 00:00:00" itemprop="dateCreated datePublished" datetime="2017-06-07T00:00:00+08:00">2017-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1fgcuwaft5lj20ul05274j.jpg"></p>
+<h1 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h1><p>未设置 Application Key 导致。</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>在项目根目录下执行下述命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan key:generate</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>:在执行该命令执行,需要先将 <em>.env.example</em> 复制并重新命名为 <em>.env</em>,否则会产生类似的错误信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PHP Fatal error:  Uncaught UnexpectedValueException: The stream or file &quot;/var/www/html/ASRM/storage/logs/laravel.log&quot; could not be opened: failed to open stream: Permission denied in /v</span><br><span class="line">ar/www/html/ASRM/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:107</span><br></pre></td></tr></table></figure>
+
+<p>执行成功后会返回如下信息:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lt94@ubuntu:/var/www/html/ASRM$ php artisan key:generate</span><br><span class="line">Application key [base64:yUNJlAGBxWrxRutexftuJzVmzvllHXANxerkojqLscg=] set successfully.</span><br></pre></td></tr></table></figure>
+<p>然后重新刷新页面,出现下图就说明没有问题了。</p>
+<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1fgcuwg7hrij20w50edaa7.jpg"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/06/07/Whoops,%20looks%20like%20something%20went%20wrong/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +317,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -312,7 +393,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -401,7 +482,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -496,7 +577,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -576,7 +657,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -647,7 +728,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -748,7 +829,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -835,7 +916,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -1056,7 +1137,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
+      <time title="修改时间：2022-07-10 20:31:20" itemprop="dateModified" datetime="2022-07-10T20:31:20+08:00">2022-07-10</time>
     </span>
 
   
@@ -1139,82 +1220,6 @@
 <blockquote>
 <p>参考地址:<a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-ubuntu-14-04">https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-ubuntu-14-04</a></p>
 </blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/03/28/Openlayers%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E5%8A%A0%E8%BD%BD%E6%95%88%E6%9E%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/03/28/Openlayers%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E5%8A%A0%E8%BD%BD%E6%95%88%E6%9E%9C/" class="post-title-link" itemprop="url">Openlayers仿链家网加载效果</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-03-28 00:00:00" itemprop="dateCreated datePublished" datetime="2017-03-28T00:00:00+08:00">2017-03-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-09 17:05:30" itemprop="dateModified" datetime="2022-07-09T17:05:30+08:00">2022-07-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="效果预览"><a href="#效果预览" class="headerlink" title="效果预览"></a>效果预览</h1><p>在上代码之前首先让我们看一下链家网的加载效果，也就是这次我们的模仿对象，效果如下图:</p>
-<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1fe2dmqh07hg20qk0gaqv6.gif"></p>
-<p>下面是我们实现的效果:</p>
-<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1fe2dq2tou6g20qk0gaqv7.gif"></p>
-<h1 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h1><p>当 <em>Zoom</em> 改变的时候，根据圆的<strong>Radiu</strong> 和 <strong>Zoom</strong>，计算出适合当前地图的圆的半径，然后重新绘圆</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Gis展示<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;jslib/openlayer3/css/ol.css&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;jslib/jeasyui/themes/default/easyui.css&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jslib/openlayer3/build/ol-debug.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jslib/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jslib/jeasyui/jquery.easyui.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;mapContainer&quot;</span> <span class="attr">class</span>=<span class="string">&quot;subcontent&quot;</span>&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;map&quot;</span> <span class="attr">class</span>=<span class="string">&quot;map&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: auto;height: auto&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> styles = &#123;</span></span><br><span class="line"><span class="javascript">        <span class="string">&#x27;Circle&#x27;</span>: <span class="keyword">new</span> ol.style.Style(&#123;</span></span><br><span class="line"><span class="javascript">          <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">color</span>: <span class="string">&#x27;rgba(57,172,106,0.9)&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">opacity</span>: <span class="string">&#x27;0.05&#x27;</span></span></span><br><span class="line"><span class="javascript">          &#125;),</span></span><br><span class="line"><span class="javascript">          <span class="attr">text</span>: <span class="keyword">new</span> ol.style.Text(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">font</span>: <span class="string">&#x27;14px sans-serif&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">text</span>:<span class="string">&#x27;Test\n\n Value \n\n Message&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">textAlign</span>:<span class="string">&#x27;center&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">rotateWithView</span>:<span class="literal">true</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">color</span>: <span class="string">&#x27;#FFFFFF&#x27;</span></span></span><br><span class="line"><span class="javascript">            &#125;),</span></span><br><span class="line"><span class="javascript">            <span class="attr">stroke</span>:<span class="keyword">new</span> ol.style.Stroke(&#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">color</span>:<span class="string">&#x27;#FFFFFF&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">width</span>: <span class="number">1</span></span></span><br><span class="line"><span class="javascript">            &#125;)</span></span><br><span class="line"><span class="javascript">          &#125;)</span></span><br><span class="line"><span class="javascript">          <span class="comment">// radius:100</span></span></span><br><span class="line"><span class="javascript">        &#125;)</span></span><br><span class="line"><span class="javascript">      &#125;;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> Selectstyles = &#123;</span></span><br><span class="line"><span class="javascript">        <span class="string">&#x27;Circle&#x27;</span>: <span class="keyword">new</span> ol.style.Style(&#123;</span></span><br><span class="line"><span class="javascript">          <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">color</span>: <span class="string">&#x27;rgba(228,57,60,0.9)&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">opacity</span>: <span class="string">&#x27;0.05&#x27;</span></span></span><br><span class="line"><span class="javascript">          &#125;),</span></span><br><span class="line"><span class="javascript">          <span class="attr">text</span>: <span class="keyword">new</span> ol.style.Text(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">font</span>: <span class="string">&#x27;14px sans-serif&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">text</span>:<span class="string">&#x27;Test\n\n Value \n\n Message&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="attr">textAlign</span>:<span class="string">&#x27;center&#x27;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="comment">// rotateWithView:true,</span></span></span><br><span class="line"><span class="javascript">            <span class="attr">fill</span>: <span class="keyword">new</span> ol.style.Fill(&#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">color</span>: <span class="string">&#x27;#FFFFFF&#x27;</span></span></span><br><span class="line"><span class="javascript">            &#125;),</span></span><br><span class="line"><span class="javascript">            <span class="attr">stroke</span>:<span class="keyword">new</span> ol.style.Stroke(&#123;</span></span><br><span class="line"><span class="javascript">                <span class="attr">color</span>:<span class="string">&#x27;#FFFFFF&#x27;</span>,</span></span><br><span class="line"><span class="javascript">                <span class="attr">width</span>: <span class="number">1</span></span></span><br><span class="line"><span class="javascript">            &#125;)</span></span><br><span class="line"><span class="javascript">          &#125;)</span></span><br><span class="line"><span class="javascript">        &#125;)</span></span><br><span class="line"><span class="javascript">      &#125;;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> styleFunction = <span class="function"><span class="keyword">function</span>(<span class="params">feature</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> styles[feature.getGeometry().getType()];</span></span><br><span class="line"><span class="javascript">      &#125;;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> selectStyleFunction = <span class="function"><span class="keyword">function</span>(<span class="params">feature</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> Selectstyles[feature.getGeometry().getType()];</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> vectorSource = <span class="keyword">new</span> ol.source.Vector(&#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">features</span>: <span class="keyword">new</span> ol.Feature(<span class="keyword">new</span> ol.geom.Circle([<span class="number">5e6</span>, <span class="number">7e6</span>], <span class="number">1e6</span>))</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">      vectorSource.addFeature(<span class="keyword">new</span> ol.Feature(<span class="keyword">new</span> ol.geom.Circle([<span class="number">5e6</span>, <span class="number">7e6</span>], <span class="number">1e6</span>/<span class="built_in">Math</span>.pow(<span class="number">2</span>,-<span class="number">1</span>))));</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> vectorLayer = <span class="keyword">new</span> ol.layer.Vector(&#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">source</span>: vectorSource,</span></span><br><span class="line"><span class="javascript">        <span class="attr">style</span>: styleFunction</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> map = <span class="keyword">new</span> ol.Map(&#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">layers</span>: [</span></span><br><span class="line"><span class="javascript">          <span class="keyword">new</span> ol.layer.Tile(&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">source</span>: <span class="keyword">new</span> ol.source.OSM()</span></span><br><span class="line"><span class="javascript">          &#125;),</span></span><br><span class="line"><span class="javascript">          vectorLayer</span></span><br><span class="line"><span class="javascript">        ],</span></span><br><span class="line"><span class="javascript">        <span class="attr">target</span>: <span class="string">&#x27;map&#x27;</span>,</span></span><br><span class="line"><span class="javascript">        <span class="attr">controls</span>: ol.control.defaults(&#123;</span></span><br><span class="line"><span class="javascript">          <span class="attr">attributionOptions</span>: <span class="comment">/** <span class="doctag">@type <span class="type">&#123;olx.control.AttributionOptions&#125;</span> </span>*/</span> (&#123;</span></span><br><span class="line"><span class="javascript">            <span class="attr">collapsible</span>: <span class="literal">false</span></span></span><br><span class="line"><span class="javascript">          &#125;)</span></span><br><span class="line"><span class="javascript">        &#125;),</span></span><br><span class="line"><span class="javascript">        <span class="attr">view</span>: <span class="keyword">new</span> ol.View(&#123;</span></span><br><span class="line"><span class="javascript">          <span class="attr">center</span>: [<span class="number">0</span>, <span class="number">0</span>],</span></span><br><span class="line"><span class="javascript">          <span class="attr">zoom</span>: <span class="number">2</span></span></span><br><span class="line"><span class="javascript">        &#125;)</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> view = map.getView();</span></span><br><span class="line"><span class="javascript">      view.on(<span class="string">&#x27;change:resolution&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> zoom = view.getZoom();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> Collection = map.getLayers();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> layers = Collection.getArray();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> vectorSource = layers[<span class="number">1</span>].getSource();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> features = vectorSource.getFeatures();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> len = features.length;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span> ; i&lt; len; i++) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> Circle = features[i].getGeometry();</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(zoom);</span></span><br><span class="line"><span class="javascript">                Circle.setRadius(<span class="number">1e6</span>/<span class="built_in">Math</span>.pow(<span class="number">2</span>,zoom-<span class="number">3</span>));</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> selectPointerMove = <span class="keyword">new</span> ol.interaction.Select(&#123;</span></span><br><span class="line"><span class="javascript">        <span class="attr">condition</span>: ol.events.condition.pointerMove</span></span><br><span class="line"><span class="javascript">      &#125;);</span></span><br><span class="line"><span class="javascript">      map.addInteraction(selectPointerMove);</span></span><br><span class="line"><span class="javascript">      selectPointerMove.on(<span class="string">&#x27;select&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">         <span class="keyword">var</span> ele = e;</span></span><br><span class="line"><span class="javascript">         <span class="keyword">var</span> select_len = e.selected.length;</span></span><br><span class="line"><span class="javascript">         <span class="keyword">var</span> unselect_len = e.deselected.length;</span></span><br><span class="line"><span class="javascript">         <span class="keyword">if</span> (select_len &gt; <span class="number">0</span>) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> featureArr = e.selected;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; featureArr.length; i++) &#123;</span></span><br><span class="line"><span class="javascript">              featureArr[i].setStyle(selectStyleFunction(featureArr[i]));</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> Circle = featureArr[i].getGeometry();</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">         &#125;</span></span><br><span class="line"><span class="javascript">         <span class="keyword">if</span> (unselect_len &gt; <span class="number">0</span>) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> featureArr = e.deselected;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; featureArr.length; i++) &#123;</span></span><br><span class="line"><span class="javascript">                featureArr[i].setStyle(styleFunction(featureArr[i]));</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> Circle = featureArr[i].getGeometry();</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">         &#125;</span></span><br><span class="line"><span class="javascript">      &#125;)</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
