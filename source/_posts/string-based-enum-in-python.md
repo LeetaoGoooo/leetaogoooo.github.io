@@ -10,6 +10,8 @@ published: true
 Python 的枚举也是一个在时常被被经常使用的一个特性，在 Python3.11 之前，Python 标准库支持枚举类型除了枚举基类 Enum，就只有 IntEnum 了(创建 int 子枚举类型常量的基类)，Python 3.11 开始支持了 StrEnum，如果你的当前使用版本是 Python3.11 则可以略过一下内容。
 接下来要介绍的内容，则是在 Python3.11 之前的版本，如何实现 StrEnum 以及一些注意事项。
 
+<!-- more -->
+
 # StrEnum 的实现
 
 StrEnum 的实现很简单
