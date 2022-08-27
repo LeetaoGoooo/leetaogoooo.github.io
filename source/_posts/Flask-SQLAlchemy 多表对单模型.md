@@ -89,3 +89,54 @@ Ups1_20190716 = type('UPS120190716', (UpsBase, db.Model), {'__tablename__':'UPS1
 Ups = Ups1_20190716()
 ```
 
+## 例子
+
+下面补充一个例子：**如果根据表名动态创建表，如果表不存在则创建**
+
+```python3
+from flask import Flask,jsonify
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import inspect
+
+
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.sqlite3"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app=app)
+
+class UpsBase:
+    Id = db.Column(db.Integer,primary_key=True)
+    workTime = db.Column(db.Time)
+
+def table_exists(name):
+    engine = db.get_engine()
+    ret = inspect(engine).has_table(name)
+    print('Table "{}" exists: {}'.format(name, ret))
+    return ret
+
+
+@app.route("/<table_name>")
+def index(table_name):
+    if not table_exists(table_name):
+        up_test = dynamic_table(UpsBase, table_name)
+        up_test.__table__.create(db.engine)
+    return jsonify({"code":200})
+    
+
+
+
+def dynamic_table(table_base, table_name: str, bind_key='db') -> db.Model:
+    """[summary]
+    Arguments:
+        table_base {Object} -- [表的属性类，包含表的所有列]
+        table_name {str} -- [表名]
+        bind_key {str} -- [绑定的数据库]
+    Returns:
+        [Model] -- [对应的 db Model]
+    """
+    return type(table_name.capitalize(), (table_base, db.Model),
+                {'__tablename__': table_name, '__bind_key__': bind_key, '__table_args__': {'extend_existing': True}})()
+
+```
+
