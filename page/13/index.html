@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">194</span>
+          <span class="site-state-item-count">195</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-count">75</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,95 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/12/04/wtforms%20%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/12/04/wtforms%20%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">wtforms 使用的一些问题总结</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-12-04 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-04T00:00:00+08:00">2017-12-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h1><blockquote>
+<p>Q1.  用IntegerField来限制form只能用数字 但是发现它只能接受1以上 不能接受0 如何设置</p>
+</blockquote>
+<p>A1:添加代码<code>validators=[InputRequired()]</code>  </p>
+<blockquote>
+<p>Q2. 让 IntegerField 的输入框只允许输入数字,即选渲染后的输入框类型为 number</p>
+</blockquote>
+<p>A2: 添加代码<code>widget=NumberInput()</code>, 引入 <code>from wtforms.widgets.html5 import NumberInput</code>,默认的 widget 为 TextInput(),见链接<a target="_blank" rel="noopener" href="https://github.com/wtforms/wtforms/blob/551bb29ba9ee74e8b4113d08b9b22c5c7df8b9b1/wtforms/fields/core.py#L572">[1]</a></p>
+<blockquote>
+<p>Q3. 如何在一个页面中使用两个Form</p>
+</blockquote>
+<p>A3: 确保两个form中的字段不相同,因为渲染之后字段名即为 id,判断语句应如下,其他方法可参考<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/18290142/multiple-forms-in-a-single-page-using-flask-and-wtforms">[2]</a>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> form1.validate_on_sumite() <span class="keyword">and</span> form1.submite1.data():</span><br><span class="line">    ... </span><br><span class="line"><span class="keyword">elif</span> form2.validate_on_submit() <span class="keyword">and</span> form2.submit2.date():</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Q4. 添加 placeholder</p>
+</blockquote>
+<p>A4: 添加代码 <code>render_kw=&#123;'placeholder': "placeholder"&#125;</code></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://github.com/wtforms/wtforms/blob/551bb29ba9ee74e8b4113d08b9b22c5c7df8b9b1/wtforms/fields/core.py">[1]wtforms-fields-core.py</a><br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/18290142/multiple-forms-in-a-single-page-using-flask-and-wtforms">[2]Multiple forms in a single page using flask and WTForms</a><br><a target="_blank" rel="noopener" href="http://wtforms.readthedocs.io/en/latest/widgets.html">[3]widgets</a><br><a target="_blank" rel="noopener" href="http://wtforms.simplecodes.com/docs/0.6.1/fields.html">[4]fields</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/11/25/HP%20EliteDesk%20800%20G3%20%20SFF%20%E5%8F%B0%E5%BC%8F%E6%9C%BA%20%E4%BD%BF%E7%94%A8%20%20BiosConfigUtility%20%E9%85%8D%E7%BD%AE%20Bios/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +325,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -316,7 +405,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -421,7 +510,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -536,7 +625,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -617,7 +706,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -722,7 +811,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -853,7 +942,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -928,7 +1017,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -1010,7 +1099,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -1039,94 +1128,6 @@
 <li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/29950300/what-is-the-relationship-between-virtualenv-and-pyenv">https://stackoverflow.com/questions/29950300/what-is-the-relationship-between-virtualenv-and-pyenv</a></p>
 </li>
 </ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/09/23/electron-searchMovies/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/09/23/electron-searchMovies/" class="post-title-link" itemprop="url">electron-searchMovies</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-09-23 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-23T00:00:00+08:00">2017-09-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>之前学了electron,前段时间又学了一下vue,为了增加熟练度决定将两者结合做个有趣的东西.想来想去最后决定将原来用 PyQt 写的<a target="_blank" rel="noopener" href="https://github.com/lt94/MovieHeavens">MovieHeavens</a>重新写一遍,使用electron-vue构建的项目地址<a target="_blank" rel="noopener" href="https://github.com/lt94/electron-searchMovies">electron-searchMovies</a>,最后用<em>electron-packager</em>打包了成exe,在项目主页的releases可以找到打包后的安装程序.总结一下整个问题中遇见的几点问题以及解决办法.</p>
-<h2 id="无法下载打包所需的工具"><a href="#无法下载打包所需的工具" class="headerlink" title="无法下载打包所需的工具"></a>无法下载打包所需的工具</h2><p>由于一些神奇的力量导致打包过程中下载必需的工具包失败</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>确定你需要工具包的名称,然后先手动将这些工具包下载下来,然后解压到对应的缓存目录中.各个系统对应的路径如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">macOS: ~/Library/Caches/electron-builder</span><br><span class="line">Linux: ~/.cache/electron-builder</span><br><span class="line">windows: %LOCALAPPDATA%\electron-builder\cache</span><br></pre></td></tr></table></figure>
-
-<p>我的最终目录树如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── appimage-packages</span><br><span class="line">│   └── appimage-packages-28-08-17</span><br><span class="line">├── nsis</span><br><span class="line">│   └── nsis-3.0.1.13</span><br><span class="line">├── nsis-resources</span><br><span class="line">│   └── nsis-resources-3.3.0</span><br><span class="line">└── winCodeSign</span><br><span class="line">    └── winCodeSign-1.9.0</span><br></pre></td></tr></table></figure>
-
-<h2 id="用-yarn-而不是-npm"><a href="#用-yarn-而不是-npm" class="headerlink" title="用 yarn 而不是 npm"></a>用 yarn 而不是 npm</h2><p>当解决了工具包的问题,仍然打包成功,但是应用没有任何内容只是一个空白页,后来在github<a target="_blank" rel="noopener" href="https://github.com/electron-userland/electron-builder/issues/1615">No contents only a blank page after build</a>看见建议用 <em>yarn</em> 而不是 <em>npm</em>.这里有一篇<a target="_blank" rel="noopener" href="https://www.sitepoint.com/yarn-vs-npm/">Yarn vs npm: Everything You Need to Know</a>的详细文章,正如官方文档说道的:yarn是为了弥补npm的一些缺陷而出现的.</p>
-<h2 id="短暂的空白页"><a href="#短暂的空白页" class="headerlink" title="短暂的空白页"></a>短暂的空白页</h2><p>一切问题都解决了,再次将软件打包成 exe,似乎接下来就是体验胜利的果实了,但是事实上并不是这样,打包的第一个版本<a target="_blank" rel="noopener" href="https://github.com/lt94/electron-searchMovies/releases/download/0.0.0/search-movies.Setup.0.0.0.exe">Pre-release</a>,在打开软件最开始会出现短暂的空白页,显然这对用户不是一个很棒的体验,最后决定加了一个简单的加载动画,核心代码如下:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mainWindow.webContents.on(<span class="string">&#x27;did-finish-load&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  mainWindow.show()</span><br><span class="line">  <span class="keyword">if</span> (loadingScreen) &#123;</span><br><span class="line">    <span class="keyword">let</span> loadingScreenBounds = loadingScreen.getBounds()</span><br><span class="line">    mainWindow.setBounds(loadingScreenBounds)</span><br><span class="line">    loadingScreen.close()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>完整代码自然就需要去<a target="_blank" rel="noopener" href="https://github.com/lt94/electron-searchMovies">electron-searchMovies</a>上查看了.这里遇见了一个新的问题.</p>
-<h2 id="Cannot-Get-Route"><a href="#Cannot-Get-Route" class="headerlink" title="Cannot Get Route"></a>Cannot Get Route</h2><p>在解决上个问题的同时遇见了一个新的问题,加载动画页是通过路由映射的，我在 <em>src/routes.js</em> 中添加了如下的路由:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  path: &#x27;/loading&#x27;,</span><br><span class="line">  name: &#x27;loading-page&#x27;,</span><br><span class="line">  component: require(&#x27;@/components/LoadingPage&#x27;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后让 <em>loadingScreen</em> 加载 <em><a target="_blank" rel="noopener" href="http://localhost:9080/loading">http://localhost:9080/loading</a></em> 但是却使用获得 <em>cannot get /loading</em> 的错误,后来最后查找资料下找到了解决方案,对于新的路由访问地址应该是<em><a target="_blank" rel="noopener" href="http://localhost:9080/#/new_route">http://localhost:9080/#/new_route</a></em>,打包后的访问地址应该是:<em>file://${__dirname}/index.html#new_route</em>,到此所有问题圆满解决.最后上一下软件的使用截图.</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fjt9glqbn1g310r0imqv6.gif"><br>最后欢迎大家star Or fork~</p>
 
       
     </div>

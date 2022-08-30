@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">194</span>
+          <span class="site-state-item-count">195</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-count">75</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,140 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/12/24/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%A0%E5%8C%96%20python/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/12/24/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%A0%E5%8C%96%20python/" class="post-title-link" itemprop="url">字符串池化 python</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-24 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-24T00:00:00+08:00">2018-12-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在 Python 中经常通过内存池化技术来提高其性能,那么问题来了,在什么情况下会池化呢? 让我们通过几个例子进行一下理解一下.</p>
+<h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><p>在查看例子之前,首先要提 python 中的一个函数 <strong>id()</strong>,让我们看一下函数说明:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">id(obj, /)</span><br><span class="line">    Return the identity of an object.</span><br><span class="line"></span><br><span class="line">    This is guaranteed to be unique among simultaneously existing objects.</span><br><span class="line">    (CPython uses the object \<span class="string">&#x27;s memory address.)</span></span><br></pre></td></tr></table></figure>
+
+<p>通过上述说明,可以得知 id() 将会返回对像的唯一标识,在 CPython 中将会返回内存地址,也就是说如果两个对象 的 id 值一样,可以说着两个对象是相同的了.</p>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>example 00</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;&quot;</span></span><br><span class="line">b = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a),<span class="built_in">id</span>(b))</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = <span class="string">&quot;&quot;</span></span><br><span class="line">&gt;&gt;&gt; b = <span class="string">&quot;&quot;</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(id(a),id(b))</span><br><span class="line">2114853370544 2114853370544</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a is b)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>example 01</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;a&quot;</span></span><br><span class="line">b = <span class="string">&quot;a&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a),<span class="built_in">id</span>(b))</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = <span class="string">&quot;a&quot;</span></span><br><span class="line">&gt;&gt;&gt; b = <span class="string">&quot;a&quot;</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(id(a),id(b))</span><br><span class="line">2114883022608 2114883022608</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a is b)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>example 02</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;magic_string&quot;</span></span><br><span class="line">b = <span class="string">&quot;magic&quot;</span> + <span class="string">&quot;_&quot;</span> + <span class="string">&quot;string&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a),<span class="built_in">id</span>(b))</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = <span class="string">&quot;magic_string&quot;</span></span><br><span class="line">&gt;&gt;&gt; b = <span class="string">&quot;magic&quot;</span> + <span class="string">&quot;_&quot;</span> + <span class="string">&quot;string&quot;</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(id(a),id(b))</span><br><span class="line">2114887161136 2114887161136</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a is b)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>example 03</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;magic!&quot;</span></span><br><span class="line">b = <span class="string">&quot;mgaic!&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a),<span class="built_in">id</span>(b))</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = <span class="string">&quot;magic!&quot;</span></span><br><span class="line">&gt;&gt;&gt; b = <span class="string">&quot;mgaic!&quot;</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(id(a),id(b))</span><br><span class="line">2114885855416 2114889455408</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a is b)</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+
+<p>example 04</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a,b = <span class="string">&quot;magic!&quot;</span>,<span class="string">&quot;magic!&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a),<span class="built_in">id</span>(b))</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a,b = <span class="string">&quot;magic!&quot;</span>,<span class="string">&quot;magic!&quot;</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(id(a),id(b))</span><br><span class="line">2114885691912 2114885691912</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a is b)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>example 05</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&quot;!&quot;</span></span><br><span class="line">b = <span class="string">&quot;!&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(a),<span class="built_in">id</span>(b))</span><br><span class="line"><span class="built_in">print</span>(a <span class="keyword">is</span> b)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = <span class="string">&quot;!&quot;</span></span><br><span class="line">&gt;&gt;&gt; b = <span class="string">&quot;!&quot;</span></span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(id(a),id(b))</span><br><span class="line">140564571922024 140564571922024</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a is b)</span><br><span class="line">True</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>example 06</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(a*<span class="number">20</span> <span class="keyword">is</span> <span class="string">&#x27;aaaaaaaaaaaaaaaaaaaa&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(a*<span class="number">21</span> <span class="keyword">is</span> <span class="string">&#x27;aaaaaaaaaaaaaaaaaaaaa&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a*20 is <span class="string">&#x27;aaaaaaaaaaaaaaaaaaaa&#x27;</span>)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(a*21 is <span class="string">&#x27;aaaaaaaaaaaaaaaaaaaaa&#x27;</span>)</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通过上述 7 个例子,我们不难对 python 的字符串池化有个大概的认识,我们这里做个简单的总结:</p>
+<ol>
+<li>通过 example 00,01,05,我们可以得出对于长度为 0 或者 1 的字符串会被池化</li>
+<li>通过 example 02,03,我们可以得出字符串中只包含字母数字以及下划线的字符串会被池化</li>
+<li>通过 example 04, 我们可以得出当在同一行对不同变量，赋值如果相同的话，它们将会指向同一个对象，注意这里面的 “magic!” 并不符合池化的要求，这只是一种编译器的优化</li>
+<li>example 06 所出现的现象在 python 中有一个专业的术语，讲常量折叠(constant folding),顾名思义，在编译优化时，讲能够计算出的结果的变量直接替换为常量.但是这没有限制吗？显然不是的，在我们的例子中已经发现，当长度超过20的时候，折叠就会失效了，试想一下，如果没有限制的话，初始化的字符串过长，将会严重导致性能的下降以及内存的消耗</li>
+</ol>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ol>
+<li><p><a target="_blank" rel="noopener" href="http://guilload.com/python-string-interning/">The internals of Python string interning</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://late.am/post/2012/03/26/exploring-python-code-objects.html">exploring python code objects</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15541404/python-string-interning">Python string interning</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.laurentluce.com/posts/python-string-objects-implementation/">Python String objects implementation</a></p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/12/21/%E8%A7%A3%E5%86%B3%20openpyxl%20%E5%9E%82%E7%9B%B4%E5%88%86%E9%A1%B5%E7%AC%A6%E5%92%8C%E6%B0%B4%E5%B9%B3%E5%88%86%E9%A1%B5%E7%AC%A6%E5%90%8C%E6%97%B6%E6%B7%BB%E5%8A%A0%E7%9A%84%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +370,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -337,7 +471,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -443,7 +577,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -526,7 +660,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -670,7 +804,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -759,7 +893,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -848,7 +982,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -983,7 +1117,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -1067,7 +1201,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -1092,91 +1226,6 @@
 
 <p><strong>Solution</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(s) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        max_len = <span class="number">1</span></span><br><span class="line">        store_str = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> strs <span class="keyword">in</span> s:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(store_str) == <span class="number">0</span>:</span><br><span class="line">                store_str += strs</span><br><span class="line">            <span class="keyword">elif</span> strs <span class="keyword">not</span> <span class="keyword">in</span> store_str:</span><br><span class="line">                store_str += strs</span><br><span class="line">                max_len = <span class="built_in">max</span>(max_len,<span class="built_in">len</span>(store_str))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                repeat_index = store_str.index(strs)</span><br><span class="line">                store_str = store_str[repeat_index+<span class="number">1</span>:] + strs</span><br><span class="line">        <span class="keyword">return</span> max_len</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/10/25/Set%20Matrix%20Zeroes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/25/Set%20Matrix%20Zeroes/" class="post-title-link" itemprop="url">Set Matrix Zeroes</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-10-25 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-25T00:00:00+08:00">2018-10-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
-<p>示例 1:</p>
-<blockquote>
-<p>输入: <p><br>[<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[1,1,1],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[1,0,1],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[1,1,1]<p><br>]<p><br>输出:<p><br>[<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[1,0,1],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[0,0,0],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[1,0,1]<p><br>]<p></p>
-</blockquote>
-<p>示例 2:<p></p>
-<blockquote>
-<p>输入: <p><br>[<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[0,1,2,0],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[3,4,5,2],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[1,3,1,5]<p><br>]<p><br>输出: <p><br>[<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[0,0,0,0],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[0,4,5,0],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[0,3,1,0]<p><br>]</p>
-</blockquote>
-<p>进阶:</p>
-<p>一个直接的解决方案是使用  O(mn) 的额外空间，但这并不是一个好的解决方案。<br>一个简单的改进方案是使用 O(m + n) 的额外空间，但这仍然不是最好的解决方案。<br>你能想出一个常数空间的解决方案吗？</p>
-<p><strong>Solution</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setZeroes</span>(<span class="params">self, matrix</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type matrix: List[List[int]]</span></span><br><span class="line"><span class="string">        :rtype: void Do not return anything, modify matrix in-place instead.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        zero_pos_list = []</span><br><span class="line">        </span><br><span class="line">        matrix_row_len = <span class="built_in">len</span>(matrix)</span><br><span class="line">        matrix_col_len = <span class="built_in">len</span>(matrix[<span class="number">0</span>])</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> <span class="built_in">range</span>(matrix_row_len):</span><br><span class="line">            <span class="keyword">for</span> col <span class="keyword">in</span> <span class="built_in">range</span>(matrix_col_len):</span><br><span class="line">                <span class="keyword">if</span> matrix[row][col] == <span class="number">0</span>:</span><br><span class="line">                    zero_pos_list.append([row,col])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> row,col <span class="keyword">in</span> zero_pos_list:</span><br><span class="line">            <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(matrix_col_len):</span><br><span class="line">                matrix[row][index] = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(matrix_row_len):</span><br><span class="line">                matrix[index][col] = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p>O(1) 的解法</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setZeroes</span>(<span class="params">self, matrix</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type matrix: List[List[int]]</span></span><br><span class="line"><span class="string">        :rtype: void Do not return anything, modify matrix in-place instead.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> matrix:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        R, C = <span class="built_in">len</span>(matrix), <span class="built_in">len</span>(matrix[<span class="number">0</span>])</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># First pass: Set rows/cols to infinity when you encounter 0</span></span><br><span class="line">        <span class="keyword">for</span> r, c <span class="keyword">in</span> itertools.product(<span class="built_in">range</span>(R), <span class="built_in">range</span>(C)):</span><br><span class="line">            <span class="keyword">if</span> matrix[r][c] == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(R):</span><br><span class="line">                    <span class="keyword">if</span> i == r <span class="keyword">or</span> matrix[i][c] == <span class="number">0</span>:</span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    matrix[i][c] = <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">                    </span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(C):</span><br><span class="line">                    <span class="keyword">if</span> j == c <span class="keyword">or</span> matrix[r][j] == <span class="number">0</span>:</span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    matrix[r][j] = <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">                </span><br><span class="line">        <span class="comment"># Second pass: Replace all infinity with 0</span></span><br><span class="line">        <span class="keyword">for</span> r, c <span class="keyword">in</span> itertools.product(<span class="built_in">range</span>(R), <span class="built_in">range</span>(C)):</span><br><span class="line">            <span class="keyword">if</span> matrix[r][c] == <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>):</span><br><span class="line">                matrix[r][c] = <span class="number">0</span></span><br></pre></td></tr></table></figure>
       
     </div>
 

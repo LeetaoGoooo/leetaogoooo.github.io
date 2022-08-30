@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">194</span>
+          <span class="site-state-item-count">195</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-count">75</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,85 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/09/05/Longest%20Palindrome/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/09/05/Longest%20Palindrome/" class="post-title-link" itemprop="url">Longest Palindrome</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-09-05 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-05T00:00:00+08:00">2017-09-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Given a string which consists of lowercase or uppercase letters, find the length of the longest palindromes that can be built with those letters.</p>
+<p>This is case sensitive, for example “Aa” is not considered a palindrome here.</p>
+<p><strong>Note:</strong><br>Assume the length of given string will not exceed 1,010.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">&quot;abccccdd&quot;</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">7</span><br><span class="line"></span><br><span class="line">Explanation:</span><br><span class="line">One longest palindrome that can be built is &quot;dccaccd&quot;, whose length is 7.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Solution</strong></p>
+<p>最长回文字符串,区分大小写.依次统计每个字符出现的个数,对统计结果进行处理,很明显出现偶数次的字符串符合回文串的构成,对于大于2的奇数字符串,取它最大的2的倍数,然后将长度累加得出N,最后比较 <strong>N</strong> 和 字符串原始长度,如果长度一致则返回 <strong>N</strong>,如果小于原字符串长度则返回 <strong>N + 1</strong></p>
+<p>Python</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestPalindrome</span>(<span class="params">self, s</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        dic_s = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> s:</span><br><span class="line">            dic_s[item] = dic_s.get(item,<span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">        max_len = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> dic_s:</span><br><span class="line">            <span class="keyword">if</span> dic_s[key] &gt;= <span class="number">2</span>:</span><br><span class="line">                max_len += (dic_s[key] / <span class="number">2</span>) * <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> max_len &lt; <span class="built_in">len</span>(s):</span><br><span class="line">            <span class="keyword">return</span> max_len + <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> max_len</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/08/31/Number%20of%20Boomerangs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +315,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -319,7 +398,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -397,7 +476,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -480,7 +559,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -566,7 +645,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -651,7 +730,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -735,7 +814,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -818,7 +897,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -897,7 +976,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -936,83 +1015,6 @@
 
 <p>简洁版的 Java 代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">findLongestWord</span><span class="params">(String s, List&lt;String&gt; d)</span> </span>&#123;</span><br><span class="line">    String longest = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (String dictWord : d) &#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c : s.toCharArray()) </span><br><span class="line">            <span class="keyword">if</span> (i &lt; dictWord.length() &amp;&amp; c == dictWord.charAt(i)) i++;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (i == dictWord.length() &amp;&amp; dictWord.length() &gt;= longest.length()) </span><br><span class="line">            <span class="keyword">if</span> (dictWord.length() &gt; longest.length() || dictWord.compareTo(longest) &lt; <span class="number">0</span>)</span><br><span class="line">                longest = dictWord;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> longest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/08/18/Insertion%20Sort%20List/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/08/18/Insertion%20Sort%20List/" class="post-title-link" itemprop="url">Insertion Sort List</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-08-18 00:00:00" itemprop="dateCreated datePublished" datetime="2017-08-18T00:00:00+08:00">2017-08-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Sort a linked list using insertion sort.</p>
-<p><strong>Solution</strong></p>
-<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Insertion_sort">插入排序</a></p>
-<p>Python</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode(object):</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insertionSortList</span>(<span class="params">self, head</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type head: ListNode</span></span><br><span class="line"><span class="string">        :rtype: ListNode</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> head <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line">        dummy = ListNode(-<span class="number">1</span>)</span><br><span class="line">        dummy.<span class="built_in">next</span> = head</span><br><span class="line">        current = head</span><br><span class="line">        <span class="keyword">while</span> current:</span><br><span class="line">            <span class="built_in">print</span>(current.val)</span><br><span class="line">            begin = dummy</span><br><span class="line">            current_next = current.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">if</span> current_next <span class="keyword">and</span> current_next.val &lt; current.val:</span><br><span class="line">                tmp_current = current</span><br><span class="line">                current.<span class="built_in">next</span> = current_next.<span class="built_in">next</span></span><br><span class="line">                <span class="keyword">while</span> begin != tmp_current:</span><br><span class="line">                    <span class="keyword">if</span> begin.<span class="built_in">next</span>.val &gt; current_next.val:</span><br><span class="line">                        current_next.<span class="built_in">next</span> = begin.<span class="built_in">next</span></span><br><span class="line">                        begin.<span class="built_in">next</span> = current_next</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        begin = begin.<span class="built_in">next</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                current = current.<span class="built_in">next</span></span><br><span class="line">        <span class="keyword">return</span> dummy.<span class="built_in">next</span></span><br></pre></td></tr></table></figure>
-
-<p>Java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">insertionSortList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode helper = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode pre = helper;</span><br><span class="line">        ListNode current = head;</span><br><span class="line">        <span class="keyword">while</span>(current!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            pre = helper;</span><br><span class="line">            <span class="keyword">while</span>(pre.next != <span class="keyword">null</span> &amp;&amp; pre.next.val &lt; current.val) &#123;</span><br><span class="line">                pre = pre.next;</span><br><span class="line">            &#125;</span><br><span class="line">            ListNode next = current.next;</span><br><span class="line">            current.next = pre.next;</span><br><span class="line">            pre.next = current;</span><br><span class="line">            current = next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> helper.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 

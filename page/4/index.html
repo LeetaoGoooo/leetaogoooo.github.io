@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">194</span>
+          <span class="site-state-item-count">195</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-count">75</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,92 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/12/09/You%20aren%E2%80%99t%20using%20a%20compiler%20supported%20by%20lombok,%20so%20lombok%20will%20not%20work%20and%20has%20been%20disabled./">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/09/You%20aren%E2%80%99t%20using%20a%20compiler%20supported%20by%20lombok,%20so%20lombok%20will%20not%20work%20and%20has%20been%20disabled./" class="post-title-link" itemprop="url">You aren’t using a compiler supported by lombok, so lombok will not work and has been disabled.</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-09 00:00:00" itemprop="dateCreated datePublished" datetime="2020-12-09T00:00:00+08:00">2020-12-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前几天将 IntelliJ IDEA 升级到 2020.3 版本，然后在编译项目的时候发现原本正常运行的项目无法编译成功了，提示下面的错误:</p>
+<blockquote>
+<p>java: You aren’t using a compiler supported by lombok, so lombok will not work and has been disabled. </p>
+</blockquote>
+<p>在网上检索寻找问题解决办法，发现在 github 上已经有人反馈了这个问题 <a target="_blank" rel="noopener" href="https://github.com/rzwitserloot/lombok/issues/2592#">[BUG] Lombok Does not work with IntelliJ EAP 2020.3 Build 203.4203.26</a> 并给出了解决办法。</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>总共发现两种解决办法，两种办法均有效。</p>
+<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>设置编译器（compiler），打开设置（File -&gt; Settings）</p>
+<p><img src="/posts/1607499429.png"></p>
+<p>然后选择编译器（<strong>compiler</strong>），在 <strong>Shared build process VM options</strong> 填入: <strong>-Djps.track.ap.dependencies=false</strong></p>
+<p><img src="/posts/1607499460.png"></p>
+<p>**点击 apply，这个时候就可以重新编译成功了。</p>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>第二种方法就比较简单了，将你的 Lombok 升级就可以解决了，升级到  <strong>1.18.14</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18.14<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>本次出现这个问题，IDEA 方拒绝背锅，说是 Lombok 的问题。完整内容见：<a target="_blank" rel="noopener" href="https://youtrack.jetbrains.com/issue/IDEA-252069">Build project with lombok - IntelliJ Ultimate 2020.3 EAP</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/11/24/%E5%9C%A8Flask%E5%90%AF%E5%8A%A8%E6%97%B6%E5%90%AF%E5%8A%A8%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +322,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -320,7 +406,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -423,7 +509,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -506,7 +592,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -590,7 +676,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -667,7 +753,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -748,7 +834,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -826,7 +912,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -902,7 +988,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -930,146 +1016,6 @@
 <blockquote>
 <p>关注 <strong>公众号【桃子的学习笔记】</strong>，回复 Python 领取免费资料</p>
 </blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/06/27/Rust%E7%AC%94%E8%AE%B0-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%88%E4%BA%8C%EF%BC%89--%20%E5%A4%8D%E5%90%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/06/27/Rust%E7%AC%94%E8%AE%B0-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%88%E4%BA%8C%EF%BC%89--%20%E5%A4%8D%E5%90%88/" class="post-title-link" itemprop="url">Rust笔记-数据类型（二）-- 复合</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-06-27 00:00:00" itemprop="dateCreated datePublished" datetime="2020-06-27T00:00:00+08:00">2020-06-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><code>这是自己学习 Rust 的学习笔记，由于 Rust 语言处于初期，变动可能会比较大，文章不一定会及时同步，学习过程中需要仔细甄别</code></p>
-<h1 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h1><p>复合类型（Compound types）可以将多个值组合成一个类型。Rust 有两个原生的复合类型：元组（tuple）和数组（array）</p>
-<h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2><p>元组是一个将多个其他类型的值组合进一个复合类型的主要方式。我们使用包含在圆括号中的逗号分隔的值列表来创建一个元组。<strong>元组中的每一个位置都有一个类型</strong>，而且这些不同值的类型也不必是相同的。这个例子中使用了可选的类型注解：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> tup: (<span class="built_in">i32</span>, <span class="built_in">f64</span>, <span class="built_in">u8</span>) = (<span class="number">500</span>, <span class="number">6.4</span>, <span class="number">1</span>);&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>tup</strong> 变量绑定到整个元组上，因为元组是一个单独的复合元素。为了从元组中获取单个值，可以使用模式匹配（pattern matching）来解构（destructure）元组值，像这样：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> tup = (<span class="number">500</span>, <span class="number">6.4</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> (x, y, z) = tup;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of y is: &#123;&#125;&quot;</span>, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>程序首先创建了一个元组并绑定到 tup 变量上。接着使用了 let 和一个模式将 tup 分成了三个不 同的变量， x 、 y 和 z 。这叫做 解构 ( destructuring )，因为它将一个元组拆成了三个部分。最后，程序打印出了 y 的值，也就是 6.4。让我们看一下编译的结果：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> Compiling learn_rust_by_example v0.<span class="number">1.0</span> (F:\workspace\rust\learn_rust_by_example)</span><br><span class="line">warning: unused variable: `x`</span><br><span class="line"> --&gt; src\main.rs:<span class="number">4</span>:<span class="number">10</span></span><br><span class="line">  |</span><br><span class="line"><span class="number">4</span> |     <span class="keyword">let</span> (x, y, z) = tup;</span><br><span class="line">  |          ^ help: consider using `_x` instead</span><br><span class="line">  |</span><br><span class="line">  = note: <span class="meta">#[warn(unused_variables)]</span> on by default</span><br><span class="line"></span><br><span class="line">warning: unused variable: `z`</span><br><span class="line"> --&gt; src\main.rs:<span class="number">4</span>:<span class="number">16</span></span><br><span class="line">  |</span><br><span class="line"><span class="number">4</span> |     <span class="keyword">let</span> (x, y, z) = tup;</span><br><span class="line">  |                ^ help: consider using `_z` instead</span><br><span class="line"></span><br><span class="line">    Finished dev [unoptimized + debuginfo] target(s) <span class="keyword">in</span> <span class="number">3.74</span>s</span><br><span class="line">     Running `target\debug\learn_rust_by_example.exe`</span><br><span class="line">The value of y is: <span class="number">6.4</span></span><br></pre></td></tr></table></figure>
-
-<p>这里编译似乎出现了 warning,提示我们有两个没有使用的变量 x,z, 可以使用 <code>_x</code>, 和 <code>_z</code> 去替代,ok，让我们试着修改一下代码,</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> tup = (<span class="number">500</span>, <span class="number">6.4</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">let</span> (_x, y, _z) = tup;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of y is: &#123;&#125;&quot;</span>, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后重新编译一下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   Compiling learn_rust_by_example v0.1.0 (F:\workspace\rust\learn_rust_by_example)</span><br><span class="line">    Finished dev [unoptimized + debuginfo] target(s) in 0.90s</span><br><span class="line">     Running `target\debug\learn_rust_by_example.exe`</span><br><span class="line">The value of y is: 6.4</span><br></pre></td></tr></table></figure>
-
-<p>warning 消失了，那么问题来了 <code>_variable</code> 和 <code>variable</code> 有什么区别呢？</p>
-<p>首先需要明确的一点是<strong>两者都是正常的变量</strong>，两者最大的区别就在于，只是对于 <code>_variable</code> Rust 的编译器允许它不被使用。对于 Rust 编译器来说，希望正常定义的变量在接下来都可以被使用的，但是有时候会存在，我们部分变量可能只是一个预留值，为了应对将来的情况，或者函数的拓展，这个时候就可以使用 <code>_variable</code> 从而消除 Rust 的提示。</p>
-<p>除了 <code>_variable</code>, Rust 中还存在 <code>_</code> 的变量，这两者有很大差别，就像我们上面说的那样 <code>_variable</code> 是正常的变量，意味着 <code>_variable</code> 只有当离开作用域才会被销毁，但是 <code>_</code> 不一样，它会被立即销毁，也就意味着 <code>_</code> 不存在变量绑定的操作</p>
-<p>让我们再次试着修改上面的例子</p>
-<p><strong>eg: _variable</strong></p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> tup = (<span class="number">500</span>, <span class="number">6.4</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> (_x, y, _) = tup;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of y is: &#123;&#125;, x is &#123;&#125;&quot;</span>, y,_x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   Compiling learn_rust v0.<span class="number">1.0</span> (/Users/leetao/Workspace/rt/learn_rust)</span><br><span class="line">    Finished dev [unoptimized + debuginfo] target(s) <span class="keyword">in</span> <span class="number">2.86</span>s</span><br><span class="line">     Running `target/debug/learn_rust`</span><br><span class="line">The value of y is: <span class="number">6.4</span>, x is <span class="number">500</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>eg:_</strong></p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> tup = (<span class="number">500</span>, <span class="number">6.4</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">let</span> (_x, _y, _) = tup;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of  _ is &#123;&#125;&quot;</span>, _);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   Compiling learn_rust v0.<span class="number">1.0</span> (/Users/leetao/Workspace/rt/learn_rust)</span><br><span class="line">error: expected expression, found reserved identifier `_`</span><br><span class="line"> --&gt; src/main.rs:<span class="number">4</span>:<span class="number">39</span></span><br><span class="line">  |</span><br><span class="line"><span class="number">4</span> |     <span class="built_in">println!</span>(<span class="string">&quot;The value of  _ is &#123;&#125;&quot;</span>, _);</span><br><span class="line">  |                                       ^ expected expression</span><br><span class="line"></span><br><span class="line">error: aborting due to previous error</span><br></pre></td></tr></table></figure>
-
-<p>说完了，这个我们回到最初的元组，元祖除了用模式匹配解构外，也可以使用点号( . )后跟值的索引来直接访问它们</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> x: (<span class="built_in">i32</span>, <span class="built_in">f64</span>, <span class="built_in">u8</span>) = (<span class="number">500</span>, <span class="number">6.4</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">let</span> first = x.<span class="number">0</span>; <span class="comment">// 索引值也是从 0 开始</span></span><br><span class="line">    <span class="keyword">let</span> second = x.<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">let</span> third = x.<span class="number">2</span>; </span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;first :&#123;&#125;, second:&#123;&#125;, third: &#123;&#125;&quot;</span>,first,second,third);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看一下编辑结果:</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   Compiling learn_rust v0.<span class="number">1.0</span> (/Users/leetao/Workspace/rt/learn_rust)</span><br><span class="line">    Finished dev [unoptimized + debuginfo] target(s) <span class="keyword">in</span> <span class="number">0.46</span>s</span><br><span class="line">     Running `target/debug/learn_rust`</span><br><span class="line">first :<span class="number">500</span>, second:<span class="number">6.4</span>, third: <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>另一个包含多个值的方式是数组。与元组不同，<strong>数组中的每个元素的类型必须相同</strong>。Rust 中 的数组与一些其他语言中的数组不同，因为 Rust 中的<strong>数组是固定长度</strong>的:一旦声明，它们的长度不能增长或缩小. <strong>数组是一整块分配在栈上的内存。</strong> 使用索引来访问数组的元素。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]; <span class="comment">// 写法一</span></span><br><span class="line">    <span class="comment">// let a: [i32; 5] = [1, 2, 3, 4, 5]; 写法二 </span></span><br><span class="line">    <span class="keyword">let</span> first = a[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">let</span> second = a[<span class="number">1</span>]; </span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;first:&#123;&#125;, second:&#123;&#125;&quot;</span>,first,second);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>结果：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   Compiling learn_rust v0.<span class="number">1.0</span> (/Users/leetao/Workspace/rt/learn_rust)</span><br><span class="line">    Finished dev [unoptimized + debuginfo] target(s) <span class="keyword">in</span> <span class="number">0.56</span>s</span><br><span class="line">     Running `target/debug/learn_rust`</span><br><span class="line">first:<span class="number">1</span>, second:<span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>结果很简单，现在让我们看一下数组初始化方法，官方文档定义的语法如下：</p>
-<blockquote>
-<p><strong>Syntax</strong><br>ArrayType :<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ Type ; Expression ]</p>
-</blockquote>
-<p>正常情况下我们都可以省略掉 <strong>[Type; Expression]</strong>, 因为 Rust 是一个静态类型的语言，这就意味着在编辑期间，编译器可以推断出，我们使用的类型以及数组的长度。</p>
-<p>那么现在有一个问题，对于一个数组，我们想限制它的 type, 而不是由编译器在编译期间推断出来，该怎么办呢？</p>
-<p>别着急，看我下面的例子，行不行?</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> a:[<span class="built_in">i32</span>;_] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="keyword">let</span> first = a[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">let</span> second = a[<span class="number">1</span>]; </span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;first:&#123;&#125;, second:&#123;&#125;&quot;</span>,first,second);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里我用上午提到的 <code>_</code> 替代了原来属于Expression 的位置，是不是看起来没有问题？让我们编译一下试试</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">   Compiling learn_rust v0.<span class="number">1.0</span> (/Users/leetao/Workspace/rt/learn_rust)</span><br><span class="line">error: expected expression, found reserved identifier `_`</span><br><span class="line"> --&gt; src/main.rs:<span class="number">2</span>:<span class="number">16</span></span><br><span class="line">  |</span><br><span class="line"><span class="number">2</span> |     <span class="keyword">let</span> a:[<span class="built_in">i32</span>;_] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">  |         -      ^ expected expression</span><br><span class="line">  |         |</span><br><span class="line">  |         <span class="keyword">while</span> parsing the <span class="class"><span class="keyword">type</span> <span class="title">for</span></span> `a`</span><br><span class="line"></span><br><span class="line">error: aborting due to previous error</span><br></pre></td></tr></table></figure>
-
-<p>好像编译失败了，这是为什么呢？</p>
-<p><strong>注意</strong>： <code>_</code> 只能在两种情况下使用</p>
-<pre><code>1. 在模式匹配中，用于匹配一个被忽略的值
-2. 作为一个类型的占位符
-</code></pre>
-<p>在上面的例子，数组长度是一个 Expression，并不是一个 Type，所以在这里不能使用 <code>_</code>，那有没有解决办法呢？自然是有的，你只需要将 Type 添加到数组中任意一个元素上就可以了</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> a = [<span class="number">1i32</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">    <span class="keyword">let</span> first = a[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">let</span> second = a[<span class="number">1</span>]; </span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;first:&#123;&#125;, second:&#123;&#125;&quot;</span>,first,second);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看一下结果</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">   Compiling learn_rust v0.<span class="number">1.0</span> (/Users/leetao/Workspace/rt/learn_rust)</span><br><span class="line">    Finished dev [unoptimized + debuginfo] target(s) <span class="keyword">in</span> <span class="number">5.09</span>s</span><br><span class="line">     Running `target/debug/learn_rust`</span><br><span class="line">first:<span class="number">1</span>, second:<span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>最后，我们现在都知道数组是通过索引访问的，那么我们出现越界操作会出现什么呢？下面看一个例子：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]; </span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">let</span> element = a[index];</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The value of element is: &#123;&#125;&quot;</span>, element);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>看一下结果：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   Compiling learn_rust v0.<span class="number">1.0</span> (/Users/leetao/Workspace/rt/learn_rust)</span><br><span class="line">    Finished dev [unoptimized + debuginfo] target(s) <span class="keyword">in</span> <span class="number">0.07</span>s</span><br><span class="line">     Running `target/debug/learn_rust`</span><br><span class="line">thread <span class="symbol">&#x27;main</span>&#x27; panicked at <span class="symbol">&#x27;index</span> out of bounds: the len is <span class="number">5</span> but the index is <span class="number">10</span>&#x27;, src/main.rs:<span class="number">4</span>:<span class="number">19</span></span><br><span class="line">note: Run with `RUST_BACKTRACE=<span class="number">1</span>` environment variable to display a backtrace.</span><br></pre></td></tr></table></figure>
-
-<p>编译并没有产生任何错误，不过程序会出现一个 <strong>运行时(runtime)错误</strong> 并且不会成功退出。当尝试用 索引访问一个元素时，Rust 会检查指定的索引是否小于数组的长度。如果索引超出了数组长度，Rust 会 panic ，这是 Rust 术语，它用于程序因为错误而退出的情况。</p>
 
       
     </div>

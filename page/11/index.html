@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">194</span>
+          <span class="site-state-item-count">195</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-count">75</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,91 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/10/25/Set%20Matrix%20Zeroes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/10/25/Set%20Matrix%20Zeroes/" class="post-title-link" itemprop="url">Set Matrix Zeroes</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-25 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-25T00:00:00+08:00">2018-10-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。</p>
+<p>示例 1:</p>
+<blockquote>
+<p>输入: <p><br>[<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[1,1,1],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[1,0,1],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[1,1,1]<p><br>]<p><br>输出:<p><br>[<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[1,0,1],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[0,0,0],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[1,0,1]<p><br>]<p></p>
+</blockquote>
+<p>示例 2:<p></p>
+<blockquote>
+<p>输入: <p><br>[<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[0,1,2,0],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[3,4,5,2],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[1,3,1,5]<p><br>]<p><br>输出: <p><br>[<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[0,0,0,0],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[0,4,5,0],<p><br>  &nbsp;&nbsp;&nbsp;&nbsp;[0,3,1,0]<p><br>]</p>
+</blockquote>
+<p>进阶:</p>
+<p>一个直接的解决方案是使用  O(mn) 的额外空间，但这并不是一个好的解决方案。<br>一个简单的改进方案是使用 O(m + n) 的额外空间，但这仍然不是最好的解决方案。<br>你能想出一个常数空间的解决方案吗？</p>
+<p><strong>Solution</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setZeroes</span>(<span class="params">self, matrix</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type matrix: List[List[int]]</span></span><br><span class="line"><span class="string">        :rtype: void Do not return anything, modify matrix in-place instead.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        zero_pos_list = []</span><br><span class="line">        </span><br><span class="line">        matrix_row_len = <span class="built_in">len</span>(matrix)</span><br><span class="line">        matrix_col_len = <span class="built_in">len</span>(matrix[<span class="number">0</span>])</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> <span class="built_in">range</span>(matrix_row_len):</span><br><span class="line">            <span class="keyword">for</span> col <span class="keyword">in</span> <span class="built_in">range</span>(matrix_col_len):</span><br><span class="line">                <span class="keyword">if</span> matrix[row][col] == <span class="number">0</span>:</span><br><span class="line">                    zero_pos_list.append([row,col])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> row,col <span class="keyword">in</span> zero_pos_list:</span><br><span class="line">            <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(matrix_col_len):</span><br><span class="line">                matrix[row][index] = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(matrix_row_len):</span><br><span class="line">                matrix[index][col] = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>O(1) 的解法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setZeroes</span>(<span class="params">self, matrix</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type matrix: List[List[int]]</span></span><br><span class="line"><span class="string">        :rtype: void Do not return anything, modify matrix in-place instead.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> matrix:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        </span><br><span class="line">        R, C = <span class="built_in">len</span>(matrix), <span class="built_in">len</span>(matrix[<span class="number">0</span>])</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># First pass: Set rows/cols to infinity when you encounter 0</span></span><br><span class="line">        <span class="keyword">for</span> r, c <span class="keyword">in</span> itertools.product(<span class="built_in">range</span>(R), <span class="built_in">range</span>(C)):</span><br><span class="line">            <span class="keyword">if</span> matrix[r][c] == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(R):</span><br><span class="line">                    <span class="keyword">if</span> i == r <span class="keyword">or</span> matrix[i][c] == <span class="number">0</span>:</span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    matrix[i][c] = <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">                    </span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(C):</span><br><span class="line">                    <span class="keyword">if</span> j == c <span class="keyword">or</span> matrix[r][j] == <span class="number">0</span>:</span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    matrix[r][j] = <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">                </span><br><span class="line">        <span class="comment"># Second pass: Replace all infinity with 0</span></span><br><span class="line">        <span class="keyword">for</span> r, c <span class="keyword">in</span> itertools.product(<span class="built_in">range</span>(R), <span class="built_in">range</span>(C)):</span><br><span class="line">            <span class="keyword">if</span> matrix[r][c] == <span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>):</span><br><span class="line">                matrix[r][c] = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/10/24/Three%20Sum/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +321,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -314,7 +399,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -409,7 +494,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -497,7 +582,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -582,7 +667,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -667,7 +752,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -756,7 +841,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -867,7 +952,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -960,7 +1045,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -985,104 +1070,6 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pypiwin32</span><br></pre></td></tr></table></figure>
 
 <p>安装完成之后,再次打开Anaconda Navigator成功.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/04/26/special%20method%20%20__call__%20python/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/04/26/special%20method%20%20__call__%20python/" class="post-title-link" itemprop="url">special method  __call__ python</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-04-26 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-26T00:00:00+08:00">2018-04-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>记得当初写作文的时候,老师强调三w的原则,接下来我们讨论 <strong>call</strong> 也按照这个原则。</p>
-<h1 id="What-is-call"><a href="#What-is-call" class="headerlink" title="What is call"></a>What is <strong>call</strong></h1><p>没有什么比官方手册更权威的东西了,看一下官方是如何解释的</p>
-<blockquote>
-<p>Called when the instance is “called” as a function; if this method is defined, x(arg1, arg2, …) is a shorthand for x.<strong>call</strong>(arg1, arg2, …). —— [ 1 ]</p>
-</blockquote>
-<p>用调用函数一样调用实例; 如果定义了此方法，则x（arg1，arg2，…）是x .__调用__（arg1，arg2，…）的简写形式。</p>
-<h1 id="how-to-use-call"><a href="#how-to-use-call" class="headerlink" title="how to use call"></a>how to use <strong>call</strong></h1><p>我们简单举三个例子</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SumTwo</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">pass</span>    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span>(<span class="params">self,one,two</span>):</span></span><br><span class="line">        <span class="keyword">return</span> (one+two)</span><br><span class="line"></span><br><span class="line">sum_two = SumTwo()</span><br><span class="line"><span class="built_in">print</span>(sum_two(<span class="number">1</span>,<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
-
-<p>看一下结果:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fqq9jw9tnqj30ep0253yd.jpg"></p>
-<p>然后试着实现一下<strong>斐波那契数列</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fib</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.fib = [<span class="number">0</span>,<span class="number">1</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span>(<span class="params">self,n</span>):</span></span><br><span class="line">        <span class="keyword">if</span> n &lt;= <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> self.fib[n]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,n):</span><br><span class="line">                tmp_value = self.fib[i-<span class="number">1</span>] + self.fib[i-<span class="number">2</span>]</span><br><span class="line">                self.fib.append(tmp_value)</span><br><span class="line">        <span class="keyword">return</span> self.fib</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">fib = Fib()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> fib(<span class="number">10</span>):</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br></pre></td></tr></table></figure>
-
-<p>输出如下图:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fqq6eplhiwj30gv07n3yi.jpg"></p>
-<p>最后以我们十分熟悉的<strong>阶乘</strong>再收尾:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factorial</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.cache = &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span>(<span class="params">self, n</span>):</span></span><br><span class="line">        <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> self.cache:</span><br><span class="line">            <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">                self.cache[n] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.cache[n] = n * self.__call__(n-<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> self.cache[n]</span><br><span class="line"></span><br><span class="line">factorial = Factorial()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):                                                             </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&#123;&#125;! = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(i, factorial(i)))</span><br></pre></td></tr></table></figure>
-<p>输出如下图:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fqq5wo9nsej30ge07sdfy.jpg"></p>
-<h1 id="when-to-use-call"><a href="#when-to-use-call" class="headerlink" title="when to use call"></a>when to use <strong>call</strong></h1><p>解释了是什么和如何用,最后就到重点了,什么时候去用? 其实关于 <strong>call</strong> 的使用,很多框架都有所涉及,最常见的就是 Flask 和 Django中关于表单验证中的使用,比如说 DataRequired, Length, InputRequired,EqualTo 等等,从这些我们不难看出:</p>
-<ol>
-<li> 当你的对象装饰、模拟或抽象函数的概念,这个时候你就可以考虑使用 <strong>call</strong> 这个魔术方法了。</li>
-<li> 当然我觉得当你的类有一个比较基础的操作,但是想不到好的命名的时候,使用 <strong>call</strong> 也不失为一个好办法，比如:用 run() , doSth() 这些命名的时候</li>
-</ol>
-<p>stackoverflow 上还提到了另外的一些使用情况,有兴趣可以点击链接 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3369640/when-is-using-call-a-good-idea">When is using <strong>call</strong> a good idea?
-</a> 进一步去了解。除此之外 SegmentFault 上也有相关问题可以一看 <a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000006113393?_ea=1020343">Python2.7总的__call__方法在实际环境中有什么实用的地方?</a></p>
-<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p>[ 1 ] <a target="_blank" rel="noopener" href="https://docs.python.org/3/reference/datamodel.html#object.__call__">object.<strong>call</strong>(self[, args…])</a></p>
 
       
     </div>

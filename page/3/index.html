@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">194</span>
+          <span class="site-state-item-count">195</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-count">75</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,116 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/09/08/07txYm7YT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/08/07txYm7YT/" class="post-title-link" itemprop="url">Elasticsearch 支持 PDF 等文件搜索</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-08 18:28:54" itemprop="dateCreated datePublished" datetime="2021-09-08T18:28:54+08:00">2021-09-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>默认情况下 es 是不支持 pdf、doc 等文档的搜索的，但是可以通过安装 <code>Ingest attachment plugin</code> 插件来使得 es 提取通用格式的文件，从而可以实现搜索的功能。</p>
+<h1 id="安装与使用"><a href="#安装与使用" class="headerlink" title="安装与使用"></a>安装与使用</h1><h2 id="安装-Ingest-attachment-plugin"><a href="#安装-Ingest-attachment-plugin" class="headerlink" title="安装 Ingest attachment plugin"></a>安装 Ingest attachment plugin</h2><p>安装很简单，通过 <code>elasticsearch-plugin</code> 可以直接进行安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/elasticsearch-plugin install ingest-attachment</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Ingest attachment plugin 允许 Elasticsearch 通过使用 Apache 文本提取库 Tika 提取通用格式（例如：PPT，XLS 和 PDF）的文件附件。Apache Tika 工具包可从一千多种不同的文件类型中检测并提取元数据和文本。所有这些文件类型都可以通过一个界面进行解析，从而使 Tika 对搜索引擎索引，内容分析，翻译等有用。需要注意的是，源字段必须是 Base64 编码的二进制，如果不想增加在 Base64 之间来回转换的开销，则可以使用 CBOR 格式而不是 JSON，并将字段指定为字节数组而不是字符串表示形式，这样处理器将跳过 Base64 解码。</p>
+</blockquote>
+<h3 id="创建-attachment-pipeline"><a href="#创建-attachment-pipeline" class="headerlink" title="创建 attachment pipeline"></a>创建 attachment pipeline</h3><p>通过 kibana 的开发工具进行请求</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PUT _ingest/pipeline/pdfattachment</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;description&quot;</span>: <span class="string">&quot;Extract attachment information encoded in Base64 with UTF-8 charset&quot;</span>,</span><br><span class="line">  <span class="string">&quot;processors&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">&quot;attachment&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;field&quot;</span>: <span class="string">&quot;file&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回结果：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;acknowledged&quot;</span> : <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>表示创建成功，接下来就是验证上传 pdf 以及搜索功能了。</p>
+<h3 id="转换并上传PDF文件的内容到Elasticsearch中"><a href="#转换并上传PDF文件的内容到Elasticsearch中" class="headerlink" title="转换并上传PDF文件的内容到Elasticsearch中"></a>转换并上传PDF文件的内容到Elasticsearch中</h3><p>对于 Ingest attachment plugin 来说，它的数据必须是 Base64 的。这里为了快速创建，我们通过一个 bash 脚本去处理用来测试的 pdf</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">!/bin/bash</span><br><span class="line"></span><br><span class="line">encodedPdf=`cat sample.pdf | base64`</span><br><span class="line"></span><br><span class="line">json=<span class="string">&quot;&#123;\&quot;file\&quot;:\&quot;<span class="variable">$&#123;encodedPdf&#125;</span>\&quot;&#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$json</span>&quot;</span> &gt; json.file</span><br><span class="line"></span><br><span class="line">curl -X POST <span class="string">&#x27;http://localhost:9200/pdf-test1/_doc?pipeline=pdfattachment&amp;pretty&#x27;</span> -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> -d @json.file</span><br></pre></td></tr></table></figure>
+
+<p>上传成功会返回如下的结果:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;_index&quot;</span> : <span class="string">&quot;pdf-test1&quot;</span>,</span><br><span class="line">  <span class="string">&quot;_type&quot;</span> : <span class="string">&quot;_doc&quot;</span>,</span><br><span class="line">  <span class="string">&quot;_id&quot;</span> : <span class="string">&quot;1oVSxHsB1ubIHqCXIbPU&quot;</span>,</span><br><span class="line">  <span class="string">&quot;_version&quot;</span> : 1,</span><br><span class="line">  <span class="string">&quot;result&quot;</span> : <span class="string">&quot;created&quot;</span>,</span><br><span class="line">  <span class="string">&quot;_shards&quot;</span> : &#123;</span><br><span class="line">    <span class="string">&quot;total&quot;</span> : 2,</span><br><span class="line">    <span class="string">&quot;successful&quot;</span> : 1,</span><br><span class="line">    <span class="string">&quot;failed&quot;</span> : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;_seq_no&quot;</span> : 0,</span><br><span class="line">  <span class="string">&quot;_primary_term&quot;</span> : 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果出现提示下述提示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">&quot;statusCode&quot;</span>: 400,</span><br><span class="line">	<span class="string">&quot;error&quot;</span>: <span class="string">&quot;Bad Request&quot;</span>,</span><br><span class="line">	<span class="string">&quot;message&quot;</span>: <span class="string">&quot;Payload content length greater than maximum allowed: 1048576&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>说明上传的文件大小超过了 Kibana 默认的上限（默认 1M），修改 kibana 的配置 <code>kibana.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server.maxPayloadBytes:</span> <span class="string">&quot;209715200&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="查看索引并搜索"><a href="#查看索引并搜索" class="headerlink" title="查看索引并搜索"></a>查看索引并搜索</h1><h2 id="查看索引"><a href="#查看索引" class="headerlink" title="查看索引"></a>查看索引</h2><p>通过下面的命令可以查看 pdf-test1 的索引情况:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET pdf-test1/_search</span><br></pre></td></tr></table></figure>
+
+<p>结果如下图<br><img src="https://www.leetao94.cn/post-images/1631096996349.png"></p>
+<p>其中 <code>_source</code> 里有个 <code>content</code> 字段，就是 pdf 的内容，结果如下:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;_source&quot;</span>: &#123;</span><br><span class="line">		 <span class="attr">&quot;file&quot;</span>:<span class="string">&quot;...&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;attachment&quot;</span>: &#123;</span><br><span class="line">                        <span class="attr">&quot;date&quot;</span>: <span class="string">&quot;2021-08-18T07:29:34Z&quot;</span>,</span><br><span class="line">                        <span class="attr">&quot;content_type&quot;</span>: <span class="string">&quot;application/pdf&quot;</span>,</span><br><span class="line">                        <span class="attr">&quot;author&quot;</span>: <span class="string">&quot;author&quot;</span>,</span><br><span class="line">                        <span class="attr">&quot;language&quot;</span>: <span class="string">&quot;lt&quot;</span>,</span><br><span class="line">                        <span class="attr">&quot;title&quot;</span>: <span class="string">&quot;2021-07(copy)&quot;</span>,</span><br><span class="line">                        <span class="attr">&quot;content&quot;</span>: <span class="string">&quot;...&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>file</code> 就是 base64 格式的内容，<code>content</code> 则包含了 pdf 的内容，如果不想要 <code>file</code> 则可以通过 <code>remove processor</code> 去除这个字段</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">PUT _ingest/pipeline/pdfattachment</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;description&quot;</span>: <span class="string">&quot;Extract attachment information encoded in Base64 with UTF-8 charset&quot;</span>,</span><br><span class="line">  <span class="string">&quot;processors&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">&quot;attachment&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;field&quot;</span>: <span class="string">&quot;file&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">&quot;remove&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;field&quot;</span>: <span class="string">&quot;file&quot;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><p>通过在 kibana 的开发工具执行下述命令，验证一下搜索：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET pdf-test1/_search</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;query&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;match&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;attachment.content&quot;</span>: <span class="string">&quot;5G&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sanduzxcvbnm/p/12624935.html">Elasticsearch：如何对PDF文件进行搜索</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/09/07/Dxqjjq53O/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +346,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -327,7 +437,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -427,7 +537,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -517,7 +627,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -647,7 +757,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -731,7 +841,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -811,7 +921,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -895,7 +1005,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -993,7 +1103,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -1015,92 +1125,6 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it  zabbix-web-nginx-mysql bash</span><br><span class="line"><span class="built_in">cd</span> /usr/share/zabbix/assets/fonts/</span><br><span class="line">mv DejaVuSans.ttf DejaVuSans.ttf.bak <span class="comment"># 不放心的话，可以先备份一下原来的字体文件</span></span><br><span class="line">mv simkai.ttf DejaVuSans.ttf</span><br></pre></td></tr></table></figure>
 
 <p>然后刷新页面，乱码的问题就解决了</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/12/09/You%20aren%E2%80%99t%20using%20a%20compiler%20supported%20by%20lombok,%20so%20lombok%20will%20not%20work%20and%20has%20been%20disabled./">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/09/You%20aren%E2%80%99t%20using%20a%20compiler%20supported%20by%20lombok,%20so%20lombok%20will%20not%20work%20and%20has%20been%20disabled./" class="post-title-link" itemprop="url">You aren’t using a compiler supported by lombok, so lombok will not work and has been disabled.</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-12-09 00:00:00" itemprop="dateCreated datePublished" datetime="2020-12-09T00:00:00+08:00">2020-12-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前几天将 IntelliJ IDEA 升级到 2020.3 版本，然后在编译项目的时候发现原本正常运行的项目无法编译成功了，提示下面的错误:</p>
-<blockquote>
-<p>java: You aren’t using a compiler supported by lombok, so lombok will not work and has been disabled. </p>
-</blockquote>
-<p>在网上检索寻找问题解决办法，发现在 github 上已经有人反馈了这个问题 <a target="_blank" rel="noopener" href="https://github.com/rzwitserloot/lombok/issues/2592#">[BUG] Lombok Does not work with IntelliJ EAP 2020.3 Build 203.4203.26</a> 并给出了解决办法。</p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>总共发现两种解决办法，两种办法均有效。</p>
-<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>设置编译器（compiler），打开设置（File -&gt; Settings）</p>
-<p><img src="/posts/1607499429.png"></p>
-<p>然后选择编译器（<strong>compiler</strong>），在 <strong>Shared build process VM options</strong> 填入: <strong>-Djps.track.ap.dependencies=false</strong></p>
-<p><img src="/posts/1607499460.png"></p>
-<p>**点击 apply，这个时候就可以重新编译成功了。</p>
-<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>第二种方法就比较简单了，将你的 Lombok 升级就可以解决了，升级到  <strong>1.18.14</strong></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18.14<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-<h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>本次出现这个问题，IDEA 方拒绝背锅，说是 Lombok 的问题。完整内容见：<a target="_blank" rel="noopener" href="https://youtrack.jetbrains.com/issue/IDEA-252069">Build project with lombok - IntelliJ Ultimate 2020.3 EAP</a></p>
 
       
     </div>

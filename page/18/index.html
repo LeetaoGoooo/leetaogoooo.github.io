@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">194</span>
+          <span class="site-state-item-count">195</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-count">75</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,146 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/04/10/How%20To%20Serve%20Flask%20Applications%20with%20uWSGI%20and%20Nginx%20on%20Ubuntu%2014.04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/04/10/How%20To%20Serve%20Flask%20Applications%20with%20uWSGI%20and%20Nginx%20on%20Ubuntu%2014.04/" class="post-title-link" itemprop="url">How To Serve Flask Applications with uWSGI and Nginx on Ubuntu 14.04</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-04-10 00:00:00" itemprop="dateCreated datePublished" datetime="2017-04-10T00:00:00+08:00">2017-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="部署过程中出现错误"><a href="#部署过程中出现错误" class="headerlink" title="部署过程中出现错误"></a>部署过程中出现错误</h1><blockquote>
+<p>[emerg] 10255#0: bind() to 0.0.0.0:80 failed (98: Address already in use)</p>
+</blockquote>
+<p>解决办法,使用如下命令关闭占用80端口的程序</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fuser -k 80/tcp</span><br></pre></td></tr></table></figure>
+
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="安装相关的软件"><a href="#安装相关的软件" class="headerlink" title="安装相关的软件"></a>安装相关的软件</h2><p>使用如下命令行,完成相应的 <em>python-pip python-dev</em> 和 <em>ngnix</em> 安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install python-pip python-dev nginx</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建-Python的虚拟环境"><a href="#创建-Python的虚拟环境" class="headerlink" title="创建 Python的虚拟环境"></a>创建 Python的虚拟环境</h2><p>参考我的另一文章<a target="_blank" rel="noopener" href="http://www.leetao94.cn/2016/10/11/why-I-use-virtualenv/">为什么使用virtualenv</a></p>
+<p>安装成功之后,然后创建为我们的flask项目创建一个目录，然后在该目录下创建虚拟环境,如下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/myproject</span><br><span class="line">cd ~/myproject</span><br><span class="line">virtualenv myprojectenv</span><br></pre></td></tr></table></figure>
+
+<p>关于 <em>virtuelenv</em> 相关使用这里不再讲述</p>
+<h2 id="创建flask项目"><a href="#创建flask项目" class="headerlink" title="创建flask项目"></a>创建flask项目</h2><h3 id="安装-Flask-和-uWSGI"><a href="#安装-Flask-和-uWSGI" class="headerlink" title="安装 Flask 和 uWSGI"></a>安装 Flask 和 uWSGI</h3><p>使用 <em>pip</em> 安装 Falsk 和 uWSGI,这里我们不需要激活虚拟环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install uwsgi flask</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h3><p>这里作为演示,我们将会在一个文件中创建一个简单的应用.使用下面命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/myproject/myproject.py</span><br></pre></td></tr></table></figure>
+
+<p>然后在文件中键入下述代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line">application = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@application.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span>():</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&lt;h1 style=&#x27;color:blue&#x27;&gt;Hello There!&lt;/h1&gt;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    application.run(host=<span class="string">&#x27;0.0.0.0&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>保存并退出,然后我们通过命令行运行我们的应用了:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python myproject.py</span><br></pre></td></tr></table></figure>
+
+<p>然后通过浏览器访问,终端输出的 IP 地址或者域名(xxxx:5000)，然后你可能会看见下图:</p>
+<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4ly1fehvhoila8j205601ea9u.jpg"></p>
+<h3 id="创建-WSGI-入口"><a href="#创建-WSGI-入口" class="headerlink" title="创建 WSGI 入口"></a>创建 WSGI 入口</h3><p>经过刚才验证,我们已经可以确认项目可以运行,接下来我们将创建一个文件，作为我们应用的入口.通过这个文件我们可以很好的与 uWSGI 进行交互.通过命令行创建 <em>wsgi.py</em> 文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/myproject/wsgi.py</span><br></pre></td></tr></table></figure>
+
+<p>这个文件十分简单,我们可以简单的将我们的 flask 应用实例引入进来，然后运行它</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># wsgi.py</span></span><br><span class="line"><span class="keyword">from</span> myproject <span class="keyword">import</span> application</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    application.run()</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置-uWSGI"><a href="#配置-uWSGI" class="headerlink" title="配置 uWSGI"></a>配置 uWSGI</h2><p>我们的应用基本完成然后我们应用的入口也成功的创建了,接下来我们就需要开始 uWSGI 的配置了</p>
+<h3 id="测试-uWSGI-的服务"><a href="#测试-uWSGI-的服务" class="headerlink" title="测试 uWSGI 的服务"></a>测试 uWSGI 的服务</h3><p>我们需要做的第一件事就是测试 uWSGI 能不能运行我们的应用.不需要太麻烦，我们只需要通过下述的命令就可以测试:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --socket 0.0.0.0:8000 --protocol=http -w wsgi</span><br></pre></td></tr></table></figure>
+
+<p>现在你可以通过浏览器访问你的应用,类似xxxx:8000，如果你看见和刚才一样的页面就说明的测试基本是成功的.如果在此之前你激活了你的虚拟环境,那么接下来记得退出它,接下来的操作都是需要在本地的 Python 环境下.</p>
+<h3 id="创建-uWSGI-配置文件"><a href="#创建-uWSGI-配置文件" class="headerlink" title="创建 uWSGI 配置文件"></a>创建 uWSGI 配置文件</h3><p>同样是在之前的项目文件下创建 <em>myproject.ini</em> 文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/myproject/myproject.ini</span><br></pre></td></tr></table></figure>
+
+<p>然后在该文件中键入如下内容:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[uwsgi]</span><br><span class="line">module = wsgi</span><br><span class="line"></span><br><span class="line">master = true</span><br><span class="line">processes = 5</span><br><span class="line"></span><br><span class="line">socket = myproject.sock</span><br><span class="line">chmod-socket = 660</span><br><span class="line">vacuum = true</span><br><span class="line"></span><br><span class="line">die-on-term = true</span><br></pre></td></tr></table></figure>
+<p>输入完成之后保存并退出.</p>
+<h3 id="创建启动脚本"><a href="#创建启动脚本" class="headerlink" title="创建启动脚本"></a>创建启动脚本</h3><p>创建启动脚本的目的就是为了在服务运行的时候可以运行我们的 Flask 应用.我们需要在*/etc/init*目录下创建一个 <em>.conf</em>的文件,这里我们就以 <em>myproject.conf</em>为例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/init/myproject.conf</span><br></pre></td></tr></table></figure>
+
+<p>然后键入如下内容:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">description &quot;uWSGI server instance configured to serve myproject&quot;</span><br><span class="line"></span><br><span class="line">start on runlevel [2345]</span><br><span class="line">stop on runlevel [!2345]</span><br><span class="line"></span><br><span class="line">setuid user</span><br><span class="line">setgid www-data</span><br><span class="line"></span><br><span class="line">env PATH=/home/user/myproject/myprojectenv/bin</span><br><span class="line">chdir /home/user/myproject</span><br><span class="line">exec uwsgi --ini myproject.ini</span><br></pre></td></tr></table></figure>
+<p>添加完成后保存并退出,接下来我们就可以通过命令启动该进程了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo start myproject</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置-Nginx-反向代理"><a href="#配置-Nginx-反向代理" class="headerlink" title="配置 Nginx 反向代理"></a>配置 Nginx 反向代理</h2><p>我们的 uWSGI 应用现在已经被启动并运行了,在项目目录下等待着请求.我们还需要通过配置 Nginx 将 web 请求转发到该接口上.</p>
+<h3 id="创建-Nginx-配置文件"><a href="#创建-Nginx-配置文件" class="headerlink" title="创建 Nginx 配置文件"></a>创建 Nginx 配置文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/nginx/sites-available/myproject</span><br></pre></td></tr></table></figure>
+
+<p>然后键入如下命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name server_domain_or_IP;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        include uwsgi_params;</span><br><span class="line">        uwsgi_pass unix:/home/user/myproject/myproject.sock;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>添加完成后保存并退出.为了保证我们的配置能够生效,我们需要将文件链接到 <em>sites-enabled</em> 目录下:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /etc/nginx/sites-available/myproject /etc/nginx/sites-enabled</span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过下述命令测试我们创建的文件语法是否正确:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -t</span><br></pre></td></tr></table></figure>
+<p>如果没有返回任何错误信息,我们可以重启 Nginx 重新加载我们的配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service nginix restart</span><br></pre></td></tr></table></figure>
+
+<p>现在你可以通过浏览器直接访问你的域名或者IP地址看到我们的应用了.</p>
+<blockquote>
+<p>参考地址:<a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-ubuntu-14-04">https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-ubuntu-14-04</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/03/28/Openlayers%E4%BB%BF%E9%93%BE%E5%AE%B6%E7%BD%91%E5%8A%A0%E8%BD%BD%E6%95%88%E6%9E%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +376,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -312,7 +452,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -390,7 +530,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -468,7 +608,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -568,7 +708,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -697,7 +837,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -788,7 +928,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -870,7 +1010,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -966,7 +1106,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
+      <time title="修改时间：2022-08-30 09:59:40" itemprop="dateModified" datetime="2022-08-30T09:59:40+08:00">2022-08-30</time>
     </span>
 
   
@@ -996,114 +1136,6 @@
 <li> 应当对自定义类型和期望的参数添加注释描述。</li>
 <li> 应当对包含文档花方法的对象添加注释描述。</li>
 </ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/12/04/CentOS7%E5%AE%89%E8%A3%85Mysql/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/12/04/CentOS7%E5%AE%89%E8%A3%85Mysql/" class="post-title-link" itemprop="url">CentOS7安装Mysql</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-12-04 00:00:00" itemprop="dateCreated datePublished" datetime="2016-12-04T00:00:00+08:00">2016-12-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 21:12:56" itemprop="dateModified" datetime="2022-08-27T21:12:56+08:00">2022-08-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="查看-CentOS-7的-yum-是否有-mysql-server-文件"><a href="#查看-CentOS-7的-yum-是否有-mysql-server-文件" class="headerlink" title="查看 CentOS 7的 yum 是否有 mysql-server 文件"></a>查看 CentOS 7的 yum 是否有 mysql-server 文件</h1><p>打开控制台,输入如下命令行:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list | grep mysql</span><br></pre></td></tr></table></figure>
-
-<p>注意:确保能上网, YUM 源配置到了 Internet 上,如果 Linux 无法上网则无法正确使用 yum 命令.</p>
-<h1 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h1><p>CentOS 7的yum源中没有正常安装MySQL时的mysql-sever文件,需要去官网上下载,<a target="_blank" rel="noopener" href="http://dev.mysql.com/downloads/repo/yum/">官网地址</a><br>然后从下列文件选择其中一个文件下载:<br><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1f8vis1jxhyj20th06z769.jpg"><br>然后在文件所在文件下,打开命令行使用如下命令(这里以 mysql57-community-release-el7-9.noarch.rpm 为例):</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql57-community-release-el7-9.noarch.rpm</span><br><span class="line">yum install install mysql-server</span><br></pre></td></tr></table></figure>
-
-<p>然后一路 yes 就 ok 了~<br>安装之后重启 mysql 服务</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
-
-<p>数据库安装成功了,接下来就是配置数据库了.</p>
-<h1 id="配置数据库"><a href="#配置数据库" class="headerlink" title="配置数据库"></a>配置数据库</h1><h2 id="获取临时密码"><a href="#获取临时密码" class="headerlink" title="获取临时密码"></a>获取临时密码</h2><p>为了加强安全性, MySQL 为 root 用户随机生成了密码,用于初次登录,使用如下命令获取临时密码:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &quot;password&quot; /var/log/mysqld.log</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1f8vjrbvjt5j20kb01q3ys.jpg"><br>然后将密码复制下来~,接着进入数据库:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
-
-<p>然后安装命令行提示输入密码,成功进入数据库,然后尝试 <em>show databases</em>,你会发现提示你修改密码</p>
-<h2 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h2><p>修改密码的命令行如下:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> PASSWORD <span class="keyword">FOR</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> <span class="operator">=</span> PASSWORD(<span class="string">&#x27;Your new password&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>注意:如果你的密码设置的过于简单就会出现下列错误:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR <span class="number">1819</span> (HY000): Your password does <span class="keyword">not</span> satisfy the <span class="keyword">current</span> policy requirements</span><br></pre></td></tr></table></figure>
-
-<p>之所以会出现这个问题,跟 <strong>validate_password_policy</strong> 的值有关<br>validate_password_policy 有以下取值:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Policy Tests Performed 0 or LOW Length 1 or MEDIUM Length; numeric, lowercase/uppercase, and special characters 2 or STRONG Length; numeric, lowercase/uppercase, and special characters; dictionary file</span><br></pre></td></tr></table></figure>
-
-<p>默认是1，即MEDIUM，所以刚开始设置的密码必须符合长度，且必须含有数字，小写或大写字母，特殊字符.老实说平时数据库密码都很简单,方便记忆,所以这里同样为了可以设置简单的密码,需要修改两个全局参数.</p>
-<h3 id="修改-validate-password-policy-值"><a href="#修改-validate-password-policy-值" class="headerlink" title="修改 validate_password_policy 值"></a>修改 validate_password_policy 值</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_policy<span class="operator">=</span><span class="number">0</span>;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
-
-<p>修改完这个之后,判断密码的标准就基于密码的长度了.这个由 <strong>validate_password_length</strong> 来决定.</p>
-<h3 id="修改-valitdate-password-length"><a href="#修改-valitdate-password-length" class="headerlink" title="修改 valitdate_password_length"></a>修改 valitdate_password_length</h3><p>validate_password_length 参数默认为8,它也有最小值的限制,最小值为:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">validate_password_number_count </span><br><span class="line">+ validate_password_special_char_count </span><br><span class="line">+ (2 * validate_password_mixed_case_count)</span><br></pre></td></tr></table></figure>
-
-<p>其中，<strong>validate_password_number_count</strong> 指定了密码中数据的长度,<strong>alidate_password_special_char_count</strong> 指定了密码中特殊字符的长度,<strong>validate_password_mixed_case_count</strong> 指定了密码中大小字母的长度,由于这些参数默认值均为1,所以 <strong>validate_password_length</strong> 最小值为4.</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> <span class="keyword">global</span> validate_password_length<span class="operator">=</span> <span class="number">4</span>;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
-
-<p>如果将值设置为 &lt; 4 ,valiadate_password_length 将仍为4.将上述两项设置完成之后,就可以设置一个长度为4位的简单 mysql 密码了.</p>
 
       
     </div>
