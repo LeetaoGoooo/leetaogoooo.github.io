@@ -1,5 +1,5 @@
 ---
-title: paging problem in one to many query of mybatis
+title: paging_problem_in_one_to_many_query_of_mybatis
 date: 2022-08-29
 tags: [java,mybatis]
 categories:
