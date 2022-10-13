@@ -18,6 +18,8 @@ def is_admin(user_roles):
     print("You have full access to the application.")
 ```
 
+<!--more-->
+
 上面的表达式其实等价于
 
 ```python
