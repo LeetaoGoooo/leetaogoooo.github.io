@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">195</span>
+          <span class="site-state-item-count">196</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,95 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/10/12/assert-may-not-work-as-expected/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/10/12/assert-may-not-work-as-expected/" class="post-title-link" itemprop="url">assert may not work as expected</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-12 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-12T00:00:00+08:00">2022-10-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>assert (断言) 是在编码过程中常用的手段，使用方法如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># example.py</span></span><br><span class="line"><span class="comment"># assert_stmt ::=  &quot;assert&quot; expression [&quot;,&quot; expression]</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_admin</span>(<span class="params">user_roles</span>):</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">isinstance</span>(user_roles,<span class="built_in">list</span>) <span class="keyword">and</span> user_roles != [], <span class="string">&quot;No user roles found&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">assert</span> <span class="string">&#x27;admin&#x27;</span> <span class="keyword">in</span> user_roles, <span class="string">&quot;No admin role found.&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;You have full access to the application.&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>上面的表达式其实等价于</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_admin</span>(<span class="params">user_roles</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="literal">__debug__</span>:</span><br><span class="line">        <span class="keyword">assert</span> <span class="built_in">isinstance</span>(user_roles,<span class="built_in">list</span>) <span class="keyword">and</span> user_roles != [], <span class="string">&quot;No user roles found&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="literal">__debug__</span>:</span><br><span class="line">        <span class="keyword">assert</span> <span class="string">&#x27;admin&#x27;</span> <span class="keyword">in</span> user_roles, <span class="string">&quot;No admin role found.&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;You have full access to the application.&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>__debug__</code> 是内置变量，默认情况下为 <code>True</code>,这个时候我们传入一个 <code>user_roles = [&#39;admin&#39;,&#39;guest&#39;]</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>is_admin([<span class="string">&#x27;admin&#x27;</span>,<span class="string">&#x27;guest&#x27;</span>])</span><br><span class="line">You have full access to the application.</span><br></pre></td></tr></table></figure>
+
+<p>如果传入 <code>[&#39;guest&#39;]</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> line <span class="number">4</span>, <span class="keyword">in</span> is_admin</span><br><span class="line">    <span class="keyword">assert</span> <span class="string">&#x27;admin&#x27;</span> <span class="keyword">in</span> user_roles, <span class="string">&quot;No admin role found.&quot;</span></span><br><span class="line">AssertionError: No admin role found.</span><br></pre></td></tr></table></figure>
+
+<p>如果我们有办法改变 <code>__debug__</code> 的值为 <code>False</code>,那么上面的函数将永远不会出现 <code>AssertionError</code>,尝试直接去修改这个参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="literal">__debug__</span> = <span class="literal">False</span></span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span></span><br><span class="line">SyntaxError: cannot assign to <span class="literal">__debug__</span></span><br></pre></td></tr></table></figure>
+
+<p>显然直接修改是行不通的，但是可以在命令行下运行的时候设置 <strong><a target="_blank" rel="noopener" href="https://docs.python.org/3/using/cmdline.html#envvar-PYTHONOPTIMIZE">PYTHONOPTIMIZE</a></strong> 达到修改 <code>__debug__</code> 的目的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">❯ python -O example.py</span><br><span class="line">You have full access to the application.</span><br></pre></td></tr></table></figure>
+
+<p>所在在使用 assert 时候需要注意启动程序的命令，避免 assert 失效导致程序出现问题。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/08/29/paging-problem-in-one-to-many-query-of-mybatis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +325,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -314,7 +403,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -392,7 +481,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -480,7 +569,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -570,7 +659,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -666,7 +755,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -753,7 +842,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -835,7 +924,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -910,7 +999,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -927,84 +1016,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/01/30/django-orm-custom-mysql-round-function/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/01/30/%E4%BD%BF%E7%94%A8%20github%20actions%20%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BA%20hexo%20%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/01/30/%E4%BD%BF%E7%94%A8%20github%20actions%20%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BA%20hexo%20%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Automated deployment of hexo via github action</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-01-30 00:00:00" itemprop="dateCreated datePublished" datetime="2022-01-30T00:00:00+08:00">2022-01-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>每年都要折腾一下自己的博客，今年准备把所有的博客再次迁移到静态博客 Hexo 中，配合 Github Action 实现，只需要一个浏览器就可以自动部署博客。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/01/30/%E4%BD%BF%E7%94%A8%20github%20actions%20%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BA%20hexo%20%E5%8D%9A%E5%AE%A2/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

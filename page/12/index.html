@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">195</span>
+          <span class="site-state-item-count">196</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,88 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/05/28/Anaconda%20Navigator%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/05/28/Anaconda%20Navigator%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5/" class="post-title-link" itemprop="url">Anaconda Navigator启动失败</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-05-28 00:00:00" itemprop="dateCreated datePublished" datetime="2018-05-28T00:00:00+08:00">2018-05-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>我的最终启动失败的原因是:No Module named ‘pywintypes’ 缺失引起的 Anaconda Navigator 启动失败,但是解决问题的方法是通用的.</p>
+<h1 id="定位问题"><a href="#定位问题" class="headerlink" title="定位问题"></a>定位问题</h1><h2 id="找到应用，点击打开文件位置"><a href="#找到应用，点击打开文件位置" class="headerlink" title="找到应用，点击打开文件位置"></a>找到应用，点击打开文件位置</h2><p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1frr9yiymh6j30r509vwjh.jpg"></p>
+<h2 id="右键快捷方式，将箭头所在栏的内容复制下来"><a href="#右键快捷方式，将箭头所在栏的内容复制下来" class="headerlink" title="右键快捷方式，将箭头所在栏的内容复制下来"></a>右键快捷方式，将箭头所在栏的内容复制下来</h2><p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1frra0iy6sij30lk0tvjsk.jpg"></p>
+<p>你会得到类似如下的命令:</p>
+<blockquote>
+<p>pathto\Anaconda3\pythonw.exe pathoto\Anaconda3\cwp.py pathto\Anaconda3 pathto\Anaconda3\pythonw.exe pathto\Anaconda3\Scripts\anaconda-navigator-script.py</p>
+</blockquote>
+<h2 id="打开命令行"><a href="#打开命令行" class="headerlink" title="打开命令行"></a>打开命令行</h2><p>打开命令行,将上述命令中的 <strong>pythonw.exe</strong> 换成 <strong>python.exe</strong>, 然后执行,出现 <strong>No Module named ‘pywintypes’</strong> 的错误</p>
+<h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><p>在当前命令行使用 conda 激活 base 环境,然后执行下述命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pypiwin32</span><br></pre></td></tr></table></figure>
+
+<p>安装完成之后,再次打开Anaconda Navigator成功.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/04/26/special%20method%20%20__call__%20python/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +318,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -334,7 +416,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -428,7 +510,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -505,7 +587,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -586,7 +668,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -673,7 +755,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -753,7 +835,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -872,7 +954,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -971,7 +1053,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -1001,79 +1083,6 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
 
 <h3 id="使用-qs-库"><a href="#使用-qs-库" class="headerlink" title="使用 qs 库"></a>使用 qs 库</h3><p>使用示例代码:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> qs = <span class="built_in">require</span>(<span class="string">&#x27;qs&#x27;</span>);</span><br><span class="line">axios.post(<span class="string">&#x27;/foo&#x27;</span>, qs.stringify(&#123; <span class="string">&#x27;bar&#x27;</span>: <span class="number">123</span> &#125;));</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/12/19/windows%E4%B8%8B%20Go%E7%9A%84%E5%AE%89%E8%A3%85%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/12/19/windows%E4%B8%8B%20Go%E7%9A%84%E5%AE%89%E8%A3%85%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="post-title-link" itemprop="url">windows下 Go的安装的注意事项</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-12-19 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-19T00:00:00+08:00">2017-12-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="安装-git-for-windows"><a href="#安装-git-for-windows" class="headerlink" title="安装 git for windows"></a>安装 <strong>git for windows</strong></h3><p>想要使用 <code>go get</code>.需要先安装好 git</p>
-<h3 id="设置-GOPATH"><a href="#设置-GOPATH" class="headerlink" title="设置 GOPATH"></a>设置 <strong>GOPATH</strong></h3><p>使用<code>go get</code>安装的相关包将会保存在改目录下，为了使得安装的相关包立马生效，可以事先在 <strong>GOPATH</strong> 所在目录新建三个文件，分别为 <strong>bin,pkg,src</strong></p>
-<h3 id="GOPATH-和-GOROOT-路径不能相同"><a href="#GOPATH-和-GOROOT-路径不能相同" class="headerlink" title="GOPATH 和 GOROOT 路径不能相同"></a><strong>GOPATH</strong> 和 <strong>GOROOT</strong> 路径不能相同</h3><p>两者路径相同的话，使用<code>go get</code> 安装会提示相关错误信息</p>
 
       
     </div>

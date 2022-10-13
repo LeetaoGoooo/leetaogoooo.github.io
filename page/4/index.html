@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">195</span>
+          <span class="site-state-item-count">196</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,85 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/12/30/Zabbix%20Web%20%E7%95%8C%E9%9D%A2%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/30/Zabbix%20Web%20%E7%95%8C%E9%9D%A2%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/" class="post-title-link" itemprop="url">Zabbix Web 界面中文乱码</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-12-30 00:00:00" itemprop="dateCreated datePublished" datetime="2020-12-30T00:00:00+08:00">2020-12-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>通过 Docker 安装 Zabbix Web 界面默认的语言是英文，当切换成中文的时候，有些图标显示的标签就会乱码，不能正常显示，出现这个问题的原因是在于 zabbix 默认的字体对中文支持有问题，所以解决办法就是替换默认的字体。</p>
+<h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><p>首先找到自己的喜欢的字体，这里我用的是 simkai.ttf。</p>
+<h2 id="将字体复制到容器"><a href="#将字体复制到容器" class="headerlink" title="将字体复制到容器"></a>将字体复制到容器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp simkai.ttf zabbix-web-nginx-mysql:/usr/share/zabbix/assets/fonts/</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：复制到 zabbix-web 的容器而不是 zabbix-server 容器</p>
+<h2 id="替换默认字体文件"><a href="#替换默认字体文件" class="headerlink" title="替换默认字体文件"></a>替换默认字体文件</h2><p>进入到容器中然后替换默认的字体文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it  zabbix-web-nginx-mysql bash</span><br><span class="line"><span class="built_in">cd</span> /usr/share/zabbix/assets/fonts/</span><br><span class="line">mv DejaVuSans.ttf DejaVuSans.ttf.bak <span class="comment"># 不放心的话，可以先备份一下原来的字体文件</span></span><br><span class="line">mv simkai.ttf DejaVuSans.ttf</span><br></pre></td></tr></table></figure>
+
+<p>然后刷新页面，乱码的问题就解决了</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/12/09/You%20aren%E2%80%99t%20using%20a%20compiler%20supported%20by%20lombok,%20so%20lombok%20will%20not%20work%20and%20has%20been%20disabled./">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +315,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -322,7 +401,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -406,7 +485,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -509,7 +588,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -592,7 +671,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -676,7 +755,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -753,7 +832,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -834,7 +913,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -912,7 +991,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -931,91 +1010,6 @@
 <h1 id="写一篇博客要多久"><a href="#写一篇博客要多久" class="headerlink" title="写一篇博客要多久"></a>写一篇博客要多久</h1><p>写一篇文章不容易，写一篇让大家觉得好的文章更不容易。我通常写一篇博客，文章内容可能只有几百字，但是写起来可能会花掉我好几个小时，我得去思考如何写起来能让文章看起来更流畅，有条理性，希望读者能够从在我梳理的框架下很快的理解我写的东西。为了避免文章的可能出现错误，导致误导别人，需要去反复查证。为了可以在最短的篇幅中输出尽可能的知识，我可能会浏览很多同类的文章，去对比发现自己有没有遗漏什么重要的知识点。这也可能是自己写博客不太多的原因，当然有时候不知道写什么也是一大原因。</p>
 <h1 id="希望从写博客中收获什么"><a href="#希望从写博客中收获什么" class="headerlink" title="希望从写博客中收获什么"></a>希望从写博客中收获什么</h1><p>首先是写作本身带来的乐趣了，写作本身就是一件很有意思的事情，能够帮助自己平静下来，很显然当一个人心浮气躁的时候是无法完成写作的，当你全身心地投入到写作当中，你就自然而然的安静下来了。</p>
 <p>其次写博客最大的希望是收获读者的认可了。不过现在我发现一个现象，包括我自己，大家很少去对浏览的博客去写什么评论，点赞之类的。更多的可能是解决问题，关闭网页；新建文件夹，收藏一下，很少去和作者互动一下。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2020/07/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%20-%E3%80%90Python%E7%AF%87%E3%80%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/07/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%20-%E3%80%90Python%E7%AF%87%E3%80%91/" class="post-title-link" itemprop="url">设计模式 -【Python篇】</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-07-02 00:00:00" itemprop="dateCreated datePublished" datetime="2020-07-02T00:00:00+08:00">2020-07-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="专题目标"><a href="#专题目标" class="headerlink" title="专题目标"></a>专题目标</h3><p>借由 Python 梳理 23 个常用的设计模式</p>
-<h3 id="支持我"><a href="#支持我" class="headerlink" title="支持我"></a>支持我</h3><ol>
-<li>关注我的公众号 【桃子的学习笔记】</li>
-<li>将文章分享给别人</li>
-</ol>
-<h3 id="正文内容"><a href="#正文内容" class="headerlink" title="正文内容"></a>正文内容</h3><ol>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/DHm8P7oO4JXj1-SqAxlxSA">设计模式-导言【Python篇】</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/EVXg6pCsioN6USeJqCHrXg">设计模式-工厂模式</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/CvwkkkPYqCHSEjSfiWJsnA">设计模式-抽象工厂模式</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/mdmMiiEmZfB-hO7GbIYs_w">设计模式-策略模式</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/rE0Hi-EXXdl2TUKOzO_kSg">设计模式-单例模式</a></li>
-</ol>
-<blockquote>
-<p>关注 <strong>公众号【桃子的学习笔记】</strong>，回复 Python 领取免费资料</p>
-</blockquote>
 
       
     </div>

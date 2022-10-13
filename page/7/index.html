@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">195</span>
+          <span class="site-state-item-count">196</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,92 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/08/12/%E6%B1%82%E4%BC%97%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/08/12/%E6%B1%82%E4%BC%97%E6%95%B0/" class="post-title-link" itemprop="url">求众数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-12 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-12T00:00:00+08:00">2019-08-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给定一个大小为 n 的数组，找到其中的众数。众数是指在数组中出现次数<strong>大于</strong> ⌊ n/2 ⌋ 的元素。</p>
+<p>你可以假设数组是非空的，并且给定的数组总是存在众数。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [3,2,3]</span><br><span class="line">输出: 3</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,2,1,1,1,2,2]</span><br><span class="line">输出: 2</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路</strong></p>
+<p>常规思路,先遍历数组然后统计每个数组的元素出现的个数,然后找出个数最多的</p>
+<p>解法:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::collections::HashMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> Solution &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">majority_element</span></span>(nums: <span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;) -&gt; <span class="built_in">i32</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> numsMap = HashMap::new();</span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums &#123;</span><br><span class="line">            <span class="keyword">let</span> count = numsMap.entry(num).or_insert(<span class="number">0</span>);</span><br><span class="line">            *count += <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> maxValue = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> maxKey = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(key, value) <span class="keyword">in</span> numsMap &#123;</span><br><span class="line">            <span class="keyword">if</span> value &gt; maxValue &#123;</span><br><span class="line">                maxKey = key;</span><br><span class="line">                maxValue = value;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxKey;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>思路二: 不借用其他空间,由众数定义可知,众数出现次数大于 n/2, 则意味着 众数 m 的出现的次数 - 数组中其他数字的次数 &gt; 0</p>
+<p>解法:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span> Solution &#123;</span><br><span class="line">    <span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">majority_element</span></span>(nums: <span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;) -&gt; <span class="built_in">i32</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..nums.len()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(count == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                num = nums[i];</span><br><span class="line">                count = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> nums[i] != num</span><br><span class="line">            &#123;</span><br><span class="line">                count-=<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                count+=<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        num</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/06/24/%E4%BB%8E%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F%E8%B0%88%E8%B0%88%20Flask%20%E7%9A%84%20Signals/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +322,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -380,7 +466,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -464,7 +550,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -594,7 +680,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -693,7 +779,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -811,7 +897,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -908,7 +994,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -986,7 +1072,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -1103,7 +1189,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -1129,91 +1215,6 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for an interval.</span></span><br><span class="line"><span class="comment"># class Interval:</span></span><br><span class="line"><span class="comment">#     def __init__(self, s=0, e=0):</span></span><br><span class="line"><span class="comment">#         self.start = s</span></span><br><span class="line"><span class="comment">#         self.end = e</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span>(<span class="params">self, intervals: <span class="type">List</span>[Interval]</span>) -&gt; <span class="type">List</span>[Interval]:</span></span><br><span class="line">        sorted_start_list = <span class="built_in">sorted</span>(intervals,key=<span class="keyword">lambda</span> x:x.start)</span><br><span class="line">        list_len = <span class="built_in">len</span>(sorted_start_list)</span><br><span class="line">        res_list = []</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; list_len - count:</span><br><span class="line">            <span class="keyword">if</span> sorted_start_list[i-<span class="number">1</span>].end &gt;= sorted_start_list[i].start:</span><br><span class="line">                <span class="keyword">if</span> sorted_start_list[i-<span class="number">1</span>].end &gt; sorted_start_list[i].end:</span><br><span class="line">                    sorted_start_list[i].end = sorted_start_list[i-<span class="number">1</span>].end</span><br><span class="line">                sorted_start_list[i].start = sorted_start_list[i-<span class="number">1</span>].start</span><br><span class="line">                sorted_start_list.remove(sorted_start_list[i-<span class="number">1</span>])</span><br><span class="line">                count += <span class="number">1</span></span><br><span class="line">                i -= <span class="number">1</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> sorted_start_list</span><br></pre></td></tr></table></figure>
 
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/03/16/%E6%9C%8B%E5%8F%8B%E5%9C%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/03/16/%E6%9C%8B%E5%8F%8B%E5%9C%88/" class="post-title-link" itemprop="url">朋友圈</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-03-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-16T00:00:00+08:00">2019-03-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>班上有 <strong>N</strong> 名学生。其中有些人是朋友，有些则不是。他们的友谊具有是传递性。如果已知 A 是 B 的朋友，B 是 C 的朋友，那么我们可以认为 A 也是 C 的朋友。所谓的朋友圈，是指所有朋友的集合。给定一个 <strong>N * N</strong> 的矩阵 <strong>M</strong>，表示班级中学生之间的朋友关系。如果M[i][j] = 1，表示已知第 i 个和 j 个学生<strong>互为</strong>朋友关系，否则为不知道。你必须输出所有学生中的已知的朋友圈总数。</p>
-<p><strong>示例 1:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: </span><br><span class="line">        [[1,1,0],</span><br><span class="line">         [1,1,0],</span><br><span class="line">         [0,0,1]]</span><br><span class="line">输出: 2 </span><br><span class="line">说明：已知学生0和学生1互为朋友，他们在一个朋友圈。</span><br><span class="line">第2个学生自己在一个朋友圈。所以返回2。</span><br></pre></td></tr></table></figure>
-
-<p>示例 2:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: </span><br><span class="line">        [[1,1,0],</span><br><span class="line">         [1,1,1],</span><br><span class="line">         [0,1,1]]</span><br><span class="line">输出: 1</span><br><span class="line">说明：已知学生0和学生1互为朋友，学生1和学生2互为朋友，所以学生0和学生2也是朋友，所以他们三个在一个朋友圈，返回1。</span><br><span class="line">注意：N 在[1,200]的范围内。对于所有学生，有M[i][i] = 1。如果有M[i][j] = 1，则有M[j][i] = 1。</span><br></pre></td></tr></table></figure>
-
-<p><strong>思路</strong></p>
-<p>方法一 :DFS,遍历所有人,对于每个人寻找他的好友,然后再找他好友的好友,这样深度优先遍历下去，通过 visited 数组记录是否已经遍历完这个人,遍历到相同朋友圈, visited[i] 则标识为已经遍历过,不再次纳入朋友圈个数统计中</p>
-<p>方法二: 并查集,将有关系的人放在一个集合中</p>
-<p><strong>解法</strong></p>
-<p>解法一</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findCircleNum</span>(<span class="params">self, M: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        len_m = <span class="built_in">len</span>(M)</span><br><span class="line">        visited = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len_m)]</span><br><span class="line">        friend_count = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dfs</span>(<span class="params">M,i,visited,len_m</span>):</span></span><br><span class="line">            visited[i] = <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(len_m):</span><br><span class="line">                <span class="keyword">if</span> M[i][j] == <span class="number">1</span> <span class="keyword">and</span> visited[j] == <span class="number">0</span>:</span><br><span class="line">                    dfs(M,j,visited,len_m)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len_m):</span><br><span class="line">            <span class="keyword">if</span> visited[i] == <span class="number">0</span>:</span><br><span class="line">                friend_count += <span class="number">1</span></span><br><span class="line">                dfs(M,i,visited,len_m)</span><br><span class="line">        <span class="keyword">return</span> friend_count</span><br></pre></td></tr></table></figure>
-
-<p>解法二</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findCircleNum</span>(<span class="params">self, M: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        len_m = <span class="built_in">len</span>(M)</span><br><span class="line">   </span><br><span class="line">        self.parent = [i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len_m)] <span class="comment"># init </span></span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">find_set</span>(<span class="params">i</span>):</span></span><br><span class="line">            <span class="keyword">if</span> i == self.parent[i]:</span><br><span class="line">                <span class="keyword">return</span> i</span><br><span class="line">            <span class="keyword">return</span> find_set(self.parent[i])</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">union</span>(<span class="params">i,j</span>):</span></span><br><span class="line">            find_i, find_j = find_set(i),find_set(j)</span><br><span class="line">            self.parent[find_j] = find_i</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len_m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(len_m):</span><br><span class="line">                <span class="keyword">if</span> M[i][j]:</span><br><span class="line">                    union(i,j)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>([i <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len_m) <span class="keyword">if</span> find_set(i) == i])</span><br></pre></td></tr></table></figure>
       
     </div>
 

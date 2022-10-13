@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">195</span>
+          <span class="site-state-item-count">196</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,96 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/09/06/Single%20Number/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/09/06/Single%20Number/" class="post-title-link" itemprop="url">Single Number</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-09-06 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-06T00:00:00+08:00">2017-09-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Given an array of integers, every element appears twice except for one. Find that single one.</p>
+<p><strong>Note:</strong></p>
+<p>Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?</p>
+<p><strong>Solution</strong></p>
+<p>O(n)算法其实不难,主要还得做到空间复杂度为O(1).</p>
+<p><strong>O(n)的算法</strong></p>
+<p>这题的标签是 <em>hash table</em>,很明显常规解法就是使用这个:</p>
+<ol>
+<li>遍历列表然后用字典统计<strong>数字–数字出现的个数</strong></li>
+<li>遍历字典返回 value 值为 1 的数字</li>
+</ol>
+<p>当然很明显这种做法,空间复杂度超过 O(1) 了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        dic_nums = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            dic_nums[num] = dic_nums.get(num,<span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> dic_nums:</span><br><span class="line">            <span class="keyword">if</span> dic_nums[key] == <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> key</span><br></pre></td></tr></table></figure>
+
+<p><strong>时间复杂度O(n)和空间复杂度O(1)</strong></p>
+<p>再说具体算法之前先铺垫一下:</p>
+<blockquote>
+<p>异或，英文为exclusive OR，或缩写成xor.<br>如果a、b两个值不相同，则异或结果为1.如果a、b两个值相同,异或结果为0.</p>
+</blockquote>
+<p>结合题意,列表中只有一个数字是single的,其它的都是成对的,成对的结果总是为0,将列表所有值异或结果应该是: <em>0^0^…^single = single</em>,<br>时间复杂度和空间复杂度都符合要求,算法如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span>(<span class="params">self, nums</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            res ^= num</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/09/05/Longest%20Palindrome/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +326,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -315,7 +405,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -398,7 +488,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -476,7 +566,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -559,7 +649,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -645,7 +735,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -730,7 +820,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -814,7 +904,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -897,7 +987,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
+      <time title="修改时间：2022-10-13 11:18:02" itemprop="dateModified" datetime="2022-10-13T11:18:02+08:00">2022-10-13</time>
     </span>
 
   
@@ -920,101 +1010,6 @@
 
 <p>Java</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 来自讨论区</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Interval&gt; <span class="title">merge</span><span class="params">(List&lt;Interval&gt; intervals)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (intervals.size() &lt;= <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> intervals;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Sort by ascending starting point using an anonymous Comparator</span></span><br><span class="line">    intervals.sort((i1, i2) -&gt; Integer.compare(i1.start, i2.start));</span><br><span class="line">    </span><br><span class="line">    List&lt;Interval&gt; result = <span class="keyword">new</span> LinkedList&lt;Interval&gt;();</span><br><span class="line">    <span class="keyword">int</span> start = intervals.get(<span class="number">0</span>).start;</span><br><span class="line">    <span class="keyword">int</span> end = intervals.get(<span class="number">0</span>).end;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (Interval interval : intervals) &#123;</span><br><span class="line">        <span class="keyword">if</span> (interval.start &lt;= end) <span class="comment">// Overlapping intervals, move the end if needed</span></span><br><span class="line">            end = Math.max(end, interval.end);</span><br><span class="line">        <span class="keyword">else</span> &#123;                     <span class="comment">// Disjoint intervals, add the previous one and reset bounds</span></span><br><span class="line">            result.add(<span class="keyword">new</span> Interval(start, end));</span><br><span class="line">            start = interval.start;</span><br><span class="line">            end = interval.end;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Add the last interval</span></span><br><span class="line">    result.add(<span class="keyword">new</span> Interval(start, end));</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/08/19/Longest%20Word%20in%20Dictionary%20through%20Deleting/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/08/19/Longest%20Word%20in%20Dictionary%20through%20Deleting/" class="post-title-link" itemprop="url">Longest Word in Dictionary through Deleting</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-08-19 00:00:00" itemprop="dateCreated datePublished" datetime="2017-08-19T00:00:00+08:00">2017-08-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-30 14:12:48" itemprop="dateModified" datetime="2022-08-30T14:12:48+08:00">2022-08-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Given a string and a string dictionary, find the longest string in the dictionary that can be formed by deleting some characters of the given string. If there are more than one possible results, return the longest word with the smallest lexicographical order. If there is no possible result, return the empty string.</p>
-<p><strong>Example 1:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">s = &quot;abpcplea&quot;, d = [&quot;ale&quot;,&quot;apple&quot;,&quot;monkey&quot;,&quot;plea&quot;]</span><br><span class="line"></span><br><span class="line">Output: </span><br><span class="line">&quot;apple&quot;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Example 2:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">s = &quot;abpcplea&quot;, d = [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]</span><br><span class="line"></span><br><span class="line">Output: </span><br><span class="line">&quot;a&quot;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Note:</strong></p>
-<ol>
-<li>All the strings in the input will only contain lower-case letters.</li>
-<li>The size of the dictionary won’t exceed 1,000.</li>
-<li>The length of all the strings in the input won’t exceed 1,000.</li>
-</ol>
-<p><strong>Solutions</strong></p>
-<p>通过删除字符串去形成字典中的单词,保持原有字符串的相对顺序,对于结果优先考虑最长的字符串,长度相等的情况下考虑字典序最小的字符串</p>
-<p>Python</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findLongestWord</span>(<span class="params">self, s, d</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :type d: List[str]</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        res_list = []</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">isSubstring</span>(<span class="params">sub, source</span>):</span></span><br><span class="line">            <span class="keyword">for</span> item <span class="keyword">in</span> sub:</span><br><span class="line">                <span class="keyword">if</span> source.find(item) != -<span class="number">1</span>:</span><br><span class="line">                    j = source.find(item)</span><br><span class="line">                    source = source[j+<span class="number">1</span>:]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">False</span>      </span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> d:</span><br><span class="line">            <span class="keyword">if</span>(isSubstring(item, s)):</span><br><span class="line">                res_list.append(item)</span><br><span class="line"></span><br><span class="line">        res = <span class="string">&quot;&quot;</span></span><br><span class="line">        max_len = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> res_list:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(item) &gt; max_len <span class="keyword">or</span> (<span class="built_in">len</span>(item) == max_len <span class="keyword">and</span> item &lt; res):</span><br><span class="line">                res = item</span><br><span class="line">                max_len = <span class="built_in">len</span>(item)</span><br><span class="line">                </span><br><span class="line">        <span class="keyword">return</span> res        </span><br></pre></td></tr></table></figure>
-
-<p>比较简洁的 Python 代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">findLongestWord</span>(<span class="params">self, s, d</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isSubsequence</span>(<span class="params">x</span>):</span></span><br><span class="line">        it = <span class="built_in">iter</span>(s)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">all</span>(c <span class="keyword">in</span> it <span class="keyword">for</span> c <span class="keyword">in</span> x)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>(<span class="built_in">sorted</span>(<span class="built_in">filter</span>(isSubsequence, d)) + [<span class="string">&#x27;&#x27;</span>], key=<span class="built_in">len</span>)</span><br></pre></td></tr></table></figure>
-
-<p>Java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">findLongestWord</span><span class="params">(String s, List&lt;String&gt; d)</span> </span>&#123;</span><br><span class="line">        String res = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (s.length() == <span class="number">0</span> || d.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (String str : d) &#123;</span><br><span class="line">            <span class="keyword">int</span> resLen = res.length();</span><br><span class="line">            <span class="keyword">int</span> strLen = str.length();</span><br><span class="line">            <span class="keyword">if</span> (isSequence(s, str) &amp;&amp;</span><br><span class="line">                (strLen &gt; resLen || (strLen == resLen &amp;&amp; str.compareTo(res) &lt; <span class="number">0</span>))) &#123;</span><br><span class="line">                res = str;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isSequence</span><span class="params">(String s, String d)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; s.length() &amp;&amp; j &lt; d.length()) &#123;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; s.length() &amp;&amp; s.charAt(i) != d.charAt(j)) &#123;</span><br><span class="line">                i ++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i &lt; s.length()) &#123;</span><br><span class="line">                i ++;</span><br><span class="line">                j ++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> j == d.length();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>简洁版的 Java 代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">findLongestWord</span><span class="params">(String s, List&lt;String&gt; d)</span> </span>&#123;</span><br><span class="line">    String longest = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (String dictWord : d) &#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c : s.toCharArray()) </span><br><span class="line">            <span class="keyword">if</span> (i &lt; dictWord.length() &amp;&amp; c == dictWord.charAt(i)) i++;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (i == dictWord.length() &amp;&amp; dictWord.length() &gt;= longest.length()) </span><br><span class="line">            <span class="keyword">if</span> (dictWord.length() &gt; longest.length() || dictWord.compareTo(longest) &lt; <span class="number">0</span>)</span><br><span class="line">                longest = dictWord;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> longest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
