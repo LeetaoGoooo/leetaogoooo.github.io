@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">196</span>
+          <span class="site-state-item-count">197</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">75</span>
+        <span class="site-state-item-count">77</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,99 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/06/30/X-Frame-Options/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/06/30/X-Frame-Options/" class="post-title-link" itemprop="url">X-Frame-Options</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-06-30 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-30T00:00:00+08:00">2018-06-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="What-is-X-Frame-Options"><a href="#What-is-X-Frame-Options" class="headerlink" title="What is X-Frame-Options"></a>What is X-Frame-Options</h1><blockquote>
+<p>X-Frame-Options HTTP 响应头是用来给浏览器指示允许一个页面可否在 <strong>frame</strong>, <strong>iframe</strong> 或者 <strong>object</strong> 中展现的标记。网站可以使用此功能，来确保自己网站的内容没有被嵌到别人的网站中去，也从而避免了点击劫持 (<strong>clickjacking</strong>) 的攻击。</p>
+</blockquote>
+<h1 id="How-to-use-X-Frame-Options"><a href="#How-to-use-X-Frame-Options" class="headerlink" title="How to use X-Frame-Options"></a>How to use X-Frame-Options</h1><p>X-Frame-Options 有三个值: DENY, SAMEORIGIN, ALLOW-FROM uri</p>
+<h2 id="DENY"><a href="#DENY" class="headerlink" title="DENY"></a>DENY</h2><p>表示该页面不允许在 frame 中展示，即便是在相同域名的页面中嵌套也不允许。</p>
+<h2 id="SAMEORIGIN"><a href="#SAMEORIGIN" class="headerlink" title="SAMEORIGIN"></a>SAMEORIGIN</h2><p>表示该页面可以在相同域名页面的 frame 中展示。</p>
+<h2 id="ALLOW-FROM-uri"><a href="#ALLOW-FROM-uri" class="headerlink" title="ALLOW-FROM uri"></a>ALLOW-FROM uri</h2><p>表示该页面可以在指定来源的 frame 中展示。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果设置为 DENY，不光在别人的网站 frame 嵌入时会无法加载，在同域名页面中同样会无法加载。另一方面，如果设置为 SAMEORIGIN，那么页面就可以在同域名页面的 frame 中嵌套。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="Apache-配置"><a href="#Apache-配置" class="headerlink" title="Apache 配置"></a>Apache 配置</h3><p>配置 Apache 在所有页面上发送 X-Frame-Options 响应头，需要把下面这行添加到 ‘site’ 的配置中:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Header always append X-Frame-Options SAMEORIGIN</span><br></pre></td></tr></table></figure>
+
+<h3 id="Nginx-配置"><a href="#Nginx-配置" class="headerlink" title="Nginx 配置"></a>Nginx 配置</h3><p>配置 nginx 发送 X-Frame-Options 响应头，把下面这行添加到 ‘http’, ‘server’ 或者 ‘location’ 的配置中:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add_header X-Frame-Options SAMEORIGIN;</span><br></pre></td></tr></table></figure>
+
+<h3 id="IIS-配置"><a href="#IIS-配置" class="headerlink" title="IIS 配置"></a>IIS 配置</h3><p>配置 IIS 发送 X-Frame-Options 响应头，添加下面的配置到 Web.config 文件中:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;system.webServer&gt;</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  &lt;httpProtocol&gt;</span><br><span class="line">    &lt;customHeaders&gt;</span><br><span class="line">      &lt;add name=&quot;X-Frame-Options&quot; value=&quot;SAMEORIGIN&quot; /&gt;</span><br><span class="line">    &lt;/customHeaders&gt;</span><br><span class="line">  &lt;/httpProtocol&gt;</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line">&lt;/system.webServer&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Java-代码"><a href="#Java-代码" class="headerlink" title="Java 代码"></a>Java 代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.addHeader(<span class="string">&quot;x-frame-options&quot;</span>,<span class="string">&quot;SAMEORIGIN&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="Browser-compatibility"><a href="#Browser-compatibility" class="headerlink" title="Browser compatibility"></a>Browser compatibility</h1><p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fssxmsbbikj30re0b3js8.jpg"></p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/X-Frame-Options">X-Frame-Options 响应头</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">X-Frame-Options</a></p>
+<p><a target="_blank" rel="noopener" href="http://erlend.oftedal.no/blog/tools/xframeoptions/">X-Frame-Options Compatibility Test</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/05/28/Anaconda%20Navigator%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +329,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -318,7 +411,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -416,7 +509,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -510,7 +603,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -587,7 +680,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -668,7 +761,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -755,7 +848,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -835,7 +928,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -954,7 +1047,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -996,93 +1089,6 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
 <h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p>[1] <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_Redirection">3xx_Redirection</a></p>
 <p>[2] <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/HTTP_302">HTTP_302</a></p>
 <p>[3] <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7231#section-6.4.4">303 See Other</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/12/26/axios%E4%B8%AD%E4%BD%BF%E7%94%A8application-x-www-form-urlencoded/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/12/26/axios%E4%B8%AD%E4%BD%BF%E7%94%A8application-x-www-form-urlencoded/" class="post-title-link" itemprop="url">axios中使用application-x-www-form-urlencoded</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-12-26 00:00:00" itemprop="dateCreated datePublished" datetime="2017-12-26T00:00:00+08:00">2017-12-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>这几天用go写了一个api接口，用postman测试的时候,数据返回都正常的,然后用 axios 请求的时候,服务器始终接收不到前台发来的的参数,感觉问题可能出现在请求头,然后打开chrome开发者工具,查看一下请求详情</p>
-<h2 id="axios-请求的详情"><a href="#axios-请求的详情" class="headerlink" title="axios 请求的详情"></a>axios 请求的详情</h2><p>Request-Headers 的 <strong>Content-Type</strong> 是 <strong>application/json;charset=UTF-8</strong>,Request Payload格式为</p>
-<blockquote>
-<p>{param1: “value1”, params: “value2”}</p>
-</blockquote>
-<h2 id="postman-请求的详情"><a href="#postman-请求的详情" class="headerlink" title="postman 请求的详情"></a>postman 请求的详情</h2><p>Request-Headers 的 <strong>Content-Type</strong> 是 <strong>application/x-www-form-urlencoded</strong>,URL encode 为</p>
-<blockquote>
-<p>param1=value1&amp;param2=value2</p>
-</blockquote>
-<p>对比了一下很明显问题就出在这里,接下来该怎么解决问题</p>
-<h2 id="问题的解决"><a href="#问题的解决" class="headerlink" title="问题的解决"></a>问题的解决</h2><h3 id="使用-URLSearchParams"><a href="#使用-URLSearchParams" class="headerlink" title="使用 URLSearchParams"></a>使用 URLSearchParams</h3><p>此方法不推荐,兼容性不太好,见下图:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fmudwfsis1j31h30jz76f.jpg"></p>
-<p>使用示例代码:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> params = <span class="keyword">new</span> URLSearchParams();</span><br><span class="line">params.append(<span class="string">&#x27;param1&#x27;</span>, <span class="string">&#x27;value1&#x27;</span>);</span><br><span class="line">params.append(<span class="string">&#x27;param2&#x27;</span>, <span class="string">&#x27;value2&#x27;</span>);</span><br><span class="line">axios.post(<span class="string">&#x27;/foo&#x27;</span>, params);</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用-qs-库"><a href="#使用-qs-库" class="headerlink" title="使用 qs 库"></a>使用 qs 库</h3><p>使用示例代码:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> qs = <span class="built_in">require</span>(<span class="string">&#x27;qs&#x27;</span>);</span><br><span class="line">axios.post(<span class="string">&#x27;/foo&#x27;</span>, qs.stringify(&#123; <span class="string">&#x27;bar&#x27;</span>: <span class="number">123</span> &#125;));</span><br></pre></td></tr></table></figure>
 
       
     </div>

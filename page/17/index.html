@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">196</span>
+          <span class="site-state-item-count">197</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">75</span>
+        <span class="site-state-item-count">77</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,120 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/07/25/define%E5%92%8Cconst%E7%9A%84%E5%8C%BA%E5%88%AB-PHP%E5%B8%B8%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/07/25/define%E5%92%8Cconst%E7%9A%84%E5%8C%BA%E5%88%AB-PHP%E5%B8%B8%E9%87%8F/" class="post-title-link" itemprop="url">define和const的区别-PHP常量</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-07-25 00:00:00" itemprop="dateCreated datePublished" datetime="2017-07-25T00:00:00+08:00">2017-07-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="什么是常量？"><a href="#什么是常量？" class="headerlink" title="什么是常量？"></a>什么是常量？</h1><p>这点官方手册上写的很清楚.</p>
+<blockquote>
+<p>可以用 define()  函数来定义常量，在 PHP 5.3.0 以后，可以使用 const 关键字在类定义之外定义常量。一个常量一旦被定义，就不能再改变或者取消定义。<br>常量只能包含标量数据（ boolean ， integer ， float  和 string ）。可以定义 resource  常量，但应尽量避免，因为会造成不可预料的结果。<br>可以简单的通过指定其名字来取得常量的值，与变量不同，不应该在常量前面加上 $ 符号。如果常量名是动态的，也可以用函数 constant()  来获取常量的值。用 get_defined_constants()  可以获得所有已定义的常量列表。 </p>
+</blockquote>
+<h1 id="常量和变量的区别"><a href="#常量和变量的区别" class="headerlink" title="常量和变量的区别"></a>常量和变量的区别</h1><p>这点官方手册也同样提到了.</p>
+<blockquote>
+<ol>
+<li>常量前面没有美元符号（$）；  </li>
+<li> 常量只能用 define()  函数定义，而不能通过赋值语句；  </li>
+<li> 常量可以不用理会变量的作用域而在任何地方定义和访问；  </li>
+<li> 常量一旦定义就不能被重新定义或者取消定义；  </li>
+<li> 常量的值只能是标量。 </li>
+</ol>
+</blockquote>
+<h1 id="定义常量的方式"><a href="#定义常量的方式" class="headerlink" title="定义常量的方式"></a>定义常量的方式</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">const</span> CONSTANT = <span class="string">&quot;Hello world&quot;</span>;</span><br><span class="line">define ( <span class="string">&quot;CONSTANT&quot;</span> ,  <span class="string">&quot;Hello world.&quot;</span> );</span><br><span class="line"> <span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<h1 id="define-和-const-的区别"><a href="#define-和-const-的区别" class="headerlink" title="define 和 const 的区别"></a>define 和 const 的区别</h1><p>两者的根本区别在于<em>const</em>在编译期间定义常量,而<em>define</em>则是在执行期间。感觉某种程度上<em>const</em>有点类似Java中的<em>final</em>关键字。由于<em>const</em>运行在编译期间,所以就意味着:<br><strong><em>const</em> 关键字定义常量必须处于最顶端的作用区域</strong></p>
+<p><strong>不能在函数内，循环内以及 <em>if</em> 语句之内用 <em>const</em> 来定义常量, <em>define</em> 可以</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (...) &#123;</span><br><span class="line">    <span class="keyword">const</span> CONSTANT = <span class="string">&#x27;Hello world&#x27;</span>;    <span class="comment">// 错误</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (...) &#123;</span><br><span class="line">    define ( <span class="string">&quot;CONSTANT&quot;</span> ,  <span class="string">&quot;Hello world.&quot;</span> ); <span class="comment">// 正确</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>const</em> 大小写敏感,<em>define</em>可以忽略大小写敏感</strong><br>const</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> CONSTANT = <span class="string">&quot;Hello world&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> CONSTANT.<span class="string">&quot;\n&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> Constant;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Hello world</span><br><span class="line"></span><br><span class="line">Notice: Use of undefined constant Constant - assumed &#x27;Constant&#x27; in C:\Users\Leetao\Desktop\test.php on line 4</span><br><span class="line">Constant</span><br></pre></td></tr></table></figure>
+
+<p>define</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define ( <span class="string">&quot;CONSTANT&quot;</span> ,  <span class="string">&quot;Hello world.&quot;</span>, <span class="literal">true</span> );</span><br><span class="line"><span class="keyword">echo</span> CONSTANT.<span class="string">&quot;\n&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> Constant;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hello world.</span><br><span class="line">Hello world.</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>const</em> 只能接受静态的标量，而 <em>define</em> 可以采用任何表达式</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> BIT_5 = <span class="number">1</span> &lt;&lt; <span class="number">5</span>;    <span class="comment">// [1]</span></span><br><span class="line">define(<span class="string">&#x27;BIT_5&#x27;</span>, <span class="number">1</span> &lt;&lt; <span class="number">5</span>);  <span class="comment">// [2]</span></span><br></pre></td></tr></table></figure>
+<p>其中 [1] 在 PHP 5.6 之后的版本都可以正常使用,[2] 一直都是正确的用法</p>
+<p><em>*<em>const</em> 采用普通的常量名称，*define</em>可以采用表达式作为名称**</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  FOO = <span class="string">&#x27;BAR&#x27;</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="number">32</span>; ++<span class="variable">$i</span>) &#123;</span><br><span class="line">define(<span class="string">&#x27;BIT_&#x27;</span> . <span class="variable">$i</span>, <span class="number">1</span> &lt;&lt; <span class="variable">$i</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em>*<em>const</em> 可以在当前命名空间定义常量，而*define</em>则需要补全路径**</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">A</span>\<span class="title">B</span>\<span class="title">C</span>;</span><br><span class="line"><span class="keyword">const</span> FOO = <span class="string">&#x27;BAR&#x27;</span>;</span><br><span class="line">define(<span class="string">&#x27;A\B\C\FOO&#x27;</span>, <span class="string">&#x27;BAR&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><em>*<em>const</em>可以在类或者接口中使用,而*define</em>不可以**</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> BAR = <span class="number">2</span>; <span class="comment">// 正确</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// but</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Baz</span> </span>&#123;</span><br><span class="line">    define(<span class="string">&#x27;QUX&#x27;</span>, <span class="number">2</span>); <span class="comment">// 错误</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>自PHP5.6之后 <em>const</em> 可以定义数组常量,而<em>define</em>在PHP7.0才可以</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> FOO = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]; </span><br><span class="line">define(<span class="string">&#x27;FOO&#x27;</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]); </span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/07/21/%E6%99%AE%E9%80%9A%E7%B1%BB%E6%96%B9%E6%B3%95%E5%92%8Cclassmethod%E5%92%8Cstaticmethod%E5%8C%BA%E5%88%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +350,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -318,7 +432,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -395,7 +509,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -476,7 +590,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -552,7 +666,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -641,7 +755,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -736,7 +850,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -816,7 +930,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -887,7 +1001,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -931,93 +1045,6 @@
 
 <h2 id="项目示例"><a href="#项目示例" class="headerlink" title="项目示例"></a>项目示例</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$gis</span> = <span class="keyword">new</span> Gis();</span><br><span class="line"><span class="variable">$keyid</span> = <span class="variable">$gis</span>-&gt;tranKeyNameToKeyId(<span class="variable">$keyname</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="variable">$gis</span>-&gt;getGisByKeyId(<span class="variable">$keyid</span>);</span><br></pre></td></tr></table></figure>
 
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/06/02/%E5%85%B3%E4%BA%8E%E5%9C%A8Flask%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%AE%9A%E6%97%B6%E8%B0%83%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/06/02/%E5%85%B3%E4%BA%8E%E5%9C%A8Flask%E9%A1%B5%E9%9D%A2%E4%B8%AD%E7%9A%84%E5%AE%9A%E6%97%B6%E8%B0%83%E7%94%A8/" class="post-title-link" itemprop="url">关于在Flask页面中的定时调用</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-06-02 00:00:00" itemprop="dateCreated datePublished" datetime="2017-06-02T00:00:00+08:00">2017-06-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>|<br>| code  | 必需,要推迟执行的函数名或者一段js代码 |<br>| millisec     |   必须,推迟执行的毫秒数 |<br>| lang | 可选,JScript/VBScript/JavaScript|</p>
-<p>Talk is cheep.show me the code~~看下面一段代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// code1</span></span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// code3    </span></span><br><span class="line">    &#125;,<span class="number">1000</span>);</span><br><span class="line">    <span class="comment">// code2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在讲述这段代码之前，我们首先还得明确一件事情:<br>js任务分为同步任务和异步任务，只有当主线程空闲，才会去读取“任务队列”，不幸的是，异步任务就是进入到“任务队列”的任务，只有当“任务列队”通知主线程，某个异步任务可以执行了并且同步任务执行完毕，该任务才会进入主线程执行。额外补充这些知识，之后再往下看。</p>
-<p>假设该函数被执行了,首先执行到 code1 的内容,然后运行到 setTimeout 部分,setTimeout 这个时候告诉浏览器，我这里有段代码将会在 1000 ms之后插入到你的任务队列当中去,然后浏览器主线程接着执行了 code2,等到了 1000ms,会出现什么情况呢，这个时候定时器将 code3 插入到了任务队列,这并不意味着code3就会被立即执行,如果 code2 的执行时间超过了 1000ms,那么这个时候很显然 code3不会被执行,需要等待 code2 执行完毕，当然如果 code2 的执行时间不超过 1000ms,那么到了1000ms,code3就会被执行了,这个时候定时器就正常发挥作用了。</p>
-<p>把上面的代码改一下:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// code1</span></span><br><span class="line">    <span class="built_in">setInterval</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// code3    </span></span><br><span class="line">    &#125;,<span class="number">1000</span>);</span><br><span class="line">    <span class="comment">// code2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对于这段代码可能会出现三种情况:</p>
-<ol>
-<li>正常执行</li>
-<li>时间间隔可能会跳过</li>
-<li>时间间隔可能小于定时调用的代码的执行时间</li>
-</ol>
-<p>正常的情况就不多说了，说说第二种可能会被跳过的原因，整个函数执行下来要1500ms,假设 code1 在200ms执行完成,以此作为时间点,setInterval将在1200ms时将code3插入到任务队列当中,然后func()函数顺利执行，不幸的是,code3代码执行的时间比较长,到下个 时间点2200ms时又插入了一份code3,你觉得接下来的时间点中,还会再插入新的code3吗~~实际上并不会，所以3200ms这个时间点会被跳过<br>为了避免这种情况,可以使用如下的代码:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line"><span class="comment">//processing </span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="built_in">arguments</span>.callee, interval); </span><br><span class="line">&#125;, interval); </span><br></pre></td></tr></table></figure>
-
-<p>arguments.callee表示引用当前正在执行的函数，或者说是调用arguments.callee的函数对象的引用，它给匿名函数提供了一种自我引用的方式。</p>
 
       
     </div>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetaogoooo.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.9.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="前言在过去一年，我一直使用 github action + hexo 的方式去自动化部署我的博客到 github pages，这种方式的好处就是，你只需要配置好一次将代码仓库，然后你就只需要一个浏览器然后写 hexo 格式的 markdown 文件就够了。 下面是我的构建历史记录   到目前位置累计构建了 93 次，当然并不是意味着我写了 93 篇，更新也会导致文章重新构建。这一切似乎看着还不错，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pure 基于 Github Discussion 的博饿哭">
+<meta property="og:url" content="https://leetaogoooo.github.io/2022/10/28/open_source_pure/">
+<meta property="og:site_name" content="Leetao&#39;s Blog">
+<meta property="og:description" content="前言在过去一年，我一直使用 github action + hexo 的方式去自动化部署我的博客到 github pages，这种方式的好处就是，你只需要配置好一次将代码仓库，然后你就只需要一个浏览器然后写 hexo 格式的 markdown 文件就够了。 下面是我的构建历史记录   到目前位置累计构建了 93 次，当然并不是意味着我写了 93 篇，更新也会导致文章重新构建。这一切似乎看着还不错，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-images.githubusercontent.com/10162120/198286370-4333398a-c452-4358-b678-679a43b073c8.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/10162120/198289445-ec7717f6-1cab-4ab2-b5c4-cc3f22337a16.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/10162120/198289620-7622338b-896e-45a5-943d-35d2ee4ba96d.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/10162120/198290666-1380f9a5-2919-49af-9854-75b733bac6cd.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/10162120/198291338-e7c090b1-0aaa-4530-956e-66c916dbc0df.png">
+<meta property="article:published_time" content="2022-10-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-11-09T01:30:11.499Z">
+<meta property="article:author" content="Leetao">
+<meta property="article:tag" content="Golang">
+<meta property="article:tag" content="开源">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/10162120/198286370-4333398a-c452-4358-b678-679a43b073c8.png">
+
+
+<link rel="canonical" href="https://leetaogoooo.github.io/2022/10/28/open_source_pure/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetaogoooo.github.io/2022/10/28/open_source_pure/","path":"2022/10/28/open_source_pure/","title":"Pure 基于 Github Discussion 的博饿哭"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Pure 基于 Github Discussion 的博饿哭 | Leetao's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Leetao's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Leetao's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Talk is cheap, show me the code</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B0%83%E7%A0%94"><span class="nav-number">2.</span> <span class="nav-text">调研</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8A%98%E8%85%BE"><span class="nav-number">3.</span> <span class="nav-text">折腾</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leetao"
+      src="/images/avatar.ico">
+  <p class="site-author-name" itemprop="name">Leetao</p>
+  <div class="site-description" itemprop="description">Je pense, donc je suis</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">197</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/leetaogoooo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;leetaogoooo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:leetao94cn@gmail.com" title="E-Mail → mailto:leetao94cn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/LeetaoGoooo" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;LeetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/leetaothinks" title="Telegram → https:&#x2F;&#x2F;t.me&#x2F;leetaothinks" rel="noopener" target="_blank"><i class="fa fa-telegram fa-fw"></i>Telegram</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/leetaoGoooo" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;leetaoGoooo" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/10/28/open_source_pure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pure 基于 Github Discussion 的博饿哭<a href="https://github.com/LeetaoGoooo/leetaogoooo.github.io/tree/gh-pages/source/_posts/open_source_pure.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pen-nib"></i></a>
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-28 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-28T00:00:00+08:00">2022-10-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在过去一年，我一直使用 github action + hexo 的方式去自动化部署我的博客到 github pages，这种方式的好处就是，你只需要配置好一次将代码仓库，然后你就只需要一个浏览器然后写 hexo 格式的 markdown 文件就够了。</p>
+<p>下面是我的构建历史记录</p>
+<img width="1299" alt="构建历史记录" src="https://user-images.githubusercontent.com/10162120/198286370-4333398a-c452-4358-b678-679a43b073c8.png">
+
+<p>到目前位置累计构建了 93 次，当然并不是意味着我写了 93 篇，更新也会导致文章重新构建。这一切似乎看着还不错，但是有几点一直让我觉得很痛苦：</p>
+<ol>
+<li>hexo markdown 文章开头的格式</li>
+<li>上传图片</li>
+<li>文章的更新</li>
+</ol>
+<p>hexo 有很多固定的格式，有时候每次写文章，我都不得不去找之前的文章把格式复制过来，然后在重新修改一下。除此之外，就是上传图片这件事情了，尝试过各种图床的方案，有的图床也很好用，但是基本上都需要打开他们的网站，或者借助三方的软件然后将图片上传，这种中断，让我觉得很难受，所以我想有没有更好的方式去写博客。</p>
+<span id="more"></span>
+
+<h1 id="调研"><a href="#调研" class="headerlink" title="调研"></a>调研</h1><p>作为一个程序员，github 是我最喜欢逛的网站了，所以我在想有没有可以基于 github 的仓库构建的网站，然后 github issue 和 github discussion 就成了我的备选项了，所以我检索了这两个关键词</p>
+<p><img width="400" alt="github issue blog" src="https://user-images.githubusercontent.com/10162120/198289445-ec7717f6-1cab-4ab2-b5c4-cc3f22337a16.png"><img width="400" alt="github discussion blog" src="https://user-images.githubusercontent.com/10162120/198289620-7622338b-896e-45a5-943d-35d2ee4ba96d.png"></p>
+<p>最后让我发现了 <a target="_blank" rel="noopener" href="https://github.com/lencx/z">浮之静</a></p>
+<img width="1679" alt="浮之静" src="https://user-images.githubusercontent.com/10162120/198290666-1380f9a5-2919-49af-9854-75b733bac6cd.png">
+
+<p>网站挺好看的，但是但是没有部署文档，遂放弃了。</p>
+<h1 id="折腾"><a href="#折腾" class="headerlink" title="折腾"></a>折腾</h1><p>没办法了，没有枪没有炮，敌人给我们造，没有合适的项目，只好自己动手撸了。牺牲了我两个工作日晚上的休息时间，总算把 <a target="_blank" rel="noopener" href="https://github.com/LeetaoGoooo/pure">Pure</a> 初版构建出来了。</p>
+<img width="1207" alt="Pure" src="https://user-images.githubusercontent.com/10162120/198291338-e7c090b1-0aaa-4530-956e-66c916dbc0df.png">
+
+<p>部署也很简单，golang 项目通用部署步骤，只需要部署前配置一下四个环境变量（一个非必须的），然后启动项目，配置一下 nginx 就大功告成了。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Golang/" rel="tag"># Golang</a>
+              <a href="/tags/%E5%BC%80%E6%BA%90/" rel="tag"># 开源</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/12/assert-may-not-work-as-expected/" rel="prev" title="assert may not work as expected">
+                  <i class="fa fa-chevron-left"></i> assert may not work as expected
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leetao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"leetaoGoooo","repo":"leetaogoooo.github.io","client_id":"bf98ffa3f57b2591544e","client_secret":"cc5ffeff8863bb5c44ed10f024513dccfac14afa","admin_user":"leetaogoooo","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":null,"js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"97266d762dd69c1d5350a9c70477fe1d"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

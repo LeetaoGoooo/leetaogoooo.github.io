@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">196</span>
+          <span class="site-state-item-count">197</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">75</span>
+        <span class="site-state-item-count">77</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,88 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/03/16/%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/03/16/%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="post-title-link" itemprop="url">合并区间</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-16 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-16T00:00:00+08:00">2019-03-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给出一个区间的集合，请合并所有重叠的区间。</p>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [[1,3],[2,6],[8,10],[15,18]]</span><br><span class="line">输出: [[1,6],[8,10],[15,18]]</span><br><span class="line">解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [[1,4],[4,5]]</span><br><span class="line">输出: [[1,5]]</span><br><span class="line">解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</span><br></pre></td></tr></table></figure>
+
+<p><strong>思路</strong></p>
+<p>先排序然后遍历，排序按照 start 值大小排序，排序完后，遍历排序后的列表 sorted_list，假设当前元素位置 i, 判断 sorted_list[i-1].end &gt;= sorted_list[i]，说明两个区间有重合，将  sorted_list[i].start = sorted_list[i-1].end，<strong>注意判断 sorted_list[i-i].end 是否大于 sorted_list[i].end，如果大于，则 sorted_list[i].end = sorted_list[i-1].end</strong> </p>
+<p><strong>解法</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for an interval.</span></span><br><span class="line"><span class="comment"># class Interval:</span></span><br><span class="line"><span class="comment">#     def __init__(self, s=0, e=0):</span></span><br><span class="line"><span class="comment">#         self.start = s</span></span><br><span class="line"><span class="comment">#         self.end = e</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span>(<span class="params">self, intervals: <span class="type">List</span>[Interval]</span>) -&gt; <span class="type">List</span>[Interval]:</span></span><br><span class="line">        sorted_start_list = <span class="built_in">sorted</span>(intervals,key=<span class="keyword">lambda</span> x:x.start)</span><br><span class="line">        list_len = <span class="built_in">len</span>(sorted_start_list)</span><br><span class="line">        res_list = []</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; list_len - count:</span><br><span class="line">            <span class="keyword">if</span> sorted_start_list[i-<span class="number">1</span>].end &gt;= sorted_start_list[i].start:</span><br><span class="line">                <span class="keyword">if</span> sorted_start_list[i-<span class="number">1</span>].end &gt; sorted_start_list[i].end:</span><br><span class="line">                    sorted_start_list[i].end = sorted_start_list[i-<span class="number">1</span>].end</span><br><span class="line">                sorted_start_list[i].start = sorted_start_list[i-<span class="number">1</span>].start</span><br><span class="line">                sorted_start_list.remove(sorted_start_list[i-<span class="number">1</span>])</span><br><span class="line">                count += <span class="number">1</span></span><br><span class="line">                i -= <span class="number">1</span></span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> sorted_start_list</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/03/16/%E6%9C%8B%E5%8F%8B%E5%9C%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +318,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -321,7 +403,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -403,7 +485,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -487,7 +569,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -567,7 +649,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -642,7 +724,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -724,7 +806,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -803,7 +885,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -891,7 +973,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -909,92 +991,6 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@ContextConfiguration(classes = ExampleSerivceImpl.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestExampleSerivceImpl</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ExampleService exampleService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TestExample</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>我们常用的 <strong>SpringBootTest</strong> 是用在集成测试当中的声明</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/02/28/%E5%86%8D%E8%B0%88%20Python%20%E7%9A%84%E5%86%99%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/02/28/%E5%86%8D%E8%B0%88%20Python%20%E7%9A%84%E5%86%99%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">再谈 Python 的写文件操作</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-02-28 00:00:00" itemprop="dateCreated datePublished" datetime="2019-02-28T00:00:00+08:00">2019-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>关于 Python 对文件的读写操作网上有很多,基本上无外乎都是基于打开文件的 mode 的解释</p>
-<p><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1f9ndo67e2sj20fu0dlmzh.jpg"></p>
-<p>昨天我媳妇有这样一个需求,读入一个文件如果文件不存在则创建,然后写入,如果文件存在,则读取上次的文件内容,然后添加上这次的内容,是不是很简单,直接用**a或者a+**就可以了. 别着急,重点来了,<strong>文件内容是json数据,追加之后也应该是一个json数据</strong></p>
-<p>说的可能比较抽象,那就举个例子</p>
-<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>两次写入文件内容,分别为 <em>{‘1’:’a’}</em> 和 <em>{‘2’:’b’}</em>,那么第一次写入,文件不存在,创建并写入,最终结果应该如下:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &#x27;1&#x27;:&#x27;a&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>第二次,文件存在,读取数据,合并数据重写写入,结果如下:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &#x27;1&#x27;:&#x27;a&#x27;,</span><br><span class="line">  &#x27;2&#x27;:&#x27;b&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>很显然简单的使用 a 或者 a+ 模式是做不到上述要求的,有兴趣的可以自己尝试一下,它们只是简单的追加内容到上次文件末尾</p>
-<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><p>针对上述例子的要求,最容易想到的方案就是:<br>    1.先以 r 的模式,打开文件读取文件数据,得到 dictA<br>    2.然后以 w 的模式,打开文件,将本次数据 dictB 与 dictA 合并后写入 dictA</p>
-<p>首先肯定这种方案没有任何问题,能够解决问题,不过这显然不是最佳方案,因为多次打开文件,增加了 IO 的开销,那有没有只打开一次文件完成上述要求呢?显然是有的,再说解决方案之前,我们先说一下预备知识:<strong>为什么 a 模式下可以追加内容到文件末尾?</strong> 因为在 a 模式下,打开文件后,<strong>文件指针</strong>默认指向文件末尾.ok了,新的方案就这么出来了.</p>
-<p>新的方案基于文件指针,我们以 a 或者 a+ 模式打开文件,将文件指针移动到文件开头,读取文件内容,然后合并数据,然后清除文件内容,重新写入合并后的数据.最后看一下代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line">new_dict = &#123;<span class="string">&#x27;c&#x27;</span>:<span class="string">&#x27;d&#x27;</span>&#125;</span><br><span class="line">old_dict = &#123;&#125;</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;test.json&#x27;</span>,<span class="string">&#x27;a+&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">if</span> os.path.getsize(<span class="string">&#x27;test.json&#x27;</span>):</span><br><span class="line">        f.seek(<span class="number">0</span>) <span class="comment"># 重点,移动指针</span></span><br><span class="line">        old_dict = json.load(f)</span><br><span class="line">    merge_dict = &#123;**old_dict,**new_dict&#125;</span><br><span class="line">    f.truncate(<span class="number">0</span>) <span class="comment"># 清空之前内容</span></span><br><span class="line">    json.dump(merge_dict,f)</span><br></pre></td></tr></table></figure>
-
 
       
     </div>

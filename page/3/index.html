@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">196</span>
+          <span class="site-state-item-count">197</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">75</span>
+        <span class="site-state-item-count">77</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,133 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/09/16/VXzqfuZ3G/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/16/VXzqfuZ3G/" class="post-title-link" itemprop="url">Python 中 assert 的最佳实践</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-16 20:12:21" itemprop="dateCreated datePublished" datetime="2021-09-16T20:12:21+08:00">2021-09-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>原文连接： <a target="_blank" rel="noopener" href="https://archive.is/5GfiG">When to use assert</a></p>
+</blockquote>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>assert</code> 又称为断言，在 Python 代码中经常被使用，但是显然也存在滥用的情况。那么在什么时候使用 <code>assert</code> 呢？又或者 <code>assert</code> 的最佳实践是怎么样的呢？</p>
+<h1 id="assert-的使用"><a href="#assert-的使用" class="headerlink" title="assert 的使用"></a>assert 的使用</h1><p>Python 的 <code>assert</code> 通常用来检查一个条件，如果它是真的，则不做任何事情，如果它是假的，则引发一个 AssertionError，并给出一个可选的错误信息:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">py&gt; x = <span class="number">23</span></span><br><span class="line">py&gt; <span class="keyword">assert</span> x &gt; <span class="number">0</span>, <span class="string">&quot;x is not zero or negative&quot;</span></span><br><span class="line">py&gt; <span class="keyword">assert</span> x%<span class="number">2</span> == <span class="number">0</span>, <span class="string">&quot;x is not an even number&quot;</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AssertionError: x <span class="keyword">is</span> <span class="keyword">not</span> an even number</span><br></pre></td></tr></table></figure>
+
+<p>许多人喜欢通过 <code>assert</code> 来简单地快速地触发异常，比如下面的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(x, <span class="built_in">int</span>):</span><br><span class="line">    <span class="keyword">raise</span> AssertionError(<span class="string">&quot;not an int&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>通过检验参数，并抛出 <code>AssertionError</code> ，实际上，这种做法是错误的，并且还很危险。正确的做法是应该抛出一个 <code>TypeError</code> 。</p>
+<p>之所以危险是英文，<code>assert</code>  有一个特性：<strong>使用 <code>-O</code> 或 <code>-OO</code> 优化指令去运行 Python 的话，它会被被编译掉，而永远不会被执行。</strong>当你能够正确使用 <code>assert</code> 时，这是会是一个 feature，但当使用不当的话，则会导致代码在使用 <code>-O</code> 标志运行时出问题。</p>
+<p>所以应该在什么情况下使用 assert 呢</p>
+<h1 id="什么时候使用-assert"><a href="#什么时候使用-assert" class="headerlink" title="什么时候使用 assert"></a>什么时候使用 assert</h1><p>在下面这四种情况下都可以考虑使用 <code>assert</code>:</p>
+<ul>
+<li>防御性编程。</li>
+<li>对程序逻辑进行运行时检查。</li>
+<li>契约检查（如前条件和后条件）。</li>
+<li>程序不变性</li>
+<li>检查文件</li>
+</ul>
+<p>对断言的看法各不相同，它可以看作是一种对代码正确性的信心的表现形式吧。如果你确定你的代码毫无问题的话，显然断言（<code>assert</code>）是没有任何意义的，完全可以把这些断言移除；如果你确定断言可能会被触发，那你也完全可以不用断言（<code>assert</code>），毕竟它在某些情况下肯定会编译掉，导致你的检查被跳过。</p>
+<p>介于这两种情况之间的情况才是有趣的，当你确定代码是正确的，但又不完全确定的时候。<br>你确定代码是正确的，但又不是<strong>绝对确定</strong>。有可能漏掉一些场景，在这种情况下，通过断言（assert）进行运行时检查有助于我们尽早的发现错误。</p>
+<p><strong>断言的另一个用途是检查程序的不变量</strong>。所谓的不变量就是一些你可以依赖的真实条件，除非一个错误导致它变成假的。如果有一个bug，最好能尽早发现所以我们要对它进行测试，但我们不想因为这样的测试而降低代码的速度。但我们不想因为这些测试而使代码变慢。因此我们可以通过可在开发中打开而在生产中关闭断言（assert）。</p>
+<p>不变量的一个例子是，如果你的函数预期一个数据库连接是 open，并承诺它在返回时仍然是open，这就是函数的一个不变式。open 就是该函数的一个不变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">some_function</span>(<span class="params">arg</span>):</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="keyword">not</span> DB.closed()</span><br><span class="line">    ... <span class="comment"># code goes here</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="keyword">not</span> DB.closed()</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+
+<p>断言也是很好的检查性评论，而不是写一个评论：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># when we reach here, we know that n &gt; 2</span></span><br><span class="line"><span class="comment"># 我们可以通过将其转换为断言来确保在运行时对其进行检查</span></span><br><span class="line"><span class="keyword">assert</span> n &gt; <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>断言也是防御性编程的一种形式</strong>。你不是在保护现在的代码中的错误，而是在保护以后引入错误的变化。理想情况下，单元测试会发现这些错误，但是实际上，即使存在测试，它们也是往往是不完整的。有可能在几周内都没有人注意到构建机器人，或者有的时候在提交代码前忘记运行测试。有一个内部检查是防止错误潜入的另一道防线，特别是阻止那些会导致代码故障和返回错误结果的静默错误。</p>
+<p>假设你有个代码中有 if…elif 代码块，这个时候你是知道这些分支对应了哪些变量，并且了解逻辑是什么:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># target is expected to be one of x, y, or z, and nothing else.</span></span><br><span class="line"><span class="keyword">if</span> target == x:</span><br><span class="line">    run_x_code()</span><br><span class="line"><span class="keyword">elif</span> target == y:</span><br><span class="line">    run_y_code()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    run_z_code()</span><br></pre></td></tr></table></figure>
+
+<p>假设这个代码现在是完全正确的。但它会一直正确吗？需求改变了,代码也会改变。现在要求改变为当 target == w，执行 run_w_code。如果我们改变了设置目标的代码，但忽略了改变这个代码块，它将错误地调用 run_z_code()：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">target = w</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="keyword">if</span> target == x:</span><br><span class="line">    run_x_code()</span><br><span class="line"><span class="keyword">elif</span> target == y:</span><br><span class="line">    run_y_code()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    run_z_code()</span><br></pre></td></tr></table></figure>
+
+<p>最好是把这段代码写成防御性的，哪怕之后有变化，它也是要么是正确的，要么立即失败。</p>
+<p>写代码块一开始加注释是很好的习惯，但是通常时间久了，我们就没有阅读和更新注释的习惯。有可能注释很快就会被淘汰。但通过一个断言，我们既可以记录这个块的假设，也可以在断言检验没通过的时候直接抛出错误。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span> target <span class="keyword">in</span> (x, y, z)</span><br><span class="line"><span class="keyword">if</span> target == x:</span><br><span class="line">    run_x_code()</span><br><span class="line"><span class="keyword">elif</span> target == y:</span><br><span class="line">    run_y_code()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">assert</span> target == z</span><br><span class="line">    run_z_code()</span><br></pre></td></tr></table></figure>
+
+<p>断言既是防御性编程，也是经过检查的文档，下面这个代码会更好一点：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> target == x:</span><br><span class="line">    run_x_code()</span><br><span class="line"><span class="keyword">elif</span> target == y:</span><br><span class="line">    run_y_code()</span><br><span class="line"><span class="keyword">elif</span> target == z:</span><br><span class="line">    run_z_code()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># This can never happen. But just in case it does...</span></span><br><span class="line">    <span class="keyword">raise</span> RuntimeError(<span class="string">&quot;an unexpected error occurred&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>契约设计是另一种对断言的不错的应用</strong>。在按契约设计中，我们认为函数与它们的调用者签订了 “契约”。<br>例如,”如果你传递给我一个非空的字符串，我保证返回该字符串的第一个的第一个字符转换成大写字母”。</p>
+<p>如果这个契约被函数或调用它的代码所破坏,代码就是有问题的。我们说，函数有预设条件（即<br>参数的约束）和后置条件（返回结果的约束） 因此，这个函数可能被代码为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">first_upper</span>(<span class="params">astring</span>):</span></span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">isinstance</span>(astring, <span class="built_in">str</span>) <span class="keyword">and</span> <span class="built_in">len</span>(astring) &gt; <span class="number">0</span></span><br><span class="line">    result = astring[<span class="number">0</span>].upper()</span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">isinstance</span>(result, <span class="built_in">str</span>) <span class="keyword">and</span> <span class="built_in">len</span>(result) == <span class="number">1</span></span><br><span class="line">    <span class="keyword">assert</span> result == result.upper()</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>契约设计的目的是，在一个正确的程序中，前条件和后条件总是成立的。当我们发布无错误的程序并将其投入生产时，我们可以安全地删除这些断言。</p>
+<h1 id="什么时候不使用assert"><a href="#什么时候不使用assert" class="headerlink" title="什么时候不使用assert"></a>什么时候不使用assert</h1><ul>
+<li>永远不要用它们来测试用户提供的数据，或者用于在任何情况下必须进行检查的地方。</li>
+<li>不要用断言来检查任何你认为在你的程序的正常使用中可能失败的东西。断言是为特殊失败条件。你的用户不应该看到 <code>AssertionError</code>。如果他们看到了，这就是一个需要修复的错误。</li>
+<li>特别是，不要因为 <code>assert</code> 比一个测试和 raise 短就使用它。</li>
+<li>不要用它们来检查公共库的输入参数函数的输入参数，因为你无法控制调用者，也不能保证它不会破坏函数的契约。</li>
+<li>不要将 <code>assert</code> 用于任何你期望恢复的错误。 换句话说，你没有理由在生产代码中捕捉一个<code>AssertionError</code> 异常。</li>
+<li>不要使用太多的断言，以至于它们掩盖了代码。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/09/13/KGYoGNer0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +363,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -365,7 +492,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -475,7 +602,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -566,7 +693,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -666,7 +793,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -756,7 +883,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -886,7 +1013,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -970,7 +1097,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -1050,7 +1177,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
+      <time title="修改时间：2022-11-09 09:30:11" itemprop="dateModified" datetime="2022-11-09T09:30:11+08:00">2022-11-09</time>
     </span>
 
   
@@ -1077,104 +1204,6 @@
 
 <h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://github.com/flutter/flutter/issues/20376">Network calls don’t show in Charles Proxy Debugger</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/dart-lang/sdk/issues/5468">Support proxy configuration in HttpClient</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2021/01/01/python-miao-shu-fu/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/01/python-miao-shu-fu/" class="post-title-link" itemprop="url">Python 描述符</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-01-01 20:40:56" itemprop="dateCreated datePublished" datetime="2021-01-01T20:40:56+08:00">2021-01-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-13 11:32:18" itemprop="dateModified" datetime="2022-10-13T11:32:18+08:00">2022-10-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>学会描述符之后，不仅有更多的工具集可用，还会对 Python 的运作<br>方式有更深入的理解，并由衷赞叹 Python 设计的优雅。——Raymond Hettinger<br>Python 核心开发者和专家</p>
-</blockquote>
-<h1 id="什么是描述符"><a href="#什么是描述符" class="headerlink" title="什么是描述符"></a>什么是描述符</h1><p>描述符 (Descriptor) 是 Python 中一个非常重要的特性，在实际应用中我们经常使用到它，但是也最容易被忽略，property、classmethod、staticmethod。那么究竟什么叫描述符呢？看一下官方的定义：</p>
-<blockquote>
-<p>In general, a descriptor is an attribute value that has one of the methods in the descriptor protocol. Those methods are <code>__get__()</code>,<code> __set__()</code>, and <code>__delete__()</code>. If any of those methods are defined for an attribute, it is said to be a descriptor.</p>
-</blockquote>
-<p>一般而言，描述器是一个包含了描述器协议中的方法的属性值。 这些方法有 <code>__get__()</code>, <code>__set__() </code> 和 <code>__delete__()</code>。 如果为某个属性定义了这些方法中的任意一个，它就可以被称为 <strong>descriptor</strong>。</p>
-<h1 id="如何使用描述符"><a href="#如何使用描述符" class="headerlink" title="如何使用描述符"></a>如何使用描述符</h1><p>除了上面提到的三个内置属性，其实在不少 Python 库中都有关于描述符的应用，比如各种 ORM。</p>
-<h2 id="ORM-示例"><a href="#ORM-示例" class="headerlink" title="ORM 示例"></a>ORM 示例</h2><p>这里以官方的 ORM 示例做个简单的演示 – 通过描述符来实现简单的 object relational mapping 框架。<br>其核心思路是将数据存储在外部数据库中，Python 实例仅持有数据库表中对应的的键。描述器负责对值进行查找或更新：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Field</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__set_name__</span>(<span class="params">self, owner, name</span>):</span></span><br><span class="line">        self.fetch = <span class="string">f&#x27;SELECT <span class="subst">&#123;name&#125;</span> FROM <span class="subst">&#123;owner.table&#125;</span> WHERE <span class="subst">&#123;owner.key&#125;</span>=?;&#x27;</span></span><br><span class="line">        self.store = <span class="string">f&#x27;UPDATE <span class="subst">&#123;owner.table&#125;</span> SET <span class="subst">&#123;name&#125;</span>=? WHERE <span class="subst">&#123;owner.key&#125;</span>=?;&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__get__</span>(<span class="params">self, obj, objtype=<span class="literal">None</span></span>):</span></span><br><span class="line">        <span class="keyword">return</span> conn.execute(self.fetch, [obj.key]).fetchone()[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__set__</span>(<span class="params">self, obj, value</span>):</span></span><br><span class="line">        conn.execute(self.store, [value, obj.key])</span><br><span class="line">        conn.commit()</span><br></pre></td></tr></table></figure>
-<p>可以用 Field 类来定义描述了数据库中每张表的模式的 models</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Movie</span>:</span></span><br><span class="line">    table = <span class="string">&#x27;Movies&#x27;</span>                    <span class="comment"># Table name</span></span><br><span class="line">    key = <span class="string">&#x27;title&#x27;</span>                       <span class="comment"># Primary key</span></span><br><span class="line">    director = Field()</span><br><span class="line">    year = Field()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, key</span>):</span></span><br><span class="line">        self.key = key</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Song</span>:</span></span><br><span class="line">    table = <span class="string">&#x27;Music&#x27;</span></span><br><span class="line">    key = <span class="string">&#x27;title&#x27;</span></span><br><span class="line">    artist = Field()</span><br><span class="line">    year = Field()</span><br><span class="line">    genre = Field()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, key</span>):</span></span><br><span class="line">        self.key = key</span><br></pre></td></tr></table></figure>
-
-<p>然后连接数据库验证一下结果:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import sqlite3</span><br><span class="line">&gt;&gt;&gt; conn = sqlite3.connect(<span class="string">&#x27;entertainment.db&#x27;</span>)</span><br><span class="line">&gt;&gt;&gt; Movie(<span class="string">&#x27;Star Wars&#x27;</span>).director</span><br><span class="line"><span class="string">&#x27;George Lucas&#x27;</span></span><br><span class="line">&gt;&gt;&gt; jaws = Movie(<span class="string">&#x27;Jaws&#x27;</span>)</span><br><span class="line">&gt;&gt;&gt; f<span class="string">&#x27;Released in &#123;jaws.year&#125; by &#123;jaws.director&#125;&#x27;</span></span><br><span class="line"><span class="string">&#x27;Released in 1975 by Steven Spielberg&#x27;</span></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; Song(<span class="string">&#x27;Country Roads&#x27;</span>).artist</span><br><span class="line"><span class="string">&#x27;John Denver&#x27;</span></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; Movie(<span class="string">&#x27;Star Wars&#x27;</span>).director = <span class="string">&#x27;J.J. Abrams&#x27;</span></span><br><span class="line">&gt;&gt;&gt; Movie(<span class="string">&#x27;Star Wars&#x27;</span>).director</span><br><span class="line"><span class="string">&#x27;J.J. Abrams</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="自定义验证器"><a href="#自定义验证器" class="headerlink" title="自定义验证器"></a>自定义验证器</h2><p>官方还提供了一个验证器的例子，同样值得一看。验证器是一个用于托管属性访问的描述器。在存储任何数据之前，它会验证新值是否满足各种类型和范围限制。如果不满足这些限制，它将引发异常，从源头上防止数据损坏。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Validator</span>(<span class="params">ABC</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__set_name__</span>(<span class="params">self, owner, name</span>):</span></span><br><span class="line">        self.private_name = <span class="string">&#x27;_&#x27;</span> + name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__get__</span>(<span class="params">self, obj, objtype=<span class="literal">None</span></span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">getattr</span>(obj, self.private_name)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__set__</span>(<span class="params">self, obj, value</span>):</span></span><br><span class="line">        self.validate(value)</span><br><span class="line">        <span class="built_in">setattr</span>(obj, self.private_name, value)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">validate</span>(<span class="params">self, value</span>):</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
-<p>自定义验证器需要从 Validator 继承，并且必须提供 validate() 方法以根据需要测试各种约束。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OneOf</span>(<span class="params">Validator</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, *options</span>):</span></span><br><span class="line">        self.options = <span class="built_in">set</span>(options)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">validate</span>(<span class="params">self, value</span>):</span></span><br><span class="line">        <span class="keyword">if</span> value <span class="keyword">not</span> <span class="keyword">in</span> self.options:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">f&#x27;Expected <span class="subst">&#123;value!r&#125;</span> to be one of <span class="subst">&#123;self.options!r&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>验证结果</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Component</span>:</span></span><br><span class="line">    kind = OneOf(<span class="string">&#x27;wood&#x27;</span>, <span class="string">&#x27;metal&#x27;</span>, <span class="string">&#x27;plastic&#x27;</span>)</span><br><span class="line">    <span class="comment">#...</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name, kind, quantity</span>):</span></span><br><span class="line">        self.kind = kind</span><br><span class="line">        <span class="comment">#...</span></span><br></pre></td></tr></table></figure>
-<p>描述器会阻止无效实例的创建</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; Component(<span class="string">&#x27;WIDGET&#x27;</span>, <span class="string">&#x27;metle&#x27;</span>, 5)      <span class="comment"># Blocked: &#x27;metle&#x27; is misspelled</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">    ...</span><br><span class="line">ValueError: Expected <span class="string">&#x27;metle&#x27;</span> to be one of &#123;<span class="string">&#x27;metal&#x27;</span>, <span class="string">&#x27;plastic&#x27;</span>, <span class="string">&#x27;wood&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/howto/descriptor.html#id2">描述器使用指南</a></p>
 
       
     </div>
