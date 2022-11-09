@@ -1,5 +1,5 @@
 ---
-title:  Pure 基于 Github Discussion 的博饿哭
+title:  Pure 基于 Github Discussion 的博客
 tags: [Golang,开源]
 date: 2022-10-28
 published: true
