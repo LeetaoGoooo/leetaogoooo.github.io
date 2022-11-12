@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">197</span>
+          <span class="site-state-item-count">198</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-count">78</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,102 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/07/28/MySQL%E7%9A%84%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/07/28/MySQL%E7%9A%84%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98/" class="post-title-link" itemprop="url">MySQL的查询缓存</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-07-28 00:00:00" itemprop="dateCreated datePublished" datetime="2017-07-28T00:00:00+08:00">2017-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="什么是查询缓存"><a href="#什么是查询缓存" class="headerlink" title="什么是查询缓存"></a>什么是查询缓存</h1><p>MySQL的查询缓存其实就是保存查询返回的完整结果.如果执相同 SQL 语句的时候,并且查询缓存是打开的,则 MySQL 会直接返回结果（在这一过程中 MySQL 还检查了一次用户权限）,跳过解析,优化和执行过程.这里判断 SQL 语句是否相同是通过一个对大小写铭感的哈希查找实现的,这就意味着下面两条查询缓存是不同的:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT id FROM t_user;</span><br><span class="line">select id from t_user;</span><br></pre></td></tr></table></figure>
+
+<p>简单的了解了一下查询缓存,所以</p>
+<h1 id="如何查看查询缓存的相关参数"><a href="#如何查看查询缓存的相关参数" class="headerlink" title="如何查看查询缓存的相关参数"></a>如何查看查询缓存的相关参数</h1><p>使用下述命令:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW VARIABLES LIKE &#x27;%query_cache%&#x27;;  </span><br></pre></td></tr></table></figure>
+
+<p>结果:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fhzmb80z47j307603sa9w.jpg"></p>
+<p>其中:</p>
+<ol>
+<li>have_query_cache 查询缓存是否可用</li>
+<li>query_cache_limit 可缓存具体结果的最大值</li>
+<li>query_cache_size 查询缓存的大小</li>
+<li>query_cache_type 阻止或者支持查询缓存</li>
+</ol>
+<h1 id="如何查看-SQL-查询在缓存中的命中的累积次数"><a href="#如何查看-SQL-查询在缓存中的命中的累积次数" class="headerlink" title="如何查看 SQL 查询在缓存中的命中的累积次数"></a>如何查看 SQL 查询在缓存中的命中的累积次数</h1><p>使用下述命令:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW STATUS LIKE &#x27;Qcache_hits&#x27;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="关于查询缓存"><a href="#关于查询缓存" class="headerlink" title="关于查询缓存"></a>关于查询缓存</h1><ol>
+<li>当查询语句中有一些不确定的数据时,则不会被缓存。</li>
+<li>如果表发生变化,那么跟这个表相关的所有的缓存数据都将失效,这里的变化包括:INSERT, UPDATE , DELETE, TRUNCATE, ALTER TABLE 等,由此可见对于频繁更新的表，显然是不适合使用查询缓存的.</li>
+<li>查询缓存可能可以降低查询时间,但是不能减少查询结果传输的时间消耗,所以是否使用它,需要结合实际情况参考.</li>
+</ol>
+<p>对于第一条有如下的简单示例:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT COUNT(id) FROM t_user WHERE post_date &gt;= CURDATE(); // 不会被缓存</span><br><span class="line">SELECT COUNT(id) FROM t_user WHERE post_date &gt;= &#x27;2017-07-28&#x27;; // 会被缓存</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/07/25/define%E5%92%8Cconst%E7%9A%84%E5%8C%BA%E5%88%AB-PHP%E5%B8%B8%E9%87%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +332,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -350,7 +446,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -432,7 +528,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -509,7 +605,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -590,7 +686,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -666,7 +762,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -755,7 +851,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -850,7 +946,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -930,7 +1026,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -945,107 +1041,6 @@
     <div class="post-body" itemprop="articleBody">
           <p>由于使用鼠标滚轮控制地图缩放不可控,所以决定禁用鼠标滚轮事件.代码如下:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">map.getInteractions().forEach(<span class="function"><span class="keyword">function</span> (<span class="params">interaction</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (interaction <span class="keyword">instanceof</span> ol.interaction.MouseWheelZoom) &#123;</span><br><span class="line">        map.removeInteraction(interaction);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2017/06/02/Trait(%E6%80%A7%E7%8A%B6)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/06/02/Trait(%E6%80%A7%E7%8A%B6)/" class="post-title-link" itemprop="url">Trait(性状)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-06-02 00:00:00" itemprop="dateCreated datePublished" datetime="2017-06-02T00:00:00+08:00">2017-06-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>最近想重构一下自己的代码,仔细查看了自己写的代码，发现自己写的两个类,其中一个类是对 Gis 信息的处理展示,另外一个类是生成符合 Highcharts 格式的数据，两个类的功能十分不同，而且在 <strong>继承层次结构</strong> 中没有 <strong>共同的父类</strong>。但是两个类在生成数据之前,都必须对前台传来的指标名称进行转换成相应的指标 id,要怎么解决这个问题呢?</p>
-<ol>
-<li>创建一个父类让这两个类都继承</li>
-<li>创建一个接口，定义实现转换指标的的方法，然后让这两个类都实现它</li>
-<li>创建一个性状，定义实现指标转换的方法，然后让这两个类混入这个性状</li>
-</ol>
-<p>第一种解决方法不好，因为这样子做会强制让两个无关的类继承同一个祖先，而且这个祖先不属于各自的继承层次结。<br>第二种解决方法好，因为每个类都能保有自然的继承层次结构。但是，我们要在两个类中重复实现的地理编码功能，这不符合 DRY (<em>Don’t Repeat Yourself</em> ) 原则。<br>第三种解决方法最好，这么做不会搅乱这两个类原本自然的继承层次结构。</p>
-<blockquote>
-<p>自 PHP 5.4.0 起，PHP 实现了一种代码复用的方法，称为 trait。<br>Trait 是为类似 PHP 的单继承语言而准备的一种代码复用机制。Trait 为了减少单继承语言的限制，使开发人员能够自由地在不同层次结构内独立的类中复用 method。Trait 和 Class 组合的语义定义了一种减少复杂性的方式，避免传统多继承和 Mixin 类相关典型问题。<br>Trait 和 Class 相似，但仅仅旨在用细粒度和一致的方式来组合功能。 无法通过 trait 自身来实例化。它为传统继承增加了水平特性的组合；也就是说，<strong>应用的几个 Class 之间不需要继承</strong>。</p>
-</blockquote>
-<p>性状有两个作用:</p>
-<ol>
-<li>表明类可以做什么( 像是接口 )</li>
-<li>提供模块化实现 ( 像是类 )</li>
-</ol>
-<p>性状能把模块化的实现方法注入到多个无关的类中。而且性状还能促进代码重用。</p>
-<h1 id="性状的创建"><a href="#性状的创建" class="headerlink" title="性状的创建"></a>性状的创建</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">KeyHandle</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">tranKeyNameToKeyId</span>(<span class="params"><span class="variable">$keyname</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 将 keyname =&gt; keyid</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="性状的使用"><a href="#性状的使用" class="headerlink" title="性状的使用"></a>性状的使用</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Gis</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">KeyHandle</span>;</span><br><span class="line">    <span class="comment">// 类的具体实现</span></span><br><span class="line">    <span class="keyword">public</span> funcition getGisByKeyId(<span class="variable">$keyid</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="性状的优先级"><a href="#性状的优先级" class="headerlink" title="性状的优先级"></a>性状的优先级</h1><p>从基类继承的成员会被 trait 插入的成员所覆盖。优先顺序是来自当前类的成员覆盖了trait的方法,而 trait 则覆盖了被继承的方法。</p>
-<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><h2 id="可运行示例"><a href="#可运行示例" class="headerlink" title="可运行示例"></a>可运行示例</h2><h3 id="trait-则覆盖了被继承的方法"><a href="#trait-则覆盖了被继承的方法" class="headerlink" title="trait 则覆盖了被继承的方法"></a>trait 则覆盖了被继承的方法</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">Base</span>  </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span>  <span class="title">sayHello</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span>  <span class="string">&#x27;Hello &#x27;</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">trait</span>  <span class="title">SayWorld</span>  </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span>  <span class="title">sayHello</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">         <span class="built_in">parent</span> :: sayHello ();</span><br><span class="line">        <span class="keyword">echo</span>  <span class="string">&#x27;World!&#x27;</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">MyHelloWorld</span>  <span class="keyword">extends</span>  <span class="title">Base</span>  </span>&#123;</span><br><span class="line">    <span class="keyword">use</span>  <span class="title">SayWorld</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="variable">$o</span>  = <span class="keyword">new</span>  MyHelloWorld ();</span><br><span class="line"> <span class="variable">$o</span> -&gt; sayHello ();</span><br></pre></td></tr></table></figure>
-<p>输出:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello World!</span><br></pre></td></tr></table></figure>
-
-<h3 id="当前类的成员覆盖了-trait-的方法"><a href="#当前类的成员覆盖了-trait-的方法" class="headerlink" title="当前类的成员覆盖了 trait 的方法"></a>当前类的成员覆盖了 trait 的方法</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;Hello World!&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TheWorldIsNotEnough</span> </span>&#123;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">HelloWorld</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;Hello Universe!&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$o</span> = <span class="keyword">new</span> TheWorldIsNotEnough();</span><br><span class="line"><span class="variable">$o</span>-&gt;sayHello();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>输出:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello Universe!</span><br></pre></td></tr></table></figure>
-
-<h2 id="项目示例"><a href="#项目示例" class="headerlink" title="项目示例"></a>项目示例</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$gis</span> = <span class="keyword">new</span> Gis();</span><br><span class="line"><span class="variable">$keyid</span> = <span class="variable">$gis</span>-&gt;tranKeyNameToKeyId(<span class="variable">$keyname</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="variable">$gis</span>-&gt;getGisByKeyId(<span class="variable">$keyid</span>);</span><br></pre></td></tr></table></figure>
-
-
       
     </div>
 

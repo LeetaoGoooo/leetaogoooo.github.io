@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">197</span>
+          <span class="site-state-item-count">198</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-count">78</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,134 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/10/28/Python%20%E4%B8%AD%E8%B0%83%E7%94%A8%20Go%20%E4%BB%A3%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/10/28/Python%20%E4%B8%AD%E8%B0%83%E7%94%A8%20Go%20%E4%BB%A3%E7%A0%81/" class="post-title-link" itemprop="url">Python 中调用 Go 代码</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-28 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-28T00:00:00+08:00">2022-10-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-12 20:39:21" itemprop="dateModified" datetime="2022-11-12T20:39:21+08:00">2022-11-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Python 可以通过 <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/ctypes.html">ctypes</a> 模块调用 C 语言实现的函数，调用的方式很简单：</p>
+<ol>
+<li>创建一个 c 文件，然后编写对应的函数</li>
+<li>使用 c 编译器创建一个动态链接库文件（.so）</li>
+<li>在 Python 文件中创建一个 <code>CDLL</code> 的实例</li>
+<li>最后通过 <code>&#123;CDLL_instance&#125;.&#123;function_name&#125;(&#123;function_parameters&#125;)</code> 格式调用 c 语言对应的函数</li>
+</ol>
+<h2 id="步骤一"><a href="#步骤一" class="headerlink" title="步骤一"></a>步骤一</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  my_functions.c.</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">square</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> i * i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="步骤二"><a href="#步骤二" class="headerlink" title="步骤二"></a>步骤二</h2><p>使用下述命令，创建 so 文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc -fPIC -shared -o my_functions.so my_functions.c</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-images.githubusercontent.com/10162120/198480454-c0ee5a37-8143-415b-b45d-9291880d9f82.png" alt="编译生成 so 文件"></p>
+<h3 id="步骤三-amp-四"><a href="#步骤三-amp-四" class="headerlink" title="步骤三&amp;四"></a>步骤三&amp;四</h3><p>调用 C 的函数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from ctypes import *</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; so_file = <span class="string">&quot;/Users/leetao/workspace/python/test/my_functions.so&quot;</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; my_functions = CDLL(so_file)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span> </span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; <span class="built_in">print</span>(<span class="built_in">type</span>(my_functions))</span></span><br><span class="line">&lt;class &#x27;ctypes.CDLL&#x27;&gt;</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span> </span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; <span class="built_in">print</span>(my_functions.square(10))</span></span><br><span class="line">100</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; <span class="built_in">print</span>(my_functions.square(8))</span></span><br><span class="line">64</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<h1 id="调用-GO-代码"><a href="#调用-GO-代码" class="headerlink" title="调用 GO 代码"></a>调用 GO 代码</h1><p>从上面的 C 语言的调用过程，不难发现，最重要的是生成的 <code>.so</code> 文件，如果我们可以将 go 编辑成 <code>.so</code> 文件就可以得到 Python 调用 Go 的目的了。</p>
+<h2 id="CGO"><a href="#CGO" class="headerlink" title="CGO"></a>CGO</h2><p>Go 有个标准库 <a target="_blank" rel="noopener" href="https://pkg.go.dev/cmd/cgo">CGO</a> 可以用来创建调用 C 代码的 Go 包，当然反过来也可以。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line">​</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;C&quot;</span>  <span class="comment">//必须引入C库</span></span><br><span class="line">​</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line">​</span><br><span class="line"><span class="comment">//加入下面注释代码，表示导出，可以被python调用</span></span><br><span class="line">​</span><br><span class="line"><span class="comment">//export Sum</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sum</span><span class="params">(a <span class="keyword">int</span>, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">  <span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line">​</span><br><span class="line">​</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="comment">//必须加一个main函数，作为CGO编译的入口，无具体实现代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是：</p>
+<ul>
+<li>注释 //export Sum 在编译 动态库（dll ,so）的时候是必须的，说明了动态库需要输出的函数</li>
+<li> main函数必须写，没有执行代码，作为CGO编译的入口</li>
+<li>必须引入C库（import “C”）</li>
+</ul>
+<h3 id="编译动态库"><a href="#编译动态库" class="headerlink" title="编译动态库"></a>编译动态库</h3><p>使用下面的命令进行编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go build -buildmode=c-shared -o s1.so s1.go</span><br></pre></td></tr></table></figure>
+
+<p>注意📢：</p>
+<ul>
+<li>-o表示输出，s1.so 表示编译成so文件的名字，s1.go表示编译哪个go文件</li>
+<li>“-s -w” 选项用于减小生成动态链接库的体积，-s 是压缩，-w 是去掉调试信息<br> <code>go build -ldflags &quot;-s -w&quot; -o main.dll -buildmode=c-shared s1.go</code></li>
+<li>编译模式buildmode:</li>
+</ul>
+<img width="707" alt="编译模式" src="https://user-images.githubusercontent.com/10162120/198488629-bc443f2b-6e8a-4fc7-9654-458066afe740.png">
+
+<h3 id="使用-Python-语言调用"><a href="#使用-Python-语言调用" class="headerlink" title="使用 Python 语言调用"></a>使用 Python 语言调用</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> ctypes <span class="keyword">import</span> cdll</span><br><span class="line"></span><br><span class="line">lib = cdll.LoadLibrary(<span class="string">&#x27;./s1.so&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用go语言的Sum</span></span><br><span class="line">result = lib.Sum(<span class="number">100</span>, <span class="number">200</span>)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>Python 和 GO 之间的参数传递需要经过 C 的疏忽类型转换，所以还需要了解 python 中 ctypes 数据类型和 python 数据类型以及 C 的数据类型对应关系</p>
+<p>三种数据类型使用场景：</p>
+<ol>
+<li>ctypes数据类型为指定调用函数时的传入参数和返回值的数据类型</li>
+<li>python数据类型为调用函数时传入的参数的数据类型</li>
+<li>C的数据类型为go代码中定义的函数所需的参数和返回值数据类型</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/3.9/library/ctypes.html#fundamental-data-types">对应关系</a>如下：</p>
+<img width="799" alt="对应关系" src="https://user-images.githubusercontent.com/10162120/198492039-adffc174-0fb9-411d-a2b3-c5e43036c6dc.png">
+
+<p>也就是说，如果写如下的 go 代码：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//export hello</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hello</span><span class="params">(namePtr *C.char)</span></span>&#123;</span><br><span class="line">   name := C.GoString(namePtr)</span><br><span class="line">   log.Println(<span class="string">&quot;Hello&quot;</span>, name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也就意味着，我们的 Python 调用代码中参数类型也需要对应起来：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hello = library.hello</span><br><span class="line">hello.argtypes = [ctypes.c_char_p]</span><br><span class="line">hello(<span class="string">&quot;everyone&quot;</span>.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://pkg.go.dev/cmd/cgo">cgo</a></li>
+<li><a target="_blank" rel="noopener" href="https://pkg.go.dev/cmd/cgo">Running Go code from Python</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/355538331">Python调用Go语言编译的动态链接库-Python和Go语言混编</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/10/28/open_source_pure/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +364,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:26" itemprop="dateModified" datetime="2022-11-12T15:43:26+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:21" itemprop="dateModified" datetime="2022-11-12T20:39:21+08:00">2022-11-12</time>
     </span>
 
   
@@ -324,7 +452,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:26" itemprop="dateModified" datetime="2022-11-12T15:43:26+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:21" itemprop="dateModified" datetime="2022-11-12T20:39:21+08:00">2022-11-12</time>
     </span>
 
   
@@ -403,7 +531,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:26" itemprop="dateModified" datetime="2022-11-12T15:43:26+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:21" itemprop="dateModified" datetime="2022-11-12T20:39:21+08:00">2022-11-12</time>
     </span>
 
   
@@ -481,7 +609,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:26" itemprop="dateModified" datetime="2022-11-12T15:43:26+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:21" itemprop="dateModified" datetime="2022-11-12T20:39:21+08:00">2022-11-12</time>
     </span>
 
   
@@ -559,7 +687,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:26" itemprop="dateModified" datetime="2022-11-12T15:43:26+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:21" itemprop="dateModified" datetime="2022-11-12T20:39:21+08:00">2022-11-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -647,7 +775,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:26" itemprop="dateModified" datetime="2022-11-12T15:43:26+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:21" itemprop="dateModified" datetime="2022-11-12T20:39:21+08:00">2022-11-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -737,7 +865,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:26" itemprop="dateModified" datetime="2022-11-12T15:43:26+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:21" itemprop="dateModified" datetime="2022-11-12T20:39:21+08:00">2022-11-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -833,7 +961,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:26" itemprop="dateModified" datetime="2022-11-12T15:43:26+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:21" itemprop="dateModified" datetime="2022-11-12T20:39:21+08:00">2022-11-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -920,7 +1048,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:26" itemprop="dateModified" datetime="2022-11-12T15:43:26+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:21" itemprop="dateModified" datetime="2022-11-12T20:39:21+08:00">2022-11-12</time>
     </span>
 
   
@@ -946,81 +1074,6 @@
             </div>
           <!--/noindex-->
         
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/02/05/django-bulk-create-support-post-save-signal/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/02/05/django-bulk-create-support-post-save-signal/" class="post-title-link" itemprop="url">django bulk_create support post_save signal</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-05 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-05T00:00:00+08:00">2022-02-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:26" itemprop="dateModified" datetime="2022-11-12T15:43:26+08:00">2022-11-12</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>django 默认 <code>bulk_create</code> 不支持 <code>signal</code>，可以通过自定义 <code>models.Manager</code> 支持这个特性</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomManager</span>(<span class="params">models.Manager</span>):</span>  </span><br><span class="line">	 <span class="function"><span class="keyword">def</span> <span class="title">bulk_create</span>(<span class="params">self, items, **kwargs</span>):</span>  </span><br><span class="line">		 <span class="keyword">for</span> i <span class="keyword">in</span> items:  </span><br><span class="line">		 post_save.send(i.__class__, instance=i, created=<span class="literal">True</span>)  </span><br><span class="line">		        <span class="keyword">return</span> <span class="built_in">super</span>().bulk_create(items, **kwargs)  </span><br><span class="line">		  </span><br><span class="line">		    <span class="function"><span class="keyword">def</span> <span class="title">bulk_update</span>(<span class="params">self, items, fields, **kwargs</span>):</span>  </span><br><span class="line">		 <span class="built_in">super</span>().bulk_update(items, fields, **kwargs)  </span><br><span class="line">		        <span class="keyword">for</span> i <span class="keyword">in</span> items:  </span><br><span class="line">		 post_save.send(i.__class__, instance=i, created=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-
-<p>使用实例:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>(<span class="params">db.models</span>):</span></span><br><span class="line">	objects = CustomManager()</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
-
       
     </div>
 

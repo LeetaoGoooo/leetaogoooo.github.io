@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">197</span>
+          <span class="site-state-item-count">198</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-count">78</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,117 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/08/06/ES6%20arrow%20function%20and%20function%20declaration%20expressions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/08/06/ES6%20arrow%20function%20and%20function%20declaration%20expressions/" class="post-title-link" itemprop="url">ES6 arrow function and function declaration expressions</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-08-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-08-06T00:00:00+08:00">2018-08-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="What-is-Arrow-function"><a href="#What-is-Arrow-function" class="headerlink" title="What is Arrow function"></a>What is Arrow function</h1><p>关于什么是箭头函数,让我们看一下 MDN 给出的定义</p>
+<blockquote>
+<p>An <strong>arrow function expression</strong> has a shorter syntax than a function expression and does not have its own <code>this</code>, <code>arguments</code>, <code>super</code>, or <code>new.target</code>. These function expressions are best suited for non-method functions, and they cannot be used as constructors.</p>
+</blockquote>
+<p>不难看出上面的定义说出了箭头函数的一些特点:没有自己的this，arguments，super或 new.target,更适用于那些本来需要匿名函数的地方，并且它们不能用作构造函数。也就是意味着,如果在没有使用 <code>this</code>,<code>arguments</code> 或者 <code>new</code> 等前提下,你可以使用箭头函数替换原本的函数声明。</p>
+<h1 id="Are-arrow-function-and-funciton-declaration-equivalen"><a href="#Are-arrow-function-and-funciton-declaration-equivalen" class="headerlink" title="Are arrow function and funciton declaration equivalen"></a>Are arrow function and funciton declaration equivalen</h1><p>结合上述的说明，很容易得知,箭头函数和函数声明并不相同。通过几个简单的例子说明这一点:</p>
+<h2 id="this"><a href="#this" class="headerlink" title="this"></a>this</h2><ol>
+<li>   <strong>箭头函数</strong> 默认指向定义它时,它所处的上下文对象,而不是执行期间的对象</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> exampleObj = &#123;</span><br><span class="line">    <span class="attr">a</span>: <span class="string">&#x27;test&#x27;</span>,</span><br><span class="line">    <span class="attr">arrowOutputA</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.a);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">funcOutputA</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.a);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exampleObj.arrowOutputA();</span><br><span class="line">exampleObj.funcOutputA();</span><br></pre></td></tr></table></figure>
+
+<p>输出结果如下:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fu16qj14wxj30fb05lt8o.jpg"></p>
+<p>关于 <code>this</code> 如果不是特别了解可以阅读下述链接 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/this">this</a></p>
+<ol start="2">
+<li>   箭头函数 <code>this</code> 不可变. <code>call()</code>,<code>apply()</code>,<code>bind()</code> 这些方法也 无法改变 箭头函数 <code>this</code> 的指向</li>
+</ol>
+<p>让我们通过一组代码对照一下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.name = <span class="string">&#x27;window&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> exampeObj = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&#x27;example&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">showName.call(exampeObj)</span><br></pre></td></tr></table></figure>
+<p>输出结果如下:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fu1ew99prrj306p04xaa4.jpg"></p>
+<p>从上图我们可以看到,上述代码的 <code>this</code> 指向由从 <code>window</code> 变成了 <code>exampleObj</code><br>kan chu</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.name = <span class="string">&#x27;window&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> exampleObj = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&#x27;example&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> showName = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">showName.call(exampleObj);</span><br></pre></td></tr></table></figure>
+
+<p>输出的结果如下:</p>
+<p><img src="https://ws1.sinaimg.cn/large/006wYWbGly1fu1h993a8wj306804vdfw.jpg"></p>
+<p>从上述结果我们不难看出,箭头函数的 <code>this</code> 指向没有发生任何改变</p>
+<h2 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h2><p>上述内容提到箭头函数无法绑定 <code>arguments</code> 参数对象,因此不能通过arguments对象访问传入参数，但是可以用 <code>rest</code> 参数实现。关于 rest 参数具体内容可以访问 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Rest_parameters">Rest parameters</a>去进一步了解。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> example = <span class="function">(<span class="params">...params</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(params);</span><br><span class="line">&#125;</span><br><span class="line">example(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<p>结果如下:</p>
+<p><img src="https://ws1.sinaimg.cn/large/006wYWbGly1fu1hs0sg5ej307e025a9z.jpg"></p>
+<h2 id="new"><a href="#new" class="headerlink" title="new"></a>new</h2><p>箭头函数内部并没有 <code>Construct</code> 方法，所以没有原型属性（prototype),想开头说的那样没法当构造函数,所以很显然也不能用 <code>new</code> 关键字来实例化对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> exampleNew = <span class="function">(<span class="params">x</span>) =&gt;</span> &#123;<span class="built_in">this</span>.name = x&#125;;</span><br><span class="line"><span class="keyword">var</span> example = <span class="keyword">new</span> exampleNew();</span><br></pre></td></tr></table></figure>
+
+<p>结果如下图:</p>
+<p><img src="https://ws1.sinaimg.cn/large/006wYWbGly1fu1hxp6bmdj30bk01saa2.jpg"></p>
+<h1 id="Compatibility"><a href="#Compatibility" class="headerlink" title="Compatibility"></a>Compatibility</h1><p>最后看一下箭头函数的兼容性:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fu18ws4mtxj327n0t2whp.jpg"></p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/24900875/whats-the-meaning-of-an-arrow-formed-from-equals-greater-than-in-javas">What’s the meaning of “=&gt;” (an arrow formed from equals &amp; greater than) in JavaScript?</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/34361379/arrow-function-vs-function-declaration-expressions-are-they-equivalent-exch">Arrow function vs function declaration / expressions: Are they equivalent / exchangeable?</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/06/30/X-Frame-Options/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +347,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -329,7 +440,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -411,7 +522,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -509,7 +620,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -603,7 +714,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -680,7 +791,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -761,7 +872,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -848,7 +959,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -928,7 +1039,7 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
     </span>
 
   
@@ -990,105 +1101,6 @@ WSGI 是在 [**PEP 3333**](https://www.python.org/dev/peps/pep-3333) [3]中详�
 <p>[2]<a target="_blank" rel="noopener" href="https://ninghao.net/blog/4449">用阿里云的免费 SSL 证书让网站从 HTTP 换成 HTTPS</a></p>
 <p><a target="_blank" rel="noopener" href="https://kyle.net.cn/2017/06/08/Amazon-EC2-nginx-jekyll+https/">记录Amazon EC2环境配置nginx + jekyll + https过程</a></p>
 <p><a target="_blank" rel="noopener" href="https://ubock.com/article/25">永久免费的SSL证书 - Let’s Encrypt 证书部署 HTTPS 并自动续期</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/01/14/HTTP%20%E7%8A%B6%E6%80%81%E7%A0%81%20302,303,307/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/01/14/HTTP%20%E7%8A%B6%E6%80%81%E7%A0%81%20302,303,307/" class="post-title-link" itemprop="url">HTTP 状态码 302,303,307</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-01-14 00:00:00" itemprop="dateCreated datePublished" datetime="2018-01-14T00:00:00+08:00">2018-01-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 15:43:27" itemprop="dateModified" datetime="2022-11-12T15:43:27+08:00">2022-11-12</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>最近一直在看《HTTP The Definitive Guide》,对此大家可能有点陌生，但是一提它的中文名称那就是耳熟能详了,它的中文书名是《http权威指南》.在看到HTTP Messages这一章Status Code这一节,发现状态码302、303、307这三个很相似,然后对此进行了对比,特此记录.</p>
-<h2 id="302-Found"><a href="#302-Found" class="headerlink" title="302 Found"></a>302 Found</h2><blockquote>
-<p>This is an example of industry practice contradicting the standard. The HTTP/1.0 specification (RFC 1945) required the client to perform a temporary redirect (the original describing phrase was “Moved Temporarily”, but popular browsers implemented 302 with the functionality of a 303 See Other.Therefore, HTTP/1.1 added status codes 303 and 307 to distinguish between the two behaviours. However, some Web applications and frameworks use the 302 status code as if it were the 303 ——[1]</p>
-</blockquote>
-<p>在看下维基百科的定义:</p>
-<blockquote>
-<p>The HTTP response status code 302 Found is a common way of performing URL redirection.<br>An HTTP response with this status code will additionally provide a URL in the header field location. The user agent (e.g. a web browser) is invited by a response with this code to make a second, otherwise identical, request to the new URL specified in the location field. The HTTP/1.0 specification (RFC 1945) initially defined this code, and gives it the description phrase “Moved Temporarily”.<br>Many web browsers implemented this code in a manner that violated this standard, changing the request type of the new request to GET, regardless of the type employed in the original request (e.g. POST).For this reason, HTTP/1.1 (RFC 2616) added the new status codes 303 and 307 to disambiguate between the two behaviours, with 303 mandating the change of request type to GET, and 307 preserving the request type as originally sent. Despite the greater clarity provided by this disambiguation, the 302 code is still employed in web frameworks to preserve compatibility with browsers that do not implement the HTTP/1.1 specification.<br>As a consequence, the update of RFC 2616 changes the definition to allow user agents to rewrite POST to GET ——[2]</p>
-</blockquote>
-<p>结合上面两个我们大致可以总结出这样一些结论:</p>
-<p>在 RFC 1945 中初次定义状态码302,并将其描述位”Moved Temporarily”(暂时移动).预期关于302的使用应该如下,当一个http的response状态码为302的时候,其响应头肯定回包含一个可选的URL(如下图).客户端预期需要根据该URL进行二次请求.正常情况下客户端的请求方式应该与之前保持一致,但是许多Web浏览器并没有遵守这个规定，而是不管原始请求使用何种类型，都将新请求的请求类型变为GET.由于这个原因,在HTTP/1.1 (RFC 2616)添加 303 和 307 这两个状态码,其中 303强制将请求类型改变为GET，307保留原始发送的请求类型. 而302则用来维持与尚未实现HTTP/1.1规范的浏览器的兼容性.</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fng94l5z7bj30fr09z3ym.jpg"></p>
-<h2 id="303-See-Other-since-HTTP-1-1"><a href="#303-See-Other-since-HTTP-1-1" class="headerlink" title="303 See Other (since HTTP/1.1)"></a>303 See Other (since HTTP/1.1)</h2><blockquote>
-<p>The response to the request can be found under another URI using the GET method. When received in response to a POST (or PUT/DELETE), the client should presume that the server has received the data and should issue a new GET request to the given URI.</p>
-</blockquote>
-<p>对于303我们从上面就可以得知,二次请求的方式一定为GET,如果第一次请求为其他类型的话,我们默认认为它已经接受到了数据.该状态码可以用来相应任何方式的HTTP请求.</p>
-<p>它主要用于允许POST操作的输出将客户端重定向到选定的资源，因为这样做提供了与POST响应相对应的信息，并且该表单可以独立于原始请求单独标识、书签和缓存,个人理解是正常情况下我们在一个页面进行了post操作,然后得到服务器响应在当前页面获取到相应数据,显然这种情况下页面是无法保存书签和缓存的,一旦我们重新访问这个页面，之前的数据还是需要我们重新请求的，303则是将响应的内容重新定向到一个新的页面,并且下次访问该页面的时候响应的数据还是仍然存在的，比如消息确认页面或上传进度页面.</p>
-<p>对于303响应GET方式的请求,我个人是有点困惑的.RFC7321表述内容如下:</p>
-<blockquote>
-<p>A 303 response to a GET request indicates that the origin server does not have a representation of the target resource that can be transferred by the server over HTTP.  However, the Location field value refers to a resource that is descriptive of the target resource, such that making a retrieval request on that other resource might result in a representation that is useful to recipients without implying that it represents the original target resource.  Note that answers to the questions of what can be represented, what representations are adequate, and what might be a useful description are outside the scope of HTTP. ——[3]</p>
-</blockquote>
-<p>直观的翻译大意如下:<br>对GET请求的303响应表明，源服务器不具有可由服务器通过HTTP传输的目标资源的表示形式。但是，Location字段值是指描述目标资源的资源，因此，对该其他资源发出检索请求可能会导致对收件人有用的表示，而不会暗示它代表原始目标资源。</p>
-<p>我的理解是对于GET方式返回303代表,其目标资源并不能很好的借由服务器通过HTTP协议很好的展示出来.响应头中的Location的值指的是一种资源,用来是描述目标资源的.对该资源请求可能获取到对客户端有用的信息.</p>
-<h2 id="307-Temporary-Redirect-since-HTTP-1-1"><a href="#307-Temporary-Redirect-since-HTTP-1-1" class="headerlink" title="307 Temporary Redirect (since HTTP/1.1)"></a>307 Temporary Redirect (since HTTP/1.1)</h2><blockquote>
-<p>In this case, the request should be repeated with another URI; however, future requests should still use the original URI. In contrast to how 302 was historically implemented, the request method is not allowed to be changed when reissuing the original request. For example, a POST request should be repeated using another POST request</p>
-</blockquote>
-<p>307就相对毕竟简单些,如果返回的状态码为307,则表明使用head中location的URI进行再一次的请求,但是以后的请求仍然使用原来的URI.与以往实现302的方式不同，在重新发出原始请求时，不允许更改请求方法。例如，应该使用另一个POST请求重复POST请求.</p>
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p>[1] <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_Redirection">3xx_Redirection</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/HTTP_302">HTTP_302</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7231#section-6.4.4">303 See Other</a></p>
 
       
     </div>
