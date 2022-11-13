@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">200</span>
+          <span class="site-state-item-count">198</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,173 +205,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/03/07/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/03/07/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/" class="post-title-link" itemprop="url">最长回文子串</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-03-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-07T00:00:00+08:00">2019-03-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。</p>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;babad&quot;</span><br><span class="line">输出: &quot;bab&quot;</span><br><span class="line">注意: &quot;aba&quot; 也是一个有效答案。</span><br></pre></td></tr></table></figure>
-
-<p><strong>示例 2：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;cbbd&quot;</span><br><span class="line">输出: &quot;bb&quot;</span><br></pre></td></tr></table></figure>
-
-
-<p><strong>解法</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestPalindrome</span>(<span class="params">self, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span></span><br><span class="line">        str_len = <span class="built_in">len</span>(s)</span><br><span class="line">        max_len = <span class="number">1</span></span><br><span class="line">        start_index = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        dp = [[<span class="number">0</span>]*str_len <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(str_len)]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(str_len):</span><br><span class="line">            dp[i][i] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(str_len):</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(j - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> j == i+ <span class="number">1</span> <span class="keyword">and</span> s[j] == s[i]:</span><br><span class="line">                    dp[i][j] = <span class="number">2</span></span><br><span class="line">                <span class="keyword">if</span> j &gt; i+<span class="number">1</span> <span class="keyword">and</span> dp[i+<span class="number">1</span>][j-<span class="number">1</span>] &gt; <span class="number">0</span> <span class="keyword">and</span> s[i] == s[j]:</span><br><span class="line">                    dp[i][j] = dp[i + <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">2</span></span><br><span class="line">                <span class="keyword">if</span> dp[i][j] &gt; max_len:</span><br><span class="line">                    max_len = dp[i][j]</span><br><span class="line">                    start_index = i</span><br><span class="line">        <span class="keyword">return</span> s[start_index:start_index + max_len]</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/03/05/max%E4%B8%8Emin/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/03/05/max%E4%B8%8Emin/" class="post-title-link" itemprop="url">max与min</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-03-05 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-05T00:00:00+08:00">2019-03-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>对于 max 和 min 可以比较数值大小这一点大家肯定都是十分熟悉,除此之外 max 和 min 同样也可以比较 list 和 str 大小.</p>
-<h1 id="文档说明"><a href="#文档说明" class="headerlink" title="文档说明"></a>文档说明</h1><p>首先看一下 max 和 min 的说明文档</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">max</span>(...)</span><br><span class="line">    <span class="built_in">max</span>(iterable, *[, default=obj, key=func]) -&gt; value</span><br><span class="line">    <span class="built_in">max</span>(arg1, arg2, *args, *[, key=func]) -&gt; value</span><br><span class="line"></span><br><span class="line">    With a single iterable argument, <span class="keyword">return</span> its biggest item. The</span><br><span class="line">    default keyword-only argument specifies an <span class="built_in">object</span> to <span class="keyword">return</span> <span class="keyword">if</span></span><br><span class="line">    the provided iterable <span class="keyword">is</span> empty.</span><br><span class="line">    With two <span class="keyword">or</span> more arguments, <span class="keyword">return</span> the largest argument.</span><br><span class="line">   </span><br><span class="line"> <span class="built_in">min</span>(...)</span><br><span class="line">    <span class="built_in">min</span>(iterable, *[, default=obj, key=func]) -&gt; value</span><br><span class="line">    <span class="built_in">min</span>(arg1, arg2, *args, *[, key=func]) -&gt; value</span><br><span class="line"></span><br><span class="line">    With a single iterable argument, <span class="keyword">return</span> its smallest item. The</span><br><span class="line">    default keyword-only argument specifies an <span class="built_in">object</span> to <span class="keyword">return</span> <span class="keyword">if</span></span><br><span class="line">    the provided iterable <span class="keyword">is</span> empty.</span><br><span class="line">    With two <span class="keyword">or</span> more arguments, <span class="keyword">return</span> the smallest argument.  </span><br></pre></td></tr></table></figure>
-
-<p>从上面的文档不难看出,max 和 min 对 iterable 对象的支持,那么对 List 是如何比较的呢?看个例子</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">list1, list2 = [<span class="string">&#x27;123&#x27;</span>, <span class="string">&#x27;xyz&#x27;</span>, <span class="string">&#x27;zara&#x27;</span>, <span class="string">&#x27;abc&#x27;</span>], [<span class="number">456</span>, <span class="number">700</span>, <span class="number">200</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Max value element : &quot;</span>, <span class="built_in">max</span>(list1))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Max value element : &quot;</span>, <span class="built_in">max</span>(list2))</span><br></pre></td></tr></table></figure>
-
-<p>输出结果如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Max value element :  zara</span><br><span class="line">Max value element :  700</span><br></pre></td></tr></table></figure>
-
-<p>对于 List[int], max 的比较方式很容易发现, 直接比较列表中最大的那个数字, 那么对于 List[str] 的比较方式呢? c 语言中有一个 <strong>strcmp</strong> 的函数, max 的比较方式和它的方式类似, <strong>两个字符串自左向右逐个字符相比（按ASCII值大小相比较），直到出现不同的字符,返回值大的字符</strong>,min 比较方式也类似,只是返回值小的字符</p>
-<h1 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h1><p>之前在 Leetcode 看到一个题目,算是对 max,min 比较灵活的运用了,<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/longest-common-prefix/"><br>最长公共前缀</a>,题目如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">编写一个函数来查找字符串数组中的最长公共前缀。</span><br><span class="line"></span><br><span class="line">如果不存在公共前缀，返回空字符串 &quot;&quot;。</span><br><span class="line"></span><br><span class="line">示例 1:</span><br><span class="line"></span><br><span class="line">输入: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]</span><br><span class="line">输出: &quot;fl&quot;</span><br><span class="line">示例 2:</span><br><span class="line"></span><br><span class="line">输入: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]</span><br><span class="line">输出: &quot;&quot;</span><br><span class="line">解释: 输入不存在公共前缀。</span><br><span class="line">说明:</span><br><span class="line"></span><br><span class="line">所有输入只包含小写字母 a-z 。</span><br></pre></td></tr></table></figure>
-
-<p>直接上答案:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestCommonPrefix</span>(<span class="params">self, strs: <span class="string">&#x27;List[str]&#x27;</span></span>) -&gt; &#x27;<span class="built_in">str</span>&#x27;:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> strs:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">        </span><br><span class="line">        s1 = <span class="built_in">min</span>(strs)</span><br><span class="line">        s2 = <span class="built_in">max</span>(strs)</span><br><span class="line">        ans = <span class="string">&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i, v <span class="keyword">in</span> <span class="built_in">enumerate</span>(s1):</span><br><span class="line">            <span class="keyword">if</span> v != s2[i]:</span><br><span class="line">                <span class="keyword">return</span> s1[:i]</span><br><span class="line">                    </span><br><span class="line">        <span class="keyword">return</span> s1</span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/02/28/Spring%20Boot%20%E4%B8%AD%20module%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%20Autowired%20%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -403,7 +236,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -478,7 +311,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -564,7 +397,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -638,7 +471,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -756,7 +589,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -844,7 +677,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -947,7 +780,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -1041,7 +874,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -1073,6 +906,197 @@
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> r#<span class="function"><span class="keyword">fn</span> = &quot;<span class="title">this</span> <span class="title">variable</span> <span class="title">is</span> <span class="title">named</span> &#x27;<span class="title">fn</span>&#x27; <span class="title">even</span> <span class="title">though</span> <span class="title">that</span>&#x27;<span class="title">s</span> <span class="title">a</span> <span class="title">keyword</span>&quot;; </span></span><br><span class="line"><span class="function">// <span class="title">call</span> <span class="title">a</span> <span class="title">function</span> <span class="title">named</span> &#x27;<span class="title">match</span>&#x27; </span></span><br><span class="line"><span class="function"><span class="title">r</span>#<span class="title">match</span></span>();</span><br></pre></td></tr></table></figure>
 
 <h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/book/ch03-00-common-programming-concepts.html#identifiers">Identifiers</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/07/%E4%BB%80%E4%B9%88%E6%98%AF%20__future__%20%E6%A8%A1%E5%9D%97%20%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/01/07/%E4%BB%80%E4%B9%88%E6%98%AF%20__future__%20%E6%A8%A1%E5%9D%97%20%EF%BC%9F/" class="post-title-link" itemprop="url">什么是 __future__ 模块 ？</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-07T00:00:00+08:00">2019-01-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>不知道大家有没有注意到 python 有一个  __future__  模块，如果大家有人看开源项目兼容 py2 和 py3 的话，它们的源代码中会经常出现这个模块，那么这个模块究竟有什么作用呢？</p>
+<h1 id="future"><a href="#future" class="headerlink" title="__future__"></a>__future__</h1><p>关于 __future__ 的作用，官方文档中也有明确提到，让我们看一下:</p>
+<blockquote>
+<p>_<em>future_</em> is a real module, and serves three purposes:</p>
+</blockquote>
+<ol>
+<li>To avoid confusing existing tools that analyze import statements and expect to find the modules they’re importing.</li>
+<li>To ensure that future statements run under releases prior to 2.1 at least yield runtime exceptions (the import of __future__ will fail, because there was no module of that name prior to 2.1).</li>
+<li>To document when incompatible changes were introduced, and when they will be — or were — made mandatory. This is a form of executable documentation, and can be inspected programmatically via importing __future__ and examining its contents.</li>
+</ol>
+<p>翻译过来大致意思如下:</p>
+<ol>
+<li>为了避免混淆现有工具，分析import语句和期望找到他们要导入的模块。</li>
+<li>确保2.1之前的版本导入 __future__产生运行时异常，因为2.1之前没有这个模块</li>
+<li>记录何时引入了不兼容的更改，以及何时将其强制执行。 这是一种可执行文档，可以通过导入 __future__进行可编程式检查。</li>
+</ol>
+<p>看完的感觉是不是这样的？</p>
+<p><img src="http://ww1.sinaimg.cn/thumbnail/006wYWbGly1fyy8rbifu0j30jg0eoab9.jpg"></p>
+<p>如果是的话，就对了。别看官方文档上面写的很邪乎，其实总结起来很简单， python 在新版本会引入某些新的功能特性，但是有的时候有些改动是不兼容旧版本的，举个例子说，比如你的项目是用的是 py2.7，现在你需要迁移到 3.x 版本，直接升级到 3.x 肯定是不行的，那怎么办呢？这个时候就需要用到 _<em>future_</em> 了，我们可以通过 _<em>future_</em> 导入新版本某些模块，测试新版本的新功能，等测试成功后再升级到新的版本上.</p>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>说完了，我们举个最典型的例子， <strong>print</strong>, 使用过 py2.7 和 py3.x 的小伙伴肯定都知道，在 3.x 的时候，print 成了一下函数，那么让我们在 py2.7 通过 __future__ 感受一下</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyy9575xrej30bc04qdg1.jpg"></p>
+<p>除了 print，还有其他不少类似的，在官方文档中都有提及到，我这里就简单截个图，有兴趣的可以自己去官网研究一下</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyy97sxesuj30lo075abh.jpg"></p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://docs.python.org/3.6/library/__future__.html?highlight=__future__#module-__future__">__future__ — Future statement definitions</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7075082/what-is-future-in-python-used-for-and-how-when-to-use-it-and-how-it-works">What is __future__ in Python used for and how/when to use it, and how it works</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B%20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B%20/" class="post-title-link" itemprop="url">-is- 和 -==- 的故事</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-04 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-04T00:00:00+08:00">2019-01-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>相比写过 Python 的小伙伴对 “is” 和 “==” 这两个运算符肯定不会陌生,但是你真的能清楚两者的区别吗? 别着急,听我慢慢道来.</p>
+<h1 id="is-和"><a href="#is-和" class="headerlink" title="is 和 =="></a>is 和 ==</h1><p>“is” 和 “==” 都是用来比较两个对象的,区别在于 “is” 是用来判断,两个对象是否为相同,即它们实际的内存地址是否相等,也就是说 <strong>id()</strong> 值是否一样, 而 “==” 就很简单了,它只是比较两个对象的值是不是相同.</p>
+<p>是不是很简单,让我们结合之前的知识点进行简单的测试.</p>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>1.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="string">&quot;leetao&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="string">&quot;leetao&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b <span class="comment"># </span></span><br><span class="line">&gt;&gt;&gt;&gt; a <span class="keyword">is</span> b <span class="comment"># </span></span><br></pre></td></tr></table></figure>
+<p>第一组输出分别是什么呢?让我们揭晓答案:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyukc0x53ij30b00560sl.jpg"></p>
+<p>这个例子如果错了,需要看一下我之前写的关于字符串池化的那篇文章了,这里字符串 “leetao” 被池化了,所以 a,b 两者实际指向同一块内存.</p>
+<p>2.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = b = [<span class="string">&quot;l&quot;</span>,<span class="string">&quot;e&quot;</span>,<span class="string">&quot;e&quot;</span>,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;o&quot;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = [<span class="string">&quot;l&quot;</span>,<span class="string">&quot;e&quot;</span>,<span class="string">&quot;e&quot;</span>,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;o&quot;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b <span class="comment"># </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b <span class="comment"># </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> c <span class="comment"># </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == c <span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+<p>第二组的正确答案:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyukdqu3qjj30gf08njrd.jpg"></p>
+<p>这个例子也不能理解,之前关于字符串池化的时候,也提过类似的例子,a,b 在同一行赋值, python 解释器进行了优化,将两者指向同一个对象,所以导致 a 和 b 值相等, id 也相等, 至于 a 和 c 很好理解,它们值相等,但是很明显,id值不一样.</p>
+<p>3</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">256</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="number">256</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b <span class="comment"># </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b <span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = <span class="number">257</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = <span class="number">257</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c <span class="keyword">is</span> d <span class="comment">#</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c == d <span class="comment">#</span></span><br></pre></td></tr></table></figure>
+
+<p>第三组就更有意思了,答案:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyukezmmo8j307n0a4q2w.jpg"></p>
+<p>这个例子,牵扯到另外一个知识点,关于 Integer 对象的一个小的知识点,让我们看一下官方原文:</p>
+<blockquote>
+<p>The current implementation keeps an array of integer objects for all integers between -5 and 256, when you create an int in that range you actually just get back a reference to the existing object. So it should be possible to change the value of 1. I suspect the behaviour of Python in this case is undefined. :-)</p>
+</blockquote>
+<p>翻译过来的意思大致就是: 当前实现为-5到256之间的所有整数保留一个整数对象数组，当您在该范围内创建一个int时，实际上只返回对现有对象的引用。 因此应该可以更改值1.我怀疑在这种情况下Python的行为是未定义的。:-)</p>
+<p>有了这个知识作为前提,就不难理解,上面的例子的答案了.</p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://docs.python.org/3/c-api/long.html#c.PyLong_FromLong">Integer Objects</a></p>
 
       
     </div>

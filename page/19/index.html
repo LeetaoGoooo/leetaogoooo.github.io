@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">200</span>
+          <span class="site-state-item-count">198</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,226 +205,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/12/22/Oracle%20Database%2012c%20Installation%20on%20CentOS%207/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/12/22/Oracle%20Database%2012c%20Installation%20on%20CentOS%207/" class="post-title-link" itemprop="url">Oracle Database 12c Installation on CentOS 7</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-12-22 00:00:00" itemprop="dateCreated datePublished" datetime="2016-12-22T00:00:00+08:00">2016-12-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:39" itemprop="dateModified" datetime="2022-11-13T11:24:39+08:00">2022-11-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>:|<br>| Oracle base  | /u01/app/oracle |<br>|  Software location    |   /u01/app/oracle/product/12.1.0/dbhome_1 |<br>| Database file location     |    /u02 |<br>| Global database name | orcl |</p>
-<p>另外请设置合适的 Database edition（数据库版本）及 Character set（字符集）。请为数据库的管理订立一个安全的口令，最后请取消勾选 Create as Container database 项目</p>
-<p><strong>口令</strong>:密码由数字和字母组成,必须包含一个大写字母和一个小写字母<br><strong>字符集</strong>:Unicode(AL32UTF8)</p>
-<p><img src="http://ww3.sinaimg.cn/large/d9e82fa4jw1fayixxs23xj20mb0hrade.jpg"></p>
-<blockquote>
-<p>第五步 —— 创建库存</p>
-</blockquote>
-<p>安装缺省的设置 /u01/app/oraInventory 并按 Next。</p>
-<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1fazb19p2b9j20ma0hrwhm.jpg"></p>
-<blockquote>
-<p>第六步 —— 检查先决条件</p>
-</blockquote>
-<p>安装程序会自动检查所有必须的操作系统组件及内核设置。</p>
-<blockquote>
-<p>第七步 —— 摘要</p>
-</blockquote>
-<p>这是配置安装的最后机会,请按 Install。</p>
-<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1fazb8q5fr0j20mb0hrdk3.jpg"></p>
-<blockquote>
-<p>第八步 —— 安装</p>
-</blockquote>
-<p><img src="http://ww1.sinaimg.cn/large/d9e82fa4jw1fazbxepb3jj20m50hrtbx.jpg"></p>
-<p>当询问窗口出现时，请登录成为 root 并执行两个脚本：</p>
-<p><img src="http://ww4.sinaimg.cn/large/d9e82fa4jw1fazc7e2v94j20f30bpwfv.jpg"></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# /u01/app/oraInventory/orainstRoot.sh</span><br><span class="line">Changing permissions of /u01/app/oraInventory.</span><br><span class="line">Adding read,write permissions for group.</span><br><span class="line">Removing read,write,execute permissions for world.</span><br><span class="line">Changing groupname of /u01/app/oraInventory to oinstall.</span><br><span class="line">The execution of the script is complete.</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# /u01/app/oracle/product/12.1.0/dbhome_2/root.sh</span><br><span class="line">Performing root user operation.</span><br><span class="line">The following environment variables are set as:</span><br><span class="line">    ORACLE_OWNER= oracle</span><br><span class="line">    ORACLE_HOME=  /u01/app/oracle/product/12.1.0/dbhome_2</span><br><span class="line">Enter the full pathname of the local bin directory: [/usr/local/bin]: &lt;PRESS ENTER&gt;</span><br><span class="line">   Copying dbhome to /usr/local/bin ...</span><br><span class="line">   Copying oraenv to /usr/local/bin ...</span><br><span class="line">   Copying coraenv to /usr/local/bin ...</span><br><span class="line">Creating /etc/oratab file...</span><br><span class="line">Entries will be added to the /etc/oratab file as needed by</span><br><span class="line">Database Configuration Assistant when a database is created</span><br><span class="line">Finished running generic part of root script.</span><br><span class="line">Now product-specific root actions will be performed.</span><br><span class="line">You can follow the installation in a separated window.</span><br></pre></td></tr></table></figure>
-
-<p>这两个脚本都必须以 root 的身份来执行,然后出现一个进度条,等待安装完成</p>
-<p><img src="http://ww2.sinaimg.cn/large/d9e82fa4jw1fazcaw8touj20h10c7ab7.jpg"></p>
-<blockquote>
-<p>第九步 —— 顺利完成安装</p>
-</blockquote>
-<p>最后一个画面将会通知你安装已经完成并显示 Oracle 企业级管理员的 URL。</p>
-<p><img src="http://ww2.sinaimg.cn/large/d9e82fa4jw1fazcr0uoa9j20fr0auac2.jpg"></p>
-<p><a target="_blank" rel="noopener" href="https://localhost:5500/em">https://localhost:5500/em</a></p>
-<p>请按 OK 来关闭安装程序。</p>
-<h1 id="安装完成后的任务"><a href="#安装完成后的任务" class="headerlink" title="安装完成后的任务"></a>安装完成后的任务</h1><h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><p>请登录成为 root 并检查已引导的本地</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# firewall-cmd --get-active-zones</span><br><span class="line">public</span><br><span class="line">  interfaces: eno16777736</span><br></pre></td></tr></table></figure>
-
-<p>打开相关的端口</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# firewall-cmd --zone=public --add-port=1521/tcp --add-port=5500/tcp --add-port=5520/tcp --add-port=3938/tcp --permanent</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# firewall-cmd --reload</span><br><span class="line">success</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# firewall-cmd --list-ports</span><br><span class="line">1521/tcp 3938/tcp 5500/tcp 5520/tcp</span><br></pre></td></tr></table></figure>
-
-<h2 id="Oracle-工作环境"><a href="#Oracle-工作环境" class="headerlink" title="Oracle 工作环境"></a>Oracle 工作环境</h2><p>请登录为 oracle 用户并在 <em>/home/oracle/.bash_profile</em> 内加入下列数值</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon lt94]# su oracle</span><br><span class="line">[oracle@bogon lt94]$ vim /home/oracle/.bash_profile</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TMPDIR=$TMP; export TMPDIR</span><br><span class="line">ORACLE_BASE=/u01/app/oracle; export ORACLE_BASE</span><br><span class="line">ORACLE_HOME=$ORACLE_BASE/product/12.1.0/dbhome_2; export ORACLE_HOME</span><br><span class="line">ORACLE_SID=orcl; export ORACLE_SID</span><br><span class="line">PATH=$ORACLE_HOME/bin:$PATH; export PATH</span><br><span class="line">LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib:/usr/lib64; export LD_LIBRARY_PATH</span><br><span class="line">CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib; export CLASSPATH</span><br></pre></td></tr></table></figure>
-
-<p>重新加载 bash_profile 使其生效</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[oracle@bogon lt94]$ . /home/oracle/.bash_profile </span><br></pre></td></tr></table></figure>
-
-<h2 id="登录数据库"><a href="#登录数据库" class="headerlink" title="登录数据库"></a>登录数据库</h2><p>最后请登录数据库：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[oracle@bogon lt94]$ sqlplus system@orcl</span><br><span class="line"></span><br><span class="line">SQL*Plus: Release 12.1.0.2.0 Production on Wed Dec 21 18:28:20 2016</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2014, Oracle.  All rights reserved.</span><br><span class="line"></span><br><span class="line">Enter password: </span><br><span class="line">Last Successful login time: Wed Dec 21 2016 18:25:24 -08:00</span><br><span class="line"></span><br><span class="line">Connected to:</span><br><span class="line">Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production</span><br><span class="line">With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">SQL&gt;</span><span class="bash"> </span></span><br></pre></td></tr></table></figure>
-
-<p>请利用 Oracle 企业级管理员来管理数据库：<br>https://&lt;主机名称&gt;:5500/em</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/12/19/Install%20Oracle%2011g%20Express%20(XE)%20on%20CentOS%207/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/12/19/Install%20Oracle%2011g%20Express%20(XE)%20on%20CentOS%207/" class="post-title-link" itemprop="url">Install Oracle 11g Express (XE) on CentOS 7</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-12-19 00:00:00" itemprop="dateCreated datePublished" datetime="2016-12-19T00:00:00+08:00">2016-12-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:39" itemprop="dateModified" datetime="2022-11-13T11:24:39+08:00">2022-11-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>This will configure on-boot properties of Oracle Database 11g Express<br>Edition.  The following questions will determine whether the database should<br>be starting upon system boot, the ports it will use, and the passwords that<br>will be used for database accounts.  Press <Enter> to accept the defaults.<br>Ctrl-C will abort.</p>
-<p>Specify the HTTP port that will be used for Oracle Application Express [8080]:</p>
-<p>Specify a port that will be used for the database listener [1521]:</p>
-<p>Specify a password to be used for database accounts.  Note that the same<br>password will be used for SYS and SYSTEM.  Oracle recommends the use of<br>different passwords for each database account.  This can be done after<br>initial configuration:<br>Password can’t be null. Enter password:<br>Confirm the password:</p>
-<p>Do you want Oracle Database 11g Express Edition to be started on boot (y/n) [y]:y</p>
-<p>Starting Oracle Net Listener…Done<br>Configuring database…Done<br>Starting Oracle Database 11g Express Edition instance…Done<br>Installation completed successfully.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">安装成功后将会创建一个 /u01 的文件</span><br><span class="line"></span><br><span class="line"># 环境配置</span><br><span class="line"></span><br><span class="line">安装完成之后为了设置 Oracle 运行所需的环境变量,执行 */u01/app/oracle/product/11.2.0/xe/bin* 下的 *oracle_env.sh* 的脚本</span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line">[root@bogon local]# cd /u01/app/oracle/product/11.2.0/xe/bin/</span><br></pre></td></tr></table></figure>
-
-<p>针对当前用户设置环境变量,运行 <em>. ./oracle_env.sh</em> 命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon bin]# . ./oracle_env.sh</span><br></pre></td></tr></table></figure>
-
-<p>如果想让其他用户拥有同样的权限,可以将下述命令添加到你需要的用户的 .bashrc 或者 .bash_profile 文件当中去</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">. /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh  </span><br></pre></td></tr></table></figure>
-
-<p>现在我们可以尝试通过命令行访问 <em>SQL</em>Plus* 了</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon bin]# sqlplus /nolog</span><br><span class="line"></span><br><span class="line">SQL*Plus: Release 11.2.0.2.0 Production on 星期日 12月 18 18:51:42 2016</span><br><span class="line"></span><br><span class="line">Copyright (c) 1982, 2011, Oracle.  All rights reserved.</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">SQL&gt;</span><span class="bash"> connect sys/Password as sysdba</span>  </span><br><span class="line">Connected.  </span><br><span class="line"><span class="meta">SQL&gt;</span><span class="bash"> </span></span><br></pre></td></tr></table></figure>
-
-<h1 id="允许远程访问-Oracle-11g-XE-GUI"><a href="#允许远程访问-Oracle-11g-XE-GUI" class="headerlink" title="允许远程访问 Oracle 11g XE GUI"></a>允许远程访问 Oracle 11g XE GUI</h1><p>为了允许远程访问 Oracle 11g XE GUI, 在 SQL*Plus 执行下列语句</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span>  <span class="keyword">EXEC</span> DBMS_XDB.SETLISTENERLOCALACCESS(<span class="literal">FALSE</span>); </span><br><span class="line">PL<span class="operator">/</span><span class="keyword">SQL</span> 过程已成功完成。</span><br></pre></td></tr></table></figure>
-
-<p>现在你可以访问 Oracle 11g XE GUI 通过该网址 <a target="_blank" rel="noopener" href="http://localhost:8080/apex/f?p=4950:1">http://localhost:8080/apex/f?p=4950:1</a><br>将 locahost 替换为你的ip地址或者域名同样也可以访问,登录使用的密码是配置 Oracle 中设置的密码</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/12/08/Windows%E4%B8%8BPHP%E5%AE%89%E8%A3%85PEAR/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -456,7 +236,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:39" itemprop="dateModified" datetime="2022-11-13T11:24:39+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -538,7 +318,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:39" itemprop="dateModified" datetime="2022-11-13T11:24:39+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -634,7 +414,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:39" itemprop="dateModified" datetime="2022-11-13T11:24:39+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -721,7 +501,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:39" itemprop="dateModified" datetime="2022-11-13T11:24:39+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -829,7 +609,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:39" itemprop="dateModified" datetime="2022-11-13T11:24:39+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -946,7 +726,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:39" itemprop="dateModified" datetime="2022-11-13T11:24:39+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -1029,7 +809,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:39" itemprop="dateModified" datetime="2022-11-13T11:24:39+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -1127,7 +907,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:24:39" itemprop="dateModified" datetime="2022-11-13T11:24:39+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
     </span>
 
   
@@ -1156,6 +936,175 @@
 <h1 id="The-model"><a href="#The-model" class="headerlink" title="The model"></a>The model</h1><p>在拥有一个良好的分层架构的应用程序中,这种模式只会通往域层或业务逻辑.如果我们正在使用<a target="_blank" rel="noopener" href="https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html">Uncle Bob clean architecture </a>,模型可能是一个实现了一个用例的交互器.但这是另一个话题,我想在以后的文章中讨论.现在,我们可以意识到它可以作为我们希望显示在视图中的那些数据的提供者.</p>
 <h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>由于它解释起来有点冗长的，因此我在 Github 上创建了一个 <a target="_blank" rel="noopener" href="https://github.com/antoniolg/androidmvp">MVP 样例</a>,样例包含一个登陆页面验证数据,验证成功后访问包含从模型中检索的一系列表数据的主页.本文并没有对代码进行任何解释,因为代码相当简单.当然如果你觉得理解起来比较困难 的话,我将再写一篇文章详细的解释它.</p>
 <h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>将界面与逻辑分离开在 Android 并不容易,但是 Model-View-Presenter 模式使得我们的活动,包含上百行甚至上千行的耦合的类得以解耦.在大型应用程序中组织好我们的代码至关重要.如果没有做好这点,维护和拓展就无从谈起.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/10/24/PHP%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83(%E4%B8%80)%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/10/24/PHP%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83(%E4%B8%80)%E5%9F%BA%E6%9C%AC%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" class="post-title-link" itemprop="url">PHP编码规范(一)基本代码规范</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-10-24 00:00:00" itemprop="dateCreated datePublished" datetime="2016-10-24T00:00:00+08:00">2016-10-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-13 11:26:35" itemprop="dateModified" datetime="2022-11-13T11:26:35+08:00">2022-11-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>此处的“类”指代所有的类、接口以及可复用代码块（traits）</p>
+<h3 id="4-1-常量"><a href="#4-1-常量" class="headerlink" title="4.1. 常量"></a>4.1. 常量</h3><p>类的常量中所有字母都<strong>必须</strong>大写，词间以下划线分隔。<br>参照以下代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Vendor</span>\<span class="title">Model</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> VERSION = <span class="string">&#x27;1.0&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> DATE_APPROVED = <span class="string">&#x27;2012-06-01&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-属性"><a href="#4-2-属性" class="headerlink" title="4.2. 属性"></a>4.2. 属性</h3><p>类的属性命名可以遵循 大写开头的驼峰式 (<code>$StudlyCaps</code>)、小写开头的驼峰式 (<code>$camelCase</code>) 又或者是 下划线分隔式 (<code>$under_score</code>)，本规范不做强制要求，但无论遵循哪种命名方式，都<strong>应该</strong>在一定的范围内保持一致。这个范围可以是整个团队、整个包、整个类或整个方法。</p>
+<h3 id="4-3-方法"><a href="#4-3-方法" class="headerlink" title="4.3. 方法"></a>4.3. 方法</h3><p>方法名称<strong>必须</strong>符合 <code>camelCase()</code> 式的小写开头驼峰命名规范。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2016/10/14/Visio%E7%9A%84UML%E7%AC%A6%E5%8F%B7%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/10/14/Visio%E7%9A%84UML%E7%AC%A6%E5%8F%B7%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" class="post-title-link" itemprop="url">Visio的UML符号使用说明</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-10-14 00:00:00" itemprop="dateCreated datePublished" datetime="2016-10-14T00:00:00+08:00">2016-10-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-13 11:26:36" itemprop="dateModified" datetime="2022-11-13T11:26:36+08:00">2022-11-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/comb_august/article/details/8839190">原文链接</a></p>
+</blockquote>
+<h1 id="关于Visio的UML的符号使用说明"><a href="#关于Visio的UML的符号使用说明" class="headerlink" title="关于Visio的UML的符号使用说明"></a>关于Visio的UML的符号使用说明</h1><ol>
+<li>继承（extends）：用空心三角形+实线来表示。</li>
+<li>实现接口（implements）：用空心三角形+虚线来表示。（Visio中小圆形加实线） </li>
+<li>关联（Association）：用实线箭头来表示（Visio中实线，二元关联和关联类） </li>
+<li>聚合（Aggregation）：用空心的菱形+实线箭头来表示</li>
+<li>组合（Composition）：用实心的菱形+实线箭头来表示（Visio中没有）</li>
+<li>依赖（Dependency）：用虚线箭头来表示。（Visio中有调用、导入、实例化等7种依赖关系）。 </li>
+<li>基数：连线两端的数字表明这一端的类可以有几个实例，比如：一个鸟应该有两只翅膀。如果一个类可能有无数个实例，则就用’n’来表示。关联、聚合、组合是有基数的。<br>此外Visio中还包括链接、约束、跟踪、精化、用法关系，包括信号、异常等符号。</li>
+</ol>
+<h1 id="各种类间的关系"><a href="#各种类间的关系" class="headerlink" title="各种类间的关系"></a>各种类间的关系</h1><p>种类间的关系：</p>
+<ol>
+<li>关联：类A与类B的实例之间存在特定的对应关系</li>
+<li>依赖：类A访问类B提供的服务</li>
+<li>聚集：类A为整体类，类B为局部类，类A的对象由类B的对象组合而成</li>
+<li>泛化：类A继承类B</li>
+<li>实现：类A实现了B接口 </li>
+</ol>
+<p>关联可以分为三种：一对一关联、一对多关联、多对多关联，注意：关联还要以分为单向关联和双向关联。</p>
+<p>聚合包括普通聚合和强聚合，强聚合不允许拆缷。</p>
+<h1 id="各种类关系示意图"><a href="#各种类关系示意图" class="headerlink" title="各种类关系示意图"></a>各种类关系示意图</h1><p><img src="http://ww4.sinaimg.cn/large/d9e82fa4gw1f8cshl7hhqj20ld0p5jxx.jpg"></p>
 
       
     </div>
