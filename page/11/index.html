@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-count">200</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -205,6 +205,184 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/11/21/context_processor%20%E4%B8%8A%E4%B8%8B%E6%96%87%E5%A4%84%E7%90%86%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/11/21/context_processor%20%E4%B8%8A%E4%B8%8B%E6%96%87%E5%A4%84%E7%90%86%E5%99%A8/" class="post-title-link" itemprop="url">context_processor 上下文处理器</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-21 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-21T00:00:00+08:00">2018-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>写专栏写了一段时间了，但是一直都没有带大家做一个完整的小项目，俗话说的好，“光说不练假把式,光练不说真把式,连说带练全把式”，自然我要当仁不让做“全把式”了，然后自己就偷偷摸摸的花了几天时间撸了一个博客，功能暂时没有全部完成，完成后会写一个教程教大家从零开始撸一个自己的博客，博客地址:<a target="_blank" rel="noopener" href="http://132.232.71.126:8080/">http://132.232.71.126:8080/</a>, 测试账号(没有修改、创建、删除权限): test/test,大家可以先睹为快， 好了这都不是重点，重点是我在写的过程中遇到了一个问题，我的好几个页面都有一个标签云，这个标签云中的标签自然会随着博客内容的增多而变化，因此肯定需要根据博客内容，自动生成，那么问题来了，我改怎么写呢？</p>
+<h1 id="二话不说，先写为敬"><a href="#二话不说，先写为敬" class="headerlink" title="二话不说，先写为敬"></a>二话不说，先写为敬</h1><p>博客里面有三个地方用到了标签云：主页面，分类页面，博客详情页面，于是有了下面一段代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 主页面</span></span><br><span class="line"><span class="meta">@main.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    tags = Tag.query.<span class="built_in">all</span>()</span><br><span class="line">    <span class="comment"># ...省略部分代码</span></span><br><span class="line">    <span class="keyword">return</span> render_html(<span class="string">&quot;index.html&quot;</span>, tags=tags,)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分类页面</span></span><br><span class="line"><span class="meta">@main.route(<span class="params"><span class="string">&quot;tag/&lt;int:id&gt;&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tags</span>(<span class="params"><span class="built_in">id</span></span>):</span></span><br><span class="line">    tags = Tag.query.<span class="built_in">all</span>()</span><br><span class="line">    <span class="comment"># ...省略部分代码</span></span><br><span class="line">    <span class="keyword">return</span> render_html(<span class="string">&quot;tags.html&quot;</span>, tags=tags,)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 博客详情页面</span></span><br><span class="line"><span class="meta">@main.route(<span class="params"><span class="string">&quot;post/&lt;int:id&gt;&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post</span>(<span class="params"><span class="built_in">id</span></span>):</span></span><br><span class="line">    tags = Tag.query.<span class="built_in">all</span>()</span><br><span class="line">    <span class="comment"># ...省略部分代码</span></span><br><span class="line">    <span class="keyword">return</span> render_html(<span class="string">&quot;post.html&quot;</span>, tags=tags,post=post)</span><br></pre></td></tr></table></figure>
+
+<p>好像问题解决了？所有页面都能显示出来标签云了？ 但是这三个页面都回传 <strong>tags</strong> 会不会太难看了一些，完全不优雅了嘛，有没有好的办法呢？ 答案自然是有的，接下来就到我们的重点了。</p>
+<h1 id="context-processor-闪亮登场"><a href="#context-processor-闪亮登场" class="headerlink" title="context_processor 闪亮登场"></a>context_processor 闪亮登场</h1><p>跟我们之前的说到的钩子函数一样，它也有一个兄弟–<strong>app_context_processor</strong>，区别很简单，后者是针对蓝图的。让我们看一下它的官方定义:</p>
+<blockquote>
+<p>Registers a template context processor function.</p>
+</blockquote>
+<p>翻译过来很简单: 注册模板上下文处理器功能。 这个真能解决我们的问题吗？别着急让我们试一下，把之前的代码改造一下。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@main.app_context_processor</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">peach_blog_menu</span>():</span></span><br><span class="line">    tags = Tag.query.<span class="built_in">all</span>()</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">dict</span>(tags=tags)</span><br><span class="line"></span><br><span class="line"><span class="meta">@main.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    <span class="comment"># ...省略部分代码</span></span><br><span class="line">    <span class="keyword">return</span> render_html(<span class="string">&quot;index.html&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分类页面</span></span><br><span class="line"><span class="meta">@main.route(<span class="params"><span class="string">&quot;tag/&lt;int:id&gt;&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tags</span>(<span class="params"><span class="built_in">id</span></span>):</span></span><br><span class="line">    <span class="comment"># ...省略部分代码</span></span><br><span class="line">    <span class="keyword">return</span> render_html(<span class="string">&quot;tags.html&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 博客详情页面</span></span><br><span class="line"><span class="meta">@main.route(<span class="params"><span class="string">&quot;post/&lt;int:id&gt;&quot;</span></span>)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post</span>(<span class="params"><span class="built_in">id</span></span>):</span></span><br><span class="line">    tags = Tag.query.<span class="built_in">all</span>()</span><br><span class="line">    <span class="comment"># ...省略部分代码</span></span><br><span class="line">    <span class="keyword">return</span> render_html(<span class="string">&quot;post.html&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>是不是发现什么消失了？ <strong>tags</strong> 好像从之前的几个函数中消失了，没有回传到前台，能访问到吗？自然是可以的。原因自然是 context_processor 了，它可以<strong>将我们的定义变量在所有模板中可见</strong>。</p>
+<p><strong>如何使用呢？</strong></p>
+<ol>
+<li> 如上述代码那样， context_processor 作为一个装饰器修饰一个函数</li>
+<li> 函数的返回结果必须是 <em>dict</em>, 然后其 <em>key</em> 将会作为变量在所有模板中可见</li>
+</ol>
+<p>当你的很多视图函数中需要回传一个相同的变量的时候，这个时候就可以考虑使用 context_processor 了</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/11/06/%E7%94%A8%20python%20%E6%8A%93%E5%8F%96%E7%9F%A5%E4%B9%8E%E6%8C%87%E5%AE%9A%E5%9B%9E%E7%AD%94%E4%B8%8B%E7%9A%84%E8%A7%86%E9%A2%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/11/06/%E7%94%A8%20python%20%E6%8A%93%E5%8F%96%E7%9F%A5%E4%B9%8E%E6%8C%87%E5%AE%9A%E5%9B%9E%E7%AD%94%E4%B8%8B%E7%9A%84%E8%A7%86%E9%A2%91/" class="post-title-link" itemprop="url">用 python 抓取知乎指定回答下的视频</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-06T00:00:00+08:00">2018-11-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>现在知乎允许上传视频，奈何不能下载视频，好气哦，无奈之下研究一下了，然后撸了代码，方便下载视频保存。</p>
+<p>接下来以 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/268021660/answer/520507373">猫为什么一点也不怕蛇？</a> 回答为例，分享一下整个下载过程。</p>
+<h1 id="调试一下"><a href="#调试一下" class="headerlink" title="调试一下"></a>调试一下</h1><p>打开 F12, 找到光标，如下图：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwy64j8p3mj31o215nagi.jpg"></p>
+<p>然后将光标移动到视频上。如下图：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwy65i2f89j31iy0x5nar.jpg"></p>
+<p>咦这是什么？视野中出现了一条神秘的链接: <code><a target="_blank" rel="noopener" href="https://www.zhihu.com/video/xxxxx">https://www.zhihu.com/video/xxxxx</a></code>，让我们将这条链接复制到浏览器上，然后打开：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwy699p9hvj31050v0k15.jpg"></p>
+<p>似乎这就是我们要找的视频，不要着急，让我们看一看，网页的请求，然后你会发现一个很有意思的请求(重点来了):</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwy6bnesp3j322j0g9din.jpg"></p>
+<p>让我们自己看一下数据吧:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;playlist&quot;</span>: &#123;</span><br><span class="line">		<span class="attr">&quot;ld&quot;</span>: &#123;</span><br><span class="line">			<span class="attr">&quot;width&quot;</span>: <span class="number">360</span>,</span><br><span class="line">			<span class="attr">&quot;format&quot;</span>: <span class="string">&quot;mp4&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;play_url&quot;</span>: <span class="string">&quot;https://vdn.vzuu.com/LD/05fc411e-d8e0-11e8-bb8b-0242ac112a0b.mp4?auth_key=1541477643-0-0-987c2c504d14ab1165ce2ed47759d927&amp;expiration=1541477643&amp;disable_local_cache=1&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;duration&quot;</span>: <span class="number">17</span>,</span><br><span class="line">			<span class="attr">&quot;size&quot;</span>: <span class="number">1123111</span>,</span><br><span class="line">			<span class="attr">&quot;bitrate&quot;</span>: <span class="number">509</span>,</span><br><span class="line">			<span class="attr">&quot;height&quot;</span>: <span class="number">640</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">&quot;hd&quot;</span>: &#123;</span><br><span class="line">			<span class="attr">&quot;width&quot;</span>: <span class="number">720</span>,</span><br><span class="line">			<span class="attr">&quot;format&quot;</span>: <span class="string">&quot;mp4&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;play_url&quot;</span>: <span class="string">&quot;https://vdn.vzuu.com/HD/05fc411e-d8e0-11e8-bb8b-0242ac112a0b.mp4?auth_key=1541477643-0-0-8b8024a22a62f097ca31b8b06b7233a1&amp;expiration=1541477643&amp;disable_local_cache=1&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;duration&quot;</span>: <span class="number">17</span>,</span><br><span class="line">			<span class="attr">&quot;size&quot;</span>: <span class="number">4354364</span>,</span><br><span class="line">			<span class="attr">&quot;bitrate&quot;</span>: <span class="number">1974</span>,</span><br><span class="line">			<span class="attr">&quot;height&quot;</span>: <span class="number">1280</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">&quot;sd&quot;</span>: &#123;</span><br><span class="line">			<span class="attr">&quot;width&quot;</span>: <span class="number">480</span>,</span><br><span class="line">			<span class="attr">&quot;format&quot;</span>: <span class="string">&quot;mp4&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;play_url&quot;</span>: <span class="string">&quot;https://vdn.vzuu.com/SD/05fc411e-d8e0-11e8-bb8b-0242ac112a0b.mp4?auth_key=1541477643-0-0-5948c2562d817218c9a9fc41abad1df8&amp;expiration=1541477643&amp;disable_local_cache=1&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;duration&quot;</span>: <span class="number">17</span>,</span><br><span class="line">			<span class="attr">&quot;size&quot;</span>: <span class="number">1920976</span>,</span><br><span class="line">			<span class="attr">&quot;bitrate&quot;</span>: <span class="number">871</span>,</span><br><span class="line">			<span class="attr">&quot;height&quot;</span>: <span class="number">848</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">&quot;title&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;duration&quot;</span>: <span class="number">17</span>,</span><br><span class="line">	<span class="attr">&quot;cover_info&quot;</span>: &#123;</span><br><span class="line">		<span class="attr">&quot;width&quot;</span>: <span class="number">720</span>,</span><br><span class="line">		<span class="attr">&quot;thumbnail&quot;</span>: <span class="string">&quot;https://pic2.zhimg.com/80/v2-97b9435a0c32d01c7c931bd00120327d_b.jpg&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;height&quot;</span>: <span class="number">1280</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">&quot;type&quot;</span>: <span class="string">&quot;video&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;id&quot;</span>: <span class="string">&quot;1039146361396174848&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;misc_info&quot;</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>没错了，我们要下载的视频就在这里面，其中 ld 代表普清,sd 代表标清, hd 代表高清，把相应链接再次在浏览器打开，然后右键保存就可以下载视频了。</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>知道整个流程是什么样子，接下来撸代码的过程就简单了，这里就不过再做过多解释了，直接上代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> uuid</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DownloadVideo</span>:</span></span><br><span class="line"></span><br><span class="line">    __slots__ = [</span><br><span class="line">        <span class="string">&#x27;url&#x27;</span>, <span class="string">&#x27;video_name&#x27;</span>, <span class="string">&#x27;url_format&#x27;</span>, <span class="string">&#x27;download_url&#x27;</span>, <span class="string">&#x27;video_number&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;video_api&#x27;</span>, <span class="string">&#x27;clarity_list&#x27;</span>, <span class="string">&#x27;clarity&#x27;</span></span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, url, clarity=<span class="string">&#x27;ld&#x27;</span>, video_name=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.url = url</span><br><span class="line">        self.video_name = video_name</span><br><span class="line">        self.url_format = <span class="string">&quot;https://www.zhihu.com/question/\d+/answer/\d+&quot;</span></span><br><span class="line">        self.clarity = clarity</span><br><span class="line">        self.clarity_list = [<span class="string">&#x27;ld&#x27;</span>, <span class="string">&#x27;sd&#x27;</span>, <span class="string">&#x27;hd&#x27;</span>]</span><br><span class="line">        self.video_api = <span class="string">&#x27;https://lens.zhihu.com/api/videos&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">check_url_format</span>(<span class="params">self</span>):</span></span><br><span class="line">        pattern = re.<span class="built_in">compile</span>(self.url_format)</span><br><span class="line">        matches = re.match(pattern, self.url)</span><br><span class="line">        <span class="keyword">if</span> matches <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(</span><br><span class="line">                <span class="string">&quot;链接格式应符合:https://www.zhihu.com/question/&#123;number&#125;/answer/&#123;number&#125;&quot;</span></span><br><span class="line">            )</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_video_number</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            headers = &#123;</span><br><span class="line">                <span class="string">&#x27;User-Agent&#x27;</span>:</span><br><span class="line">                <span class="string">&#x27;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">            response = requests.get(self.url, headers=headers)</span><br><span class="line">            response.encoding = <span class="string">&#x27;utf-8&#x27;</span></span><br><span class="line">            html = response.text</span><br><span class="line">            video_ids = re.findall(<span class="string">r&#x27;data-lens-id=&quot;(\d+)&quot;&#x27;</span>, html)</span><br><span class="line">            <span class="keyword">if</span> video_ids:</span><br><span class="line">                video_id_list = <span class="built_in">list</span>(<span class="built_in">set</span>([video_id <span class="keyword">for</span> video_id <span class="keyword">in</span> video_ids]))</span><br><span class="line">                self.video_number = video_id_list[<span class="number">0</span>]</span><br><span class="line">                <span class="keyword">return</span> self</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&quot;获取视频编号异常:&#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.url))</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">raise</span> Exception(e)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_video_url_by_number</span>(<span class="params">self</span>):</span></span><br><span class="line">        url = <span class="string">&quot;&#123;&#125;/&#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.video_api, self.video_number)</span><br><span class="line"></span><br><span class="line">        headers = &#123;&#125;</span><br><span class="line">        headers[<span class="string">&#x27;Referer&#x27;</span>] = <span class="string">&#x27;https://v.vzuu.com/video/&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line">            self.video_number)</span><br><span class="line">        headers[<span class="string">&#x27;Origin&#x27;</span>] = <span class="string">&#x27;https://v.vzuu.com&#x27;</span></span><br><span class="line">        headers[</span><br><span class="line">            <span class="string">&#x27;User-Agent&#x27;</span>] = <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36&#x27;</span></span><br><span class="line">        headers[<span class="string">&#x27;Content-Type&#x27;</span>] = <span class="string">&#x27;application/json&#x27;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            response = requests.get(url, headers=headers)</span><br><span class="line">            response_dict = response.json()</span><br><span class="line">            <span class="keyword">if</span> self.clarity <span class="keyword">in</span> response_dict[<span class="string">&#x27;playlist&#x27;</span>]:</span><br><span class="line">                self.download_url = response_dict[<span class="string">&#x27;playlist&#x27;</span>][</span><br><span class="line">                    self.clarity][<span class="string">&#x27;play_url&#x27;</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">for</span> clarity <span class="keyword">in</span> self.clarity_list:</span><br><span class="line">                    <span class="keyword">if</span> clarity <span class="keyword">in</span> response_dict[<span class="string">&#x27;playlist&#x27;</span>]:</span><br><span class="line">                        self.download_url = response_dict[<span class="string">&#x27;playlist&#x27;</span>][</span><br><span class="line">                            self.clarity][<span class="string">&#x27;play_url&#x27;</span>]</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">return</span> self</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">raise</span> Exception(e)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_video_by_video_url</span>(<span class="params">self</span>):</span></span><br><span class="line">        response = requests.get(self.download_url)</span><br><span class="line">        datetime_str = datetime.datetime.now().strftime(<span class="string">&quot;%Y-%m-%d %H-%M-%S&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> self.video_name <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            video_name = <span class="string">&quot;&#123;&#125;-&#123;&#125;.mp4&quot;</span>.<span class="built_in">format</span>(self.video_name, datetime_str)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            video_name = <span class="string">&quot;&#123;&#125;-&#123;&#125;.mp4&quot;</span>.<span class="built_in">format</span>(<span class="built_in">str</span>(uuid.uuid1()), datetime_str)</span><br><span class="line">        path = <span class="string">&quot;&#123;&#125;&quot;</span>.<span class="built_in">format</span>(video_name)</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(path, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(response.content)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">download_video</span>(<span class="params">self</span>):</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.clarity <span class="keyword">not</span> <span class="keyword">in</span> self.clarity_list:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&quot;清晰度参数异常,仅支持:ld(普清),sd(标清),hd(高清)&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.check_url_format():</span><br><span class="line">            <span class="keyword">return</span> self.get_video_number().get_video_url_by_number().get_video_by_video_url()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    a = DownloadVideo(<span class="string">&#x27;https://www.zhihu.com/question/53031925/answer/524158069&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(a.download_video())</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>代码还有优化空间，这里面我只是下载了回答中的第一个视频，理论上应该存在一个回答下可以有多个视频的。如果还有什么疑问或者建议，可以多多交流。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/10/30/Flask%E7%9A%84g%E5%AF%B9%E8%B1%A1%E5%92%8C%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +414,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
     </span>
 
   
@@ -371,7 +549,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
     </span>
 
   
@@ -455,7 +633,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
     </span>
 
   
@@ -536,7 +714,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
     </span>
 
   
@@ -621,7 +799,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
     </span>
 
   
@@ -699,7 +877,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
     </span>
 
   
@@ -794,7 +972,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
     </span>
 
   
@@ -882,7 +1060,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
+      <time title="修改时间：2022-11-13 11:24:38" itemprop="dateModified" datetime="2022-11-13T11:24:38+08:00">2022-11-13</time>
     </span>
 
   
@@ -910,180 +1088,6 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># your code</span><br><span class="line">from PyQt5 import sip</span><br></pre></td></tr></table></figure>
 
 <p>第一种方法,成功的解决了我的问题,剩下的两种我尝试了都没有成功</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/10/08/ModuleNotFoundError%20No%20module%20named%20PyQt5.sip/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/10/08/ModuleNotFoundError%20No%20module%20named%20PyQt5.sip/" class="post-title-link" itemprop="url">ModuleNotFoundError No module named PyQt5.sip</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-10-08 00:00:00" itemprop="dateCreated datePublished" datetime="2018-10-08T00:00:00+08:00">2018-10-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近用 pyqt5 开发了一款图形化界面工具,完成之后用 pyinstaller 将其打包成 exe 后出现了问题:</p>
-<blockquote>
-<p>ModuleNotFoundError: No module named ‘PyQt5.sip’</p>
-</blockquote>
-<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>通过在网上查找一些资料,找到三种办法,网上都有人说成功了.</p>
-<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>安装旧版本 pyqt5,原因是: pyinstaller 内置的 sip 版本与最新的 pyqt5 不兼容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyqt5=5.10.1</span><br></pre></td></tr></table></figure>
-
-<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>安装新的 sip</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -U sip </span><br></pre></td></tr></table></figure>
-
-<h2 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h2><p>在程序中引入 sip</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># your code</span><br><span class="line">from PyQt5 import sip</span><br></pre></td></tr></table></figure>
-
-<p>第一种方法,成功的解决了我的问题,剩下的两种我尝试了都没有成功</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/08/11/Ubuntu%E4%B8%8BFTP%E9%85%8D%E7%BD%AE%E5%8D%95%E7%94%A8%E6%88%B7%E5%A4%9A%E7%9B%AE%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/08/11/Ubuntu%E4%B8%8BFTP%E9%85%8D%E7%BD%AE%E5%8D%95%E7%94%A8%E6%88%B7%E5%A4%9A%E7%9B%AE%E5%BD%95/" class="post-title-link" itemprop="url">Ubuntu下FTP配置单用户多目录</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-08-11 00:00:00" itemprop="dateCreated datePublished" datetime="2018-08-11T00:00:00+08:00">2018-08-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-12 20:39:23" itemprop="dateModified" datetime="2022-11-12T20:39:23+08:00">2022-11-12</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>关于 Ubuntu 下 FTP 的常用配置这里就直接跳过，不了解的可以点击 <a target="_blank" rel="noopener" href="https://www.linuxidc.com/Linux/2017-04/142493.htm">Ubuntu 下安装和配置 FTP 详解</a> 链接了解一下。这里重点说一下单用户多目录。</p>
-<p>正常情况下一个 FTP 用户只能访问一个目录以及该目录下的所有文件，也就是单用户单目录。如何做到单用户多目录呢，先说一下解决办法：</p>
-<h2 id="解决办法-–-mount"><a href="#解决办法-–-mount" class="headerlink" title="解决办法 – mount"></a>解决办法 – <em>mount</em></h2><p>使用 <strong>mount</strong> 命令,具体使用方法，让我们通过一个例子说明。</p>
-<p>我有一个项目目录，</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">|———api</span><br><span class="line">├── assets</span><br><span class="line">├── components</span><br><span class="line">├── router</span><br><span class="line">├── store</span><br><span class="line">├── styles</span><br><span class="line">├── utils</span><br><span class="line">└── views</span><br></pre></td></tr></table></figure>
-
-<p>这是项目的目录结构，由于某种需求需要，我希望创建一个 FTP 用户只访问 <code>api</code> 和 <code> views</code>目录。</p>
-<p>如何实现这个效果呢？</p>
-<ol>
-<li>   在其他目录下创建另外的文件夹,这里我们创建一个 <code>example</code> 文件夹</li>
-<li>   在该文件夹下创建 <code>api</code> 和 <code>views</code> 文件夹</li>
-<li><pre><code>将目标文件夹的挂载到对应的文件夹下
-</code></pre>
-</li>
-</ol>
-<p>整个操作下涉及到的所有命令行:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir example</span><br><span class="line"><span class="built_in">cd</span> example</span><br><span class="line">mkdir api</span><br><span class="line">mkdir views</span><br><span class="line">mount --<span class="built_in">bind</span> /pathto/<span class="built_in">source</span>/api/ /pathto/example/api/</span><br><span class="line">mount --<span class="built_in">bind</span> /pathto/<span class="built_in">source</span>/views/ /pathto/example/views/</span><br></pre></td></tr></table></figure>
-
-<p>然后指定相应的 FTP 用户的根目录为 <code>example</code>就大功告成了。</p>
 
       
     </div>
