@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">198</span>
+          <span class="site-state-item-count">199</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -145,7 +145,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">78</span>
+        <span class="site-state-item-count">79</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -205,6 +205,90 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/11/17/Django%203.2%20Boolean%20Field%20%E5%9C%A8%20MySQL%20%E4%B8%AD%E5%AF%BC%E8%87%B4%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/17/Django%203.2%20Boolean%20Field%20%E5%9C%A8%20MySQL%20%E4%B8%AD%E5%AF%BC%E8%87%B4%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Django 3.2 Boolean Field 在 MySQL 中导致索引失效的问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-17 00:00:00" itemprop="dateCreated datePublished" datetime="2022-11-17T00:00:00+08:00">2022-11-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-19 16:06:42" itemprop="dateModified" datetime="2022-11-19T16:06:42+08:00">2022-11-19</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>公司有个项目使用 Django 开发的，前段时间我们把 Django 的版本升级到最新版本了,然后就出现问题了，我们发现生产环境出现了一个慢 SQL：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">not</span> is_delete</span><br></pre></td></tr></table></figure>
+
+<p>似乎看着很正常的一个 SQL，唯一需要注意的是这个 <strong>is_delete</strong> 字段，在 <code>model.py</code> 中是使用 <code>BooleanField</code></p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>上面已经说到了我们使用的字段类似是 <code>BooleanField</code>,而我们使用的数据库是 MySQL 数据库，MySQL 数据库原生字段类型没有 bool 类型，所以 Django 是以 <code>tinyint</code> 去实现的，所以问题就来了，当你把一个 <code>tinyint</code> 字段当成 <code>bool</code> 字段去使用，就会出现 <strong>类型转换</strong> 的问题，这就是索引之所以失效的原因。</p>
+<p>那么为什么在之前的版本没有出现呢？</p>
+<p>因为在之前的版本，上面的 SQL 在 Django 会是这样：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> is_delete <span class="operator">=</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>在 Django 3.2 版本之后就变成了前言中的那个 SQL 了，也有人对此提出了疑问，但是很遗憾，官方最后并没有修复这个问题。所以后续在其他数据库中使用 <code>BooleanField</code> 需要尤其注意⚠️。</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>官方没有修复这个问题，那么就需要用户就解决了，那么有没有解决办法呢？答案是有的，我们需要将涉及 <code>BooleanField</code> 的 ORM 改成如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.<span class="built_in">filter</span>(bool_field=models.Value(<span class="number">0</span>)) <span class="comment"># models.Value(1)</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://code.djangoproject.com/ticket/32691">Performance regression in Exact lookup on BooleanField on MySQL.</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/10/28/Python%20%E4%B8%AD%E8%B0%83%E7%94%A8%20Go%20%E4%BB%A3%E7%A0%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -236,7 +320,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:26:34" itemprop="dateModified" datetime="2022-11-13T11:26:34+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-19 16:06:42" itemprop="dateModified" datetime="2022-11-19T16:06:42+08:00">2022-11-19</time>
     </span>
 
   
@@ -364,7 +448,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:26:34" itemprop="dateModified" datetime="2022-11-13T11:26:34+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-19 16:06:42" itemprop="dateModified" datetime="2022-11-19T16:06:42+08:00">2022-11-19</time>
     </span>
 
   
@@ -452,7 +536,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:26:34" itemprop="dateModified" datetime="2022-11-13T11:26:34+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-19 16:06:42" itemprop="dateModified" datetime="2022-11-19T16:06:42+08:00">2022-11-19</time>
     </span>
 
   
@@ -531,7 +615,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:26:34" itemprop="dateModified" datetime="2022-11-13T11:26:34+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-19 16:06:42" itemprop="dateModified" datetime="2022-11-19T16:06:42+08:00">2022-11-19</time>
     </span>
 
   
@@ -609,7 +693,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:26:34" itemprop="dateModified" datetime="2022-11-13T11:26:34+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-19 16:06:42" itemprop="dateModified" datetime="2022-11-19T16:06:42+08:00">2022-11-19</time>
     </span>
 
   
@@ -687,7 +771,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:26:34" itemprop="dateModified" datetime="2022-11-13T11:26:34+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-19 16:06:42" itemprop="dateModified" datetime="2022-11-19T16:06:42+08:00">2022-11-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -775,7 +859,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:26:34" itemprop="dateModified" datetime="2022-11-13T11:26:34+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-19 16:06:42" itemprop="dateModified" datetime="2022-11-19T16:06:42+08:00">2022-11-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -865,7 +949,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:26:34" itemprop="dateModified" datetime="2022-11-13T11:26:34+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-19 16:06:42" itemprop="dateModified" datetime="2022-11-19T16:06:42+08:00">2022-11-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -961,7 +1045,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:26:34" itemprop="dateModified" datetime="2022-11-13T11:26:34+08:00">2022-11-13</time>
+      <time title="修改时间：2022-11-19 16:06:42" itemprop="dateModified" datetime="2022-11-19T16:06:42+08:00">2022-11-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -987,88 +1071,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/03/30/Python%E8%A7%A3%E6%9E%90JSON%E5%A4%A7%E6%96%87%E4%BB%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2022/02/14/python%20%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%B1%BB%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/02/14/python%20%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%B1%BB%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/" class="post-title-link" itemprop="url">python 中实现类方法重载</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-14 00:00:00" itemprop="dateCreated datePublished" datetime="2022-02-14T00:00:00+08:00">2022-02-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-13 11:26:34" itemprop="dateModified" datetime="2022-11-13T11:26:34+08:00">2022-11-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在 Java 中有 [[重载]] 的概念：</p>
-<blockquote>
-<p>重载(overloading) 是在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。每个重载的方法（或者构造函数）都必须有一个独一无二的参数类型列表。</p>
-</blockquote>
-<p>Python 本身不支持 <code>重载</code> 这个特性，但是通过 <code>functools.singledispatch</code>  可以实现函数的重载。接下来通过一个例子，简单地演示一下 Python 的函数重载。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/02/14/python%20%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%B1%BB%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
