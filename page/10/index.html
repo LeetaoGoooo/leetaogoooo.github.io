@@ -134,7 +134,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">199</span>
+          <span class="site-state-item-count">198</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -236,103 +236,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-19 16:06:43" itemprop="dateModified" datetime="2022-11-19T16:06:43+08:00">2022-11-19</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>相比写过 Python 的小伙伴对 “is” 和 “==” 这两个运算符肯定不会陌生,但是你真的能清楚两者的区别吗? 别着急,听我慢慢道来.</p>
-<h1 id="is-和"><a href="#is-和" class="headerlink" title="is 和 =="></a>is 和 ==</h1><p>“is” 和 “==” 都是用来比较两个对象的,区别在于 “is” 是用来判断,两个对象是否为相同,即它们实际的内存地址是否相等,也就是说 <strong>id()</strong> 值是否一样, 而 “==” 就很简单了,它只是比较两个对象的值是不是相同.</p>
-<p>是不是很简单,让我们结合之前的知识点进行简单的测试.</p>
-<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>1.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="string">&quot;leetao&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="string">&quot;leetao&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b <span class="comment"># </span></span><br><span class="line">&gt;&gt;&gt;&gt; a <span class="keyword">is</span> b <span class="comment"># </span></span><br></pre></td></tr></table></figure>
-<p>第一组输出分别是什么呢?让我们揭晓答案:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyukc0x53ij30b00560sl.jpg"></p>
-<p>这个例子如果错了,需要看一下我之前写的关于字符串池化的那篇文章了,这里字符串 “leetao” 被池化了,所以 a,b 两者实际指向同一块内存.</p>
-<p>2.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = b = [<span class="string">&quot;l&quot;</span>,<span class="string">&quot;e&quot;</span>,<span class="string">&quot;e&quot;</span>,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;o&quot;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = [<span class="string">&quot;l&quot;</span>,<span class="string">&quot;e&quot;</span>,<span class="string">&quot;e&quot;</span>,<span class="string">&quot;t&quot;</span>,<span class="string">&quot;a&quot;</span>,<span class="string">&quot;o&quot;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b <span class="comment"># </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b <span class="comment"># </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> c <span class="comment"># </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == c <span class="comment"># </span></span><br></pre></td></tr></table></figure>
-
-<p>第二组的正确答案:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyukdqu3qjj30gf08njrd.jpg"></p>
-<p>这个例子也不能理解,之前关于字符串池化的时候,也提过类似的例子,a,b 在同一行赋值, python 解释器进行了优化,将两者指向同一个对象,所以导致 a 和 b 值相等, id 也相等, 至于 a 和 c 很好理解,它们值相等,但是很明显,id值不一样.</p>
-<p>3</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">256</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="number">256</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b <span class="comment"># </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a == b <span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = <span class="number">257</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d = <span class="number">257</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c <span class="keyword">is</span> d <span class="comment">#</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c == d <span class="comment">#</span></span><br></pre></td></tr></table></figure>
-
-<p>第三组就更有意思了,答案:</p>
-<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fyukezmmo8j307n0a4q2w.jpg"></p>
-<p>这个例子,牵扯到另外一个知识点,关于 Integer 对象的一个小的知识点,让我们看一下官方原文:</p>
-<blockquote>
-<p>The current implementation keeps an array of integer objects for all integers between -5 and 256, when you create an int in that range you actually just get back a reference to the existing object. So it should be possible to change the value of 1. I suspect the behaviour of Python in this case is undefined. :-)</p>
-</blockquote>
-<p>翻译过来的意思大致就是: 当前实现为-5到256之间的所有整数保留一个整数对象数组，当您在该范围内创建一个int时，实际上只返回对现有对象的引用。 因此应该可以更改值1.我怀疑在这种情况下Python的行为是未定义的。:-)</p>
-<p>有了这个知识作为前提,就不难理解,上面的例子的答案了.</p>
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://docs.python.org/3/c-api/long.html#c.PyLong_FromLong">Integer Objects</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.ico">
-      <meta itemprop="name" content="Leetao">
-      <meta itemprop="description" content="Je pense, donc je suis">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leetao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/01/04/-is-%20%E5%92%8C%20-==-%20%E7%9A%84%E6%95%85%E4%BA%8B/" class="post-title-link" itemprop="url">-is- 和 -==- 的故事</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-01-04 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-04T00:00:00+08:00">2019-01-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-19 16:06:43" itemprop="dateModified" datetime="2022-11-19T16:06:43+08:00">2022-11-19</time>
+      <time title="修改时间：2023-02-11 14:27:18" itemprop="dateModified" datetime="2023-02-11T14:27:18+08:00">2023-02-11</time>
     </span>
 
   
@@ -428,7 +332,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-19 16:06:43" itemprop="dateModified" datetime="2022-11-19T16:06:43+08:00">2022-11-19</time>
+      <time title="修改时间：2023-02-11 14:27:18" itemprop="dateModified" datetime="2023-02-11T14:27:18+08:00">2023-02-11</time>
     </span>
 
   
@@ -506,7 +410,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-19 16:06:44" itemprop="dateModified" datetime="2022-11-19T16:06:44+08:00">2022-11-19</time>
+      <time title="修改时间：2023-02-11 14:27:18" itemprop="dateModified" datetime="2023-02-11T14:27:18+08:00">2023-02-11</time>
     </span>
 
   
@@ -595,7 +499,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-19 16:06:44" itemprop="dateModified" datetime="2022-11-19T16:06:44+08:00">2022-11-19</time>
+      <time title="修改时间：2023-02-11 14:27:18" itemprop="dateModified" datetime="2023-02-11T14:27:18+08:00">2023-02-11</time>
     </span>
 
   
@@ -729,7 +633,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-19 16:06:44" itemprop="dateModified" datetime="2022-11-19T16:06:44+08:00">2022-11-19</time>
+      <time title="修改时间：2023-02-11 14:27:18" itemprop="dateModified" datetime="2023-02-11T14:27:18+08:00">2023-02-11</time>
     </span>
 
   
@@ -830,7 +734,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-19 16:06:44" itemprop="dateModified" datetime="2022-11-19T16:06:44+08:00">2022-11-19</time>
+      <time title="修改时间：2023-02-11 14:27:18" itemprop="dateModified" datetime="2023-02-11T14:27:18+08:00">2023-02-11</time>
     </span>
 
   
@@ -936,7 +840,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-19 16:06:44" itemprop="dateModified" datetime="2022-11-19T16:06:44+08:00">2022-11-19</time>
+      <time title="修改时间：2023-02-11 14:27:18" itemprop="dateModified" datetime="2023-02-11T14:27:18+08:00">2023-02-11</time>
     </span>
 
   
@@ -1019,7 +923,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-19 16:06:44" itemprop="dateModified" datetime="2022-11-19T16:06:44+08:00">2022-11-19</time>
+      <time title="修改时间：2023-02-11 14:27:18" itemprop="dateModified" datetime="2023-02-11T14:27:18+08:00">2023-02-11</time>
     </span>
 
   
@@ -1163,7 +1067,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-19 16:06:44" itemprop="dateModified" datetime="2022-11-19T16:06:44+08:00">2022-11-19</time>
+      <time title="修改时间：2023-02-11 14:27:18" itemprop="dateModified" datetime="2023-02-11T14:27:18+08:00">2023-02-11</time>
     </span>
 
   
@@ -1213,6 +1117,95 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetaogoooo.github.io/2018/11/06/%E7%94%A8%20python%20%E6%8A%93%E5%8F%96%E7%9F%A5%E4%B9%8E%E6%8C%87%E5%AE%9A%E5%9B%9E%E7%AD%94%E4%B8%8B%E7%9A%84%E8%A7%86%E9%A2%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.ico">
+      <meta itemprop="name" content="Leetao">
+      <meta itemprop="description" content="Je pense, donc je suis">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leetao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2018/11/06/%E7%94%A8%20python%20%E6%8A%93%E5%8F%96%E7%9F%A5%E4%B9%8E%E6%8C%87%E5%AE%9A%E5%9B%9E%E7%AD%94%E4%B8%8B%E7%9A%84%E8%A7%86%E9%A2%91/" class="post-title-link" itemprop="url">用 python 抓取知乎指定回答下的视频</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-06 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-06T00:00:00+08:00">2018-11-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-11 14:27:18" itemprop="dateModified" datetime="2023-02-11T14:27:18+08:00">2023-02-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>现在知乎允许上传视频，奈何不能下载视频，好气哦，无奈之下研究一下了，然后撸了代码，方便下载视频保存。</p>
+<p>接下来以 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/268021660/answer/520507373">猫为什么一点也不怕蛇？</a> 回答为例，分享一下整个下载过程。</p>
+<h1 id="调试一下"><a href="#调试一下" class="headerlink" title="调试一下"></a>调试一下</h1><p>打开 F12, 找到光标，如下图：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwy64j8p3mj31o215nagi.jpg"></p>
+<p>然后将光标移动到视频上。如下图：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwy65i2f89j31iy0x5nar.jpg"></p>
+<p>咦这是什么？视野中出现了一条神秘的链接: <code><a target="_blank" rel="noopener" href="https://www.zhihu.com/video/xxxxx">https://www.zhihu.com/video/xxxxx</a></code>，让我们将这条链接复制到浏览器上，然后打开：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwy699p9hvj31050v0k15.jpg"></p>
+<p>似乎这就是我们要找的视频，不要着急，让我们看一看，网页的请求，然后你会发现一个很有意思的请求(重点来了):</p>
+<p><img src="http://ww1.sinaimg.cn/large/006wYWbGly1fwy6bnesp3j322j0g9din.jpg"></p>
+<p>让我们自己看一下数据吧:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;playlist&quot;</span>: &#123;</span><br><span class="line">		<span class="attr">&quot;ld&quot;</span>: &#123;</span><br><span class="line">			<span class="attr">&quot;width&quot;</span>: <span class="number">360</span>,</span><br><span class="line">			<span class="attr">&quot;format&quot;</span>: <span class="string">&quot;mp4&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;play_url&quot;</span>: <span class="string">&quot;https://vdn.vzuu.com/LD/05fc411e-d8e0-11e8-bb8b-0242ac112a0b.mp4?auth_key=1541477643-0-0-987c2c504d14ab1165ce2ed47759d927&amp;expiration=1541477643&amp;disable_local_cache=1&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;duration&quot;</span>: <span class="number">17</span>,</span><br><span class="line">			<span class="attr">&quot;size&quot;</span>: <span class="number">1123111</span>,</span><br><span class="line">			<span class="attr">&quot;bitrate&quot;</span>: <span class="number">509</span>,</span><br><span class="line">			<span class="attr">&quot;height&quot;</span>: <span class="number">640</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">&quot;hd&quot;</span>: &#123;</span><br><span class="line">			<span class="attr">&quot;width&quot;</span>: <span class="number">720</span>,</span><br><span class="line">			<span class="attr">&quot;format&quot;</span>: <span class="string">&quot;mp4&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;play_url&quot;</span>: <span class="string">&quot;https://vdn.vzuu.com/HD/05fc411e-d8e0-11e8-bb8b-0242ac112a0b.mp4?auth_key=1541477643-0-0-8b8024a22a62f097ca31b8b06b7233a1&amp;expiration=1541477643&amp;disable_local_cache=1&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;duration&quot;</span>: <span class="number">17</span>,</span><br><span class="line">			<span class="attr">&quot;size&quot;</span>: <span class="number">4354364</span>,</span><br><span class="line">			<span class="attr">&quot;bitrate&quot;</span>: <span class="number">1974</span>,</span><br><span class="line">			<span class="attr">&quot;height&quot;</span>: <span class="number">1280</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">&quot;sd&quot;</span>: &#123;</span><br><span class="line">			<span class="attr">&quot;width&quot;</span>: <span class="number">480</span>,</span><br><span class="line">			<span class="attr">&quot;format&quot;</span>: <span class="string">&quot;mp4&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;play_url&quot;</span>: <span class="string">&quot;https://vdn.vzuu.com/SD/05fc411e-d8e0-11e8-bb8b-0242ac112a0b.mp4?auth_key=1541477643-0-0-5948c2562d817218c9a9fc41abad1df8&amp;expiration=1541477643&amp;disable_local_cache=1&quot;</span>,</span><br><span class="line">			<span class="attr">&quot;duration&quot;</span>: <span class="number">17</span>,</span><br><span class="line">			<span class="attr">&quot;size&quot;</span>: <span class="number">1920976</span>,</span><br><span class="line">			<span class="attr">&quot;bitrate&quot;</span>: <span class="number">871</span>,</span><br><span class="line">			<span class="attr">&quot;height&quot;</span>: <span class="number">848</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">&quot;title&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;duration&quot;</span>: <span class="number">17</span>,</span><br><span class="line">	<span class="attr">&quot;cover_info&quot;</span>: &#123;</span><br><span class="line">		<span class="attr">&quot;width&quot;</span>: <span class="number">720</span>,</span><br><span class="line">		<span class="attr">&quot;thumbnail&quot;</span>: <span class="string">&quot;https://pic2.zhimg.com/80/v2-97b9435a0c32d01c7c931bd00120327d_b.jpg&quot;</span>,</span><br><span class="line">		<span class="attr">&quot;height&quot;</span>: <span class="number">1280</span></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">&quot;type&quot;</span>: <span class="string">&quot;video&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;id&quot;</span>: <span class="string">&quot;1039146361396174848&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;misc_info&quot;</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>没错了，我们要下载的视频就在这里面，其中 ld 代表普清,sd 代表标清, hd 代表高清，把相应链接再次在浏览器打开，然后右键保存就可以下载视频了。</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>知道整个流程是什么样子，接下来撸代码的过程就简单了，这里就不过再做过多解释了，直接上代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> uuid</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DownloadVideo</span>:</span></span><br><span class="line"></span><br><span class="line">    __slots__ = [</span><br><span class="line">        <span class="string">&#x27;url&#x27;</span>, <span class="string">&#x27;video_name&#x27;</span>, <span class="string">&#x27;url_format&#x27;</span>, <span class="string">&#x27;download_url&#x27;</span>, <span class="string">&#x27;video_number&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;video_api&#x27;</span>, <span class="string">&#x27;clarity_list&#x27;</span>, <span class="string">&#x27;clarity&#x27;</span></span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, url, clarity=<span class="string">&#x27;ld&#x27;</span>, video_name=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.url = url</span><br><span class="line">        self.video_name = video_name</span><br><span class="line">        self.url_format = <span class="string">&quot;https://www.zhihu.com/question/\d+/answer/\d+&quot;</span></span><br><span class="line">        self.clarity = clarity</span><br><span class="line">        self.clarity_list = [<span class="string">&#x27;ld&#x27;</span>, <span class="string">&#x27;sd&#x27;</span>, <span class="string">&#x27;hd&#x27;</span>]</span><br><span class="line">        self.video_api = <span class="string">&#x27;https://lens.zhihu.com/api/videos&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">check_url_format</span>(<span class="params">self</span>):</span></span><br><span class="line">        pattern = re.<span class="built_in">compile</span>(self.url_format)</span><br><span class="line">        matches = re.match(pattern, self.url)</span><br><span class="line">        <span class="keyword">if</span> matches <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(</span><br><span class="line">                <span class="string">&quot;链接格式应符合:https://www.zhihu.com/question/&#123;number&#125;/answer/&#123;number&#125;&quot;</span></span><br><span class="line">            )</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_video_number</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            headers = &#123;</span><br><span class="line">                <span class="string">&#x27;User-Agent&#x27;</span>:</span><br><span class="line">                <span class="string">&#x27;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">            response = requests.get(self.url, headers=headers)</span><br><span class="line">            response.encoding = <span class="string">&#x27;utf-8&#x27;</span></span><br><span class="line">            html = response.text</span><br><span class="line">            video_ids = re.findall(<span class="string">r&#x27;data-lens-id=&quot;(\d+)&quot;&#x27;</span>, html)</span><br><span class="line">            <span class="keyword">if</span> video_ids:</span><br><span class="line">                video_id_list = <span class="built_in">list</span>(<span class="built_in">set</span>([video_id <span class="keyword">for</span> video_id <span class="keyword">in</span> video_ids]))</span><br><span class="line">                self.video_number = video_id_list[<span class="number">0</span>]</span><br><span class="line">                <span class="keyword">return</span> self</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&quot;获取视频编号异常:&#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.url))</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">raise</span> Exception(e)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_video_url_by_number</span>(<span class="params">self</span>):</span></span><br><span class="line">        url = <span class="string">&quot;&#123;&#125;/&#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.video_api, self.video_number)</span><br><span class="line"></span><br><span class="line">        headers = &#123;&#125;</span><br><span class="line">        headers[<span class="string">&#x27;Referer&#x27;</span>] = <span class="string">&#x27;https://v.vzuu.com/video/&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line">            self.video_number)</span><br><span class="line">        headers[<span class="string">&#x27;Origin&#x27;</span>] = <span class="string">&#x27;https://v.vzuu.com&#x27;</span></span><br><span class="line">        headers[</span><br><span class="line">            <span class="string">&#x27;User-Agent&#x27;</span>] = <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36&#x27;</span></span><br><span class="line">        headers[<span class="string">&#x27;Content-Type&#x27;</span>] = <span class="string">&#x27;application/json&#x27;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            response = requests.get(url, headers=headers)</span><br><span class="line">            response_dict = response.json()</span><br><span class="line">            <span class="keyword">if</span> self.clarity <span class="keyword">in</span> response_dict[<span class="string">&#x27;playlist&#x27;</span>]:</span><br><span class="line">                self.download_url = response_dict[<span class="string">&#x27;playlist&#x27;</span>][</span><br><span class="line">                    self.clarity][<span class="string">&#x27;play_url&#x27;</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">for</span> clarity <span class="keyword">in</span> self.clarity_list:</span><br><span class="line">                    <span class="keyword">if</span> clarity <span class="keyword">in</span> response_dict[<span class="string">&#x27;playlist&#x27;</span>]:</span><br><span class="line">                        self.download_url = response_dict[<span class="string">&#x27;playlist&#x27;</span>][</span><br><span class="line">                            self.clarity][<span class="string">&#x27;play_url&#x27;</span>]</span><br><span class="line">                        <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">return</span> self</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">raise</span> Exception(e)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_video_by_video_url</span>(<span class="params">self</span>):</span></span><br><span class="line">        response = requests.get(self.download_url)</span><br><span class="line">        datetime_str = datetime.datetime.now().strftime(<span class="string">&quot;%Y-%m-%d %H-%M-%S&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> self.video_name <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            video_name = <span class="string">&quot;&#123;&#125;-&#123;&#125;.mp4&quot;</span>.<span class="built_in">format</span>(self.video_name, datetime_str)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            video_name = <span class="string">&quot;&#123;&#125;-&#123;&#125;.mp4&quot;</span>.<span class="built_in">format</span>(<span class="built_in">str</span>(uuid.uuid1()), datetime_str)</span><br><span class="line">        path = <span class="string">&quot;&#123;&#125;&quot;</span>.<span class="built_in">format</span>(video_name)</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(path, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(response.content)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">download_video</span>(<span class="params">self</span>):</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.clarity <span class="keyword">not</span> <span class="keyword">in</span> self.clarity_list:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&quot;清晰度参数异常,仅支持:ld(普清),sd(标清),hd(高清)&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.check_url_format():</span><br><span class="line">            <span class="keyword">return</span> self.get_video_number().get_video_url_by_number().get_video_by_video_url()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    a = DownloadVideo(<span class="string">&#x27;https://www.zhihu.com/question/53031925/answer/524158069&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(a.download_video())</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>代码还有优化空间，这里面我只是下载了回答中的第一个视频，理论上应该存在一个回答下可以有多个视频的。如果还有什么疑问或者建议，可以多多交流。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -1226,7 +1219,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
